@@ -8,11 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2025/09/02/entra-useless-insights-report/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2025/02/20/an-interesting-m365-billing-scam/">
       
       
-        <link rel="prev" href="../../../02/20/an-interesting-m365-billing-scam/">
       
+        <link rel="next" href="../../../09/02/entra-useless-insights-report/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Entra Useless Insights Report - Eric on Identity</title>
+        <title>An Interesting M365 Billing Scam - Eric on Identity</title>
       
     
     
@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#entra-useless-insights-report" class="md-skip">
+        <a href="#an-interesting-m365-billing-scam" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Entra Useless Insights Report
+              An Interesting M365 Billing Scam
             
           </span>
         </div>
@@ -326,41 +326,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Problem
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-workaround" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Workaround
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-takeaway" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Takeaway
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -415,7 +380,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2025-09-02 00:00:00+00:00" class="md-ellipsis">September 2, 2025</time>
+                        <time datetime="2025-02-20 00:00:00+00:00" class="md-ellipsis">February 20, 2025</time>
                       </div>
                     </li>
                     
@@ -427,7 +392,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              4 min read
+                              1 min read
                             
                           </span>
                         </div>
@@ -451,89 +416,7 @@
 
 
 
-<h1 id="entra-useless-insights-report">Entra Useless Insights Report</h1>
-<p>Yes. The name is snarky on purpose.</p>
-<p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <strong>Authentication methods</strong> activity report.</p>
-<p>Enumerating the type of authentication methods registered on a user, on a per-user basis, can be time consuming, and would become untenable in extremely large organizations.</p>
-<p>Authentication methods activity reporting to the rescue – right? Not so much.</p>
-<p>In digging into the report, whether it’s through the <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsActivity/menuId/AuthMethodsActivity">Entra admin center</a> or through Microsoft Graph PowerShell SDK, the data reported through this is just astoundingly awful if you want to try and build some basic measurements around who is actually registered for passkeys (FIDO2); I haven’t looked to see if it’s as awful with other methods.</p>
-<p>Luckily in the tenant I’m examining, there are only a few hundred user objects, so it’s also feasible to enumerate each user the long way, which I’ll cover below as the workaround. I’ve posed a complaint to Microsoft in some channels and have yet to hear anything back, other than similar experiences from a few others.</p>
-<h2 id="the-problem">The Problem</h2>
-<p>I’m focused on finding users registered for passkeys in Entra, and by passkeys I mean using the Microsoft Authenticator App on either Android or iOS devices.</p>
-<p>The behavior I’m seeing has been problematic over the last month, but I suspect the report has been broken for quite some time.</p>
-<p>In this instance, I go into the Usage &amp; Insights reports, Authentication methods, and filter by <strong>Method: Passkey (Microsoft Authenticator)</strong>, and I see the following:</p>
-<p><img alt="Figure 1" src="/images/2025/09/02/img1.png" /></p>
-<p>But based on what I know, that seems way off, so I decide to run a Graph PowerShell SDK command and get the same results:</p>
-<div class="highlight"><pre><span></span><code>(Get-MgReportAuthenticationMethodUserRegistrationDetail `
- -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
- | Select-Object -Property UserPrincipalName).count
-54
-</code></pre></div>
-<p>Note that in Graph <strong>passkeyDeviceBoundAuthenticator</strong> is what differentiates this from just <strong>passkeyDeviceBound</strong>, which would include FIDO2 security keys.</p>
-<p>Back to the point, this number is low, and it’s been historically low. One thing that I find interesting, and while I’m redacting the actual data, is when I run:</p>
-<div class="highlight"><pre><span></span><code>Get-MgReportAuthenticationMethodUserRegistrationDetail `
- -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot;
-</code></pre></div>
-<p>and examine the <strong>LastUpdatedDateTime</strong> value, for most of the users it’s showing a date that is about a week old. I know that Usage &amp; Insights reports are not real-time; trying to think back to my Microsoft days, in my head the delay I thought was roughly two hours. But there are other issues – a user who has registered for a passkey back in Feburary 2025 is missing from the report. If the report never does anything to reconcile itself, it’s of zero value.</p>
-<p>To spot check this user I run:</p>
-<p><div class="highlight"><pre><span></span><code>Get-MgReportAuthenticationMethodUserRegistrationDetail `
- -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
- | Select-Object -Property UserPrincipalName,LastUpdatedDateTime `
- | Where-Object {$_.UserPrincipalName -eq &quot;user@domain.com&quot;}
-</code></pre></div>
-And receive nothing back.</p>
-<p>I went to check the Microsoft docs here, <a href="https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-usage-insights-report?tabs=microsoft-entra-admin-center?WT.mc_id=SEC-MVP-5005105">Usage and insights report – Microsoft Entra ID | Microsoft Learn</a>, to see if there is any details around the frequency this runs or known issues, but found nothing.</p>
-<h2 id="the-workaround">The Workaround</h2>
-<p>So, it’s back to doing essentially what the report should do, which is enumerate all users within Entra.</p>
-<p>Of course, Microsoft specifically recommends that you don’t do this in the docs, <a href="https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethods-overview?WT.mc_id=SEC-MVP-5005105">Microsoft Entra authentication methods API overview – Microsoft Graph v1.0 | Microsoft Learn</a>, where they state:</p>
-<p><em>We don’t recommend using the authentication methods APIs for scenarios where you need to iterate over your entire user population for auditing or security check purposes. For these types of scenarios, we recommend using the <a href="https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethods-usage-insights-overview?WT.mc_id=SEC-MVP-5005105">authentication method registration and usage reporting APIs</a> (available on the beta endpoint only).</em></p>
-<p>registration and usage reporting APIs (available on the beta endpoint only).</p>
-<p>The code I slapped together is a mix of my brain and some vibe coding, it ended up looking like the following, with a bit of parralel processing thrown in:</p>
-<div class="highlight"><pre><span></span><code># Authenticator App AAGUIDS
-$targetAAGUIDs = @(
-    &#39;90a3ccdf-635c-4729-a248-9b709135078f&#39;,
-    &#39;de1e552d-db1d-4423-a619-566b625cdc84&#39;
-)
-
-# Grab all users
-#$AllEmployees = Get-MgBetaUser -All -Filter &quot;userType eq &#39;Member&#39;&quot; -Property Id,UserPrincipalName
-
-# Run up to 10 employees in parallel
-$PasskeysRegistered =
-    $AllEmployees |
-    ForEach-Object -Parallel {
-
-        $emp = $_
-
-        $fidos = Get-MgBetaUserAuthenticationFido2Method -UserId $emp.Id -All -ErrorAction SilentlyContinue |
-                 Where-Object { $_.AaGuid -in $using:targetAAGUIDs }
-
-        foreach ($key in $fidos) {
-            [pscustomobject]@{
-                UserPrincipalName       = $emp.UserPrincipalName
-                ObjectId     = $emp.Id
-                Passkey      = $key.Model
-                RegisteredOn = $key.CreatedDateTime
-            }
-        }
-    } -ThrottleLimit 10
-
-$PasskeysRegistered
-</code></pre></div>
-<p>And then if I run a count, and ensure I’m focused on unique users, since the results could have multiple entries for some users:</p>
-<div class="highlight"><pre><span></span><code>($PasskeysRegistered | Select-Object -Property UserPrincipalName -Unique).count
-92
-</code></pre></div>
-<p>Further, if I go search for my missing user, sure enough they are there:</p>
-<div class="highlight"><pre><span></span><code>$PasskeysRegistered | Where-Object {$_.UserID -eq &quot;user@domain.com&quot;}
-
-UserID              ObjectId                             Passkey                       RegisteredOn
-------              --------                             -------                       ------------
-user@domain.com     xxxxx                                Microsoft Authenticator - iOS 2/27/2025 10:23:40 PM
-</code></pre></div>
-<p>As a side not the problem, one could theorize something was broken around that time in Entra, and hence the user somehow fell off the report. But I can actually find another user on the report who registered within twenty minutes of the missing user 🤔.</p>
-<h2 id="the-takeaway">The Takeaway</h2>
-<p>Don’t trust Usage &amp; Insights reports for passkey reporting. Hopefully this post can become irrelevant down the road.</p>
+<h1 id="an-interesting-m365-billing-scam">An Interesting M365 Billing Scam</h1>
 
 
 

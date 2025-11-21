@@ -466,7 +466,7 @@ docs/
   <div class="md-post__content md-typeset">
     <h2 id="entra-useless-insights-report"><a class="toclink" href="2025/09/02/entra-useless-insights-report/">Entra Useless Insights Report</a></h2>
 <p>Yes. The name is snarky on purpose.</p>
-<p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <em>Authentication methods</em> activity report.</p>
+<p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <strong>*Authentication methods</strong> activity report.</p>
 <p>Enumerating the type of authentication methods registered on a user, on a per-user basis, can be time consuming, and would become untenable in extremely large organizations.</p>
 <p>Authentication methods activity reporting to the rescue – right? Not so much.</p>
 <p>In digging into the report, whether it’s through the <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsActivity/menuId/AuthMethodsActivity">Entra admin center</a> or through Microsoft Graph PowerShell SDK, the data reported through this is just astoundingly awful if you want to try and build some basic measurements around who is actually registered for passkeys (FIDO2); I haven’t looked to see if it’s as awful with other methods.</p>
@@ -474,7 +474,7 @@ docs/
 <h3 id="the-problem"><a class="toclink" href="2025/09/02/entra-useless-insights-report/#the-problem">The Problem</a></h3>
 <p>I’m focused on finding users registered for passkeys in Entra, and by passkeys I mean using the Microsoft Authenticator App on either Android or iOS devices.</p>
 <p>The behavior I’m seeing has been problematic over the last month, but I suspect the report has been broken for quite some time.</p>
-<p>In this instance, I go into the Usage &amp; Insights reports, Authentication methods, and filter by <em>Method: Passkey (Microsoft Authenticator)</em>, and I see the following:</p>
+<p>In this instance, I go into the Usage &amp; Insights reports, Authentication methods, and filter by <strong>Method: Passkey (Microsoft Authenticator)</strong>, and I see the following:</p>
     
   </div>
 </article>

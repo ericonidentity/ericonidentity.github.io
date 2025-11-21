@@ -367,7 +367,7 @@
           
           <li class="md-meta__item">
             
-              3 min read
+              4 min read
             
           </li>
         
@@ -409,6 +409,56 @@
 And receive nothing back.</p>
 <p>I went to check the Microsoft docs here, <a href="https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-usage-insights-report?tabs=microsoft-entra-admin-center?WT.mc_id=SEC-MVP-5005105">Usage and insights report – Microsoft Entra ID | Microsoft Learn</a>, to see if there is any details around the frequency this runs or known issues, but found nothing.</p>
 <h3 id="the-workaround"><a class="toclink" href="../../2025/09/02/entra-useless-insights-report/#the-workaround">The Workaround</a></h3>
+<p>So, it’s back to doing essentially what the report should do, which is enumerate all users within Entra.</p>
+<p>Of course, Microsoft specifically recommends that you don’t do this in the docs, <a href="https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethods-overview?WT.mc_id=SEC-MVP-5005105">Microsoft Entra authentication methods API overview – Microsoft Graph v1.0 | Microsoft Learn</a>, where they state:</p>
+<p><em>We don’t recommend using the authentication methods APIs for scenarios where you need to iterate over your entire user population for auditing or security check purposes. For these types of scenarios, we recommend using the <a href="https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethods-usage-insights-overview?WT.mc_id=SEC-MVP-5005105">authentication method registration and usage reporting APIs</a> (available on the beta endpoint only).</em></p>
+<p>registration and usage reporting APIs (available on the beta endpoint only).</p>
+<p>The code I slapped together is a mix of my brain and some vibe coding, it ended up looking like the following, with a bit of parralel processing thrown in:</p>
+<div class="highlight"><pre><span></span><code># Authenticator App AAGUIDS
+$targetAAGUIDs = @(
+    &#39;90a3ccdf-635c-4729-a248-9b709135078f&#39;,
+    &#39;de1e552d-db1d-4423-a619-566b625cdc84&#39;
+)
+
+# Grab all users
+#$AllEmployees = Get-MgBetaUser -All -Filter &quot;userType eq &#39;Member&#39;&quot; -Property Id,UserPrincipalName
+
+# Run up to 10 employees in parallel
+$PasskeysRegistered =
+    $AllEmployees |
+    ForEach-Object -Parallel {
+
+        $emp = $_
+
+        $fidos = Get-MgBetaUserAuthenticationFido2Method -UserId $emp.Id -All -ErrorAction SilentlyContinue |
+                 Where-Object { $_.AaGuid -in $using:targetAAGUIDs }
+
+        foreach ($key in $fidos) {
+            [pscustomobject]@{
+                UserPrincipalName       = $emp.UserPrincipalName
+                ObjectId     = $emp.Id
+                Passkey      = $key.Model
+                RegisteredOn = $key.CreatedDateTime
+            }
+        }
+    } -ThrottleLimit 10
+
+$PasskeysRegistered
+</code></pre></div>
+<p>And then if I run a count, and ensure I’m focused on unique users, since the results could have multiple entries for some users:</p>
+<div class="highlight"><pre><span></span><code>($PasskeysRegistered | Select-Object -Property UserPrincipalName -Unique).count
+92
+</code></pre></div>
+<p>Further, if I go search for my missing user, sure enough they are there:</p>
+<div class="highlight"><pre><span></span><code>$PasskeysRegistered | Where-Object {$_.UserID -eq &quot;user@domain.com&quot;}
+
+UserID              ObjectId                             Passkey                       RegisteredOn
+------              --------                             -------                       ------------
+user@domain.com xxxxx Microsoft Authenticator - iOS 2/27/2025 10:23:40 PM
+</code></pre></div>
+<p>As a side not the problem, one could theorize something was broken around that time in Entra, and hence the user somehow fell off the report. But I can actually find another user on the report who registered within twenty minutes of the missing user 🤔.</p>
+<h3 id="the-takeaway"><a class="toclink" href="../../2025/09/02/entra-useless-insights-report/#the-takeaway">The Takeaway</a></h3>
+<p>Don’t trust Usage &amp; Insights reports for passkey reporting. Hopefully this post can become irrelevant down the road.</p>
     
   </div>
 </article>

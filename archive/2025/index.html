@@ -378,7 +378,7 @@
   <div class="md-post__content md-typeset">
     <h2 id="entra-useless-insights-report"><a class="toclink" href="../../2025/09/02/entra-useless-insights-report/">Entra Useless Insights Report</a></h2>
 <p>Yes. The name is snarky on purpose.</p>
-<p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <strong>*Authentication methods</strong> activity report.</p>
+<p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <strong>Authentication methods</strong> activity report.</p>
 <p>Enumerating the type of authentication methods registered on a user, on a per-user basis, can be time consuming, and would become untenable in extremely large organizations.</p>
 <p>Authentication methods activity reporting to the rescue – right? Not so much.</p>
 <p>In digging into the report, whether it’s through the <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsActivity/menuId/AuthMethodsActivity">Entra admin center</a> or through Microsoft Graph PowerShell SDK, the data reported through this is just astoundingly awful if you want to try and build some basic measurements around who is actually registered for passkeys (FIDO2); I haven’t looked to see if it’s as awful with other methods.</p>

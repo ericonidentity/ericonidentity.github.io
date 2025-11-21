@@ -444,7 +444,8 @@
 <p>In this instance, I go into the Usage &amp; Insights reports, Authentication methods, and filter by <strong>Method: Passkey (Microsoft Authenticator)</strong>, and I see the following:</p>
 <p><img alt="Figure 1" src="/images/2025/09/02/img1.png" /></p>
 <p>But based on what I know, that seems way off, so I decide to run a Graph PowerShell SDK command and get the same results:</p>
-<div class="highlight"><pre><span></span><code>(Get-MgReportAuthenticationMethodUserRegistrationDetail -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; | Select-Object -Property UserPrincipalName).count
+<div class="highlight"><pre><span></span><code>(Get-MgReportAuthenticationMethodUserRegistrationDetail -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
+ | Select-Object -Property UserPrincipalName).count
 54
 </code></pre></div>
 

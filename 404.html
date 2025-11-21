@@ -22,8 +22,24 @@
     
       <link rel="stylesheet" href="/assets/stylesheets/main.2a3383ac.min.css">
       
+        
+        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+      
       
 
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--nfc{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23.958%201.98C23.895%201%2023.143.256%2022.145.197c-1.102-.066-4.668-.12-5.693-.12%201.832%201.264%202.082%203.644%202.255%208.066.101%202.62.01%2011.799.002%2012.188l-.049%202.504-9.628-9.63v-3.014l7.656%207.658c.02-1.516.04-3.492.04-5.299%200-1.76-.026-3.354-.076-4.193-.288-4.819-.737-7.077-3.253-7.962-.77-.27-1.487-.335-2.683-.351C9.728.032%202.848.037%201.854.091.8.147.09.914.042%201.9c-.048.977-.064%2019.174%200%2020.165.062.98.815%201.724%201.812%201.782%201.102.067%204.668.075%205.694.075-1.832-1.264-2.083-3.643-2.255-8.066-.1-2.62-.009-11.8%200-12.188l.047-2.504%209.629%209.63v3.013L7.312%206.152c-.02%201.514-.04%203.49-.04%205.298%200%201.76.026%203.354.077%204.192.288%204.82.736%207.077%203.252%207.962.77.271%201.487.337%202.683.352.987.012%207.868.006%208.861-.047%201.056-.056%201.765-.822%201.813-1.811.048-.976.064-19.127%200-20.118%22/%3E%3C/svg%3E');}}</style>
 
     
     
@@ -49,7 +65,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -71,8 +92,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="/." title="Eric on Identity" class="md-header__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="/images/eidlogo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -96,8 +116,8 @@
       </div>
     </div>
     
+      
     
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -169,8 +189,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="/." title="Eric on Identity" class="md-nav__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="/images/eidlogo.svg" alt="logo">
 
     </a>
     Eric on Identity
@@ -237,6 +256,12 @@
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
       </main>
       
         <footer class="md-footer">
@@ -265,7 +290,7 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/", "features": [], "search": "/assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "/", "features": ["navigation.path", "navigation.top"], "search": "/assets/javascripts/workers/search.973d3a69.min.js", "tags": {"NFC": "nfc"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="/assets/javascripts/bundle.f55a23d4.min.js"></script>

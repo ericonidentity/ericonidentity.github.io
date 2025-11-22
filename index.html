@@ -472,7 +472,7 @@ user@domain.com     xxxxx                                Microsoft Authenticator
           
           <li class="md-meta__item">
             
-              3 min read
+              5 min read
             
           </li>
         
@@ -606,6 +606,96 @@ user@domain.com     xxxxx                                Microsoft Authenticator
 </tr>
 </tbody>
 </table>
+<p>Pulling a whois of <em>gigasphere.site</em>, the domain is relatively fresh:</p>
+<div class="highlight"><pre><span></span><code>Domain Name: GIGASPHERE.SITE
+Registry Domain ID: D524536986-CNIC
+Registrar WHOIS Server: whois.namecheap.com
+Registrar URL: https://namecheap.com
+Updated Date: 2025-02-05T10:49:53.0Z
+Creation Date: 2025-02-05T10:49:48.0Z
+Registry Expiry Date: 2026-02-05T23:59:59.0Z
+Registrar: Namecheap
+Registrar IANA ID: 1068
+</code></pre></div>
+<p>When digging into DNS, both <em>gigasphere.site</em> and <em>addiamaryellen.gigasphere.site</em> only have MX and SPF records for EXO (<em>gigasphere.site</em> DNS is hosted by Cloudflare).</p>
+<p>Of course, the email originated from a <em>smithkrause.onmicrosoft.com</em> domain, which I can’t tell the age of, or at least not through AAD Internals OSINIT. Another interesting thing to note is that the people behind the scam are populating a distribution list with the target email addresses; when looking at the headers the To: is indeed <em>mollywagner@smithkrause.onmicrosoft.com</em>.</p>
+<p>In due diligence I submitted the email review in M365 Defender, which came back with a no threats found</p>
+<p><img alt="Figure 3" src="/images/2025/02/20/img3.png" /></p>
+<p>Apparently, the body of the email containing <em>"Microsoft We appreciate your purchase and have finished your recent order for 592.99 USD. Please contact us at (888) 929-1904 for help or cancelation."</em> isn’t sufficient enough to be considered suspicious 🙄.</p>
+<p>For fun, I did call the number, but right now the scammers number just forwards to a voicemail box; if I’m able to get ahold of them and resolve my billing issues I’ll follow up 😉.</p>
+<p>And the link? The link is benign, it just goes to the M365 admin billing portal, because the email as far as I can tell is legit from Microsoft.</p>
+<p>The first few hops on the headers appear to be coming from some MS backend service and it hits the DL on hop 5, based on looking at the headers on <a href="https://mxtoolbox.com/EmailHeaders.aspx">https://mxtoolbox.com/EmailHeaders.aspx</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Hop</th>
+<th>Delay</th>
+<th>From</th>
+<th>By</th>
+<th>With</th>
+<th>Time (UTC)</th>
+<th>Blacklist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>*</td>
+<td>outlook.office365.com 2603:10b6:303:18d::16</td>
+<td>MW4PR20MB4527.namprd20.prod.outlook.com</td>
+<td>HTTP</td>
+<td>2/13/2025 2:40:06 PM</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2 seconds</td>
+<td>NAM10-DM6-obe.outbound.protection.outlook.com 2a01:111:f403:2413::720</td>
+<td>SJ1PEPF00002313.mail.protection.outlook.com 2603:10b6:a0f:fc02::1a7</td>
+<td>Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384)</td>
+<td>2/13/2025 2:40:08 PM</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0 seconds</td>
+<td>SJ1PEPF00002313.namprd03.prod.outlook.com 2603:10b6:a03:54:cafe::b3</td>
+<td>BYAPR02CA0055.outlook.office365.com 2603:10b6:a03:54::32</td>
+<td>Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384)</td>
+<td>2/13/2025 2:40:08 PM</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0 seconds</td>
+<td>BYAPR02CA0055.namprd02.prod.outlook.com 2603:10b6:a03:54::32</td>
+<td>SJ2PR17MB6565.namprd17.prod.outlook.com 2603:10b6:a03:4f6::19</td>
+<td>Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)</td>
+<td>2/13/2025 2:40:08 PM</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>5</td>
+<td>47 seconds</td>
+<td>BY5PR17MB3063.namprd17.prod.outlook.com fe80::bf8c:c1de:31b1:4af5</td>
+<td>BY5PR17MB3063.namprd17.prod.outlook.com fe80::bf8c:c1de:31b1:4af5</td>
+<td>mapi</td>
+<td>2/13/2025 2:40:55 PM</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, I would think if the email was fake, they wouldn’t include a legit link to the M365 Admin billing site.</p>
+<p>Here is what I believe is going on:</p>
+<ol>
+<li>Scammer sets up junk tenant with the scam text tenant brand info</li>
+<li>Distribution list is created with target email addresses</li>
+<li>DL is used as the billing contact email</li>
+<li>Scammer signs up for trial and/or service (not sure of this part in that when I looked up Dynamics 365 Sales Enterprise Edition, it’s $120 USD /month)</li>
+<li>Email is blasted to all the targets via the DL</li>
+</ol>
+<p>Anyway, I thought it was worth a share as this seems like a new twist on using Microsoft tools to try and scam people.</p>
+<p>In the meantime, I’ll be trying to poke at Microsoft people to take down the smithkrause domain.</p>
     
   </div>
 </article>

@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">
       
       
-        <link rel="prev" href="../../23/windows-hello-for-business-hybrid-cloud-trust/">
+        <link rel="prev" href="../../../03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">
       
       
-        <link rel="next" href="../../../04/21/azure-ad-cross-tenant-access-settings-clarity/">
+        <link rel="next" href="../../../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Azure AD: The Arrival of Dynamic Administrative Units - Eric on Identity</title>
+        <title>Azure AD: Cross-tenant Access Settings Clarity - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#azure-ad-the-arrival-of-dynamic-administrative-units" class="md-skip">
+        <a href="#azure-ad-cross-tenant-access-settings-clarity" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Azure AD: The Arrival of Dynamic Administrative Units
+              Azure AD: Cross-tenant Access Settings Clarity
             
           </span>
         </div>
@@ -435,37 +435,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#administrative-unite-use-cases" class="md-nav__link">
+  <a href="#terminology" class="md-nav__link">
     <span class="md-ellipsis">
-      Administrative Unite use cases
+      Terminology
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Administrative Unite use cases">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      What it is not
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What it is not">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#regional-it-delegation" class="md-nav__link">
+  <a href="#parity-to-an-active-directory-trust" class="md-nav__link">
     <span class="md-ellipsis">
-      Regional IT delegation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#state-and-local-government-agency-delegation" class="md-nav__link">
-    <span class="md-ellipsis">
-      State and local government agency delegation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#my-staff-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      My Staff management
+      Parity to an Active Directory trust
     </span>
   </a>
   
@@ -477,46 +468,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exploring-administrative-unit-dynamic-membership" class="md-nav__link">
+  <a href="#what-it-is" class="md-nav__link">
     <span class="md-ellipsis">
-      Exploring Administrative Unit dynamic membership
+      What it is
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exploring Administrative Unit dynamic membership">
+    <nav class="md-nav" aria-label="What it is">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#licensing" class="md-nav__link">
+  <a href="#a-mechanism-to-provide-granular-b2b-guest-control" class="md-nav__link">
     <span class="md-ellipsis">
-      Licensing
+      A mechanism to provide granular B2B guest control
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuring-administrative-unit-dynamic-membership" class="md-nav__link">
+  <a href="#a-way-to-trust-external-mfa-and-device-compliance" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring Administrative Unit dynamic membership
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#converting-an-administrative-unit-to-dynamic" class="md-nav__link">
-    <span class="md-ellipsis">
-      Converting an Administrative Unit to dynamic
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exploring-with-powershell" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exploring with PowerShell
+      A way to trust external MFA and Device Compliance
     </span>
   </a>
   
@@ -528,37 +501,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#faq" class="md-nav__link">
+  <a href="#a-few-lingering-questions" class="md-nav__link">
     <span class="md-ellipsis">
-      FAQ
+      A few lingering questions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="FAQ">
+    <nav class="md-nav" aria-label="A few lingering questions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
+  <a href="#where-is-conditional-access-processed" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations
+      Where is Conditional Access processed?
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-can-i-test-preview-a-dynamic-membership-rule" class="md-nav__link">
+  <a href="#where-is-identity-protection-processed" class="md-nav__link">
     <span class="md-ellipsis">
-      How can I test / preview a dynamic membership rule?
+      Where is Identity Protection processed?
     </span>
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#can-i-combine-different-object-types-in-a-dynamic-administrative-unit" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-new-trick-out-of-a-possible-many" class="md-nav__link">
     <span class="md-ellipsis">
-      Can I combine different object types in a dynamic Administrative Unit?
+      One new trick - out of a possible many
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="One new trick - out of a possible many">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pim-in-the-home-tenant-for-outbound-guest-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      PIM in the home tenant for outbound guest access
     </span>
   </a>
   
@@ -634,7 +622,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2022-03-29 00:00:00+00:00" class="md-ellipsis">March 29, 2022</time>
+                        <time datetime="2022-04-21 00:00:00+00:00" class="md-ellipsis">April 21, 2022</time>
                       </div>
                     </li>
                     
@@ -646,7 +634,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              9 min read
+                              6 min read
                             
                           </span>
                         </div>
@@ -670,81 +658,49 @@
 
 
 
-<h1 id="azure-ad-the-arrival-of-dynamic-administrative-units">Azure AD: The Arrival of Dynamic Administrative Units</h1>
-<p>Administrative units. The Azure AD sort-of equivalent of organizational units (OU’s). For those less familiar, administrative units (AU’s) allow for granular assignment of RBAC roles in Azure AD.</p>
-<p>Organizations initially struggled with the limited ability to delegate granular RBAC roles in Azure AD, with the directories flat structure; especially for all of us coming from an Active Directory background. When administrative units were introduced, they started to open up the door for organizations that needed to delegate access to a subset of users in an Azure AD tenant.</p>
-<p>The one catch with AU’s that <strong>was</strong> a non-starter for many organizations – they weren’t dynamic. And while OU’s are not dynamic in Active Directory, it’s a different take when the tenant is usually secondary to AD being authoritative. Move a user in AD, one would hope that the location in Azure AD would follow. While there are some PowerShell scripts out there that feel very akin to those used for AD shadow groups, overall maintenance of AU’s could prove cumbersome in dynamic organizations.</p>
-<p>The struggle, however, is no more – administrative units now support <strong>dynamic</strong> user and device membership!</p>
-<h2 id="administrative-unite-use-cases">Administrative Unite use cases</h2>
-<p>Before exploring dynamic membership, I just wanted to touch on some of the use cases that have already existed, and many that can greatly improve with dynamic membership. This is just a mere tip of the iceberg for use cases – if you see ones that I’ve missed let me know, and I’ll gladly add it.</p>
-<p>While they feel similar to OU’s, the fact that AU’s are virtual units of structure, they provide much greater flexibility than OU’s. A user can belong to several AUs, and you don’t have to worry about users being linked as child objects that are deleted if an AU is removed – everyone remembers that time that their AD backups were tested with an accidental OU deletion.</p>
-<h3 id="regional-it-delegation">Regional IT delegation</h3>
-<p>Many global organizations that operate out of a single Azure AD tenant still have localized and regional support desks. With AU’s, you can create multiple layers of support structure to provide for things like password reset and user object management, without needing to deal with the complications of trying to fit complex delegations of ACL’s onto objects the same way we would have to with Active Directory.</p>
-<h3 id="state-and-local-government-agency-delegation">State and local government agency delegation</h3>
-<p>Many organizations in the public sector operate out of the same Azure AD tenant to support a single O365 environment. However, many agencies still want to retain levels of autonomy over managing their user objects. Administrative units can provide for that granular level of RBAC control.</p>
-<h3 id="my-staff-management">My Staff management</h3>
-<p>My Staff came out to primarily help assist with managers performing basic tasks for front line workers. The goal is to bring the power to non-IT employees the ability to do things like reset passwords or manage phone numbers for MFA. My Staff is driven by administrative units, with AU’s that are built to replicate an organizational staffing structure. For more information on My Staff, take a look at the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/my-staff-configure">Use My Staff to delegate user management – Azure AD | Microsoft Docs</a>.</p>
-<p>It takes a bit of work in Azure AD Connect, because the manager attribute is a reference attribute in Active Directory, to synchronize the manager UPN as a custom attribute (even though manager is synchronized by Azure AD Connect, it is not exposed as a dynamic attribute option). But one could configure a system where managers have control over their employees objects, and with dynamic membership, their manager changes in AD can easily follow them in My Staff.</p>
-<h2 id="exploring-administrative-unit-dynamic-membership">Exploring Administrative Unit dynamic membership</h2>
-<p>If you’ve used dynamic membership for groups, the logic and expressions for dynamic administrative units is the same. I won’t deep dive into all the rules available, but the options for evaluation are both flexible and immensely powerful. For more details on the rules, take a look at this Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-dynamic-membership">Rules for dynamically populated groups membership – Azure AD | Microsoft Docs</a>.</p>
-<h3 id="licensing">Licensing</h3>
-<p>As with dynamic group membership, current documentation indicates that any user who is a member of an AU that is dynamically populates requires an Azure AD P1 or P2 license assigned to them. This contrasts static membership, where only those managing the AU’s require a P1 or P2 license; users can be members of the AU’s with an Azure AD free license. Dynamic device membership does not require any special license for AU’s. For more information, see the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic#prerequisites">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
-<h3 id="configuring-administrative-unit-dynamic-membership">Configuring Administrative Unit dynamic membership</h3>
-<p>While the expression set is the same as dynamic groups, currently you have to adjust the administrative unit to be dynamic post-creation. Also, as we go through this, I’ll be referencing the current Microsoft documentation on dynamic membership for administrative units, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
-<p>First we create a new administrative unit:</p>
-<p><img alt="Figure 1" src="/images/2022/03/29/img1.png" /></p>
-<p>And after creation of the AU, we can go look at the Properties for it. Within here we will find <strong>Membership type</strong>, which we can drop down and select <strong>Dynamic User</strong>:</p>
-<p><img alt="Figure 2" src="/images/2022/03/29/img2.png" /></p>
-<p>After setting the <strong>Membership type</strong> to <strong>Dynamic User</strong>, we will need to <strong>Add dynamic query</strong> before we can save the changes. The dynamic query is the secret sauce to what makes the dynamic AU, dynamic. Note that until we set this query, we cannot save these changes; the save is grayed out.</p>
-<p><img alt="Figure 3" src="/images/2022/03/29/img3.png" /></p>
-<p>In our example here, we are going to use a rule for physicalDeliveryOfficeName equals Schenectady:</p>
-<p><img alt="Figure 4" src="/images/2022/03/29/img4.png" /></p>
-<p>We save the rule, and now the Save button will be available on the administrative unit properties. Before saving, we will be presented with a warning:</p>
-<p><em>After changing the administrative unit type, the existing membership may change based on the dynamic membership rules you provide. Click Yes to continue.</em></p>
-<p><img alt="Figure 5" src="/images/2022/03/29/img5.png" /></p>
-<p>The warning here will show up, regardless of whether it’s a new, unpopulated AU, or if it’s an existing AU with thousands of users within it.</p>
-<p>After a few minutes of churning, the AU will be populated:</p>
-<p><img alt="Figure 6" src="/images/2022/03/29/img6.png" /></p>
-<h3 id="converting-an-administrative-unit-to-dynamic">Converting an Administrative Unit to dynamic</h3>
-<p>During testing of conversion of an assigned AU to dynamic, I was curious to see how it operated. Does it wipe out all membership and start from scratch, or does Azure AD evaluate the users within the AU to determine who still belongs? Luckily, it appears to be the latter.</p>
-<p>Checking my Azure AD Audit logs, we can see users who no longer belong in a specific administrative unit being removed:</p>
-<p><img alt="Figure 7" src="/images/2022/03/29/img7.png" /></p>
-<p>Note that if you are going the other direction, from dynamic membership to assigned, Azure AD will indicate that the existing users in the AU will be retained, but will not be dynamically processed anymore.</p>
-<h3 id="exploring-with-powershell">Exploring with PowerShell</h3>
-<p>As with most things Azure AD, anything that can be done in the portal can be done with PowerShell (which really is just indirect Graph) and Graph.</p>
-<p>I’ve been making a concerted effort to use the Microsoft Graph PowerShell SDK, <a href="https://docs.microsoft.com/en-us/graph/powershell/installation">Install the Microsoft Graph PowerShell SDK – Microsoft Graph | Microsoft Docs</a>, over the Azure Active Directory PowerShell for Graph modules. Why? The PowerShell SDK supports PowerShell 7, is cross-platform, and provides access to all of Graph, not just Azure AD.</p>
-<p>That being said, I’ve found the PowerShell SDK modules for dynamic administrative units to be, well, rather lacking. While there are indirect parameters to provide dynamic information, I haven’t spent the cycles yet figuring things out. The docs/get-help provide almost no information on commands like <strong>New-MGAdministrativeUnit</strong></p>
-<p><img alt="Figure 8" src="/images/2022/03/29/img8.png" /></p>
-<p><em>The (lacking) documentation</em></p>
-<p>As such, for the purpose of getting this post published, I’ll be using the Azure AD PowerShell modules.</p>
-<p>First, let’s take a look at the administrative unit named ATZ:</p>
-<div class="highlight"><pre><span></span><code>Get-AzureADMSAdministrativeUnit -Filter &quot;DisplayName eq &#39;ATZ&#39;&quot; | fl
-</code></pre></div>
-<p><img alt="Figure 9" src="/images/2022/03/29/img9.png" /></p>
-<p>We can see that the membership type is dynamic, and also see the membership rule. In this case, we are using the in rule to allow for matching the country attribute against a defined list.</p>
-<p>And if we then enumerate the membership of the AU, we can see that the logic works:</p>
-<div class="highlight"><pre><span></span><code>Get-AzureADAdministrativeUnitMember -ObjectId a5175ada-f6f1-4c72-a986-65c65f662bde `
-| Get-AzureADUser | ft ObjectId,UserPrincipalName,Country
-</code></pre></div>
-<p><img alt="Figure 10" src="/images/2022/03/29/img10.png" /></p>
-<p>We can also create an administrative unit rather easily with PowerShell, which has an advantage, at least currently over the portal, in that we can define the dynamic rules upon creation.</p>
-<div class="highlight"><pre><span></span><code>New-AzureADMSAdministrativeUnit -DisplayName &quot;US&quot; -Description &quot;US Employees&quot; `
--MembershipType &quot;Dynamic&quot; -MembershipRuleProcessingState &quot;On&quot; -MembershipRule `
-&#39;(user.country -eq &quot;United States&quot;)&#39;
-</code></pre></div>
-<p><img alt="Figure 11" src="/images/2022/03/29/img11.png" /></p>
-<h2 id="faq">FAQ</h2>
-<h3 id="limitations">Limitations</h3>
-<p>Microsoft does not publish a size limitation for administrative units, but the standard limitations for administrative units still exist with resources being members of no more than 30 administrative units, and an organization can have a maximum of 5,000 dynamic groups and dynamic administrative units combined. The latter bit is an interesting item to note, as it would seem the evaluation engine is then shared in a tenant between dynamic groups and administrative units (which makes sense really).</p>
-<p>I would also then speculate, while I cannot find it published yet, that administrative units may fall into the same rule evaluation service level, which is up to 24 hours, per this document, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-troubleshooting#troubleshooting-dynamic-memberships-for-groups">Fix problems with dynamic group memberships – Azure AD | Microsoft Docs</a>.</p>
-<h3 id="how-can-i-test-preview-a-dynamic-membership-rule">How can I test / preview a dynamic membership rule?</h3>
-<p>Currently, the dynamic membership rule settings in an administrative unit does not have a rule validation option available. However, we can simply create a test dynamic group in Azure AD for evaluating the rule, and can also use the Validate Rules option to get a more instant verification of whether our rule works.</p>
-<p><img alt="Figure 12" src="/images/2022/03/29/img12.png" /></p>
-<p><em>An example of rule validation in dynamic groups</em></p>
-<h3 id="can-i-combine-different-object-types-in-a-dynamic-administrative-unit">Can I combine different object types in a dynamic Administrative Unit?</h3>
-<p>Unfortunately this is one trade-off between statically assigned groups and dynamic ones. Whereas in static groups we can assign users, groups and devices to the same AU, for dynamic membership you are limited to the type of dynamic object assignment you are looking to use – either user or device. Also, groups are not an option for dynamic administrative unit rules, and can belong to neither dynamic user or dynamic device AU’s.</p>
+<h1 id="azure-ad-cross-tenant-access-settings-clarity">Azure AD: Cross-tenant Access Settings Clarity</h1>
+<p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
+<p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
+<p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
+<h2 id="terminology">Terminology</h2>
+<p><strong>Guest</strong> – For clarity, when speaking about guest users for the context of this post, we are talking about users invited into your Azure AD tenant.</p>
+<p><strong>Resource Azure AD Tenant [Resource Tenant]</strong> – If you are inviting guests <strong>into</strong> your Azure AD tenant, <strong>your</strong> tenant is the resource tenant. It represents your organization. If you are a <strong>guest</strong>, then the resource tenant is the tenant you have been invited into.</p>
+<p><strong>Home Azure AD Tenant [Home Tenant]</strong> – This is the tenant where the user objects live. If your user object exists in your organizations Azure AD tenant, your tenant is <strong>both</strong> the home tenant and resource tenant – your users and applications all “live” in the same place. Guests into your tenant will have a <strong>different</strong> home tenant.</p>
+<h2 id="what-it-is-not">What it is not</h2>
+<p>Before getting into what we can do with cross-tenant access settings, let’s cover what this is not (at least at the time of this writing).</p>
+<h3 id="parity-to-an-active-directory-trust">Parity to an Active Directory trust</h3>
+<p>Cross-tenant access settings may invoke a feeling of configuring a trust in Active Directory, which many Microsoft identity practitioners may be familiar with.</p>
+<p>It is closer to the <strong>opposite</strong> of a trust, in the sense that by default Active Directory has no implicit trusts, and you must explicitly configure trusts. Azure AD historically is opposite, any organization, unless settings are adjusted, can invite users from any Azure AD tenant into the organization. These settings allow us to be more granular in how we <strong>restrict</strong> guest access inbound and outbound to our Azure AD tenant.</p>
+<p>Further, when we examine B2B Direct Connect, we realize that the only use case, currently, is Teams shared channels.</p>
+<p>When we think of an Active Directory trust, we think of the fact that user objects only exist in the source user forest. With cross-tenant access settings, and the limitations with B2B Direct Connect, we still must invite user objects into our resource tenant – all the other “things” tied to our Azure AD tenant need the objectID within our resource tenant to reference.</p>
+<h2 id="what-it-is">What it is</h2>
+<h3 id="a-mechanism-to-provide-granular-b2b-guest-control">A mechanism to provide granular B2B guest control</h3>
+<p>When speaking about B2B guests and external identities, many organizations tend to focus on the aspect of guests being invited <strong>into</strong> their tenant. There is the other side to that B2B coin, which is restricting what organizations you may want your users to have access to.</p>
+<p>Certain organizations, especially those in the regulated industries, have concern over which external tenants their users can connect to. Up until now, organizations would need to apply tenant restrictions, <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/tenant-restrictions">Use tenant restrictions to manage access to SaaS apps – Azure AD | Microsoft Docs</a>, which has a higher level of complexity to it – the implementation requires a proxy to perform traffic inspection and HTTP header insertion.</p>
+<p>Now, organizations that have strict requirements regarding outbound guest access can, by default, restrict outbound access, and then create a more granular allow list.</p>
+<p>We also now can be granular down to user/group level of who can access certain organizations. Say you want to only allow employees from payroll to be able to access the tenant the vendor uses and restrict outbound access to everyone else – now you can do that.</p>
+<p>Likewise, there is granularity on the inbound side. Say you are that vendor that processes an organizations payroll and want to ensure that only the known users for the company you serve can come into your organization. You can restrict inbound as well, limiting what guests are allowed in.</p>
+<h3 id="a-way-to-trust-external-mfa-and-device-compliance">A way to trust external MFA and Device Compliance</h3>
+<p>Many organizations that are familiar with conditional access and guest policies have encountered the need to enroll in Azure AD MFA twice or more – once for their home tenant and once in every other resource tenant they access. This experience, from a user perspective, is less than ideal.</p>
+<p>With cross-tenant access settings, we can now choose to trust MFA from the guest users home tenant. We also can be granular – if we want to trust MFA from certain tenants, but require MFA enrollment from others, we can do that.</p>
+<p>More interestingly, we can now trust device compliance and hybrid join status, from the guest home tenant. While I still have certain reservations about the quality of relying on hybrid join alone, focusing on device compliance, it really opens a lot of cross-tenant collaboration, and brings an innovative approach to leveraging Zero Trust modeling when working with guests. While this still has the requirement that the guest home tenant must be leveraging Intune or a 3rd party MDM that can report in device compliance, it makes this a possibility.</p>
+<p>In my own testing, I was able to leverage device compliance in conditional access for a device in a guest tenant, and it worked with ease.</p>
+<h2 id="a-few-lingering-questions">A few lingering questions</h2>
+<h3 id="where-is-conditional-access-processed">Where is Conditional Access processed?</h3>
+<p>This hasn’t changed with the new cross-tenant access settings, but it’s a good time to review.</p>
+<p>Conditional access is <strong>always</strong> evaluated in the <strong>resource</strong> tenant.</p>
+<p>The resource tenant needs to ensure that their Conditional Access policies meet the needs of protecting their applications.</p>
+<p>Likewise, the home tenant <strong>cannot</strong> restrict outbound access to another tenant with Conditional Access. Because the guest is not accessing resources in their tenant, even an all applications block CA policy will not prevent the user from accessing a resource tenant as a guest – which really brings us back to what these new settings solve.</p>
+<h3 id="where-is-identity-protection-processed">Where is Identity Protection processed?</h3>
+<p>User risk is evaluated in the <strong>home</strong> tenant, and sign-in risk is evaluated in the <strong>resource</strong> tenant for B2B users. When firing up Tor, and accessing O365 with a guest, my test user was blocked by Identity Protection in the home tenant because it was flagged as a high user risk. So depending on the sort of threat detected by Identity Protection, you may find users being restricted by both the home and resource tenant when Identity Protection is in play.</p>
+<p>The details on this are further elaborated on in the Microsoft Docs article, <a href="https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-b2b#how-does-identity-protection-work-for-b2b-users">Identity Protection and B2B users – Azure Active Directory | Microsoft Docs</a>.</p>
+<h2 id="one-new-trick-out-of-a-possible-many">One new trick - out of a possible many</h2>
+<h3 id="pim-in-the-home-tenant-for-outbound-guest-access">PIM in the home tenant for outbound guest access</h3>
+<p>The ability to apply PIM to guest user accounts is not new. But if we combine the preview feature of PIM for group membership, and apply outbound restrictions to a certain group, the <strong>home</strong> tenant can build a request process for outbound access.</p>
+<p>In that this is quite restrictive, I would see a narrow range of use cases, as it really hampers collaboration between tenants. For those organizations who previously completely turned off the ability to collaborate with other organizations due to things like data sensitivity, the door might now be opened a bit.</p>
 <h2 id="final-notes">Final notes</h2>
-<p>Dynamic groups are already such a powerful option for organizations, it’s great to see that same logic added into administrative units, an area where it fits so well. If I had the time I would reach out to all those customers who had the “this is great, but it’s too inflexible” mindset upon seeing administrative units. I’m curious to see what new doors this opens for organizations; if you have some interesting use cases, give me a shout.</p>
+<p>External Identities and B2B are continually evolving. While there is still a large gap to bridge for many situations, this definitely is bringing us one step closer. B2B Direct Access in particular will be interesting to see how Microsoft evolves it – will it come closer to how an AD trust operates, or will there be improvements on how guests are invited into tenants.</p>
+<p>As usual, any questions/concerns/comments please reach out to me, and if you find any new unique use cases for cross-tenant access settings, would love to hear them.</p>
 
 
 

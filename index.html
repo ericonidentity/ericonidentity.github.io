@@ -1755,6 +1755,82 @@ distinct ServicePrincipalId
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-04-21 00:00:00+00:00">April 21, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-cross-tenant-access-settings-clarity"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">Azure AD: Cross-tenant Access Settings Clarity</a></h2>
+<p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
+<p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
+<p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
+<h3 id="terminology"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#terminology">Terminology</a></h3>
+<p><strong>Guest</strong> – For clarity, when speaking about guest users for the context of this post, we are talking about users invited into your Azure AD tenant.</p>
+<p><strong>Resource Azure AD Tenant [Resource Tenant]</strong> – If you are inviting guests <strong>into</strong> your Azure AD tenant, <strong>your</strong> tenant is the resource tenant. It represents your organization. If you are a <strong>guest</strong>, then the resource tenant is the tenant you have been invited into.</p>
+<p><strong>Home Azure AD Tenant [Home Tenant]</strong> – This is the tenant where the user objects live. If your user object exists in your organizations Azure AD tenant, your tenant is <strong>both</strong> the home tenant and resource tenant – your users and applications all “live” in the same place. Guests into your tenant will have a <strong>different</strong> home tenant.</p>
+<h3 id="what-it-is-not"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is-not">What it is not</a></h3>
+<p>Before getting into what we can do with cross-tenant access settings, let’s cover what this is not (at least at the time of this writing).</p>
+<h4 id="parity-to-an-active-directory-trust"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#parity-to-an-active-directory-trust">Parity to an Active Directory trust</a></h4>
+<p>Cross-tenant access settings may invoke a feeling of configuring a trust in Active Directory, which many Microsoft identity practitioners may be familiar with.</p>
+<p>It is closer to the <strong>opposite</strong> of a trust, in the sense that by default Active Directory has no implicit trusts, and you must explicitly configure trusts. Azure AD historically is opposite, any organization, unless settings are adjusted, can invite users from any Azure AD tenant into the organization. These settings allow us to be more granular in how we <strong>restrict</strong> guest access inbound and outbound to our Azure AD tenant.</p>
+<p>Further, when we examine B2B Direct Connect, we realize that the only use case, currently, is Teams shared channels.</p>
+<p>When we think of an Active Directory trust, we think of the fact that user objects only exist in the source user forest. With cross-tenant access settings, and the limitations with B2B Direct Connect, we still must invite user objects into our resource tenant – all the other “things” tied to our Azure AD tenant need the objectID within our resource tenant to reference.</p>
+<h3 id="what-it-is"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is">What it is</a></h3>
+<h4 id="a-mechanism-to-provide-granular-b2b-guest-control"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-mechanism-to-provide-granular-b2b-guest-control">A mechanism to provide granular B2B guest control</a></h4>
+<p>When speaking about B2B guests and external identities, many organizations tend to focus on the aspect of guests being invited <strong>into</strong> their tenant. There is the other side to that B2B coin, which is restricting what organizations you may want your users to have access to.</p>
+<p>Certain organizations, especially those in the regulated industries, have concern over which external tenants their users can connect to. Up until now, organizations would need to apply tenant restrictions, <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/tenant-restrictions">Use tenant restrictions to manage access to SaaS apps – Azure AD | Microsoft Docs</a>, which has a higher level of complexity to it – the implementation requires a proxy to perform traffic inspection and HTTP header insertion.</p>
+<p>Now, organizations that have strict requirements regarding outbound guest access can, by default, restrict outbound access, and then create a more granular allow list.</p>
+<p>We also now can be granular down to user/group level of who can access certain organizations. Say you want to only allow employees from payroll to be able to access the tenant the vendor uses and restrict outbound access to everyone else – now you can do that.</p>
+<p>Likewise, there is granularity on the inbound side. Say you are that vendor that processes an organizations payroll and want to ensure that only the known users for the company you serve can come into your organization. You can restrict inbound as well, limiting what guests are allowed in.</p>
+<h4 id="a-way-to-trust-external-mfa-and-device-compliance"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-way-to-trust-external-mfa-and-device-compliance">A way to trust external MFA and Device Compliance</a></h4>
+<p>Many organizations that are familiar with conditional access and guest policies have encountered the need to enroll in Azure AD MFA twice or more – once for their home tenant and once in every other resource tenant they access. This experience, from a user perspective, is less than ideal.</p>
+<p>With cross-tenant access settings, we can now choose to trust MFA from the guest users home tenant. We also can be granular – if we want to trust MFA from certain tenants, but require MFA enrollment from others, we can do that.</p>
+<p>More interestingly, we can now trust device compliance and hybrid join status, from the guest home tenant. While I still have certain reservations about the quality of relying on hybrid join alone, focusing on device compliance, it really opens a lot of cross-tenant collaboration, and brings an innovative approach to leveraging Zero Trust modeling when working with guests. While this still has the requirement that the guest home tenant must be leveraging Intune or a 3rd party MDM that can report in device compliance, it makes this a possibility.</p>
+<p>In my own testing, I was able to leverage device compliance in conditional access for a device in a guest tenant, and it worked with ease.</p>
+<h3 id="a-few-lingering-questions"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-few-lingering-questions">A few lingering questions</a></h3>
+<h4 id="where-is-conditional-access-processed"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-conditional-access-processed">Where is Conditional Access processed?</a></h4>
+<p>This hasn’t changed with the new cross-tenant access settings, but it’s a good time to review.</p>
+<p>Conditional access is <strong>always</strong> evaluated in the <strong>resource</strong> tenant.</p>
+<p>The resource tenant needs to ensure that their Conditional Access policies meet the needs of protecting their applications.</p>
+<p>Likewise, the home tenant <strong>cannot</strong> restrict outbound access to another tenant with Conditional Access. Because the guest is not accessing resources in their tenant, even an all applications block CA policy will not prevent the user from accessing a resource tenant as a guest – which really brings us back to what these new settings solve.</p>
+<h4 id="where-is-identity-protection-processed"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-identity-protection-processed">Where is Identity Protection processed?</a></h4>
+<p>User risk is evaluated in the <strong>home</strong> tenant, and sign-in risk is evaluated in the <strong>resource</strong> tenant for B2B users. When firing up Tor, and accessing O365 with a guest, my test user was blocked by Identity Protection in the home tenant because it was flagged as a high user risk. So depending on the sort of threat detected by Identity Protection, you may find users being restricted by both the home and resource tenant when Identity Protection is in play.</p>
+<p>The details on this are further elaborated on in the Microsoft Docs article, <a href="https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-b2b#how-does-identity-protection-work-for-b2b-users">Identity Protection and B2B users – Azure Active Directory | Microsoft Docs</a>.</p>
+<h3 id="one-new-trick-out-of-a-possible-many"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#one-new-trick-out-of-a-possible-many">One new trick - out of a possible many</a></h3>
+<h4 id="pim-in-the-home-tenant-for-outbound-guest-access"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#pim-in-the-home-tenant-for-outbound-guest-access">PIM in the home tenant for outbound guest access</a></h4>
+<p>The ability to apply PIM to guest user accounts is not new. But if we combine the preview feature of PIM for group membership, and apply outbound restrictions to a certain group, the <strong>home</strong> tenant can build a request process for outbound access.</p>
+<p>In that this is quite restrictive, I would see a narrow range of use cases, as it really hampers collaboration between tenants. For those organizations who previously completely turned off the ability to collaborate with other organizations due to things like data sensitivity, the door might now be opened a bit.</p>
+<h3 id="final-notes"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#final-notes">Final notes</a></h3>
+<p>External Identities and B2B are continually evolving. While there is still a large gap to bridge for many situations, this definitely is bringing us one step closer. B2B Direct Access in particular will be interesting to see how Microsoft evolves it – will it come closer to how an AD trust operates, or will there be improvements on how guests are invited into tenants.</p>
+<p>As usual, any questions/concerns/comments please reach out to me, and if you find any new unique use cases for cross-tenant access settings, would love to hear them.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-03-29 00:00:00+00:00">March 29, 2022</time></li>
         
         
@@ -1953,202 +2029,6 @@ distinct ServicePrincipalId
 <h3 id="final-notes"><a class="toclink" href="2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#final-notes">Final notes</a></h3>
 <p>If you’ve happened to read this whole post and your organization is not using WHfB yet, now is a great time to strengthen the security posture of your organization, and to start examining what it takes to go passwordless.</p>
 <p>If you’ve rolled out Windows Hello for Business, and want to take a look at what the next steps are to eliminating the use of passwords for those passwordless people, take a look at my post on SCRIL, <a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a>.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              8 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-increasing-security-within-the-mfa-experience"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security Within The MFA Experience</a></h2>
-<p>MFA push notifications – one of the more polarizing MFA options available within Azure AD. From a usability perspective, the perception is that it’s less interruptive and less complex for end users. From a security perspective, it’s a low barrier of entry for a malicious actor; especially when targeting a user who may approve push notifications for MFA without much thought.</p>
-<p>We have seen Microsoft implement various methods of interaction into push notifications to try and combat users just hitting Approve without a second thought. The Authenticator App for passwordless, sometimes referred to as phone sign-in, already has number matching implemented. But this never made it into our more common corporate MFA scenarios – until recently when additional options for the Authenticator App showed up in Public Preview.</p>
-<p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
-<p><img alt="Figure 1" src="/images/2022/02/22/img1.png" /> <img alt="Figure 2" src="/images/2022/02/22/img2.png" /></p>
-<p><em>Before and after</em></p>
-<h3 id="number-matching"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#number-matching">Number matching</a></h3>
-<p>Number matching is the component that creates a stronger second factor for our end users, because they will no longer be able to just hit Approve to that push notification. According to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-number-match">Microsoft Docs article</a>, once number matching goes GA, it will be enabled within all tenants a few months after. It’s tough to tell at this point whether customers will then have the option to retroactively disable number matching, but the interface makes it seem like it could be possible – not that it would be recommended.</p>
-<p><img alt="Figure 3" src="/images/2022/02/22/img3.png" /></p>
-<p><em>Number matching dialogue after primary authentication</em></p>
-<p>Per Microsoft number matching will support the following scenarios:</p>
-<ul>
-<li>Multi-factor</li>
-<li>Self-service password reset</li>
-<li>Combined SSPR and MFA registration</li>
-<li>AD FS adapter</li>
-<li>NPS extension</li>
-</ul>
-<p>Probably should place an asterisk on the NPS extension, because unless you are using PAP as your RADIUS protocol, push notifications will “downgrade” to an Approve/Deny without number matching (there is no ability to interact with EAP/MS-CHAPv2).</p>
-<h4 id="enabling-number-matching"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-number-matching">Enabling number matching</a></h4>
-<p>Again, will speculate that the long term goal is that number matching will be enabled by default in all tenants, and it’s going to become the new normal for our end users. But with this in Public Preview at the moment, it’s something we have to opt into.</p>
-<p>Also, we have the choice of either enabling number matching for the entire organization or for a group of users; the latter allowing for more finesse in testing, piloting, staged rollouts, and the such.</p>
-<p>Referencing the docs article linked above, it’s a relatively straightforward process. The article itself actually comes across at first as if you <strong>have</strong> to use Graph for updating/creating the policy; when you scroll down within it, you’ll see that it can also be performed through the portal. We’ll run through here looking at the options through Graph and seeing how they impact what the portal looks like.</p>
-<p>Before jumping into things, I will note that the changes were relatively quick to notice within my test tenant – within a few minutes the changes were apparent to my test users. Likewise with testing of disabling the settings.</p>
-<h5 id="gathering-the-current-state"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#gathering-the-current-state">Gathering the current state</a></h5>
-<p>Before making any changes, let’s check out the current state of our policy.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In order to perform the actions within Graph Explorer, you will want to sign-in, and make sure that you consent to <strong>Policy.Read.All</strong> and <strong>Policy.ReadWrite.AuthenticationMethod</strong> permissions.</p>
-</div>
-<p>We can do this by running the following query in Graph Explorer:</p>
-<div class="highlight"><pre><span></span><code>GET https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-</code></pre></div>
-<p>Which in our current tenant returns the following:</p>
-<div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;all_users&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>When we look in the portal we see the following:</p>
-<p><img alt="Figure 4" src="/images/2022/02/22/img4.png" /></p>
-<p>It’s important to note that <strong>default = Microsoft managed</strong>. And you may be asking what exactly is Microsoft managed? Microsoft managed effectively is the setting that allows Microsoft to make a decision whether these settings should be enabled in your tenant. Back to the thought earlier, eventually Microsoft managed will likely be the way in which Microsoft makes the decision to enable things in your tenant once it’s GA.</p>
-<h5 id="enabling-for-a-group"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-a-group">Enabling for a group</a></h5>
-<p>If you are looking to enable this for a single group, it’s just a matter of updating the returned content from our Graph query, and running a PATCH. We simply will replace the <strong>all_users</strong> portion of the policy with the Azure AD groups ObjectID, and update <strong>numberMatchingRequiredState</strong> with <strong>enabled</strong>.</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>As long as we get a 204 response, everything was successful. Looking in the portal again, after a refresh we will see:</p>
-<p><img alt="Figure 5" src="/images/2022/02/22/img5.png" /></p>
-<p>If you’re using the Authenticator App for passwordless (phone sign-in), this is where it can become confusing. If you had previously targeted all users for allowing passwordless through the Authenticator App, and now you’ve added this group, you’ll notice the targeting has changed. Subsequently, if you have users go to enroll for passwordless through the Authenticator App, they will see:</p>
-<p><img alt="Figure 6" src="/images/2022/02/22/img6.png" /></p>
-<p>We will want to make sure that we are now targeting two groups – a group that will allow for passwordless through Authenticator App, and the second being used for number matching. In our tenant this looks like:</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        },
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;44a9449d-ae6e-4d0b-bd40-c599dcb07441&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>And if we look in the portal we will see:</p>
-<p><img alt="Figure 7" src="/images/2022/02/22/img7.png" /></p>
-<p>In this instance, <strong>Security Ring 0</strong> is the group with number matching <strong>enabled</strong>, and <strong>Security Ring 1</strong> is the group with number matching left to <strong>default (Microsoft managed)</strong>.</p>
-<p>A few items to note:</p>
-<ul>
-<li>You cannot enable number matching on more than one group, if you attempt to do so through Graph you’ll receive a 400 error, and within the portal the option is grayed out.</li>
-<li>You cannot enable number matching on a group and also reference the all_users context. One may wish that you could target all users and then just selectively enable number matching on the group, however, if you attempt to reference all_users and a group within the policy, you’ll receive a 400 error.</li>
-</ul>
-<h5 id="enabling-for-all-users"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-all-users">Enabling for all users</a></h5>
-<p>The enablement for all users is even simpler. Same PATCH process, but instead we just leave the group set to <strong>all_users</strong>, and change <strong>numberMatchingRequiredState</strong> to <strong>enabled</strong>.</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;all_users&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>Now when we go look in the portal:</p>
-<p><img alt="Figure 8" src="/images/2022/02/22/img8.png" /></p>
-<h4 id="disabling-number-matching"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#disabling-number-matching">Disabling Number Matching</a></h4>
-<p>Ideally you will not be in a position to need to disable number matching, but in the case that you need to, it’s just a matter of setting <strong>numberMatchingRequiredState</strong> to <strong>default</strong>. Again, if you set this to <strong>disabled</strong>, there may be a chance that you will be in a state where your tenant will miss when this rolls out across all tenants.</p>
-<h3 id="additional-context"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#additional-context">Additional context</a></h3>
-<p>Along with number matching, we can enable additional contextual information about where the user is coming from with a map showing the rough geographic area, as well as what application is requesting the approval. Details of this process come from the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-additional-context">Microsoft Docs article</a>.</p>
-<p><img alt="Figure 9" src="/images/2022/02/22/img9.png" /> <img alt="Figure 10" src="/images/2022/02/22/img10.png" /></p>
-<p>While both mechanisms provide some additional security mechanisms to our end users, additional context alone is not going to prevent an unengaged user from selecting Approve, which is why additional context in itself should be considered a passive security mechanism. Number matching, to contrast, is active, because the user will not be able to perform MFA without interaction.</p>
-<h4 id="enabling-additional-context"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-additional-context">Enabling additional context</a></h4>
-<p>To enable additional context, whether for all users, or for a group, follows the same processes as enabling number matching. The only difference is we are focusing on the property <strong>displayAppInformationRequiredState</strong>.</p>
-<p>Out of the box, this property will be set to <strong>default</strong> when observing its value through Graph, or <strong>Microsoft managed</strong> in the portal. We can toggle this to <strong>enabled</strong> or <strong>disabled</strong>.</p>
-<p>A few items to note specific to additional context:</p>
-<ul>
-<li>When enabling additional context and using the Authenticator App for passwordless (phone sign-in), the app only receives policy information every 7 days. Because of this, users may not see a behavioral change for up to 7 days after.</li>
-<li>The NPS extension does not support providing additional context. Being that the NPS extension is simply signaling for MFA to be called, and primary authentication is happening against Active Directory, it makes sense that user location context is not available.</li>
-</ul>
-<h3 id="final-notes"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#final-notes">Final notes</a></h3>
-<p>As with all things that impact and change the way our users interact with our systems, while this may be an easier win from a security perspective, organizations will want to make sure that they communicate this change properly to end users. A rushed rollout or lack of communication is an almost certain way of creating friction with our end users, and potentially hurting the efforts to increase organizational security.</p>
     
   </div>
 </article>

@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2021/12/13/living-in-a-passwordless-world-password-management/">
       
       
-        <link rel="prev" href="../../../../2021/12/13/living-in-a-passwordless-world-password-management/">
       
-      
-        <link rel="next" href="../../../07/17/protect-your-privilege-with-paw/">
+        <link rel="next" href="../../../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>The nOAuth “flaw” is a symptom of industry antipatterns - Eric on Identity</title>
+        <title>Living in a Passwordless World: Password Management - Eric on Identity</title>
       
     
     
@@ -85,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-noauth-flaw-is-a-symptom-of-industry-antipatterns" class="md-skip">
+        <a href="#living-in-a-passwordless-world-password-management" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The nOAuth “flaw” is a symptom of industry antipatterns
+              Living in a Passwordless World: Password Management
             
           </span>
         </div>
@@ -410,45 +408,108 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-real-flaw-starts-with-the-security-industry-letting-its-people-down" class="md-nav__link">
+  <a href="#killing-hybrid-identity-passwords-with-scril" class="md-nav__link">
     <span class="md-ellipsis">
-      The real flaw starts with the security industry letting its people down
+      Killing hybrid identity passwords with SCRIL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Killing hybrid identity passwords with SCRIL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diving-into-scril" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diving into SCRIL
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#education-is-the-enemy-of-antipatterns-but-who-has-time-for-that" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#enabling-scril-and-its-results" class="md-nav__link">
     <span class="md-ellipsis">
-      Education is the enemy of antipatterns, but who has time for that
+      Enabling SCRIL and its results
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#the-silos-of-security-infrastructure-and-development-hinder-progress" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#the-user-experience-and-ad-password-change" class="md-nav__link">
     <span class="md-ellipsis">
-      The silos of security, infrastructure, and development hinder progress
+      The user experience and AD password change
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ignoring-the-need-for-change-continues-to-accrue-risk" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ignoring the need for change continues to accrue risk
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
+  <a href="#dealing-with-password-policies" class="md-nav__link">
     <span class="md-ellipsis">
-      Final Thoughts
+      Dealing with password policies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dealing with password policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-entra-id-side-of-the-story" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Entra ID side of the story
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entra-id-password-change-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entra ID password change mechanisms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entra ID password change mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#password-change-with-existing-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password change with existing password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-change-without-existing-password-sspr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password change without existing password (SSPR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final notes
     </span>
   </a>
   
@@ -510,7 +571,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-06-21 00:00:00+00:00" class="md-ellipsis">June 21, 2023</time>
+                        <time datetime="2021-12-13 00:00:00+00:00" class="md-ellipsis">December 13, 2021</time>
                       </div>
                     </li>
                     
@@ -522,7 +583,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              4 min read
+                              8 min read
                             
                           </span>
                         </div>
@@ -546,26 +607,88 @@
 
 
 
-<h1 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns">The nOAuth “flaw” is a symptom of industry antipatterns</h1>
-<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
-<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
-<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
-<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
-<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
-<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
-<h2 id="the-real-flaw-starts-with-the-security-industry-letting-its-people-down">The real flaw starts with the security industry letting its people down</h2>
-<p>So how exactly can we move from a technical problem to blaming the security industry as a whole? Microsoft speaks to the real flaw in their blog article – too many developers using antipatterns in software development for authentication and authorization. We can’t truly blame the developers, as we shouldn’t expect every developer to just magically be an expert at modern authentication. It’s difficult to even get identity practitioners to accurately describe the flows many times, so how can we point the finger at others.</p>
-<h2 id="education-is-the-enemy-of-antipatterns-but-who-has-time-for-that">Education is the enemy of antipatterns, but who has time for that</h2>
-<p>The antipattern word is key here. Antipatterns are patterns that are common enough to become known, yet go against effective design. In this case, the antipattern is developers using the email claim within an ID token to make a “good enough” assessment of whom the user is.</p>
-<p>Antipatterns develop when there is a lack of education, which both the security and software development industry are ripe with. We need every application to do more things faster and quicker and always operating in some perpetual state of beta to ship things quicker to beat the competition. And no, we don’t have time to slow down to understand what we are doing. Ship it now, fix it later, which is exactly what has happened in this case.</p>
-<h2 id="the-silos-of-security-infrastructure-and-development-hinder-progress">The silos of security, infrastructure, and development hinder progress</h2>
-<p>The fact that most organizations still operate with varying degrees of silos is the secret everyone knows about but in most cases chooses to ignore.</p>
-<p>For proper modern authentication development, we need developers that cross the boundaries between identity practitioner and coder. While logically most organizations can’t operate in a flat structure, we need to better adapt to remove these silos and let key players straddle the line. These key players need to be architects and engineers and developers who are allowed to cross-collaborate and want to cross-collaborate. If we enter a realm where identity security is dictated instead of collaborated, things rapidly break down.</p>
-<p>This collaborative team should be proportionately sized to the organization, but whether you are an identity software vendor (ISV) or an enterprise that develops line-of-business (LOB) applications, you will still greatly benefit from the collaboration around identity implementations within your software.</p>
-<h2 id="ignoring-the-need-for-change-continues-to-accrue-risk">Ignoring the need for change continues to accrue risk</h2>
-<p>In the nOAuth case, the organizations selling SaaS applications were not named, and the problem was mitigated behind the scenes. But it’s a case of luck in that the “good team” was first to find the rampant use of these antipatterns. If things turned out worse, and account takeover has happened, it can become a very fast trip to the loss of consumer confidence and depending on your industry or geopolitical region regulator fines and other penalties, from data exfiltration and exposure. It also instills the fear, uncertainty, and doubt, in the industry, almost as a self-fulfilling prophecy that inhibits the industry to move forward. Imagine if your bank account could simply be taken over by someone spoofing your email address in a claim – it’s a fast route to never modernizing identity and leaving us in our current state of too many accounts, too many passwords, too many ways to authenticate, failing our end users.</p>
-<h2 id="final-thoughts">Final Thoughts</h2>
-<p>Start collaborating on identity within your organization across all the silos it touches. Prioritize education, for real this time. Your consumers will thank you for it, even if they don’t know they need to.</p>
+<h1 id="living-in-a-passwordless-world-password-management">Living in a Passwordless World: Password Management</h1>
+<p>With Microsoft touting changes to personal Microsoft (MSA) accounts, allowing customers to go completely passwordless, it has brought heightened attention again to the world of passwordless for corporate customers in the Microsoft ecosystem.</p>
+<p>While attending an October 13th Microsoft passwordless event, highlighting the future for the corporate world, I noticed a trend – organizations asking how to deal with password management and compliance policies they must adhere to. As Microsoft calls out, the long-term goal is for organizations to forget that passwords are even a thing.</p>
+<p>However, being that directory services will still contain a password attribute, even if we aren’t using it, how do we keep it compliant with password policies. And how do we prevent end users opting to attempt to use their password. In this series we will dive into what the answer to these questions looks like.</p>
+<p>One thing that is important to iterate in every conversation – the world is moving passwordless, and it’s not just Microsoft who is heading in this direction. If organizations do not want to (and should not be) trailing from a security perspective, you should start investigating what passwordless looks like for you now – as with most things these days it is a journey, albeit easier than many organizations may realize.</p>
+<h2 id="killing-hybrid-identity-passwords-with-scril">Killing hybrid identity passwords with SCRIL</h2>
+<p>SCRIL, the acronym for <em>Smart Card is Required for Interactive Logon</em>, is a userAccountControl property flag in Active Directory, which any organization that is heavily invested in smart cards may be familiar with. For the rest of the world, this flag goes unnoticed, beyond being a checkbox you scroll past in ADUC.</p>
+<p>In the Microsoft documentation on their Passwordless Strategy, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Passwordless Strategy – Windows security | Microsoft Docs</a>, they do a decent job covering what removing the ability to use passwords looks like in an organization, but they don’t really cover specifics on what the behavior looks like.</p>
+<p>This is an area you’ll want to explore in parallel with modernizing your applications – for most organizations, the biggest hurdle with cloud and passwordless are with applications that don’t support modern authentication – I’m looking at you LDAP and RADIUS. For most customers in the passwordless journey, SCRIL is something you would be working towards, and there are steps for many organizations that need to happen prior to this point – if you haven’t read the strategy linked above, you should do so.</p>
+<h3 id="diving-into-scril">Diving into SCRIL</h3>
+<p>SCRIL, when enabled, directs Active Directory that the user account must use a form of asymmetric key-based (certificate) authentication in Active Directory. Because Windows Hello for Business (WHfB) is also certificate-based authentication, we can leverage the same flag.</p>
+<p>When you enable SCRIL on a user account in Active Directory, the following happens for the user account:</p>
+<ul>
+<li>The users password is set to 128 bits of random data and next logon, and per Microsoft is likely to include non-typable characters</li>
+<li>The user is not asked to change their password anymore within Active Directory and Windows clients, even if it is expired</li>
+<li>Domain Controllers do not allow passwords for that user for interactive authentication</li>
+<li>The user has now lost knowledge of what their password is</li>
+</ul>
+<h3 id="enabling-scril-and-its-results">Enabling SCRIL and its results</h3>
+<p>Before we enable SCRIL, let’s examine a user account in AD. While SCRIL is a property flag on the userAccountControl attribute, it’s exposed to us in a much more accessible manner in Active Directory; it appears as a checkbox on user accounts in ADUC and ADAC, but for this article we will be looking at the account through the AD PowerShell module.</p>
+<p>Let’s look at the user lee.gu in AD:</p>
+<div class="highlight"><pre><span></span><code>Get-Aduser -Identity &lt;username&gt; -Properties `
+SmartcardLogonRequired,PasswordLastSet | `
+select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
+</code></pre></div>
+<p><img alt="Figure 1" src="/images/2023/12/13/img1.png" /></p>
+<p>To enable SCRIL, we toggle on SmartCardLogonRequired, which adjusts the userAccountControl attribute for us:</p>
+<div class="highlight"><pre><span></span><code>Set-Aduser -Identity &lt;username&gt; -SmartcardLogonRequired $true
+</code></pre></div>
+<p><img alt="Figure 2" src="/images/2023/12/13/img2.png" /></p>
+<p>SCRIL is now enabled on the user account; one thing that might seem surprising is that the password on the user is not actually changed when enabled on the account, so let’s look at how this behaves.</p>
+<h3 id="the-user-experience-and-ad-password-change">The user experience and AD password change</h3>
+<p>Now we have Lee attempt to log into his Windows 11 device with a password:</p>
+<p><img alt="Figure 3" src="/images/2023/12/13/img3.png" /></p>
+<p>When attempting to sign-in, we are presented with the following message:</p>
+<p><img alt="Figure 4" src="/images/2023/12/13/img4.png" /></p>
+<p>Let’s look at the account again in AD:</p>
+<p><img alt="Figure 5" src="/images/2023/12/13/img5.png" /></p>
+<p>And we see that the time Lee attempted logon, his password was changed in AD.</p>
+<p><strong>Takeaway #1</strong></p>
+<p>Until the user attempts authentication against Active Directory, their password will not be changed within AD.</p>
+<p><strong>Takeaway #2</strong></p>
+<p>In our demonstration we show what happens if the user attempts to use their password. But if they are already enrolled in WHfB, it’s likely that they wouldn’t be trying to use their password for authentication.</p>
+<p>Thankfully, it does not matter what method the user leverages for authentication – if Lee authenticated for that first time with WHfB after SCRIL was enabled on the account, the password would be updated in Active Directory regardless.</p>
+<h2 id="dealing-with-password-policies">Dealing with password policies</h2>
+<p>Up to this point we have enabled the ability to have Active Directory manage the users' password, but what about password policies? Complexity and history may be inherently covered, but what about if your organization is required to rotate passwords.</p>
+<p>If your organization does not require password rotation, or if the rotation period is an extended length of time, you <strong>should enable</strong> a password expiration policy on your SCRIL users. Why? Because a password still exists for our users, and in non-interactive scenarios, if the password becomes known through some malicious vector, it’s leaving that account exposed. When we look at computer accounts and Group Managed Service Accounts (gMSA), those passwords are rotated behind the scenes by Active Directory; we need to think of our passwordless users as similar when SCRIL is enabled.</p>
+<p>For organizations that are at an AD Domain Functional Level of Server 2016 or higher, there is an easy button for allowing AD to manage rolling of secrets for users.</p>
+<p>If you are not at DFL 2016, this may be a point to prioritize upgrading so that you have this feature available to your organization, or else implement a scripted process to help roll them. Choosing not to roll your NTLM secrets is leaving the door open for lateral movement.</p>
+<p>If we launch ADAC, which is the path of least resistance for this setting, we want to right-click on the root of the domain in the left pane and select Properties. We will be presented with the following view, and want to check the box for <strong>Enable rolling of expiring NTLM secrets during sign on, for users who are required to use Microsoft Passport or smart card for interactive sign on</strong>.</p>
+<p><img alt="Figure 6" src="/images/2023/12/13/img6.png" /></p>
+<p>Select OK, and now whenever the users password is going to expire, based on the policy applied to them, a new random 128 bit password will be assigned to the users account.</p>
+<p>As an example, let’s look at a FGPP in AD applied to this user account, with a maximum password age of 1 day:</p>
+<p><img alt="Figure 7" src="/images/2023/12/13/img7.png" /></p>
+<p>And the results from a few days of user authentication:</p>
+<p><img alt="Figure 8" src="/images/2023/12/13/img8.png" /></p>
+<p><strong>Takeaway #3</strong></p>
+<p>Within Active Directory, we can apply password policies to our passwordless users, and be able to maintain compliance with rotation policies, all while still having a great user experience.</p>
+<h3 id="the-entra-id-side-of-the-story">The Entra ID side of the story</h3>
+<p>Now that we have our user operating in a truly passwordless world in Active Directory, let’s turn our eyes to the other half of the equation – Azure AD.</p>
+<p>Even though AD is managing the password, it’s still an attribute that is synchronized to Azure AD. Recall that Azure AD synchronizes passwords in a channel that is separate from the rest of the synchronization process, so password changes show up in Azure AD shortly after changing them in AD.</p>
+<p>Let’s look at our test user:</p>
+<p><img alt="Figure 9" src="/images/2023/12/13/img9.png" /></p>
+<p>Shortly after updating the users' password in AD, the password change has synchronized to Azure AD.</p>
+<h3 id="entra-id-password-change-mechanisms">Entra ID password change mechanisms</h3>
+<p>If we have password writeback enabled in Azure AD Connect, there are methods still available for our users to change their password – falling into two scenarios:</p>
+<ul>
+<li>Password change when the user knows their existing password</li>
+<li>Password change when the user has forgotten their password</li>
+</ul>
+<h4 id="password-change-with-existing-password">Password change with existing password</h4>
+<p>Many times, when enabling password writeback, the focus is on enablement of Azure AD SSPR. However, under the MyAccount portal, users are also able to change their password if they know their existing password. This is already solved for us, as the user won’t know their password any longer, and therefore this option is already unusable.</p>
+<h4 id="password-change-without-existing-password-sspr">Password change without existing password (SSPR)</h4>
+<p>This is the one area where we need to potentially adjust our Azure AD tenant settings. While many organizations may have moved towards enabling SSPR for all users in the tenant, we now have a need to disallow SSPR for users who have SCRIL enabled.</p>
+<p>In <strong>Entra ID, Password reset, Properties</strong>, we can adjust the toggle to specify only users in a selected group are allowed to use SSPR; we would be disallowing SSPR for SCRIL users and wanting to ensure they are out of the scope for the group selected.</p>
+<p><img alt="Figure 10" src="/images/2023/12/13/img10.png" /></p>
+<p><strong>Takeaway #4</strong></p>
+<p>With a little bit of work on the SSPR side of things, we can easily accommodate SCRIL within Azure AD, without worry that users can subvert our efforts.</p>
+<h2 id="final-notes">Final notes</h2>
+<p>As with all things there are some caveats to going passwordless to this level for our end users. The most prominent is that our user has no way of falling back to a password. This is where this rolls into the bigger picture – allowing users to use the Authenticator App for passwordless, and allowing for FIDO2 security keys within the organization.</p>
+<p>TAP, or Temporary Access Pass also can fill in some instances if a user has lost all passwordless methods to bootstrap themselves back into the world, but unfortunately it cannot be used currently for enrollment in Windows Hello for Business.</p>
+<p>Lastly, to get to this point, you may need to start your journey of application modernization. Microsoft has some great documentation to get you started on the road to authentication migration with <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/migrate-application-authentication-to-azure-active-directory">Migrate application authentication to Azure Active Directory</a>.</p>
 
 
 

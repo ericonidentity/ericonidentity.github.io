@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">
       
       
-        <link rel="prev" href="../../../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">
+        <link rel="prev" href="../../../02/22/azure-ad-increasing-security-within-the-mfa-experience/">
       
       
-        <link rel="next" href="../../../07/17/protect-your-privilege-with-paw/">
+        <link rel="next" href="../../../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>The nOAuth “flaw” is a symptom of industry antipatterns - Eric on Identity</title>
+        <title>Windows Hello for Business: Hybrid Cloud Trust - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-noauth-flaw-is-a-symptom-of-industry-antipatterns" class="md-skip">
+        <a href="#windows-hello-for-business-hybrid-cloud-trust" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The nOAuth “flaw” is a symptom of industry antipatterns
+              Windows Hello for Business: Hybrid Cloud Trust
             
           </span>
         </div>
@@ -435,45 +435,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-real-flaw-starts-with-the-security-industry-letting-its-people-down" class="md-nav__link">
+  <a href="#enter-hybrid-cloud-trust" class="md-nav__link">
     <span class="md-ellipsis">
-      The real flaw starts with the security industry letting its people down
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#education-is-the-enemy-of-antipatterns-but-who-has-time-for-that" class="md-nav__link">
-    <span class="md-ellipsis">
-      Education is the enemy of antipatterns, but who has time for that
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-silos-of-security-infrastructure-and-development-hinder-progress" class="md-nav__link">
-    <span class="md-ellipsis">
-      The silos of security, infrastructure, and development hinder progress
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ignoring-the-need-for-change-continues-to-accrue-risk" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ignoring the need for change continues to accrue risk
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Thoughts
+      Enter Hybrid Cloud Trust
     </span>
   </a>
   
@@ -535,7 +499,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-06-21 00:00:00+00:00" class="md-ellipsis">June 21, 2023</time>
+                        <time datetime="2022-03-23 00:00:00+00:00" class="md-ellipsis">March 23, 2022</time>
                       </div>
                     </li>
                     
@@ -547,7 +511,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              4 min read
+                              2 min read
                             
                           </span>
                         </div>
@@ -571,26 +535,18 @@
 
 
 
-<h1 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns">The nOAuth “flaw” is a symptom of industry antipatterns</h1>
-<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
-<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
-<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
-<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
-<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
-<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
-<h2 id="the-real-flaw-starts-with-the-security-industry-letting-its-people-down">The real flaw starts with the security industry letting its people down</h2>
-<p>So how exactly can we move from a technical problem to blaming the security industry as a whole? Microsoft speaks to the real flaw in their blog article – too many developers using antipatterns in software development for authentication and authorization. We can’t truly blame the developers, as we shouldn’t expect every developer to just magically be an expert at modern authentication. It’s difficult to even get identity practitioners to accurately describe the flows many times, so how can we point the finger at others.</p>
-<h2 id="education-is-the-enemy-of-antipatterns-but-who-has-time-for-that">Education is the enemy of antipatterns, but who has time for that</h2>
-<p>The antipattern word is key here. Antipatterns are patterns that are common enough to become known, yet go against effective design. In this case, the antipattern is developers using the email claim within an ID token to make a “good enough” assessment of whom the user is.</p>
-<p>Antipatterns develop when there is a lack of education, which both the security and software development industry are ripe with. We need every application to do more things faster and quicker and always operating in some perpetual state of beta to ship things quicker to beat the competition. And no, we don’t have time to slow down to understand what we are doing. Ship it now, fix it later, which is exactly what has happened in this case.</p>
-<h2 id="the-silos-of-security-infrastructure-and-development-hinder-progress">The silos of security, infrastructure, and development hinder progress</h2>
-<p>The fact that most organizations still operate with varying degrees of silos is the secret everyone knows about but in most cases chooses to ignore.</p>
-<p>For proper modern authentication development, we need developers that cross the boundaries between identity practitioner and coder. While logically most organizations can’t operate in a flat structure, we need to better adapt to remove these silos and let key players straddle the line. These key players need to be architects and engineers and developers who are allowed to cross-collaborate and want to cross-collaborate. If we enter a realm where identity security is dictated instead of collaborated, things rapidly break down.</p>
-<p>This collaborative team should be proportionately sized to the organization, but whether you are an identity software vendor (ISV) or an enterprise that develops line-of-business (LOB) applications, you will still greatly benefit from the collaboration around identity implementations within your software.</p>
-<h2 id="ignoring-the-need-for-change-continues-to-accrue-risk">Ignoring the need for change continues to accrue risk</h2>
-<p>In the nOAuth case, the organizations selling SaaS applications were not named, and the problem was mitigated behind the scenes. But it’s a case of luck in that the “good team” was first to find the rampant use of these antipatterns. If things turned out worse, and account takeover has happened, it can become a very fast trip to the loss of consumer confidence and depending on your industry or geopolitical region regulator fines and other penalties, from data exfiltration and exposure. It also instills the fear, uncertainty, and doubt, in the industry, almost as a self-fulfilling prophecy that inhibits the industry to move forward. Imagine if your bank account could simply be taken over by someone spoofing your email address in a claim – it’s a fast route to never modernizing identity and leaving us in our current state of too many accounts, too many passwords, too many ways to authenticate, failing our end users.</p>
-<h2 id="final-thoughts">Final Thoughts</h2>
-<p>Start collaborating on identity within your organization across all the silos it touches. Prioritize education, for real this time. Your consumers will thank you for it, even if they don’t know they need to.</p>
+<h1 id="windows-hello-for-business-hybrid-cloud-trust">Windows Hello for Business: Hybrid Cloud Trust</h1>
+<p>When we talk about Windows Hello for Business (WHfB) rollout scenarios, the one that has consistently been the preferred path is Hybrid Key Trust. It is the lowest weight scenario for deployment requirements, and if you already had Active Directory Certificate Services (AD CS), it was only a matter of a few hours to configure your directory to be ready to start a rollout.</p>
+<p>While there are some smaller niche limitations, the most common limitation that <strong>every</strong> organization will encounter with Hybrid Key Trust, is that initial Windows of needing to wait for Azure AD Connect to synchronize the <strong>msDS-KeyCredentialLink</strong> attribute from Azure AD to the user object in Active Directory.</p>
+<p>This process is what informs Active Directory of the public side of the users WHfB key pair, and is what enables the user for certificate-based authentication, through WHfB, to AD. Historically this leaves many organizations needing to communicate to users that it will “take some time” between when they enroll and when they can first start using WHfB – not the greatest way to introduce users into a passwordless experience.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I’ve received feedback from readers who have gone through this post, and following up with me that for their users who were already enrolled in Windows Hello for Business with Hybrid Key Trust are having issues with authentication when switching to Hybrid Cloud Trust.</p>
+<p>From my own conversations with folks at Microsoft, the path explained in this document is how an organization would go about switching existing Hybrid Key Trust users to Hybrid Cloud Trust.</p>
+</div>
+<h2 id="enter-hybrid-cloud-trust">Enter Hybrid Cloud Trust</h2>
+<p>The technology behind WHfB Hybrid Cloud Trust has existed for a while; it’s the same mechanism that has been used to support hybrid FIDO2 Security Key authentication.</p>
+<p>Microsoft already has some very good documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#use-sso-to-sign-in-to-on-premises-resources-by-using-fido2-keys">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>, that explains how the whole process works, so I won’t dive deep into paraphrasing things. But essentially we now are able to obtain a partial TGT from Azure AD, and subsequently exchange that for a full TGT in AD. Because of this key piece, we <strong>no longer</strong> need to wait for Azure AD Connect to inform AD of our users public key.</p>
 
 
 

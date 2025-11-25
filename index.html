@@ -1755,6 +1755,51 @@ distinct ServicePrincipalId
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-03-23 00:00:00+00:00">March 23, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="windows-hello-for-business-hybrid-cloud-trust"><a class="toclink" href="2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">Windows Hello for Business: Hybrid Cloud Trust</a></h2>
+<p>When we talk about Windows Hello for Business (WHfB) rollout scenarios, the one that has consistently been the preferred path is Hybrid Key Trust. It is the lowest weight scenario for deployment requirements, and if you already had Active Directory Certificate Services (AD CS), it was only a matter of a few hours to configure your directory to be ready to start a rollout.</p>
+<p>While there are some smaller niche limitations, the most common limitation that <strong>every</strong> organization will encounter with Hybrid Key Trust, is that initial Windows of needing to wait for Azure AD Connect to synchronize the <strong>msDS-KeyCredentialLink</strong> attribute from Azure AD to the user object in Active Directory.</p>
+<p>This process is what informs Active Directory of the public side of the users WHfB key pair, and is what enables the user for certificate-based authentication, through WHfB, to AD. Historically this leaves many organizations needing to communicate to users that it will “take some time” between when they enroll and when they can first start using WHfB – not the greatest way to introduce users into a passwordless experience.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I’ve received feedback from readers who have gone through this post, and following up with me that for their users who were already enrolled in Windows Hello for Business with Hybrid Key Trust are having issues with authentication when switching to Hybrid Cloud Trust.</p>
+<p>From my own conversations with folks at Microsoft, the path explained in this document is how an organization would go about switching existing Hybrid Key Trust users to Hybrid Cloud Trust.</p>
+</div>
+<h3 id="enter-hybrid-cloud-trust"><a class="toclink" href="2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#enter-hybrid-cloud-trust">Enter Hybrid Cloud Trust</a></h3>
+<p>The technology behind WHfB Hybrid Cloud Trust has existed for a while; it’s the same mechanism that has been used to support hybrid FIDO2 Security Key authentication.</p>
+<p>Microsoft already has some very good documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#use-sso-to-sign-in-to-on-premises-resources-by-using-fido2-keys">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>, that explains how the whole process works, so I won’t dive deep into paraphrasing things. But essentially we now are able to obtain a partial TGT from Azure AD, and subsequently exchange that for a full TGT in AD. Because of this key piece, we <strong>no longer</strong> need to wait for Azure AD Connect to inform AD of our users public key.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
         
         

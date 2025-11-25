@@ -469,7 +469,7 @@
           
           <li class="md-meta__item">
             
-              2 min read
+              8 min read
             
           </li>
         
@@ -490,6 +490,69 @@
 <h3 id="enter-hybrid-cloud-trust"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#enter-hybrid-cloud-trust">Enter Hybrid Cloud Trust</a></h3>
 <p>The technology behind WHfB Hybrid Cloud Trust has existed for a while; it’s the same mechanism that has been used to support hybrid FIDO2 Security Key authentication.</p>
 <p>Microsoft already has some very good documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#use-sso-to-sign-in-to-on-premises-resources-by-using-fido2-keys">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>, that explains how the whole process works, so I won’t dive deep into paraphrasing things. But essentially we now are able to obtain a partial TGT from Azure AD, and subsequently exchange that for a full TGT in AD. Because of this key piece, we <strong>no longer</strong> need to wait for Azure AD Connect to inform AD of our users public key.</p>
+<h3 id="why-should-i-convert"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#why-should-i-convert">Why should I convert?</a></h3>
+<p>If you’re asking yourself why you would want to convert from a Hybrid Key Trust to a Hybrid Cloud Trust, there are several benefits:</p>
+<h4 id="goodbye-pki"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#goodbye-pki">Goodbye PKI</a></h4>
+<p>In reality, if you have a PKI in your environment, you likely are using it for several things. However, you will no longer need to maintain certificates on your Domain Controllers to be used for certificate-based authentication. That partial TGT is all you’ll need to obtain a full Kerberos TGT from Active Directory.</p>
+<h4 id="no-more-enrollment-delays"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#no-more-enrollment-delays">No more enrollment delays</a></h4>
+<p>Not having to wait for the sync back to AD of msDS-KeyCredentialLink, users will be able to use their WHfB credentials <strong>immediately</strong> after enrollment.</p>
+<h4 id="sets-the-stage-for-fido2-security-keys"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#sets-the-stage-for-fido2-security-keys">Sets the stage for FIDO2 security keys</a></h4>
+<p>The mechanisms to configure Hybrid Cloud Trust is the same leveraged for FIDO2 Security Key authentication in a hybrid scenario. This puts your environment in a great position to start exploring FIDO2 if you have not already.</p>
+<h3 id="convert-to-hybrid-cloud-trust"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#convert-to-hybrid-cloud-trust">Convert to Hybrid Cloud Trust</a></h3>
+<h4 id="prerequisites"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#prerequisites">Prerequisites</a></h4>
+<p>You’ll need to first configure your tenant to support the ability for Azure AD to issue a Kerberos TGT for your Active Directory domain. I won’t run through the process here, but it’s straightforward, and the instructions can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#install-the-azure-ad-kerberos-powershell-module">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>.</p>
+<h4 id="method-for-conversion"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#method-for-conversion">Method for conversion</a></h4>
+<p>Microsoft has documented both the mechanisms for enabling Hybrid Cloud Trust through both Intune and Group Policy; here we will be examining the GPO route. The Microsoft documentation regarding the enablement of <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-trust#configure-windows-hello-for-business-policy">Hybrid Cloud Trust can be found here, Hybrid Cloud Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a>.</p>
+<p>Let’s take a look at our existing GPO settings, which can be found under <strong>Computer Configuration, Windows Components, Windows Hello for Business</strong>:</p>
+<p><img alt="Figure 1" src="/images/2022/03/23/img1.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While we can enable WHfB either as a Computer or User Configuration, the ability to modify the trust model only exists under the Computer Group Policy.</p>
+</div>
+<p>The setting we want to toggle is <strong>Use cloud trust for on-premises authentication</strong>:</p>
+<p><img alt="Figure 2" src="/images/2022/03/23/img2.png" /></p>
+<p>We just need to select OK to save our policy change, and let (or force) our clients pick up the changed GPO.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you do not find the option for Use cloud trust for on-premises authentication within your GPO, you likely need to update your ADMX templates to a newer version.</p>
+</div>
+<p>And <strong>that's it</strong>. The devices scoped to this group policy will be configured for Hybrid Cloud Trust.</p>
+<h3 id="verification-transition-and-cleanup"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#verification-transition-and-cleanup">Verification, transition, and cleanup</a></h3>
+<h4 id="verification"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#verification">Verification</a></h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Please note that the process explained below for verification is not a required process. This verification piece is provided to explain the steps that would invalidate any local certificates in Active Directory, to ultimately prove that Hybrid Cloud Trust is working. For migration purposes, you only need to perform the group policy change indicated above.</p>
+</div>
+<p>So we have our GPO updated and refreshed on our client. How can we tell that the device is in fact using Hybrid Cloud Trust and not Hybrid Key Trust?</p>
+<p>After the configuration change, we can look at some Event Viewer logs. If we expand Applications and Services Logs, Microsoft, Windows, Hello for Business, Operational, we can see the following Event that shows the device configured and having obtained a Cloud TGT:</p>
+<p><img alt="Figure 3" src="/images/2022/03/23/img3.png" /></p>
+<p>We can further test things by deleting the msDS-KeyCredentialLink contents on the user object within Active Directory.</p>
+<p>If we look at Lee Gu, we can see there is a public key on his account in AD:</p>
+<p><img alt="Figure 4" src="/images/2022/03/23/img4.png" /></p>
+<p>We can easily clear this, and then verify the attribute is empty:</p>
+<p><img alt="Figure 5" src="/images/2022/03/23/img5.png" /></p>
+<p>After another sign-on with WHfB, we can go look at our Security logs in Active Directory, and find a successful 4624:</p>
+<p><img alt="Figure 6" src="/images/2022/03/23/img6.png" /></p>
+<h4 id="transition"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#transition">Transition</a></h4>
+<p>Even though the transition has no visible impact on our end users, many organizations may still want to take a staged approach to transition to a Hybrid Cloud Trust. To that point, because we are altering the mechanism for authentication on a per-device level, there is <strong>nothing</strong> stopping an organization from moving to a Hybrid Cloud Trust in a staged approach.</p>
+<p>Long-term, from a troubleshooting perspective, it would behoove most organizations to not draw out the transition. Conversely, if an organization has edge use cases that are only supported by a Hybrid Key Trust, those users and their devices should still be able to continue to use Hybrid Key Trust while the rest of the organization operates with Hybrid Cloud Trust.</p>
+<h4 id="cleanup"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#cleanup">Cleanup</a></h4>
+<p>While in the demonstration above, we see that authentication happens without the need for the msDS-KeyCredentialLink to be populated in Active Directory, the behavior of Azure AD Connect is to still synchronize that value back ton AD, even for a Hybrid Cloud Trust. Remember – we are still performing asymmetric key-based authentication to Azure AD, so there is still a keypair that exists. The behavior change is on the client; the public key in the way it is written to Azure AD appears to have no mechanism to differentiate the type of authentication the client intends with it. Due to this, downstream, Azure AD Connect is still going to synchronize back to Active Directory the public key. I would be curious if Microsoft has intentions to modify this behavior down the road, but for the meantime, we can just ignore those attributes in AD.</p>
+<p>At this point, we can also evaluate whether to roll back the certificate policies issuing certs to our DC’s for certificate-based authentication. If configured properly, this process should be no-maintenance, so it’s not a critical item, but likely should be removed to clear up any confusion down the road. Would also caution though to ensure that you do not negatively impact anything else that might be leveraging AD for certificate-based auth before backing that out of Active Directory.</p>
+<h3 id="faq"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#faq">FAQ</a></h3>
+<h4 id="do-i-still-need-line-of-sight-of-active-directory-for-enrollment"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#do-i-still-need-line-of-sight-of-active-directory-for-enrollment">Do I still need line-of-sight of Active Directory for enrollment?</a></h4>
+<p>Yes. For the underlying mechanisms that configure Windows for a cached sign-on experience, line-of-sight is required for Active Directory during the first use of the WHfB credentials that were configured.</p>
+<h4 id="what-identity-provider-is-authoritative-for-the-client"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#what-identity-provider-is-authoritative-for-the-client">What Identity Provider is Authoritative for the client?</a></h4>
+<p>One of the topics that almost always comes up when talking about a Hybrid device, is what Identity Provider (IdP) is authoritative for user authentication – Azure AD or Active Directory. This question arises because there is this <strong>duality</strong> of identity on the device; our user object is tied to two different identity providers. However, one of the identity providers is still considered the <strong>authoritative</strong> identity provider. The authoritative identity provider is the one that would handle things like providing account lockout for a disabled user account.</p>
+<p>For Hybrid Key Trust, Active Directory was authoritative, and Azure AD was secondary – you would receive/refresh your PRT after successful authentication to AD.</p>
+<p><img alt="Figure 7" src="/images/2022/03/23/img7.png" /></p>
+<p>With Hybrid Cloud Trust, the model is now flipped, and Azure AD is authoritative, with AD as secondary.</p>
+<p><img alt="Figure 8" src="/images/2022/03/23/img8.png" /></p>
+<p>We can observe this behavior in the security events on the device. When you first sign in to the device, you will receive a 4624 user logon event with a logon type of 11, which is cached interactive. This is observed even with line-of-sight of Active Directory. Very soon after, if you have line-of-sight of Active Directory, you will see another 4624 user logon event with a type of 7, which normally indicates workstation unlock.</p>
+<p>Now, during testing, you will notice that even if the user account is disabled in Azure AD and Active Directory, even with line-of-sight of both AAD and AD, local logon will still occur. However, when the user attempts to access cloud-based resources, they will receive an error in thick-client applications like Teams indicating they need to sign in (which will fail), and through the web, they will be informed their account is locked out. For AD resources, access will also be denied, and in the security event log, we will find a failed sign-on event, with a failure indicating the account is currently disabled.</p>
+<h3 id="final-notes"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#final-notes">Final notes</a></h3>
+<p>If you’ve happened to read this whole post and your organization is not using WHfB yet, now is a great time to strengthen the security posture of your organization, and to start examining what it takes to go passwordless.</p>
+<p>If you’ve rolled out Windows Hello for Business, and want to take a look at what the next steps are to eliminating the use of passwords for those passwordless people, take a look at my post on SCRIL, <a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a>.</p>
     
   </div>
 </article>

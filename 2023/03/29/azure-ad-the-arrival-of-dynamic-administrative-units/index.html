@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">
       
       
-        <link rel="prev" href="../../../02/22/azure-ad-increasing-security-within-the-mfa-experience/">
+        <link rel="prev" href="../../../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">
       
       
-        <link rel="next" href="../../../../2023/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">
+        <link rel="next" href="../../../06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Windows Hello for Business: Hybrid Cloud Trust - Eric on Identity</title>
+        <title>Azure AD: The Arrival of Dynamic Administrative Units - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#windows-hello-for-business-hybrid-cloud-trust" class="md-skip">
+        <a href="#azure-ad-the-arrival-of-dynamic-administrative-units" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Windows Hello for Business: Hybrid Cloud Trust
+              Azure AD: The Arrival of Dynamic Administrative Units
             
           </span>
         </div>
@@ -435,46 +435,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#enter-hybrid-cloud-trust" class="md-nav__link">
+  <a href="#administrative-unite-use-cases" class="md-nav__link">
     <span class="md-ellipsis">
-      Enter Hybrid Cloud Trust
+      Administrative Unite use cases
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-should-i-convert" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why should I convert?
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Why should I convert?">
+    <nav class="md-nav" aria-label="Administrative Unite use cases">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#goodbye-pki" class="md-nav__link">
+  <a href="#regional-it-delegation" class="md-nav__link">
     <span class="md-ellipsis">
-      Goodbye PKI
+      Regional IT delegation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#no-more-enrollment-delays" class="md-nav__link">
+  <a href="#state-and-local-government-agency-delegation" class="md-nav__link">
     <span class="md-ellipsis">
-      No more enrollment delays
+      State and local government agency delegation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sets-the-stage-for-fido2-security-keys" class="md-nav__link">
+  <a href="#my-staff-management" class="md-nav__link">
     <span class="md-ellipsis">
-      Sets the stage for FIDO2 security keys
+      My Staff management
     </span>
   </a>
   
@@ -486,70 +477,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#convert-to-hybrid-cloud-trust" class="md-nav__link">
+  <a href="#exploring-administrative-unit-dynamic-membership" class="md-nav__link">
     <span class="md-ellipsis">
-      Convert to Hybrid Cloud Trust
+      Exploring Administrative Unit dynamic membership
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Convert to Hybrid Cloud Trust">
+    <nav class="md-nav" aria-label="Exploring Administrative Unit dynamic membership">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#licensing" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Licensing
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-for-conversion" class="md-nav__link">
+  <a href="#configuring-administrative-unit-dynamic-membership" class="md-nav__link">
     <span class="md-ellipsis">
-      Method for conversion
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verification-transition-and-cleanup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verification, transition, and cleanup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Verification, transition, and cleanup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verification
+      Configuring Administrative Unit dynamic membership
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#transition" class="md-nav__link">
+  <a href="#converting-an-administrative-unit-to-dynamic" class="md-nav__link">
     <span class="md-ellipsis">
-      Transition
+      Converting an Administrative Unit to dynamic
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cleanup" class="md-nav__link">
+  <a href="#exploring-with-powershell" class="md-nav__link">
     <span class="md-ellipsis">
-      Cleanup
+      Exploring with PowerShell
     </span>
   </a>
   
@@ -571,18 +538,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#do-i-still-need-line-of-sight-of-active-directory-for-enrollment" class="md-nav__link">
+  <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
-      Do I still need line-of-sight of Active Directory for enrollment?
+      Limitations
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-identity-provider-is-authoritative-for-the-client" class="md-nav__link">
+  <a href="#how-can-i-test-preview-a-dynamic-membership-rule" class="md-nav__link">
     <span class="md-ellipsis">
-      What Identity Provider is Authoritative for the client?
+      How can I test / preview a dynamic membership rule?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-combine-different-object-types-in-a-dynamic-administrative-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can I combine different object types in a dynamic Administrative Unit?
     </span>
   </a>
   
@@ -658,7 +634,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2022-03-23 00:00:00+00:00" class="md-ellipsis">March 23, 2022</time>
+                        <time datetime="2023-03-29 00:00:00+00:00" class="md-ellipsis">March 29, 2023</time>
                       </div>
                     </li>
                     
@@ -670,7 +646,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              8 min read
+                              9 min read
                             
                           </span>
                         </div>
@@ -694,81 +670,81 @@
 
 
 
-<h1 id="windows-hello-for-business-hybrid-cloud-trust">Windows Hello for Business: Hybrid Cloud Trust</h1>
-<p>When we talk about Windows Hello for Business (WHfB) rollout scenarios, the one that has consistently been the preferred path is Hybrid Key Trust. It is the lowest weight scenario for deployment requirements, and if you already had Active Directory Certificate Services (AD CS), it was only a matter of a few hours to configure your directory to be ready to start a rollout.</p>
-<p>While there are some smaller niche limitations, the most common limitation that <strong>every</strong> organization will encounter with Hybrid Key Trust, is that initial Windows of needing to wait for Azure AD Connect to synchronize the <strong>msDS-KeyCredentialLink</strong> attribute from Azure AD to the user object in Active Directory.</p>
-<p>This process is what informs Active Directory of the public side of the users WHfB key pair, and is what enables the user for certificate-based authentication, through WHfB, to AD. Historically this leaves many organizations needing to communicate to users that it will “take some time” between when they enroll and when they can first start using WHfB – not the greatest way to introduce users into a passwordless experience.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>I’ve received feedback from readers who have gone through this post, and following up with me that for their users who were already enrolled in Windows Hello for Business with Hybrid Key Trust are having issues with authentication when switching to Hybrid Cloud Trust.</p>
-<p>From my own conversations with folks at Microsoft, the path explained in this document is how an organization would go about switching existing Hybrid Key Trust users to Hybrid Cloud Trust.</p>
-</div>
-<h2 id="enter-hybrid-cloud-trust">Enter Hybrid Cloud Trust</h2>
-<p>The technology behind WHfB Hybrid Cloud Trust has existed for a while; it’s the same mechanism that has been used to support hybrid FIDO2 Security Key authentication.</p>
-<p>Microsoft already has some very good documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#use-sso-to-sign-in-to-on-premises-resources-by-using-fido2-keys">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>, that explains how the whole process works, so I won’t dive deep into paraphrasing things. But essentially we now are able to obtain a partial TGT from Azure AD, and subsequently exchange that for a full TGT in AD. Because of this key piece, we <strong>no longer</strong> need to wait for Azure AD Connect to inform AD of our users public key.</p>
-<h2 id="why-should-i-convert">Why should I convert?</h2>
-<p>If you’re asking yourself why you would want to convert from a Hybrid Key Trust to a Hybrid Cloud Trust, there are several benefits:</p>
-<h3 id="goodbye-pki">Goodbye PKI</h3>
-<p>In reality, if you have a PKI in your environment, you likely are using it for several things. However, you will no longer need to maintain certificates on your Domain Controllers to be used for certificate-based authentication. That partial TGT is all you’ll need to obtain a full Kerberos TGT from Active Directory.</p>
-<h3 id="no-more-enrollment-delays">No more enrollment delays</h3>
-<p>Not having to wait for the sync back to AD of msDS-KeyCredentialLink, users will be able to use their WHfB credentials <strong>immediately</strong> after enrollment.</p>
-<h3 id="sets-the-stage-for-fido2-security-keys">Sets the stage for FIDO2 security keys</h3>
-<p>The mechanisms to configure Hybrid Cloud Trust is the same leveraged for FIDO2 Security Key authentication in a hybrid scenario. This puts your environment in a great position to start exploring FIDO2 if you have not already.</p>
-<h2 id="convert-to-hybrid-cloud-trust">Convert to Hybrid Cloud Trust</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<p>You’ll need to first configure your tenant to support the ability for Azure AD to issue a Kerberos TGT for your Active Directory domain. I won’t run through the process here, but it’s straightforward, and the instructions can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#install-the-azure-ad-kerberos-powershell-module">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>.</p>
-<h3 id="method-for-conversion">Method for conversion</h3>
-<p>Microsoft has documented both the mechanisms for enabling Hybrid Cloud Trust through both Intune and Group Policy; here we will be examining the GPO route. The Microsoft documentation regarding the enablement of <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-trust#configure-windows-hello-for-business-policy">Hybrid Cloud Trust can be found here, Hybrid Cloud Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a>.</p>
-<p>Let’s take a look at our existing GPO settings, which can be found under <strong>Computer Configuration, Windows Components, Windows Hello for Business</strong>:</p>
-<p><img alt="Figure 1" src="/images/2022/03/23/img1.png" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>While we can enable WHfB either as a Computer or User Configuration, the ability to modify the trust model only exists under the Computer Group Policy.</p>
-</div>
-<p>The setting we want to toggle is <strong>Use cloud trust for on-premises authentication</strong>:</p>
-<p><img alt="Figure 2" src="/images/2022/03/23/img2.png" /></p>
-<p>We just need to select OK to save our policy change, and let (or force) our clients pick up the changed GPO.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If you do not find the option for Use cloud trust for on-premises authentication within your GPO, you likely need to update your ADMX templates to a newer version.</p>
-</div>
-<p>And <strong>that's it</strong>. The devices scoped to this group policy will be configured for Hybrid Cloud Trust.</p>
-<h2 id="verification-transition-and-cleanup">Verification, transition, and cleanup</h2>
-<h3 id="verification">Verification</h3>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Please note that the process explained below for verification is not a required process. This verification piece is provided to explain the steps that would invalidate any local certificates in Active Directory, to ultimately prove that Hybrid Cloud Trust is working. For migration purposes, you only need to perform the group policy change indicated above.</p>
-</div>
-<p>So we have our GPO updated and refreshed on our client. How can we tell that the device is in fact using Hybrid Cloud Trust and not Hybrid Key Trust?</p>
-<p>After the configuration change, we can look at some Event Viewer logs. If we expand Applications and Services Logs, Microsoft, Windows, Hello for Business, Operational, we can see the following Event that shows the device configured and having obtained a Cloud TGT:</p>
-<p><img alt="Figure 3" src="/images/2022/03/23/img3.png" /></p>
-<p>We can further test things by deleting the msDS-KeyCredentialLink contents on the user object within Active Directory.</p>
-<p>If we look at Lee Gu, we can see there is a public key on his account in AD:</p>
-<p><img alt="Figure 4" src="/images/2022/03/23/img4.png" /></p>
-<p>We can easily clear this, and then verify the attribute is empty:</p>
-<p><img alt="Figure 5" src="/images/2022/03/23/img5.png" /></p>
-<p>After another sign-on with WHfB, we can go look at our Security logs in Active Directory, and find a successful 4624:</p>
-<p><img alt="Figure 6" src="/images/2022/03/23/img6.png" /></p>
-<h3 id="transition">Transition</h3>
-<p>Even though the transition has no visible impact on our end users, many organizations may still want to take a staged approach to transition to a Hybrid Cloud Trust. To that point, because we are altering the mechanism for authentication on a per-device level, there is <strong>nothing</strong> stopping an organization from moving to a Hybrid Cloud Trust in a staged approach.</p>
-<p>Long-term, from a troubleshooting perspective, it would behoove most organizations to not draw out the transition. Conversely, if an organization has edge use cases that are only supported by a Hybrid Key Trust, those users and their devices should still be able to continue to use Hybrid Key Trust while the rest of the organization operates with Hybrid Cloud Trust.</p>
-<h3 id="cleanup">Cleanup</h3>
-<p>While in the demonstration above, we see that authentication happens without the need for the msDS-KeyCredentialLink to be populated in Active Directory, the behavior of Azure AD Connect is to still synchronize that value back ton AD, even for a Hybrid Cloud Trust. Remember – we are still performing asymmetric key-based authentication to Azure AD, so there is still a keypair that exists. The behavior change is on the client; the public key in the way it is written to Azure AD appears to have no mechanism to differentiate the type of authentication the client intends with it. Due to this, downstream, Azure AD Connect is still going to synchronize back to Active Directory the public key. I would be curious if Microsoft has intentions to modify this behavior down the road, but for the meantime, we can just ignore those attributes in AD.</p>
-<p>At this point, we can also evaluate whether to roll back the certificate policies issuing certs to our DC’s for certificate-based authentication. If configured properly, this process should be no-maintenance, so it’s not a critical item, but likely should be removed to clear up any confusion down the road. Would also caution though to ensure that you do not negatively impact anything else that might be leveraging AD for certificate-based auth before backing that out of Active Directory.</p>
+<h1 id="azure-ad-the-arrival-of-dynamic-administrative-units">Azure AD: The Arrival of Dynamic Administrative Units</h1>
+<p>Administrative units. The Azure AD sort-of equivalent of organizational units (OU’s). For those less familiar, administrative units (AU’s) allow for granular assignment of RBAC roles in Azure AD.</p>
+<p>Organizations initially struggled with the limited ability to delegate granular RBAC roles in Azure AD, with the directories flat structure; especially for all of us coming from an Active Directory background. When administrative units were introduced, they started to open up the door for organizations that needed to delegate access to a subset of users in an Azure AD tenant.</p>
+<p>The one catch with AU’s that <strong>was</strong> a non-starter for many organizations – they weren’t dynamic. And while OU’s are not dynamic in Active Directory, it’s a different take when the tenant is usually secondary to AD being authoritative. Move a user in AD, one would hope that the location in Azure AD would follow. While there are some PowerShell scripts out there that feel very akin to those used for AD shadow groups, overall maintenance of AU’s could prove cumbersome in dynamic organizations.</p>
+<p>The struggle, however, is no more – administrative units now support <strong>dynamic</strong> user and device membership!</p>
+<h2 id="administrative-unite-use-cases">Administrative Unite use cases</h2>
+<p>Before exploring dynamic membership, I just wanted to touch on some of the use cases that have already existed, and many that can greatly improve with dynamic membership. This is just a mere tip of the iceberg for use cases – if you see ones that I’ve missed let me know, and I’ll gladly add it.</p>
+<p>While they feel similar to OU’s, the fact that AU’s are virtual units of structure, they provide much greater flexibility than OU’s. A user can belong to several AUs, and you don’t have to worry about users being linked as child objects that are deleted if an AU is removed – everyone remembers that time that their AD backups were tested with an accidental OU deletion.</p>
+<h3 id="regional-it-delegation">Regional IT delegation</h3>
+<p>Many global organizations that operate out of a single Azure AD tenant still have localized and regional support desks. With AU’s, you can create multiple layers of support structure to provide for things like password reset and user object management, without needing to deal with the complications of trying to fit complex delegations of ACL’s onto objects the same way we would have to with Active Directory.</p>
+<h3 id="state-and-local-government-agency-delegation">State and local government agency delegation</h3>
+<p>Many organizations in the public sector operate out of the same Azure AD tenant to support a single O365 environment. However, many agencies still want to retain levels of autonomy over managing their user objects. Administrative units can provide for that granular level of RBAC control.</p>
+<h3 id="my-staff-management">My Staff management</h3>
+<p>My Staff came out to primarily help assist with managers performing basic tasks for front line workers. The goal is to bring the power to non-IT employees the ability to do things like reset passwords or manage phone numbers for MFA. My Staff is driven by administrative units, with AU’s that are built to replicate an organizational staffing structure. For more information on My Staff, take a look at the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/my-staff-configure">Use My Staff to delegate user management – Azure AD | Microsoft Docs</a>.</p>
+<p>It takes a bit of work in Azure AD Connect, because the manager attribute is a reference attribute in Active Directory, to synchronize the manager UPN as a custom attribute (even though manager is synchronized by Azure AD Connect, it is not exposed as a dynamic attribute option). But one could configure a system where managers have control over their employees objects, and with dynamic membership, their manager changes in AD can easily follow them in My Staff.</p>
+<h2 id="exploring-administrative-unit-dynamic-membership">Exploring Administrative Unit dynamic membership</h2>
+<p>If you’ve used dynamic membership for groups, the logic and expressions for dynamic administrative units is the same. I won’t deep dive into all the rules available, but the options for evaluation are both flexible and immensely powerful. For more details on the rules, take a look at this Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-dynamic-membership">Rules for dynamically populated groups membership – Azure AD | Microsoft Docs</a>.</p>
+<h3 id="licensing">Licensing</h3>
+<p>As with dynamic group membership, current documentation indicates that any user who is a member of an AU that is dynamically populates requires an Azure AD P1 or P2 license assigned to them. This contrasts static membership, where only those managing the AU’s require a P1 or P2 license; users can be members of the AU’s with an Azure AD free license. Dynamic device membership does not require any special license for AU’s. For more information, see the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic#prerequisites">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
+<h3 id="configuring-administrative-unit-dynamic-membership">Configuring Administrative Unit dynamic membership</h3>
+<p>While the expression set is the same as dynamic groups, currently you have to adjust the administrative unit to be dynamic post-creation. Also, as we go through this, I’ll be referencing the current Microsoft documentation on dynamic membership for administrative units, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
+<p>First we create a new administrative unit:</p>
+<p><img alt="Figure 1" src="/images/2023/03/29/img1.png" /></p>
+<p>And after creation of the AU, we can go look at the Properties for it. Within here we will find <strong>Membership type</strong>, which we can drop down and select <strong>Dynamic User</strong>:</p>
+<p><img alt="Figure 2" src="/images/2023/03/29/img2.png" /></p>
+<p>After setting the <strong>Membership type</strong> to <strong>Dynamic User</strong>, we will need to <strong>Add dynamic query</strong> before we can save the changes. The dynamic query is the secret sauce to what makes the dynamic AU, dynamic. Note that until we set this query, we cannot save these changes; the save is grayed out.</p>
+<p><img alt="Figure 3" src="/images/2023/03/29/img3.png" /></p>
+<p>In our example here, we are going to use a rule for physicalDeliveryOfficeName equals Schenectady:</p>
+<p><img alt="Figure 4" src="/images/2023/03/29/img4.png" /></p>
+<p>We save the rule, and now the Save button will be available on the administrative unit properties. Before saving, we will be presented with a warning:</p>
+<p><em>After changing the administrative unit type, the existing membership may change based on the dynamic membership rules you provide. Click Yes to continue.</em></p>
+<p><img alt="Figure 5" src="/images/2023/03/29/img5.png" /></p>
+<p>The warning here will show up, regardless of whether it’s a new, unpopulated AU, or if it’s an existing AU with thousands of users within it.</p>
+<p>After a few minutes of churning, the AU will be populated:</p>
+<p><img alt="Figure 6" src="/images/2023/03/29/img6.png" /></p>
+<h3 id="converting-an-administrative-unit-to-dynamic">Converting an Administrative Unit to dynamic</h3>
+<p>During testing of conversion of an assigned AU to dynamic, I was curious to see how it operated. Does it wipe out all membership and start from scratch, or does Azure AD evaluate the users within the AU to determine who still belongs? Luckily, it appears to be the latter.</p>
+<p>Checking my Azure AD Audit logs, we can see users who no longer belong in a specific administrative unit being removed:</p>
+<p><img alt="Figure 7" src="/images/2023/03/29/img7.png" /></p>
+<p>Note that if you are going the other direction, from dynamic membership to assigned, Azure AD will indicate that the existing users in the AU will be retained, but will not be dynamically processed anymore.</p>
+<h3 id="exploring-with-powershell">Exploring with PowerShell</h3>
+<p>As with most things Azure AD, anything that can be done in the portal can be done with PowerShell (which really is just indirect Graph) and Graph.</p>
+<p>I’ve been making a concerted effort to use the Microsoft Graph PowerShell SDK, <a href="https://docs.microsoft.com/en-us/graph/powershell/installation">Install the Microsoft Graph PowerShell SDK – Microsoft Graph | Microsoft Docs</a>, over the Azure Active Directory PowerShell for Graph modules. Why? The PowerShell SDK supports PowerShell 7, is cross-platform, and provides access to all of Graph, not just Azure AD.</p>
+<p>That being said, I’ve found the PowerShell SDK modules for dynamic administrative units to be, well, rather lacking. While there are indirect parameters to provide dynamic information, I haven’t spent the cycles yet figuring things out. The docs/get-help provide almost no information on commands like <strong>New-MGAdministrativeUnit</strong></p>
+<p><img alt="Figure 8" src="/images/2023/03/29/img8.png" /></p>
+<p><em>The (lacking) documentation</em></p>
+<p>As such, for the purpose of getting this post published, I’ll be using the Azure AD PowerShell modules.</p>
+<p>First, let’s take a look at the administrative unit named ATZ:</p>
+<div class="highlight"><pre><span></span><code>Get-AzureADMSAdministrativeUnit -Filter &quot;DisplayName eq &#39;ATZ&#39;&quot; | fl
+</code></pre></div>
+<p><img alt="Figure 9" src="/images/2023/03/29/img9.png" /></p>
+<p>We can see that the membership type is dynamic, and also see the membership rule. In this case, we are using the in rule to allow for matching the country attribute against a defined list.</p>
+<p>And if we then enumerate the membership of the AU, we can see that the logic works:</p>
+<div class="highlight"><pre><span></span><code>Get-AzureADAdministrativeUnitMember -ObjectId a5175ada-f6f1-4c72-a986-65c65f662bde `
+| Get-AzureADUser | ft ObjectId,UserPrincipalName,Country
+</code></pre></div>
+<p><img alt="Figure 10" src="/images/2023/03/29/img10.png" /></p>
+<p>We can also create an administrative unit rather easily with PowerShell, which has an advantage, at least currently over the portal, in that we can define the dynamic rules upon creation.</p>
+<div class="highlight"><pre><span></span><code>New-AzureADMSAdministrativeUnit -DisplayName &quot;US&quot; -Description &quot;US Employees&quot; `
+-MembershipType &quot;Dynamic&quot; -MembershipRuleProcessingState &quot;On&quot; -MembershipRule `
+&#39;(user.country -eq &quot;United States&quot;)&#39;
+</code></pre></div>
+<p><img alt="Figure 11" src="/images/2023/03/29/img11.png" /></p>
 <h2 id="faq">FAQ</h2>
-<h3 id="do-i-still-need-line-of-sight-of-active-directory-for-enrollment">Do I still need line-of-sight of Active Directory for enrollment?</h3>
-<p>Yes. For the underlying mechanisms that configure Windows for a cached sign-on experience, line-of-sight is required for Active Directory during the first use of the WHfB credentials that were configured.</p>
-<h3 id="what-identity-provider-is-authoritative-for-the-client">What Identity Provider is Authoritative for the client?</h3>
-<p>One of the topics that almost always comes up when talking about a Hybrid device, is what Identity Provider (IdP) is authoritative for user authentication – Azure AD or Active Directory. This question arises because there is this <strong>duality</strong> of identity on the device; our user object is tied to two different identity providers. However, one of the identity providers is still considered the <strong>authoritative</strong> identity provider. The authoritative identity provider is the one that would handle things like providing account lockout for a disabled user account.</p>
-<p>For Hybrid Key Trust, Active Directory was authoritative, and Azure AD was secondary – you would receive/refresh your PRT after successful authentication to AD.</p>
-<p><img alt="Figure 7" src="/images/2022/03/23/img7.png" /></p>
-<p>With Hybrid Cloud Trust, the model is now flipped, and Azure AD is authoritative, with AD as secondary.</p>
-<p><img alt="Figure 8" src="/images/2022/03/23/img8.png" /></p>
-<p>We can observe this behavior in the security events on the device. When you first sign in to the device, you will receive a 4624 user logon event with a logon type of 11, which is cached interactive. This is observed even with line-of-sight of Active Directory. Very soon after, if you have line-of-sight of Active Directory, you will see another 4624 user logon event with a type of 7, which normally indicates workstation unlock.</p>
-<p>Now, during testing, you will notice that even if the user account is disabled in Azure AD and Active Directory, even with line-of-sight of both AAD and AD, local logon will still occur. However, when the user attempts to access cloud-based resources, they will receive an error in thick-client applications like Teams indicating they need to sign in (which will fail), and through the web, they will be informed their account is locked out. For AD resources, access will also be denied, and in the security event log, we will find a failed sign-on event, with a failure indicating the account is currently disabled.</p>
+<h3 id="limitations">Limitations</h3>
+<p>Microsoft does not publish a size limitation for administrative units, but the standard limitations for administrative units still exist with resources being members of no more than 30 administrative units, and an organization can have a maximum of 5,000 dynamic groups and dynamic administrative units combined. The latter bit is an interesting item to note, as it would seem the evaluation engine is then shared in a tenant between dynamic groups and administrative units (which makes sense really).</p>
+<p>I would also then speculate, while I cannot find it published yet, that administrative units may fall into the same rule evaluation service level, which is up to 24 hours, per this document, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-troubleshooting#troubleshooting-dynamic-memberships-for-groups">Fix problems with dynamic group memberships – Azure AD | Microsoft Docs</a>.</p>
+<h3 id="how-can-i-test-preview-a-dynamic-membership-rule">How can I test / preview a dynamic membership rule?</h3>
+<p>Currently, the dynamic membership rule settings in an administrative unit does not have a rule validation option available. However, we can simply create a test dynamic group in Azure AD for evaluating the rule, and can also use the Validate Rules option to get a more instant verification of whether our rule works.</p>
+<p><img alt="Figure 12" src="/images/2023/03/29/img12.png" /></p>
+<p><em>An example of rule validation in dynamic groups</em></p>
+<h3 id="can-i-combine-different-object-types-in-a-dynamic-administrative-unit">Can I combine different object types in a dynamic Administrative Unit?</h3>
+<p>Unfortunately this is one trade-off between statically assigned groups and dynamic ones. Whereas in static groups we can assign users, groups and devices to the same AU, for dynamic membership you are limited to the type of dynamic object assignment you are looking to use – either user or device. Also, groups are not an option for dynamic administrative unit rules, and can belong to neither dynamic user or dynamic device AU’s.</p>
 <h2 id="final-notes">Final notes</h2>
-<p>If you’ve happened to read this whole post and your organization is not using WHfB yet, now is a great time to strengthen the security posture of your organization, and to start examining what it takes to go passwordless.</p>
-<p>If you’ve rolled out Windows Hello for Business, and want to take a look at what the next steps are to eliminating the use of passwords for those passwordless people, take a look at my post on SCRIL, <a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a>.</p>
+<p>Dynamic groups are already such a powerful option for organizations, it’s great to see that same logic added into administrative units, an area where it fits so well. If I had the time I would reach out to all those customers who had the “this is great, but it’s too inflexible” mindset upon seeing administrative units. I’m curious to see what new doors this opens for organizations; if you have some interesting use cases, give me a shout.</p>
 
 
 

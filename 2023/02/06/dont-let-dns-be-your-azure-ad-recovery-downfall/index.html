@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
       
       
-        <link rel="prev" href="../../06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
+        <link rel="prev" href="../../../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">
       
       
-        <link rel="next" href="../../../06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+        <link rel="next" href="../../13/the-importance-of-identity-in-microsoft-certifications/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>The Importance Of Identity In Microsoft Certifications - Eric on Identity</title>
+        <title>Don't Let DNS Be Your Azure AD Recovery Downfall - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-importance-of-identity-in-microsoft-certifications" class="md-skip">
+        <a href="#dont-let-dns-be-your-azure-ad-recovery-downfall" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The Importance Of Identity In Microsoft Certifications
+              Don't Let DNS Be Your Azure AD Recovery Downfall
             
           </span>
         </div>
@@ -435,9 +435,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#analysis-details" class="md-nav__link">
+  <a href="#so-whats-the-resilient-path" class="md-nav__link">
     <span class="md-ellipsis">
-      Analysis details
+      So what's the resilient path?
     </span>
   </a>
   
@@ -499,7 +499,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-02-13 00:00:00+00:00" class="md-ellipsis">February 13, 2023</time>
+                        <time datetime="2023-02-06 00:00:00+00:00" class="md-ellipsis">February 6, 2023</time>
                       </div>
                     </li>
                     
@@ -535,46 +535,26 @@
 
 
 
-<h1 id="the-importance-of-identity-in-microsoft-certifications">The Importance Of Identity In Microsoft Certifications</h1>
-<p>As I’ve taken Microsoft certification exams, or the exam renewals, I’ve noticed that Azure AD and identity topics are a theme throughout. Now, focusing on the security space, it may seem like somewhat of a given.</p>
-<p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
-<p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
-<p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
-<p>With this data, I came up with the following infographic:</p>
-<p><img alt="Figure 1" src="/images/2023/02/13/img1.png" /></p>
-<p>The graphic above can be saved, and you can also download it as a PDF:</p>
-<p><a href="/images/2023/02/13/the-Importance-of-Identity-in-Microsoft-Certifications.pdf">the-Importance-of-Identity-in-Microsoft-Certifications</a></p>
-<h2 id="analysis-details">Analysis details</h2>
-<p>As mentioned, I looked at the content of <strong>every single</strong> current Microsoft examination study guides. The exception are the Microsoft Office exams, the Dynamics exams, and the outliers, like the Technology Literacy for Educators exam.</p>
-<p>The exam study guides contain a section <strong>Skills measured</strong>, and it breaks down the skills by a general category.</p>
-<p>For example, this is the skills measure section for AZ-500, Microsoft Azure Security Technologies:</p>
+<h1 id="dont-let-dns-be-your-azure-ad-recovery-downfall">Don't Let DNS Be Your Azure AD Recovery Downfall</h1>
+<p>In September of 2022, Joey Verlinden (<a href="https://twitter.com/jvldn1">@jvldn1</a>) published an excellent article on his experience with recovering access to an Azure AD tenant that he was completely locked out of. You can, and should, read the full article here, <a href="https://www.joeyverlinden.com/what-happens-if-you-lock-out-your-azure-tenant/">What happens if you lock-out your Azure Tenant? – Joey Verlinden</a>.</p>
+<p>In this, Joey details the process for recovering access to an Azure AD tenant, which includes a detailed verification process, which is rightfully put in place to ensure that someone isn’t capable of a tenant takeover through social engineer. As part of the process, the request is verified by means of either:</p>
 <ul>
-<li>Manage identity and access (25-30%)</li>
-<li>Secure networking (25-30%)</li>
-<li>Secure compute, storage, and databases (20-25%)</li>
-<li>Manage security operations (25-30%)</li>
+<li>Calling the phone number associated with a Tenant</li>
+<li>Emailing a Global Administrator</li>
+<li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
 </ul>
-<p>I would look at this and, in this instance, indicate that the AZ-500 has an identity component of 30%, as you can see within the infographic.</p>
-<p>For exams that are more unassuming, such as the MS-700, Managing Microsoft Teams, I would dive deeper into the skills that compose the category.</p>
-<p>If we look at this exam, we would see the following categories:</p>
-<ul>
-<li>Plan and manage a Microsoft Teams environment (40-45%)</li>
-<li>Manage chat, teams, channels, and apps (25-30%)</li>
-<li>Manage calling and meetings (15-20%)</li>
-<li>Monitor, report, and troubleshoot a Microsoft Teams environment (10-15%)</li>
-</ul>
-<p>Identity doesn’t seem to be present on this exam from the categories. But if we look at the subcategories of skills for <strong>Plan and Manage a Microsoft Teams environment</strong>:</p>
-<ul>
-<li>Plan and configure network settings for Microsoft Teams</li>
-<li>Identify licensing requirements for Microsoft Teams</li>
-<li>Manage security and compliance settings for Microsoft Teams</li>
-<li><strong>Plan and implement governance and lifecycle management</strong></li>
-<li><strong>Configure and manage external collaboration</strong></li>
-<li>Deploy and manage Microsoft Teams endpoints</li>
-</ul>
-<p>There are two, as highlighted, that have multiple Azure AD/Entra components to them, such as external collaboration settings, and using access reviews.</p>
-<p>In a case like this, since there are six subcategories, the best effort is estimating each has the same weight, so each having a weight of 7.5% in this example. However, because Azure AD does not fully compose each of these categories, I gave a weight based on the relative percentage. In this example, each of those had a rough weight of 5% of the 7.5% potential total, which is how I gave MS-700 a 10% total weight.</p>
-<p>Note that the math, especially on some of the exams with a lower portion of identity, will have a bit of fuzz to it. Microsoft indicates a 5% variation (range) that any skill category may make up an Individual exam. As such, you may see a few more, or less, identity-related questions on any given exam.</p>
+<p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
+<p>But say my tenant has come under some sort of cyberattack. Or more mundane You can’t guarantee that a phone call or email will still go to where you expect. And while these changes should be audited, when you’re in a state of needing to authenticate yourself from a support perspective, it’s likely you’ll still have to try and complete one of these steps, if you don’t want further delay.</p>
+<p>This leaves us with DNS. But what if that DNS is hosted in a subscription associated with the same Azure AD tenant? Things could potentially not turn out so well.</p>
+<p>Even if you have DNS management delegated out to accounts that are not a GA (which in a large-scale enterprise, GA should not own resources in subscriptions)… can you guarantee that their access would not be tampered with if a threat actor is involved?</p>
+<p>From a resilience perspective, it seems like it’s one of the times to not host DNS in Azure, or at least not in a subscription that is tied to the same tenant that uses those domains for services.</p>
+<p>You may already have a DNS architecture with secondary zones hosted outside of Azure, but those read-only copies won’t save you when you need to edit a zone.</p>
+<p>And if you host DNS with something like Amazon Route 53… do you federate authentication for your account owners and resources back to Azure AD? If your Azure tenant is breached, it’s certain a threat actor will try to follow your multi-cloud sprawl.</p>
+<h2 id="so-whats-the-resilient-path">So what's the resilient path?</h2>
+<p>Your mind may go to contacting your domain name registrar, and updating your NS records. But, you now are adding another external dependency.</p>
+<p>This past summer I was trying to update NS records for a domain with Directnic, and ticket response time was 12-24 hours, let alone actually having the records updated. Why did I open a ticket? Updates in the portal were not reflecting days after the change.</p>
+<p>While it may seem suboptimal, the most resilient path would be hosting DNS either in another small subscription and tenant that has no association to your primary production tenant, or using another large-scale cloud provider for DNS, but not associating authentication back to Azure AD.</p>
+<p>Considering the reality that most organizations struggle to keep as many nines as cloud providers (even with their occasional outages), this wouldn’t be time for a knee-jerk reaction to bring DNS back to an on-premise data center, unless your organization is still robust enough to handle those high SLA’s.</p>
 
 
 

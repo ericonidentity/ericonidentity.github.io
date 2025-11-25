@@ -463,6 +463,150 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-06-16 00:00:00+00:00">June 16, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-which-sso-is-the-right-sso"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">Azure AD: Which SSO Is The Right SSO?</a></h2>
+<p>It’s great having choices, except when you are not sure which choice to make.</p>
+<p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
+<p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
+<p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
+<h3 id="sso-mechanics"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-mechanics">SSO mechanics</a></h3>
+<p>Before getting into the compare and contrast, it’s important to understand the fundamental reason as to why SSO works differently depending on the method implemented.</p>
+<h4 id="azure-ad-hybrid-join"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-hybrid-join">Azure AD Hybrid Join</a></h4>
+<p>When you think of Azure AD Hybrid Join (HAADJ), it helps to think of the Windows device having a duality of identity for the signed-in user.</p>
+<p><img alt="Figure 1" src="/images/2022/06/16/img1.png" /></p>
+<p>When a user signs-in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
+<p>And this PRT piece is key – while the technology behind it is quite different, it’s logically the Azure AD version of the TGT, which allows your device to speak modern authentication natively with Azure AD.</p>
+<p>For an extremely in-depth look at all the mechanics at play for authentication on a hybrid joined device, and how obtaining a PRT flows, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#detailed-flows">Primary Refresh Token (PRT) and Azure AD – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
+<h4 id="azure-ad-seamless-sso"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-seamless-sso">Azure AD Seamless SSO</a></h4>
+<p>Unlike Hybrid Join, Azure AD Seamless SSO flips things around, and essentially provides the ability for Azure AD to participate in Active Directory, not from an authentication provider perspective, but as a member computer object.</p>
+<p><img alt="Figure 2" src="/images/2022/06/16/img2.png" /></p>
+<p><em>Courtesy Microsoft Learn</em></p>
+<p>From the diagram, we see that Azure AD has a computer account representation in Active Directory, with the computer object <strong>AZUREADSSO</strong> being the representation in AD. Azure AD holds the Kerberos decryption key for this computer object, which is what allows Azure AD to handle the TGT being passed to it.</p>
+<p>The most critical piece within this model for SSO, is that line-of-sight of Active Directory is <strong>required</strong> for SSO to function.</p>
+<h3 id="sso-breakdown"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-breakdown">SSO Breakdown</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Azure AD Hybrid Join</th>
+<th>Azure AD Seamless SSO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configured with Azure AD Connect</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Requires AD line-of-sight for configuration</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No group policy needed for core config</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>No computer object sync to Azure AD</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No browser plugin needed for Edge</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No browser plugin needed for Chrome</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No browser plugin needed for Firefox</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Deployment is non-disruptive to users</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Supports Windows 8.1</td>
+<td>⚠️</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Supports Windows 10</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Supports Windows 11</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Uses Active Directory for Authentication</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Uses Azure AD for Authentication</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Works without AD line-of-sight</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>No Kerberos decryption key to rollover</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Is completely Seamless SSO</td>
+<td>✅</td>
+<td>⚠️</td>
+</tr>
+</tbody>
+</table>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-05-04 00:00:00+00:00">May 4, 2022</time></li>
         
         

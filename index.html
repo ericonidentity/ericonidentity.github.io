@@ -1755,6 +1755,150 @@ distinct ServicePrincipalId
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-06-16 00:00:00+00:00">June 16, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-which-sso-is-the-right-sso"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/">Azure AD: Which SSO Is The Right SSO?</a></h2>
+<p>It’s great having choices, except when you are not sure which choice to make.</p>
+<p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
+<p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
+<p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
+<h3 id="sso-mechanics"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-mechanics">SSO mechanics</a></h3>
+<p>Before getting into the compare and contrast, it’s important to understand the fundamental reason as to why SSO works differently depending on the method implemented.</p>
+<h4 id="azure-ad-hybrid-join"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-hybrid-join">Azure AD Hybrid Join</a></h4>
+<p>When you think of Azure AD Hybrid Join (HAADJ), it helps to think of the Windows device having a duality of identity for the signed-in user.</p>
+<p><img alt="Figure 1" src="/images/2022/06/16/img1.png" /></p>
+<p>When a user signs-in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
+<p>And this PRT piece is key – while the technology behind it is quite different, it’s logically the Azure AD version of the TGT, which allows your device to speak modern authentication natively with Azure AD.</p>
+<p>For an extremely in-depth look at all the mechanics at play for authentication on a hybrid joined device, and how obtaining a PRT flows, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#detailed-flows">Primary Refresh Token (PRT) and Azure AD – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
+<h4 id="azure-ad-seamless-sso"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-seamless-sso">Azure AD Seamless SSO</a></h4>
+<p>Unlike Hybrid Join, Azure AD Seamless SSO flips things around, and essentially provides the ability for Azure AD to participate in Active Directory, not from an authentication provider perspective, but as a member computer object.</p>
+<p><img alt="Figure 2" src="/images/2022/06/16/img2.png" /></p>
+<p><em>Courtesy Microsoft Learn</em></p>
+<p>From the diagram, we see that Azure AD has a computer account representation in Active Directory, with the computer object <strong>AZUREADSSO</strong> being the representation in AD. Azure AD holds the Kerberos decryption key for this computer object, which is what allows Azure AD to handle the TGT being passed to it.</p>
+<p>The most critical piece within this model for SSO, is that line-of-sight of Active Directory is <strong>required</strong> for SSO to function.</p>
+<h3 id="sso-breakdown"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-breakdown">SSO Breakdown</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Azure AD Hybrid Join</th>
+<th>Azure AD Seamless SSO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configured with Azure AD Connect</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Requires AD line-of-sight for configuration</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No group policy needed for core config</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>No computer object sync to Azure AD</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No browser plugin needed for Edge</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No browser plugin needed for Chrome</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No browser plugin needed for Firefox</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Deployment is non-disruptive to users</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Supports Windows 8.1</td>
+<td>⚠️</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Supports Windows 10</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Supports Windows 11</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Uses Active Directory for Authentication</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Uses Azure AD for Authentication</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Works without AD line-of-sight</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>No Kerberos decryption key to rollover</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Is completely Seamless SSO</td>
+<td>✅</td>
+<td>⚠️</td>
+</tr>
+</tbody>
+</table>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-05-04 00:00:00+00:00">May 4, 2022</time></li>
         
         
@@ -1937,82 +2081,6 @@ distinct ServicePrincipalId
 <p>If you have business scenarios that call for the desire to prompt more frequently for MFA, Conditional access offers Sign-in frequency session controls as well as Persistent browser session controls, which can be targeted to non-corporate managed devices. Authentication context also allows for scenarios where we want to call for strong authentication scenarios when users are accessing sensitive information. These settings offer a higher level of precision to target certain scenarios while not negatively impacting the broader user experience.</p>
 <h3 id="final-notes"><a class="toclink" href="2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#final-notes">Final notes</a></h3>
 <p>This setting really has been a carry-over from when we didn’t have the power available from Conditional Access, and unfortunately, it’s well hidden in that dusty MFA settings portal almost nobody ever treks into. Lucky for us, it’s a quick win in the name of security to disable.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-04-21 00:00:00+00:00">April 21, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              6 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-cross-tenant-access-settings-clarity"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">Azure AD: Cross-tenant Access Settings Clarity</a></h2>
-<p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
-<p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
-<p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
-<h3 id="terminology"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#terminology">Terminology</a></h3>
-<p><strong>Guest</strong> – For clarity, when speaking about guest users for the context of this post, we are talking about users invited into your Azure AD tenant.</p>
-<p><strong>Resource Azure AD Tenant [Resource Tenant]</strong> – If you are inviting guests <strong>into</strong> your Azure AD tenant, <strong>your</strong> tenant is the resource tenant. It represents your organization. If you are a <strong>guest</strong>, then the resource tenant is the tenant you have been invited into.</p>
-<p><strong>Home Azure AD Tenant [Home Tenant]</strong> – This is the tenant where the user objects live. If your user object exists in your organizations Azure AD tenant, your tenant is <strong>both</strong> the home tenant and resource tenant – your users and applications all “live” in the same place. Guests into your tenant will have a <strong>different</strong> home tenant.</p>
-<h3 id="what-it-is-not"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is-not">What it is not</a></h3>
-<p>Before getting into what we can do with cross-tenant access settings, let’s cover what this is not (at least at the time of this writing).</p>
-<h4 id="parity-to-an-active-directory-trust"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#parity-to-an-active-directory-trust">Parity to an Active Directory trust</a></h4>
-<p>Cross-tenant access settings may invoke a feeling of configuring a trust in Active Directory, which many Microsoft identity practitioners may be familiar with.</p>
-<p>It is closer to the <strong>opposite</strong> of a trust, in the sense that by default Active Directory has no implicit trusts, and you must explicitly configure trusts. Azure AD historically is opposite, any organization, unless settings are adjusted, can invite users from any Azure AD tenant into the organization. These settings allow us to be more granular in how we <strong>restrict</strong> guest access inbound and outbound to our Azure AD tenant.</p>
-<p>Further, when we examine B2B Direct Connect, we realize that the only use case, currently, is Teams shared channels.</p>
-<p>When we think of an Active Directory trust, we think of the fact that user objects only exist in the source user forest. With cross-tenant access settings, and the limitations with B2B Direct Connect, we still must invite user objects into our resource tenant – all the other “things” tied to our Azure AD tenant need the objectID within our resource tenant to reference.</p>
-<h3 id="what-it-is"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is">What it is</a></h3>
-<h4 id="a-mechanism-to-provide-granular-b2b-guest-control"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-mechanism-to-provide-granular-b2b-guest-control">A mechanism to provide granular B2B guest control</a></h4>
-<p>When speaking about B2B guests and external identities, many organizations tend to focus on the aspect of guests being invited <strong>into</strong> their tenant. There is the other side to that B2B coin, which is restricting what organizations you may want your users to have access to.</p>
-<p>Certain organizations, especially those in the regulated industries, have concern over which external tenants their users can connect to. Up until now, organizations would need to apply tenant restrictions, <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/tenant-restrictions">Use tenant restrictions to manage access to SaaS apps – Azure AD | Microsoft Docs</a>, which has a higher level of complexity to it – the implementation requires a proxy to perform traffic inspection and HTTP header insertion.</p>
-<p>Now, organizations that have strict requirements regarding outbound guest access can, by default, restrict outbound access, and then create a more granular allow list.</p>
-<p>We also now can be granular down to user/group level of who can access certain organizations. Say you want to only allow employees from payroll to be able to access the tenant the vendor uses and restrict outbound access to everyone else – now you can do that.</p>
-<p>Likewise, there is granularity on the inbound side. Say you are that vendor that processes an organizations payroll and want to ensure that only the known users for the company you serve can come into your organization. You can restrict inbound as well, limiting what guests are allowed in.</p>
-<h4 id="a-way-to-trust-external-mfa-and-device-compliance"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-way-to-trust-external-mfa-and-device-compliance">A way to trust external MFA and Device Compliance</a></h4>
-<p>Many organizations that are familiar with conditional access and guest policies have encountered the need to enroll in Azure AD MFA twice or more – once for their home tenant and once in every other resource tenant they access. This experience, from a user perspective, is less than ideal.</p>
-<p>With cross-tenant access settings, we can now choose to trust MFA from the guest users home tenant. We also can be granular – if we want to trust MFA from certain tenants, but require MFA enrollment from others, we can do that.</p>
-<p>More interestingly, we can now trust device compliance and hybrid join status, from the guest home tenant. While I still have certain reservations about the quality of relying on hybrid join alone, focusing on device compliance, it really opens a lot of cross-tenant collaboration, and brings an innovative approach to leveraging Zero Trust modeling when working with guests. While this still has the requirement that the guest home tenant must be leveraging Intune or a 3rd party MDM that can report in device compliance, it makes this a possibility.</p>
-<p>In my own testing, I was able to leverage device compliance in conditional access for a device in a guest tenant, and it worked with ease.</p>
-<h3 id="a-few-lingering-questions"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-few-lingering-questions">A few lingering questions</a></h3>
-<h4 id="where-is-conditional-access-processed"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-conditional-access-processed">Where is Conditional Access processed?</a></h4>
-<p>This hasn’t changed with the new cross-tenant access settings, but it’s a good time to review.</p>
-<p>Conditional access is <strong>always</strong> evaluated in the <strong>resource</strong> tenant.</p>
-<p>The resource tenant needs to ensure that their Conditional Access policies meet the needs of protecting their applications.</p>
-<p>Likewise, the home tenant <strong>cannot</strong> restrict outbound access to another tenant with Conditional Access. Because the guest is not accessing resources in their tenant, even an all applications block CA policy will not prevent the user from accessing a resource tenant as a guest – which really brings us back to what these new settings solve.</p>
-<h4 id="where-is-identity-protection-processed"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-identity-protection-processed">Where is Identity Protection processed?</a></h4>
-<p>User risk is evaluated in the <strong>home</strong> tenant, and sign-in risk is evaluated in the <strong>resource</strong> tenant for B2B users. When firing up Tor, and accessing O365 with a guest, my test user was blocked by Identity Protection in the home tenant because it was flagged as a high user risk. So depending on the sort of threat detected by Identity Protection, you may find users being restricted by both the home and resource tenant when Identity Protection is in play.</p>
-<p>The details on this are further elaborated on in the Microsoft Docs article, <a href="https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-b2b#how-does-identity-protection-work-for-b2b-users">Identity Protection and B2B users – Azure Active Directory | Microsoft Docs</a>.</p>
-<h3 id="one-new-trick-out-of-a-possible-many"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#one-new-trick-out-of-a-possible-many">One new trick - out of a possible many</a></h3>
-<h4 id="pim-in-the-home-tenant-for-outbound-guest-access"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#pim-in-the-home-tenant-for-outbound-guest-access">PIM in the home tenant for outbound guest access</a></h4>
-<p>The ability to apply PIM to guest user accounts is not new. But if we combine the preview feature of PIM for group membership, and apply outbound restrictions to a certain group, the <strong>home</strong> tenant can build a request process for outbound access.</p>
-<p>In that this is quite restrictive, I would see a narrow range of use cases, as it really hampers collaboration between tenants. For those organizations who previously completely turned off the ability to collaborate with other organizations due to things like data sensitivity, the door might now be opened a bit.</p>
-<h3 id="final-notes"><a class="toclink" href="2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#final-notes">Final notes</a></h3>
-<p>External Identities and B2B are continually evolving. While there is still a large gap to bridge for many situations, this definitely is bringing us one step closer. B2B Direct Access in particular will be interesting to see how Microsoft evolves it – will it come closer to how an AD trust operates, or will there be improvements on how guests are invited into tenants.</p>
-<p>As usual, any questions/concerns/comments please reach out to me, and if you find any new unique use cases for cross-tenant access settings, would love to hear them.</p>
     
   </div>
 </article>

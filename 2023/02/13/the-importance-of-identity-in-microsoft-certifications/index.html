@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
       
       
-        <link rel="prev" href="../../../02/13/the-importance-of-identity-in-microsoft-certifications/">
+        <link rel="prev" href="../../../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">
       
       
-        <link rel="next" href="../../../07/17/protect-your-privilege-with-paw/">
+        <link rel="next" href="../../../06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>The nOAuth “flaw” is a symptom of industry antipatterns - Eric on Identity</title>
+        <title>The Importance Of Identity In Microsoft Certifications - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-noauth-flaw-is-a-symptom-of-industry-antipatterns" class="md-skip">
+        <a href="#the-importance-of-identity-in-microsoft-certifications" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The nOAuth “flaw” is a symptom of industry antipatterns
+              The Importance Of Identity In Microsoft Certifications
             
           </span>
         </div>
@@ -435,45 +435,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-real-flaw-starts-with-the-security-industry-letting-its-people-down" class="md-nav__link">
+  <a href="#analysis-details" class="md-nav__link">
     <span class="md-ellipsis">
-      The real flaw starts with the security industry letting its people down
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#education-is-the-enemy-of-antipatterns-but-who-has-time-for-that" class="md-nav__link">
-    <span class="md-ellipsis">
-      Education is the enemy of antipatterns, but who has time for that
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-silos-of-security-infrastructure-and-development-hinder-progress" class="md-nav__link">
-    <span class="md-ellipsis">
-      The silos of security, infrastructure, and development hinder progress
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ignoring-the-need-for-change-continues-to-accrue-risk" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ignoring the need for change continues to accrue risk
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Thoughts
+      Analysis details
     </span>
   </a>
   
@@ -535,7 +499,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-06-21 00:00:00+00:00" class="md-ellipsis">June 21, 2023</time>
+                        <time datetime="2023-02-13 00:00:00+00:00" class="md-ellipsis">February 13, 2023</time>
                       </div>
                     </li>
                     
@@ -547,7 +511,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              4 min read
+                              3 min read
                             
                           </span>
                         </div>
@@ -571,26 +535,46 @@
 
 
 
-<h1 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns">The nOAuth “flaw” is a symptom of industry antipatterns</h1>
-<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
-<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
-<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
-<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
-<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
-<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
-<h2 id="the-real-flaw-starts-with-the-security-industry-letting-its-people-down">The real flaw starts with the security industry letting its people down</h2>
-<p>So how exactly can we move from a technical problem to blaming the security industry as a whole? Microsoft speaks to the real flaw in their blog article – too many developers using antipatterns in software development for authentication and authorization. We can’t truly blame the developers, as we shouldn’t expect every developer to just magically be an expert at modern authentication. It’s difficult to even get identity practitioners to accurately describe the flows many times, so how can we point the finger at others.</p>
-<h2 id="education-is-the-enemy-of-antipatterns-but-who-has-time-for-that">Education is the enemy of antipatterns, but who has time for that</h2>
-<p>The antipattern word is key here. Antipatterns are patterns that are common enough to become known, yet go against effective design. In this case, the antipattern is developers using the email claim within an ID token to make a “good enough” assessment of whom the user is.</p>
-<p>Antipatterns develop when there is a lack of education, which both the security and software development industry are ripe with. We need every application to do more things faster and quicker and always operating in some perpetual state of beta to ship things quicker to beat the competition. And no, we don’t have time to slow down to understand what we are doing. Ship it now, fix it later, which is exactly what has happened in this case.</p>
-<h2 id="the-silos-of-security-infrastructure-and-development-hinder-progress">The silos of security, infrastructure, and development hinder progress</h2>
-<p>The fact that most organizations still operate with varying degrees of silos is the secret everyone knows about but in most cases chooses to ignore.</p>
-<p>For proper modern authentication development, we need developers that cross the boundaries between identity practitioner and coder. While logically most organizations can’t operate in a flat structure, we need to better adapt to remove these silos and let key players straddle the line. These key players need to be architects and engineers and developers who are allowed to cross-collaborate and want to cross-collaborate. If we enter a realm where identity security is dictated instead of collaborated, things rapidly break down.</p>
-<p>This collaborative team should be proportionately sized to the organization, but whether you are an identity software vendor (ISV) or an enterprise that develops line-of-business (LOB) applications, you will still greatly benefit from the collaboration around identity implementations within your software.</p>
-<h2 id="ignoring-the-need-for-change-continues-to-accrue-risk">Ignoring the need for change continues to accrue risk</h2>
-<p>In the nOAuth case, the organizations selling SaaS applications were not named, and the problem was mitigated behind the scenes. But it’s a case of luck in that the “good team” was first to find the rampant use of these antipatterns. If things turned out worse, and account takeover has happened, it can become a very fast trip to the loss of consumer confidence and depending on your industry or geopolitical region regulator fines and other penalties, from data exfiltration and exposure. It also instills the fear, uncertainty, and doubt, in the industry, almost as a self-fulfilling prophecy that inhibits the industry to move forward. Imagine if your bank account could simply be taken over by someone spoofing your email address in a claim – it’s a fast route to never modernizing identity and leaving us in our current state of too many accounts, too many passwords, too many ways to authenticate, failing our end users.</p>
-<h2 id="final-thoughts">Final Thoughts</h2>
-<p>Start collaborating on identity within your organization across all the silos it touches. Prioritize education, for real this time. Your consumers will thank you for it, even if they don’t know they need to.</p>
+<h1 id="the-importance-of-identity-in-microsoft-certifications">The Importance Of Identity In Microsoft Certifications</h1>
+<p>As I’ve taken Microsoft certification exams, or the exam renewals, I’ve noticed that Azure AD and identity topics are a theme throughout. Now, focusing on the security space, it may seem like somewhat of a given.</p>
+<p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
+<p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
+<p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
+<p>With this data, I came up with the following infographic:</p>
+<p><img alt="Figure 1" src="/images/2023/02/13/img1.png" /></p>
+<p>The graphic above can be saved, and you can also download it as a PDF:</p>
+<p><a href="/images/2023/02/13/the-Importance-of-Identity-in-Microsoft-Certifications.pdf">the-Importance-of-Identity-in-Microsoft-Certifications</a></p>
+<h2 id="analysis-details">Analysis details</h2>
+<p>As mentioned, I looked at the content of <strong>every single</strong> current Microsoft examination study guides. The exception are the Microsoft Office exams, the Dynamics exams, and the outliers, like the Technology Literacy for Educators exam.</p>
+<p>The exam study guides contain a section <strong>Skills measured</strong>, and it breaks down the skills by a general category.</p>
+<p>For example, this is the skills measure section for AZ-500, Microsoft Azure Security Technologies:</p>
+<ul>
+<li>Manage identity and access (25-30%)</li>
+<li>Secure networking (25-30%)</li>
+<li>Secure compute, storage, and databases (20-25%)</li>
+<li>Manage security operations (25-30%)</li>
+</ul>
+<p>I would look at this and, in this instance, indicate that the AZ-500 has an identity component of 30%, as you can see within the infographic.</p>
+<p>For exams that are more unassuming, such as the MS-700, Managing Microsoft Teams, I would dive deeper into the skills that compose the category.</p>
+<p>If we look at this exam, we would see the following categories:</p>
+<ul>
+<li>Plan and manage a Microsoft Teams environment (40-45%)</li>
+<li>Manage chat, teams, channels, and apps (25-30%)</li>
+<li>Manage calling and meetings (15-20%)</li>
+<li>Monitor, report, and troubleshoot a Microsoft Teams environment (10-15%)</li>
+</ul>
+<p>Identity doesn’t seem to be present on this exam from the categories. But if we look at the subcategories of skills for <strong>Plan and Manage a Microsoft Teams environment</strong>:</p>
+<ul>
+<li>Plan and configure network settings for Microsoft Teams</li>
+<li>Identify licensing requirements for Microsoft Teams</li>
+<li>Manage security and compliance settings for Microsoft Teams</li>
+<li><strong>Plan and implement governance and lifecycle management</strong></li>
+<li><strong>Configure and manage external collaboration</strong></li>
+<li>Deploy and manage Microsoft Teams endpoints</li>
+</ul>
+<p>There are two, as highlighted, that have multiple Azure AD/Entra components to them, such as external collaboration settings, and using access reviews.</p>
+<p>In a case like this, since there are six subcategories, the best effort is estimating each has the same weight, so each having a weight of 7.5% in this example. However, because Azure AD does not fully compose each of these categories, I gave a weight based on the relative percentage. In this example, each of those had a rough weight of 5% of the 7.5% potential total, which is how I gave MS-700 a 10% total weight.</p>
+<p>Note that the math, especially on some of the exams with a lower portion of identity, will have a bit of fuzz to it. Microsoft indicates a 5% variation (range) that any skill category may make up an Individual exam. As such, you may see a few more, or less, identity-related questions on any given exam.</p>
 
 
 

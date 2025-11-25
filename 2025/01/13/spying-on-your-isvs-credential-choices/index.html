@@ -326,6 +326,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#look-to-the-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look to the logs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Look to the logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entra-id-sign-in-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entra ID Sign-in logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-activity-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graph Activity logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-do-with-this-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to do with this data?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -392,7 +442,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              1 min read
+                              6 min read
                             
                           </span>
                         </div>
@@ -417,7 +467,106 @@
 
 
 <h1 id="spying-on-your-isvs-credential-choices">Spying On Your ISVs Credential Choices</h1>
-<p>Hello</p>
+<p>Microsoft, and the general identity industry, has recommended that applications use certificates over secrets when it comes to credentials for things like applications. This recommendation has existed for about as long modern authentication and authorization systems have existed – over a decade now. Yet the reality is that there continues to be mystery shrouded around certificates, and sysadmins and developers still lean into using secrets.</p>
+<p>Secrets are problematic because they are nothing more than a password. Secrets are so much just a password that while Microsoft might refer to secrets as secrets in the UI for Entra, the underlying attribute name is passwordCredentials! While you can use systems like Azure Key Vault for secure management of who has access to the secrets, the reality is that secrets tend to be managed insecurely, both in transport and at rest. Identity Protection exists for workload identities, but it is not real time, and there are scenarios where it will not help you if the abuse is coming from inside the same trusted network.</p>
+<p>It’s easy for organizations to determine what they are using with single-tenant applications, or if they are a developer of a multi-tenant app. A quick Microsoft Graph API call to applications/objectid of the application (app registration), and you can examine whether the application has certificates, secrets, or both assigned as credentials. You can also store credentials on the service principal, which I cover here, <a href="https://ericonidentity.com/2023/03/11/aad-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide – Eric on Identity</a>.</p>
+<div class="highlight"><pre><span></span><code>&quot;keyCredentials&quot;: [
+    {
+        &quot;customKeyIdentifier&quot;: &quot;2335C167C72B21C4ACA7F3AA191FA95F8A39A727&quot;,
+        &quot;displayName&quot;: &quot;Test certificate&quot;,
+        &quot;endDateTime&quot;: &quot;2024-11-06T18:47:27Z&quot;,
+        &quot;key&quot;: null,
+        &quot;keyId&quot;: &quot;4ca658ff-a617-4161-93e0-465badaf7c3d&quot;,
+        &quot;startDateTime&quot;: &quot;2023-11-06T18:27:27Z&quot;,
+        &quot;type&quot;: &quot;AsymmetricX509Cert&quot;,
+        &quot;usage&quot;: &quot;Verify&quot;
+    }
+],
+Example certificate credentials
+
+&quot;passwordCredentials&quot;: [
+    {
+        &quot;customKeyIdentifier&quot;: null,
+        &quot;displayName&quot;: &quot;test secret&quot;,
+        &quot;endDateTime&quot;: &quot;2025-07-07T23:25:23.333Z&quot;,
+        &quot;hint&quot;: &quot;zoZ&quot;,
+        &quot;keyId&quot;: &quot;e5ab0baa-5eb9-4180-9ad5-b1c693b7ee08&quot;,
+        &quot;secretText&quot;: null,
+        &quot;startDateTime&quot;: &quot;2025-01-09T00:25:23.333Z&quot;
+    }
+],
+</code></pre></div>
+<p><em>Example secret credentials</em></p>
+<p>This is great, but this doesn’t help you understand what your software vendor is using.</p>
+<h2 id="look-to-the-logs">Look to the logs</h2>
+<p>Lucky for us, there are hints about the type of authentication vendors use in our Entra ID sign-in and Graph activity logs.</p>
+<h3 id="entra-id-sign-in-logs">Entra ID Sign-in logs</h3>
+<p>In the <a href="https://entra.microsoft.com/#home">Entra admin portal</a>, you can browse to <strong>Identity</strong>, select <strong>show more, Monitoring &amp; health</strong>, and <strong>Sign-in logs</strong>. In the sign-in events blade that opens on the right, select <strong>Service principal sign-ins</strong>. Direct link to the sign-in logs is here, <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/SignInEventsV3Blade/timeRangeType/last24hours/showApplicationSignIns~/true">Sign-in events – Microsoft Entra admin center</a>, but note that you’ll need to still select <strong>Service principal sign-ins</strong>.</p>
+<p>Searching the logs is a bit different, as the portal will aggregate logs by the application. If you select the arrow on the left of the date, it will expand all the aggregated sign-in logs.</p>
+<p>In here, just select the date for one of the logs; make sure you don’t select the service principal ID as it will actually open up the properties for the service principal instead.</p>
+<p>Once selected, an <strong>Activity Details: Sign-ins</strong> blade will open on the right. In here we simply need to examine the <strong>Client credential type</strong>.</p>
+<p>In the example below, we see that the client credential type is <strong>client secret</strong>, aka, password.</p>
+<p><img alt="Figure 1" src="/images/2025/01/13/img1.png" />
+<em>Example client credential type of a secret (password)</em></p>
+<p>Whereas if the application is using certificates, the client credential type will show up as <strong>client assertion</strong>.</p>
+<p><img alt="Figure 2" src="/images/2025/01/13/img2.png" />
+<em>Example client credential type of assertion (certificate)</em></p>
+<p>The unfortunate surprise is that the data available through Graph API does not match the data available in diagnostic logging.</p>
+<p>In the portal, the backend queries for the audit logs are coming from the Graph API endpoint https://graph.microsoft.com/beta/auditLogs/signIns. We can determine the exact queries being used with <a href="https://graphxray.merill.net/">Graph X-Ray</a>, and then make the same queries to Graph, and see the raw results:</p>
+<div class="highlight"><pre><span></span><code>&quot;value&quot;: [
+    {
+        &quot;id&quot;: &quot;c7db3bec-cb55-4ee7-8022-f51aa9603100&quot;,
+        &quot;createdDateTime&quot;: &quot;2025-01-09T11:00:51Z&quot;,
+        &quot;userDisplayName&quot;: null,
+        &quot;userPrincipalName&quot;: null,
+        &quot;userId&quot;: &quot;&quot;,
+        &quot;appId&quot;: &quot;86261278-59ef-4d12-8e21-&quot;,
+        &quot;appDisplayName&quot;: &quot;xxx&quot;,
+        &quot;ipAddress&quot;: &quot;xxx&quot;,
+        &quot;ipAddressFromResourceProvider&quot;: null,
+        &quot;clientAppUsed&quot;: null,
+        &quot;userAgent&quot;: null,
+        &quot;correlationId&quot;: &quot;a22a7306-b6ae-4501-b2be-9fe5af3e327c&quot;,
+        &quot;conditionalAccessStatus&quot;: &quot;notApplied&quot;,
+        &quot;originalRequestId&quot;: &quot;&quot;,
+        &quot;isInteractive&quot;: false,
+        &quot;tokenIssuerName&quot;: null,
+        &quot;tokenIssuerType&quot;: &quot;UnknownFutureValue&quot;,
+        &quot;clientCredentialType&quot;: &quot;clientSecret&quot;,
+        &quot;processingTimeInMilliseconds&quot;: -1,
+        &quot;riskDetail&quot;: &quot;none&quot;,
+</code></pre></div>
+<p>The unfortunate surprise is that the data available through Entra diagnostic logging is not the same dataset.</p>
+<p>Querying <strong>AADServicePrincipalSignInLogs</strong> is as simple as running the following KQL query:</p>
+<div class="highlight"><pre><span></span><code>AADServicePrincipalSignInLogs
+</code></pre></div>
+<p>We could then further filter this by the service principal, time range, and such. But the results, when we expand them, do not contain any information about the type of authentication.</p>
+<p><img alt="Figure 3" src="/images/2025/01/13/img3.png" />
+<em>Example log analytic result of a service principal sign-in</em></p>
+<p>The only bits of information relevant to the type of credential used are the <strong>servicePrincipalCredentialKeyId</strong>, but because the app registration is not in our tenant, we have no way of cross-referencing this. The service principal in our home tenant does not contain any references to the credentials on the app registration that we could correlate with either.</p>
+<h3 id="graph-activity-logs">Graph Activity logs</h3>
+<p>Where our sign-in logs fail us, at least with our diagnostic logging, Graph activity logs have our back. Unfortunately, it’s likely that this sort of snooping alone does not make it worth it to enable Graph activity logs; organizations need to evaluate the cost that would come along with enabling these logs and the additional overhead in Log Analytics.</p>
+<p>Because Graph activity logs can be a vast sea of data, the easiest way to examine a particular application is filtering by the service principal ID with a basic KQL query:</p>
+<div class="highlight"><pre><span></span><code>MicrosoftGraphActivityLogs | where ServicePrincipalId == &quot;insert id here&quot;
+</code></pre></div>
+<p>In the results, we can look at the <strong>ClientAuthMethod</strong>. If the method is <strong>1</strong>, then a secret was used, such as below:</p>
+<p><img alt="Figure 4" src="/images/2025/01/13/img4.png" />
+<em>Example graph activity log showing a secret credential used</em></p>
+<p>If <strong>ClientAuthMethod</strong> shows <strong>2</strong>, then a certificate was used for authentication.</p>
+<p>If we wanted to more efficiently search for ISV applications that are using secrets, we could cross-reference a list of known Microsoft applications by the application (client) ID, and then search our Graph activity log, also filtering only for ClientAuthMethod of 1, like the following:</p>
+<div class="highlight"><pre><span></span><code>let MicrosoftApps = externaldata(AppId: string)
+    [@&quot;https://raw.githubusercontent.com/merill/microsoft-info/main/_info/MicrosoftApps.json&quot;]
+    with (format=&quot;json&quot;);
+MicrosoftGraphActivityLogs | 
+where ServicePrincipalId != &quot;&quot; and AppId !in (MicrosoftApps) and ClientAuthMethod == &quot;1&quot; | 
+distinct ServicePrincipalId
+</code></pre></div>
+<p>Our results should then show all service principal IDs for ISV software that are using secrets. Note my test tenant currently one has one:</p>
+<p><img alt="Figure 5" src="/images/2025/01/13/img5.png" /></p>
+<p>The resulting list of IDs be used in Graph or searching in <strong>Enterprise Applications</strong> to determine what application(s) are using secrets.</p>
+<h3 id="what-to-do-with-this-data">What to do with this data?</h3>
+<p>As a consumer of multi-tenant applications, the best (and only) way to impact change is to contact your software vendor, if you feel strongly that they should be using certificates. There is nothing from a technical standpoint, beyond stopping consumption of the application, that you can do to prevent the use of secrets.</p>
+<p>When contacting your vendor, remind them of Microsoft (and industry best practices), which you can find here, <a href="https://learn.microsoft.com/en-us/entra/identity-platform/security-best-practices-for-app-registration#certificates-and-secrets?WT.mc_id=SEC-MVP-5005105">Security best practices for application properties – Microsoft identity platform | Microsoft Learn</a>. But note that software is hard, switching the credential type might be more complex on the backend than you may realize, and it might take the voice of many customers to really impact change.</p>
 
 
 

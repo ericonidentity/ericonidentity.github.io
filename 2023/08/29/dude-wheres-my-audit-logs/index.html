@@ -428,13 +428,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ssprpassword-reset-settings" class="md-nav__link">
+  <a href="#group-lifecycle-policy-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      SSPR/Password Reset Settings
+      Group lifecycle policy changes
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Group lifecycle policy changes">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#the-audit-data_1" class="md-nav__link">
@@ -442,6 +443,59 @@
       The audit data
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-access-custom-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional Access custom controls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditional Access custom controls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-audit-data_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      The audit data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssprpassword-reset-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSPR/Password Reset Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSPR/Password Reset Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-audit-data_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      The audit data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -456,7 +510,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-audit-data_2" class="md-nav__link">
+  <a href="#the-audit-data_4" class="md-nav__link">
     <span class="md-ellipsis">
       The audit data
     </span>
@@ -480,7 +534,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-audit-data_3" class="md-nav__link">
+  <a href="#the-audit-data_5" class="md-nav__link">
     <span class="md-ellipsis">
       The audit data
     </span>
@@ -519,7 +573,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-audit-data_4" class="md-nav__link">
+  <a href="#the-audit-data_6" class="md-nav__link">
     <span class="md-ellipsis">
       The audit data
     </span>
@@ -623,7 +677,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              9 min read
+                              10 min read
                             
                           </span>
                         </div>
@@ -712,22 +766,14 @@
         ],
         &quot;userAgent&quot;: null
     },
-    ```
-
-    ### Group lifecycle policy changes
-
-    More commonly known as the group expiration settings, the controls for these in the portal can be found under Groups -&gt; Group settings -&gt; Expiration.
-
-    ![Figure 4](/images/2023/08/29/img4.png)
-
-    These are also exposed through Graph, [https://graph.microsoft.com/beta/groupLifecyclePolicies/](https://graph.microsoft.com/beta/groupLifecyclePolicies/).
-
-    The audit data
-
-    Note the absence of any change data, as highlighted in the audit event:
-
-    ```
-    {
+</code></pre></div>
+<h3 id="group-lifecycle-policy-changes">Group lifecycle policy changes</h3>
+<p>More commonly known as the group expiration settings, the controls for these in the portal can be found under Groups -&gt; Group settings -&gt; Expiration.</p>
+<p><img alt="Figure 4" src="/images/2023/08/29/img4.png" /></p>
+<p>These are also exposed through Graph, <a href="https://graph.microsoft.com/beta/groupLifecyclePolicies/">https://graph.microsoft.com/beta/groupLifecyclePolicies/</a>.</p>
+<h4 id="the-audit-data_1">The audit data</h4>
+<p>Note the absence of any change data, as highlighted in the audit event:</p>
+<div class="highlight"><pre><span></span><code>    {
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:09:38.6970558+00:00&quot;,
         &quot;activityDisplayName&quot;: &quot;Update lifecycle management policy&quot;,
         &quot;additionalDetails&quot;: [
@@ -761,18 +807,12 @@
         ],
         &quot;userAgent&quot;: null
     },
-    ```
-
-    ### Conditional Access custom controls
-
-    Now I get that this is a deprecated public preview, but, it’s also existed for quite a long time, and it’s surprising that changes to the control itself are not audited.
-
-    #### The audit data
-
-    Note the absence of any change data, as highlighted in the audit event:
-
-    ```
-    {
+</code></pre></div>
+<h3 id="conditional-access-custom-controls">Conditional Access custom controls</h3>
+<p>Now I get that this is a deprecated public preview, but, it’s also existed for quite a long time, and it’s surprising that changes to the control itself are not audited.</p>
+<h4 id="the-audit-data_2">The audit data</h4>
+<p>Note the absence of any change data, as highlighted in the audit event:</p>
+<div class="highlight"><pre><span></span><code>    {
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:18:39.6114596+00:00&quot;,
         &quot;activityDisplayName&quot;: &quot;Update policy&quot;,
         &quot;additionalDetails&quot;: [
@@ -824,7 +864,7 @@
 <li>Self-service password reset enablement/scoping</li>
 <li>Authentication methods (legacy methods)</li>
 </ul>
-<h3 id="the-audit-data_1">The audit data</h3>
+<h4 id="the-audit-data_3">The audit data</h4>
 <p>In testing, there isn’t even a direct audit event logged for changes, but simply an update to the <strong>Microsoft password reset service service</strong> principle. The update provides no information on the actual change.</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:28:04.2244435+00:00&quot;,
@@ -872,7 +912,7 @@
 <p>Microsoft has been pushing the migration of B2B guests/External Identities to use a linked subscription where organizations will receive 50,000 MAU for guests as far as licensing goes, compared to the prior model of a 1:5 user: guest license ratio.</p>
 <p>In order to implement this change, an organization must link their Entra ID tenant with an Azure subscription for billing purposes.</p>
 <p>When implementing this change, there <strong>is</strong> a proper audit even in the subscriptions activity log, however, a change like this should also be reflected in Entra ID audit logs. Instead, we get a series of useless audit log entries.</p>
-<h4 id="the-audit-data_2">The audit data</h4>
+<h4 id="the-audit-data_4">The audit data</h4>
 <p>When looking at the data in either entry for <strong>Create or update a Guest Usages resource</strong>, there is no data of value for the change.</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:38:06.5858394+00:00&quot;,
@@ -926,7 +966,7 @@
 <p><img alt="Figure 5" src="/images/2023/08/29/img5.png" /></p>
 <p>This setting can also be adjusted via Graph at <a href="https://graph.microsoft.com/v1.0/policies/authenticationFlowsPolicy">https://graph.microsoft.com/v1.0/policies/authenticationFlowsPolicy</a>.</p>
 <p>Surprisingly, changes that enable/disable this setting are not audited effectively.</p>
-<h4 id="the-audit-data_3">The audit data</h4>
+<h4 id="the-audit-data_5">The audit data</h4>
 <p>Toggling this on/off results in a long series of audit events from the B2C service, however, none of them actually indicate the change.</p>
 <p><img alt="Figure 6" src="/images/2023/08/29/img6.png" /></p>
 <p>For all of these, the <strong>Modified Properties</strong> is null</p>
@@ -987,7 +1027,7 @@
 <li>Multifactor authentication registration policy</li>
 </ul>
 <p>We could argue that you shouldn’t be using the MFA registration policy at this point, as MFA should be an account day zero requirement. And while Microsoft wants you to move your ID Protection policies into Conditional Access, until they are gone, the changes really break the audit mold.</p>
-<h4 id="the-audit-data_4">The audit data</h4>
+<h4 id="the-audit-data_6">The audit data</h4>
 <p>Oddly the user risk policy and MFA registration policy indicate an update if either is changed, and updates to the sign-in risk policy appear separate. But for all three, two events are logged, a core directory change that contains no data, and secondary policy change, that oddly describes the change data under <strong>Status reason</strong>, which is highlighted in blue below. Where one should/would expect the change to appear is highlighted in yellow.</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-30T03:00:57.8173676+00:00&quot;,

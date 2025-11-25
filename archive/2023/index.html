@@ -417,7 +417,7 @@
           
           <li class="md-meta__item">
             
-              7 min read
+              9 min read
             
           </li>
         
@@ -756,6 +756,103 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
+<h3 id="inconsistent-log-data"><a class="toclink" href="../../2023/08/29/dude-wheres-my-audit-logs/#inconsistent-log-data">Inconsistent log data</a></h3>
+<p>These are instances where changes are audited, however, they seem to disregard any sort of schema or consistency of auditing in Entra ID.</p>
+<h4 id="entra-id-protection"><a class="toclink" href="../../2023/08/29/dude-wheres-my-audit-logs/#entra-id-protection">Entra ID Protection</a></h4>
+<p>Entra ID Protection heavily offenses the senses with its audit logging of changes to the following policies:</p>
+<ul>
+<li>User risk policy</li>
+<li>Sign-in risk policy</li>
+<li>Multifactor authentication registration policy</li>
+</ul>
+<p>We could argue that you shouldn’t be using the MFA registration policy at this point, as MFA should be an account day zero requirement. And while Microsoft wants you to move your ID Protection policies into Conditional Access, until they are gone, the changes really break the audit mold.</p>
+<h5 id="the-audit-data_4"><a class="toclink" href="../../2023/08/29/dude-wheres-my-audit-logs/#the-audit-data_4">The audit data</a></h5>
+<p>Oddly the user risk policy and MFA registration policy indicate an update if either is changed, and updates to the sign-in risk policy appear separate. But for all three, two events are logged, a core directory change that contains no data, and secondary policy change, that oddly describes the change data under <strong>Status reason</strong>, which is highlighted in blue below. Where one should/would expect the change to appear is highlighted in yellow.</p>
+<div class="highlight"><pre><span></span><code>{
+        &quot;activityDateTime&quot;: &quot;2023-08-30T03:00:57.8173676+00:00&quot;,
+        &quot;activityDisplayName&quot;: &quot;Update Sign-In Risk Policy&quot;,
+        &quot;additionalDetails&quot;: [
+        ],
+        &quot;category&quot;: &quot;Policy&quot;,
+        &quot;correlationId&quot;: &quot;bcda8418-f5f0-42f4-a8c1-cc809be64050&quot;,
+        &quot;id&quot;: &quot;ADIbizaUX_bcda8418-f5f0-42f4-a8c1-cc809be64050_MZXCC_6463221&quot;,
+        &quot;initiatedBy&quot;: {
+            &quot;user&quot;: {
+                &quot;displayName&quot;: null,
+                &quot;homeTenantId&quot;: null,
+                &quot;homeTenantName&quot;: null,
+                &quot;id&quot;: &quot;d7148226-7444-4884-aef7-b5fe693a6798&quot;,
+                &quot;ipAddress&quot;: &quot;X.X.X.X&quot;,
+                &quot;userPrincipalName&quot;: &quot;ga-x@x.onmicrosoft.com&quot;
+            }
+        },
+        &quot;loggedByService&quot;: &quot;AAD Management UX&quot;,
+        &quot;result&quot;: &quot;success&quot;,
+        &quot;resultReason&quot;: &quot;Set sign-in risk policy successful. Enabled: True. Risk level for MFA: Never. Risk level for block: High. Include All Users: False. Include Users: 788aff42-e628-4ff9-8e17-a207350ed80b. Include Groups: . Exclude All Users: False. Exclude Users . Exclude Groups &quot;,
+        &quot;targetResources&quot;: [
+            {
+                &quot;displayName&quot;: &quot;Sign-In Risk Policy&quot;,
+                &quot;groupType&quot;: null,
+                &quot;id&quot;: &quot;5bf6637e-056a-4f1c-b887-6c7e99ed5ac6&quot;,
+                &quot;modifiedProperties&quot;: [
+                ],
+                &quot;type&quot;: &quot;Policy&quot;,
+                &quot;userPrincipalName&quot;: null
+            }
+        ],
+        &quot;userAgent&quot;: &quot;&quot;
+    },
+    {
+        &quot;activityDateTime&quot;: &quot;2023-08-30T03:00:57.181057+00:00&quot;,
+        &quot;activityDisplayName&quot;: &quot;Update policy&quot;,
+        &quot;additionalDetails&quot;: [
+            {
+                &quot;key&quot;: &quot;User-Agent&quot;,
+                &quot;value&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0&quot;
+            }
+        ],
+        &quot;category&quot;: &quot;Policy&quot;,
+        &quot;correlationId&quot;: &quot;b06b42f1-4723-45bb-b205-59eae5ab7da3&quot;,
+        &quot;id&quot;: &quot;Directory_b06b42f1-4723-45bb-b205-59eae5ab7da3_FYNFV_398999217&quot;,
+        &quot;initiatedBy&quot;: {
+            &quot;user&quot;: {
+                &quot;displayName&quot;: null,
+                &quot;homeTenantId&quot;: null,
+                &quot;homeTenantName&quot;: null,
+                &quot;id&quot;: &quot;d7148226-7444-4884-aef7-b5fe693a6798&quot;,
+                &quot;ipAddress&quot;: &quot;X.X.X.X&quot;,
+                &quot;userPrincipalName&quot;: &quot;ga-x@x.onmicrosoft.com&quot;
+            }
+        },
+        &quot;loggedByService&quot;: &quot;Core Directory&quot;,
+        &quot;result&quot;: &quot;success&quot;,
+        &quot;resultReason&quot;: &quot;&quot;,
+        &quot;targetResources&quot;: [
+            {
+                &quot;displayName&quot;: &quot;Sign-In Risk Policy&quot;,
+                &quot;groupType&quot;: null,
+                &quot;id&quot;: &quot;5bf6637e-056a-4f1c-b887-6c7e99ed5ac6&quot;,
+                &quot;modifiedProperties&quot;: [
+                    {
+                        &quot;displayName&quot;: &quot;Included Updated Properties&quot;,
+                        &quot;newValue&quot;: &quot;\&quot;\&quot;&quot;,
+                        &quot;oldValue&quot;: null
+                    }
+                ],
+                &quot;type&quot;: &quot;Policy&quot;,
+                &quot;userPrincipalName&quot;: null
+            }
+        ],
+        &quot;userAgent&quot;: null
+    },
+</code></pre></div>
+<h3 id="responsible-disclosure"><a class="toclink" href="../../2023/08/29/dude-wheres-my-audit-logs/#responsible-disclosure">Responsible disclosure</a></h3>
+<p>After consideration and reading of what constitutes a security vulnerability at the Microsoft Security Response Center (MSRC), I do not believe that these deficiencies in auditing would be considered a security vulnerability, as the absence of audit data itself is not a vulnerability.</p>
+<p>On July 26th, 2023, through an MVP channel in the Customer Connected Program Entra Advisors, I reached out to the Microsoft Entra Product Group wanting to provide feedback on what I believe are audit gaps in Entra ID.</p>
+<p>After some exchanges to coordinate whom to send the feedback to, on August 7th I provided an email to the responsible parties in the PG covering audit logging. Microsoft did reply that they will investigate in response. Considering that this is not a security vulnerability, I do not believe there is harm in publishing this material prior to any (if any) changes occur on the part of Microsoft.</p>
+<p>A case with Microsoft support has not been opened on this subject to this point, on which I would open one if directed by the PG.</p>
+<h3 id="regarding-audit-log-analysis"><a class="toclink" href="../../2023/08/29/dude-wheres-my-audit-logs/#regarding-audit-log-analysis">Regarding audit log analysis</a></h3>
+<p>In my endeavors to this point, I have not analyzed <strong>all</strong> audit log events in Entra ID, so there may still be additional gaps in what one might find to be acceptable auditing. While Microsoft may contend that they indicate in their own docs that some of these changes are not listed as being audited, I would counter that with the stances that every single configuration change in Entra ID should be audited <strong>and</strong> adhere to some sort of audit log schema for consistency.</p>
     
   </div>
 </article>

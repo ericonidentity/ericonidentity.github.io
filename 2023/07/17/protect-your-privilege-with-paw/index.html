@@ -1,0 +1,707 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/07/17/protect-your-privilege-with-paw/">
+      
+      
+      
+        <link rel="next" href="../../../08/29/dude-wheres-my-audit-logs/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Protect Your Privilege with PAW - Eric on Identity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--nfc{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23.958%201.98C23.895%201%2023.143.256%2022.145.197c-1.102-.066-4.668-.12-5.693-.12%201.832%201.264%202.082%203.644%202.255%208.066.101%202.62.01%2011.799.002%2012.188l-.049%202.504-9.628-9.63v-3.014l7.656%207.658c.02-1.516.04-3.492.04-5.299%200-1.76-.026-3.354-.076-4.193-.288-4.819-.737-7.077-3.253-7.962-.77-.27-1.487-.335-2.683-.351C9.728.032%202.848.037%201.854.091.8.147.09.914.042%201.9c-.048.977-.064%2019.174%200%2020.165.062.98.815%201.724%201.812%201.782%201.102.067%204.668.075%205.694.075-1.832-1.264-2.083-3.643-2.255-8.066-.1-2.62-.009-11.8%200-12.188l.047-2.504%209.629%209.63v3.013L7.312%206.152c-.02%201.514-.04%203.49-.04%205.298%200%201.76.026%203.354.077%204.192.288%204.82.736%207.077%203.252%207.962.77.271%201.487.337%202.683.352.987.012%207.868.006%208.861-.047%201.056-.056%201.765-.822%201.813-1.811.048-.976.064-19.127%200-20.118%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#protect-your-privilege-with-paw" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Eric on Identity" class="md-header__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eric on Identity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Protect Your Privilege with PAW
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Eric on Identity" class="md-nav__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    Eric on Identity
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2023
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#keeping-it-clean" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keeping it clean
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-paw-is-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      What a PAW is not
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What a PAW is not">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bastion-hosts-jump-boxes-and-cloud-paw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bastion hosts, jump boxes and cloud PAW
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtualized-paw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtualized PAW
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-pim-and-pam-compliment-but-do-not-replace-paw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why PIM and PAM compliment, but do not replace, PAW
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paw-greatly-reduces-the-surface-area-on-privileged-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      PAW greatly reduces the surface area on privileged accounts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paw-doesnt-have-to-be-complex-to-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      PAW doesn’t have to be complex to deploy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-operational-change-shouldnt-be-a-showstopper" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Operational change shouldn’t be a showstopper
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-thoughts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Last thoughts
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://www.ericonidentity.com">Eric Woodruff</a>
+                        
+                      </strong>
+                      <br>
+                      Identity Nerd
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2023-07-17 00:00:00+00:00" class="md-ellipsis">July 17, 2023</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              11 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="protect-your-privilege-with-paw">Protect Your Privilege with PAW</h1>
+<p>According to the Microsoft Digital Defense Report 2022, weak identity controls are listed as a top three contributing factors found during ransomware incident response. One particularly troubling finding within identity controls is the lack of Privileged Access Workstations (PAW) found in any response engagement:</p>
+<p>*None of the impacted organizations implemented proper administrative credential segregation and least privilege access principals via dedicated workstations during the management of their critical identity and high-value assets, such as proprietary systems and business-critical applications.</p>
+<p><a href="https://www.microsoft.com/en-us/security/business/microsoft-digital-defense-report-2022?WT.mc_id=SEC-MVP-5005105">Microsoft Digital Defense Report 2022, page 15 (Microsoft Digital Defense Report 2022 | Microsoft Security)</a>*</p>
+<p>The report does not speculate as to <strong>why</strong> the organizations were not using PAW, but for anyone seasoned out there in the world of consultancy the answers will look like:</p>
+<ul>
+<li>Lack of time/budget/resources/priority</li>
+<li>Lack of understanding and education</li>
+<li>Lack of sufficient desire to change privileged administrative behavior</li>
+<li>Belief that they have other sufficient compensating controls</li>
+</ul>
+<p>And these all really relate to each other – if you don’t understand what a PAW is, you can easily believe other solutions such as PIM or PAM will sufficiently fill the gap. Likewise, if you don’t understand how to articulate the value and principles behind PAW, it’s difficult to run it up the chain to ensure that it has priority. Even in those instances where you may have a decent understanding of PAW, but as an admin don’t want to change your working behavior – it’s understandable, it’s human to not want to change without knowing why.</p>
+<p>Awareness is the first principle of ADKAR (<a href="https://www.prosci.com/resources/articles/why-the-adkar-model-works">The Prosci ADKAR Model: Why it Works</a>). May this article build that awareness, so you’ll come out of it with the second principle, desire.</p>
+<h2 id="keeping-it-clean">Keeping it clean</h2>
+<p>One of the foundational components of privileged access is the clean source principle, which per Microsoft states:</p>
+<p>*The clean source principle requires all security dependencies to be as trustworthy as the object being secured.</p>
+<p>Microsoft Learn, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-success-criteria?WT.mc_id=SEC-MVP-5005105#clean-source-principle">Success criteria for privileged access strategy | Microsoft Learn</a>*</p>
+<p>To phrase this another way, all components related to privileged access – the user accounts, the devices, the first- and third-party tools, all need to exist and be managed fully within the same security tier. Since the primary focus of PAW is for privileged access, that means everything related to PAW needs to be encompassed within the same tier as privileged access.</p>
+<p>Microsoft documents this in their privileged access implementation documentation, and diagrams this out as follows:</p>
+<p><img alt="Figure 1" src="/images/2023/07/17/img1.png" /></p>
+<p><em>Note Privileged Security highlighted in the red box. Image courtesy Microsoft.</em></p>
+<p>Those that are seasoned with Active Directory security may be more familiar with the Tiered access model, composed of Tier 0, Tier 1, and Tier 2, as diagrammed below:</p>
+<p><img alt="Figure 2" src="/images/2023/07/17/img2.png" /></p>
+<p><em>The Active Directory oriented privileged access model.</em></p>
+<p>What is important to understand is that in the new model of privileged security, Tier 0 does not go away. There are subsets of privileged security – Tier 0 effectively becomes the control plane, encompassing all existing Tier 0 assets, such as Active Directory and related systems such as Azure AD Connect and AD FS. Tier 0 now includes the <strong>Control Plane</strong>, which is highly privileged access that provides control over all resources. The credentials associated with the control plane are<strong> Global Administrator</strong>, and users that hold roles which can <strong>directly</strong> or <strong>indirectly obtain control</strong> over a Global Administrator. It has become important to include these accounts in that realm of Tier 0 access, as we tend to only focus on Global Administrator. As an example, Privileged Authentication Administrator roles can be used to reset authentication information on all accounts in a tenant. Intune Administrators, in a cloud-managed PAW deployment, become encompassed in Tier 0, as they can manipulate and manage PAW devices. Tier 1 becomes the Management and Data and Workload planes and still includes the Server Admin role; still privileged, but importantly still separated from the control plan and Tier 0. While the focus on the part of Microsoft is very cloud-oriented, privilege separation and the delineation are still critical for Active Directory, as well as using PAW for Active Directory management – majority of enterprises will still be leaning on Active Directory for a good while. And speaking of Active Directory, for the organizations that have hybrid identity, where Active Directory and Azure AD are connected, organizations need to understand the paths of lateral movement and privilege escalation between the two identity providers; there are known attack paths where Active Directory can be leveraged to takeover Azure AD, as well as the opposite flow. These are just some examples, and role delineation and definition can be an article on its own – let me know if that would interest you. In the meantime, you can read about this evolution and how Microsoft defines it here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-access-model?WT.mc_id=SEC-MVP-5005105#evolution-from-the-legacy-ad-tier-model">Securing privileged access Enterprise access model | Microsoft Learn</a>.</p>
+<p>Both models are still widely used and the principles behind them are valid. What is critical is that both models indicate that the <strong>device</strong> should be a PAW. Specifically, a <strong>physical device initiating session</strong>. The phrase clean keyboard may be thrown around at times as a bit of shorthand for the clean source principle.</p>
+<h2 id="what-a-paw-is-not">What a PAW is not</h2>
+<p>Organizations may take shortcuts to PAW, either by implementing something “PAW like”, such as jump boxes or bastion hosts, or virtualizing their PAW. The term “cloud PAW” floats around out there, which assumptions made that it equates to deploying PAW as virtual desktops.</p>
+<p>In all these scenarios you either run into:</p>
+<ul>
+<li>The chicken-and-egg problem</li>
+<li>A tiering breach</li>
+</ul>
+<h3 id="bastion-hosts-jump-boxes-and-cloud-paw">Bastion hosts, jump boxes and cloud PAW</h3>
+<p>Both bastion hosts and jump boxes can serve their purpose for managing resources, but they are not replacement for PAW. To adhere to the clean source principle, any remote access to a bastion host or jump box would need to be initiated from a device that already exists within the privileged security tier, otherwise you’ll encounter an upward tiering breach.</p>
+<p><img alt="Figure 3" src="/images/2023/07/17/img3.png" /></p>
+<p><em>Breaching tiers with a cloud-based solution such as bastion hosts or jump boxes</em></p>
+<p>Even in the case where you may be used advanced technologies such as passwordless for authentication, some component of the authentication process will be local to the enterprise device, putting the privileged user account at risk of exposure on a lower tier.</p>
+<p>And what about cloud PAW? This is a place of much confusion, as it’s a term thrown about that is derived from the Microsoft model of using <strong>cloud managed PAW</strong>. That managed word being the key piece – Microsoft documents how organizations can build and deploy PAW that are managed by Intune and joined to Azure AD. You can find that documentation here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-deployment?WT.mc_id=SEC-MVP-5005105">Deploying a privileged access solution | Microsoft Learn</a>. As it goes with terminology, cloud managed PAW may sometimes be shortened to cloud PAW, and when people see cloud PAW, they presume that it means a PAW that exists within the cloud.</p>
+<p>You’ll still find several articles and models out there where people attempt to build out a cloud-native PAW system, using things like Azure Virtual Desktop or Windows 365. And some of them <strong>might</strong> have an acceptable level of risk built into their design where there is enough monitoring and other compensating controls to minimize potential privileged access damage. Considering that ransomware can cost organizations millions of dollars in losses due to the inability to function, or even put them out of business, that’s the risk that needs to be factored in with something like a cloud PAW design. I’ve yet to see one that adheres to the clean source principle.</p>
+<h3 id="virtualized-paw">Virtualized PAW</h3>
+<p>Virtualizing your PAW results in the same series of issues as jump boxes and bastion hosts. Unless your virtualization environment is composed of resources that exist on and are managed in Tier 0, your Tier 1 administrators will be indirect administrators of those vPAW, and in turn access to other critical Tier 0 resources.</p>
+<p><img alt="Figure 4" src="/images/2023/07/17/img4.png" /></p>
+<p><em>Tier 1 admins can become Tier 0 admins through the management plane</em></p>
+<p>It’s also important to consider the implications of not managing business critical Tier 1 resources from a PAW. We can expand our breach model out another layer and see that we are putting all resources at risk when we don’t use a physical PAW.</p>
+<p><img alt="Figure 5" src="/images/2023/07/17/img5.png" /></p>
+<p><em>The cascading tier breach with virtualized PAW</em></p>
+<p>Some organizations may choose to run localized instances of virtualization software on their Enterprise devices, such as enabling Hyper-V within Windows 11. In these cases, the same problems apply: the enterprise user will still be authenticating with some mechanism local to the device with privileged credentials. The virtualized PAW will be susceptible to the same management plane attacks that would occur in an enterprise virtualization scenario.</p>
+<p><img alt="Figure 6" src="/images/2023/07/17/img6.png" /></p>
+<p><em>Localized virtualization of a vPAW breaching tiers</em></p>
+<h2 id="why-pim-and-pam-compliment-but-do-not-replace-paw">Why PIM and PAM compliment, but do not replace, PAW</h2>
+<p>PIM and PAM solutions are great mechanisms from a defense-in-depth perspective, but they do little to protect credentials once the credential is resident on the device in question.</p>
+<p>A primary component of PAM solutions is password vaulting, which is great for granular control and auditing of who has access to secrets. Once that secret becomes resident on the device, however, it is as vulnerable as all the other credentials on the device. With more advanced and modern PAM solutions, there are mechanisms that provide a bastion host/jump box, to ensure that the vaulted credentials are not resident to the local device. However, you still will run into the same issues with bastion hosts and jump boxes – you still need to connect into the components providing this solution, which includes authenticating and creating a session. If you want to protect the session end-to-end, the source device still needs to adhere to the clean source principle, which in this case would be from a PAW.</p>
+<p>PIM also compliments PAW but is not a replacement on its own. While PIM is great for providing the least standing privilege and enabling the use of just-in-time (JIT) privileges, once privileges are elevated in a system, any threat actor obtains your credentials, or a representation of them (such as tokens) will be able to act as you, with those elevated privileges.</p>
+<h2 id="paw-greatly-reduces-the-surface-area-on-privileged-accounts">PAW greatly reduces the surface area on privileged accounts</h2>
+<p>The purpose of a defense-in-depth model is to ensure that if one component fails, there are other components that will ensure that data, the core of every modern business, is not exposed to those who should not have access to that data.</p>
+<p><img alt="Figure 7" src="/images/2023/07/17/img7.png" /></p>
+<p><em>Defense-in-depth model</em></p>
+<p>If we drill down into this model further, we will see that each layer is composed of several different technologies – especially when we are talking about privileged access to that data.</p>
+<p>If we broke down the Identity &amp; Access layer of the model, we might see something like this:</p>
+<p><img alt="Figure 8" src="/images/2023/07/17/img8.png" /></p>
+<p><em>A breakdown of the Identity &amp; Access Management Layer concerning privileged credentials</em></p>
+<p>PAW is foundational to the design theory of several other components – filling in the gaps PIM and PAM/secret vaulting present, but also building the strong foundation for which robust conditional access policies can be applied, device security policies can be pushed down from Intune, and account separation can be used to its fullest potential, ensuring that a mistake made with enterprise level credentials do not expose privileged creds.</p>
+<h2 id="paw-doesnt-have-to-be-complex-to-deploy">PAW doesn’t have to be complex to deploy</h2>
+<p>As it goes with much of the privileged access documentation out there, there is the perception that everything is extremely time-consuming and overly complex. Organizations and security practitioners need to reshape their thinking relative to security privileged access, including the deployment of PAW.</p>
+<p>Yes, depending on how your organization is structured, cloud managed PAW will require knocking down some silos between the teams that manage identity and devices within the organization; that’s work that should be happening anyway. Afterall, identity and device management practitioners are both security practitioners in modern environments.</p>
+<p>As with most guidance though, starting somewhere is better than nowhere. Having an incremental approach and open mindset is a stronger security posture than saying if we can’t achieve 100% in x time, then it’s not worth doing at all.</p>
+<p>If nothing else, justify the expense to procure some modern laptops to be used as the privileged devices for those Tier 0 Global Administrators and Domain Administrators, preferably one that is a secured-core device. You can find currently available ones here, <a href="https://www.microsoft.com/en-us/windows/business/windows-11-secured-core-computers?WT.mc_id=SEC-MVP-5005105">Windows 11 Secured-Core PCs | Microsoft</a>. The few thousand-dollar proactive expense is cheaper than the loss of business <strong>when</strong> your organization is breached. You can go one step further and configure some strong conditional access policies restricting what devices the privileged accounts can be used from. For details, see Filter for devices as a condition in <a href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/concept-condition-filters-for-devices?WT.mc_id=SEC-MVP-5005105#create-a-conditional-access-policy">Conditional Access policy – Microsoft Entra | Microsoft Learn</a>.</p>
+<p>Eventually though make sure you take the time to go through the entire process, found here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-deployment?WT.mc_id=SEC-MVP-5005105">Deploying a privileged access solution | Microsoft Learn</a>.</p>
+<h2 id="the-operational-change-shouldnt-be-a-showstopper">The Operational change shouldn’t be a showstopper</h2>
+<p>Once deployed, and enforced, the biggest change in organizations is the operational impact on the privileged administrators. Yes, you may not be able to copypasta that PowerShell snippet you found on Stack Overflow as easily, but in our modern landscape we all must adapt to new ways of working. We made it through the drastic changes with remote work, and transitioning to PAW is much less impactful on the overall organization than that was – even if it doesn’t feel that way to your privileged admins.</p>
+<p>Organizations need to make sure that they support the change, as there will be needed ramp up time, and it’s a suitable time to perform some incident handling testing to make sure administrators can perform all that they need to perform from their PAW. Organizations can be most vulnerable during an incident, whether it’s cyber, operational, or natural forces, and the mode of operation can’t be to just throw the PAW aside to fix things. Make sure that your IR, BC, and DR scenarios are reviewed and revised to support the use of PAW, as necessary.</p>
+<h2 id="last-thoughts">Last thoughts</h2>
+<p>One of my favorite tag lines is from Johnathan Fox, a Sr. Security Consultant from Microsoft. The tag is “be a good admin and protect your privilege!”. Such a simple north star that we all should follow.</p>
+<p>And if you’re an organization supporting your admins, make sure that you be a good organization and support your admins protecting their privilege. With the continually evolving landscape of threat actors, that protection is more critical than ever to ensuring that business doesn’t stop.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.path", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": {"NFC": "nfc"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

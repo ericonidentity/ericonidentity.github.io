@@ -857,6 +857,114 @@
   </div>
 </article>
       
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-07-17 00:00:00+00:00">July 17, 2023</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              11 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="protect-your-privilege-with-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/">Protect Your Privilege with PAW</a></h2>
+<p>According to the Microsoft Digital Defense Report 2022, weak identity controls are listed as a top three contributing factors found during ransomware incident response. One particularly troubling finding within identity controls is the lack of Privileged Access Workstations (PAW) found in any response engagement:</p>
+<p>*None of the impacted organizations implemented proper administrative credential segregation and least privilege access principals via dedicated workstations during the management of their critical identity and high-value assets, such as proprietary systems and business-critical applications.</p>
+<p><a href="https://www.microsoft.com/en-us/security/business/microsoft-digital-defense-report-2022?WT.mc_id=SEC-MVP-5005105">Microsoft Digital Defense Report 2022, page 15 (Microsoft Digital Defense Report 2022 | Microsoft Security)</a>*</p>
+<p>The report does not speculate as to <strong>why</strong> the organizations were not using PAW, but for anyone seasoned out there in the world of consultancy the answers will look like:</p>
+<ul>
+<li>Lack of time/budget/resources/priority</li>
+<li>Lack of understanding and education</li>
+<li>Lack of sufficient desire to change privileged administrative behavior</li>
+<li>Belief that they have other sufficient compensating controls</li>
+</ul>
+<p>And these all really relate to each other – if you don’t understand what a PAW is, you can easily believe other solutions such as PIM or PAM will sufficiently fill the gap. Likewise, if you don’t understand how to articulate the value and principles behind PAW, it’s difficult to run it up the chain to ensure that it has priority. Even in those instances where you may have a decent understanding of PAW, but as an admin don’t want to change your working behavior – it’s understandable, it’s human to not want to change without knowing why.</p>
+<p>Awareness is the first principle of ADKAR (<a href="https://www.prosci.com/resources/articles/why-the-adkar-model-works">The Prosci ADKAR Model: Why it Works</a>). May this article build that awareness, so you’ll come out of it with the second principle, desire.</p>
+<h3 id="keeping-it-clean"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#keeping-it-clean">Keeping it clean</a></h3>
+<p>One of the foundational components of privileged access is the clean source principle, which per Microsoft states:</p>
+<p>*The clean source principle requires all security dependencies to be as trustworthy as the object being secured.</p>
+<p>Microsoft Learn, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-success-criteria?WT.mc_id=SEC-MVP-5005105#clean-source-principle">Success criteria for privileged access strategy | Microsoft Learn</a>*</p>
+<p>To phrase this another way, all components related to privileged access – the user accounts, the devices, the first- and third-party tools, all need to exist and be managed fully within the same security tier. Since the primary focus of PAW is for privileged access, that means everything related to PAW needs to be encompassed within the same tier as privileged access.</p>
+<p>Microsoft documents this in their privileged access implementation documentation, and diagrams this out as follows:</p>
+<p><img alt="Figure 1" src="/images/2023/07/17/img1.png" /></p>
+<p><em>Note Privileged Security highlighted in the red box. Image courtesy Microsoft.</em></p>
+<p>Those that are seasoned with Active Directory security may be more familiar with the Tiered access model, composed of Tier 0, Tier 1, and Tier 2, as diagrammed below:</p>
+<p><img alt="Figure 2" src="/images/2023/07/17/img2.png" /></p>
+<p><em>The Active Directory oriented privileged access model.</em></p>
+<p>What is important to understand is that in the new model of privileged security, Tier 0 does not go away. There are subsets of privileged security – Tier 0 effectively becomes the control plane, encompassing all existing Tier 0 assets, such as Active Directory and related systems such as Azure AD Connect and AD FS. Tier 0 now includes the <strong>Control Plane</strong>, which is highly privileged access that provides control over all resources. The credentials associated with the control plane are<strong> Global Administrator</strong>, and users that hold roles which can <strong>directly</strong> or <strong>indirectly obtain control</strong> over a Global Administrator. It has become important to include these accounts in that realm of Tier 0 access, as we tend to only focus on Global Administrator. As an example, Privileged Authentication Administrator roles can be used to reset authentication information on all accounts in a tenant. Intune Administrators, in a cloud-managed PAW deployment, become encompassed in Tier 0, as they can manipulate and manage PAW devices. Tier 1 becomes the Management and Data and Workload planes and still includes the Server Admin role; still privileged, but importantly still separated from the control plan and Tier 0. While the focus on the part of Microsoft is very cloud-oriented, privilege separation and the delineation are still critical for Active Directory, as well as using PAW for Active Directory management – majority of enterprises will still be leaning on Active Directory for a good while. And speaking of Active Directory, for the organizations that have hybrid identity, where Active Directory and Azure AD are connected, organizations need to understand the paths of lateral movement and privilege escalation between the two identity providers; there are known attack paths where Active Directory can be leveraged to takeover Azure AD, as well as the opposite flow. These are just some examples, and role delineation and definition can be an article on its own – let me know if that would interest you. In the meantime, you can read about this evolution and how Microsoft defines it here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-access-model?WT.mc_id=SEC-MVP-5005105#evolution-from-the-legacy-ad-tier-model">Securing privileged access Enterprise access model | Microsoft Learn</a>.</p>
+<p>Both models are still widely used and the principles behind them are valid. What is critical is that both models indicate that the <strong>device</strong> should be a PAW. Specifically, a <strong>physical device initiating session</strong>. The phrase clean keyboard may be thrown around at times as a bit of shorthand for the clean source principle.</p>
+<h3 id="what-a-paw-is-not"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#what-a-paw-is-not">What a PAW is not</a></h3>
+<p>Organizations may take shortcuts to PAW, either by implementing something “PAW like”, such as jump boxes or bastion hosts, or virtualizing their PAW. The term “cloud PAW” floats around out there, which assumptions made that it equates to deploying PAW as virtual desktops.</p>
+<p>In all these scenarios you either run into:</p>
+<ul>
+<li>The chicken-and-egg problem</li>
+<li>A tiering breach</li>
+</ul>
+<h4 id="bastion-hosts-jump-boxes-and-cloud-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#bastion-hosts-jump-boxes-and-cloud-paw">Bastion hosts, jump boxes and cloud PAW</a></h4>
+<p>Both bastion hosts and jump boxes can serve their purpose for managing resources, but they are not replacement for PAW. To adhere to the clean source principle, any remote access to a bastion host or jump box would need to be initiated from a device that already exists within the privileged security tier, otherwise you’ll encounter an upward tiering breach.</p>
+<p><img alt="Figure 3" src="/images/2023/07/17/img3.png" /></p>
+<p><em>Breaching tiers with a cloud-based solution such as bastion hosts or jump boxes</em></p>
+<p>Even in the case where you may be used advanced technologies such as passwordless for authentication, some component of the authentication process will be local to the enterprise device, putting the privileged user account at risk of exposure on a lower tier.</p>
+<p>And what about cloud PAW? This is a place of much confusion, as it’s a term thrown about that is derived from the Microsoft model of using <strong>cloud managed PAW</strong>. That managed word being the key piece – Microsoft documents how organizations can build and deploy PAW that are managed by Intune and joined to Azure AD. You can find that documentation here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-deployment?WT.mc_id=SEC-MVP-5005105">Deploying a privileged access solution | Microsoft Learn</a>. As it goes with terminology, cloud managed PAW may sometimes be shortened to cloud PAW, and when people see cloud PAW, they presume that it means a PAW that exists within the cloud.</p>
+<p>You’ll still find several articles and models out there where people attempt to build out a cloud-native PAW system, using things like Azure Virtual Desktop or Windows 365. And some of them <strong>might</strong> have an acceptable level of risk built into their design where there is enough monitoring and other compensating controls to minimize potential privileged access damage. Considering that ransomware can cost organizations millions of dollars in losses due to the inability to function, or even put them out of business, that’s the risk that needs to be factored in with something like a cloud PAW design. I’ve yet to see one that adheres to the clean source principle.</p>
+<h4 id="virtualized-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#virtualized-paw">Virtualized PAW</a></h4>
+<p>Virtualizing your PAW results in the same series of issues as jump boxes and bastion hosts. Unless your virtualization environment is composed of resources that exist on and are managed in Tier 0, your Tier 1 administrators will be indirect administrators of those vPAW, and in turn access to other critical Tier 0 resources.</p>
+<p><img alt="Figure 4" src="/images/2023/07/17/img4.png" /></p>
+<p><em>Tier 1 admins can become Tier 0 admins through the management plane</em></p>
+<p>It’s also important to consider the implications of not managing business critical Tier 1 resources from a PAW. We can expand our breach model out another layer and see that we are putting all resources at risk when we don’t use a physical PAW.</p>
+<p><img alt="Figure 5" src="/images/2023/07/17/img5.png" /></p>
+<p><em>The cascading tier breach with virtualized PAW</em></p>
+<p>Some organizations may choose to run localized instances of virtualization software on their Enterprise devices, such as enabling Hyper-V within Windows 11. In these cases, the same problems apply: the enterprise user will still be authenticating with some mechanism local to the device with privileged credentials. The virtualized PAW will be susceptible to the same management plane attacks that would occur in an enterprise virtualization scenario.</p>
+<p><img alt="Figure 6" src="/images/2023/07/17/img6.png" /></p>
+<p><em>Localized virtualization of a vPAW breaching tiers</em></p>
+<h3 id="why-pim-and-pam-compliment-but-do-not-replace-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#why-pim-and-pam-compliment-but-do-not-replace-paw">Why PIM and PAM compliment, but do not replace, PAW</a></h3>
+<p>PIM and PAM solutions are great mechanisms from a defense-in-depth perspective, but they do little to protect credentials once the credential is resident on the device in question.</p>
+<p>A primary component of PAM solutions is password vaulting, which is great for granular control and auditing of who has access to secrets. Once that secret becomes resident on the device, however, it is as vulnerable as all the other credentials on the device. With more advanced and modern PAM solutions, there are mechanisms that provide a bastion host/jump box, to ensure that the vaulted credentials are not resident to the local device. However, you still will run into the same issues with bastion hosts and jump boxes – you still need to connect into the components providing this solution, which includes authenticating and creating a session. If you want to protect the session end-to-end, the source device still needs to adhere to the clean source principle, which in this case would be from a PAW.</p>
+<p>PIM also compliments PAW but is not a replacement on its own. While PIM is great for providing the least standing privilege and enabling the use of just-in-time (JIT) privileges, once privileges are elevated in a system, any threat actor obtains your credentials, or a representation of them (such as tokens) will be able to act as you, with those elevated privileges.</p>
+<h3 id="paw-greatly-reduces-the-surface-area-on-privileged-accounts"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#paw-greatly-reduces-the-surface-area-on-privileged-accounts">PAW greatly reduces the surface area on privileged accounts</a></h3>
+<p>The purpose of a defense-in-depth model is to ensure that if one component fails, there are other components that will ensure that data, the core of every modern business, is not exposed to those who should not have access to that data.</p>
+<p><img alt="Figure 7" src="/images/2023/07/17/img7.png" /></p>
+<p><em>Defense-in-depth model</em></p>
+<p>If we drill down into this model further, we will see that each layer is composed of several different technologies – especially when we are talking about privileged access to that data.</p>
+<p>If we broke down the Identity &amp; Access layer of the model, we might see something like this:</p>
+<p><img alt="Figure 8" src="/images/2023/07/17/img8.png" /></p>
+<p><em>A breakdown of the Identity &amp; Access Management Layer concerning privileged credentials</em></p>
+<p>PAW is foundational to the design theory of several other components – filling in the gaps PIM and PAM/secret vaulting present, but also building the strong foundation for which robust conditional access policies can be applied, device security policies can be pushed down from Intune, and account separation can be used to its fullest potential, ensuring that a mistake made with enterprise level credentials do not expose privileged creds.</p>
+<h3 id="paw-doesnt-have-to-be-complex-to-deploy"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#paw-doesnt-have-to-be-complex-to-deploy">PAW doesn’t have to be complex to deploy</a></h3>
+<p>As it goes with much of the privileged access documentation out there, there is the perception that everything is extremely time-consuming and overly complex. Organizations and security practitioners need to reshape their thinking relative to security privileged access, including the deployment of PAW.</p>
+<p>Yes, depending on how your organization is structured, cloud managed PAW will require knocking down some silos between the teams that manage identity and devices within the organization; that’s work that should be happening anyway. Afterall, identity and device management practitioners are both security practitioners in modern environments.</p>
+<p>As with most guidance though, starting somewhere is better than nowhere. Having an incremental approach and open mindset is a stronger security posture than saying if we can’t achieve 100% in x time, then it’s not worth doing at all.</p>
+<p>If nothing else, justify the expense to procure some modern laptops to be used as the privileged devices for those Tier 0 Global Administrators and Domain Administrators, preferably one that is a secured-core device. You can find currently available ones here, <a href="https://www.microsoft.com/en-us/windows/business/windows-11-secured-core-computers?WT.mc_id=SEC-MVP-5005105">Windows 11 Secured-Core PCs | Microsoft</a>. The few thousand-dollar proactive expense is cheaper than the loss of business <strong>when</strong> your organization is breached. You can go one step further and configure some strong conditional access policies restricting what devices the privileged accounts can be used from. For details, see Filter for devices as a condition in <a href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/concept-condition-filters-for-devices?WT.mc_id=SEC-MVP-5005105#create-a-conditional-access-policy">Conditional Access policy – Microsoft Entra | Microsoft Learn</a>.</p>
+<p>Eventually though make sure you take the time to go through the entire process, found here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-deployment?WT.mc_id=SEC-MVP-5005105">Deploying a privileged access solution | Microsoft Learn</a>.</p>
+<h3 id="the-operational-change-shouldnt-be-a-showstopper"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#the-operational-change-shouldnt-be-a-showstopper">The Operational change shouldn’t be a showstopper</a></h3>
+<p>Once deployed, and enforced, the biggest change in organizations is the operational impact on the privileged administrators. Yes, you may not be able to copypasta that PowerShell snippet you found on Stack Overflow as easily, but in our modern landscape we all must adapt to new ways of working. We made it through the drastic changes with remote work, and transitioning to PAW is much less impactful on the overall organization than that was – even if it doesn’t feel that way to your privileged admins.</p>
+<p>Organizations need to make sure that they support the change, as there will be needed ramp up time, and it’s a suitable time to perform some incident handling testing to make sure administrators can perform all that they need to perform from their PAW. Organizations can be most vulnerable during an incident, whether it’s cyber, operational, or natural forces, and the mode of operation can’t be to just throw the PAW aside to fix things. Make sure that your IR, BC, and DR scenarios are reviewed and revised to support the use of PAW, as necessary.</p>
+<h3 id="last-thoughts"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#last-thoughts">Last thoughts</a></h3>
+<p>One of my favorite tag lines is from Johnathan Fox, a Sr. Security Consultant from Microsoft. The tag is “be a good admin and protect your privilege!”. Such a simple north star that we all should follow.</p>
+<p>And if you’re an organization supporting your admins, make sure that you be a good organization and support your admins protecting their privilege. With the continually evolving landscape of threat actors, that protection is more critical than ever to ensuring that business doesn’t stop.</p>
+    
+  </div>
+</article>
+      
       
         
           

@@ -428,6 +428,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#but-i-havent-started-the-passwordless-journey-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      But I haven't started the passwordless journey yet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticator-app-for-primary-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authenticator App for primary authentication
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -494,7 +520,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              2 min read
+                              3 min read
                             
                           </span>
                         </div>
@@ -521,12 +547,37 @@
 <h1 id="world-password-day">World Password Day</h1>
 <p>Forget passwords. Passwords are garbage. To celebrate World Password Day, I’m curating blog articles that can help organizations on their passwordless journey.</p>
 <p>While much of the Microsoft documentation on passwordless is quite good, it can tend to be overwhelming at times; the hope is to give you some great leads on some clear, step-by-step instructions on how to get you from a password-filled to a passwordless world in Active Directory and Azure AD.</p>
-<p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as ADFS and using smartcards, or has DC’s older than 2016, you have a bunch of Mac’s in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
+<p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as AD FS and using smartcards, or has DC’s older than 2016, you have a bunch of Macs in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
 <p>If you want to dive further into why this is so important, I’ll refer you to these two blog articles from Alex Weinert [<a href="https://twitter.com/Alex_T_Weinert">@Alex_T_Weinert</a>], the Director of Identity Security at Microsoft.</p>
-<p>Your Pa$$word doesn’t matter – Microsoft Tech Community – Alex discusses why MFA is so important.</p>
-<p>All your creds are belong to us! – Microsoft Tech Community – Alex discusses why passwordless strong authentication is important and shows why more common forms of MFA are still phishable.</p>
+<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/your-pa-word-doesn-t-matter/ba-p/731984">Your Pa$$word doesn’t matter – Microsoft Tech Community</a> – Alex discusses why MFA is so important.</p>
+<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/all-your-creds-are-belong-to-us/ba-p/855124">All your creds are belong to us! – Microsoft Tech Community</a> – Alex discusses why passwordless strong authentication is important and shows why more common forms of MFA are still phishable.</p>
 <p>See something missing? Still have questions? Not sure how the underlying technology works? Reach out to me.</p>
 <p>And if you are a fellow Microsoft blogger who thinks their article would be a good fit, but it’s not on here? Reach out and I’ll update accordingly.</p>
+<h2 id="but-i-havent-started-the-passwordless-journey-yet">But I haven't started the passwordless journey yet</h2>
+<p>You aren’t alone. Many organizations find it difficult to fit yet another new project onto the docket.</p>
+<p>The thing about passwordless – while it may be a journey, it’s also one of the easiest journeys to start. All major mechanisms of passwordless – Windows Hello for Business (WHfB), FIDO2 security keys, Authenticator App for primary authentication, and smartcards – they all can be implemented in a wave/phase/ring (pick your favorite descriptor) approach. And the underlying directory &amp; infrastructure changes (if any) can be implemented in a non-disruptive manner.</p>
+<p>Can’t get the whole organization onboard? That’s ok, x% is better than 0%.</p>
+<p>Don’t have biometrics on all your devices? WHfB has PIN support.</p>
+<p>End-users not wanting to MDM enroll their devices? Authenticator App only requires Device Registration.</p>
+<p>FIDO2 feel odd or uncomfortable? It’s essentially modern smartcards.</p>
+<p>Have some applications that still use legacy means of authentication? Most organizations do, but we can minimize the need to use passwords beyond them.</p>
+<p>Concerned users may still use their password because you can’t fully get rid of it? When we give users an easier passwordless experience, they will not opt for something more complex. Users love easy things.</p>
+<p>When talking about the security of identity, the <strong>most important thing</strong> we can all do is <strong>change our mindset</strong>. Instead of focusing on the possibility that a single solution may not cover 100% of user personas, we need to focus on whatever percentage we <strong>can</strong> cover, which will <strong>reduce</strong> the <strong>password attack surface</strong> immensely for those users, and our organization.</p>
+<h2 id="authenticator-app-for-primary-authentication">Authenticator App for primary authentication</h2>
+<p><strong>Infrastructure effort: 5-10 minutes</strong>
+<strong>End user enrollment effort: 5-10 minutes</strong>
+<strong>Can be rolled out selectively: Yes</strong>
+<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
+<p>Lots of folks might be familiar with the Microsoft Authenticator App, but did you know you can use it for passwordless authentication? You can. It’s great for when users need to be passwordless when accessing company resources from a mobile device, or when they are on the go and need to auth through a web browser.</p>
+<p>Jason Samuel [<a href="https://twitter.com/_JasonSamuel">@_JasonSamuel</a>] has a good write-up here covering enablement. He also gets into Citrix Workspace stuff, but even if you don’t have Citrix in your environment, the other parts are written straightforward:</p>
+<p><a href="https://www.jasonsamuel.com/2019/03/04/how-to-setup-password-less-phone-sign-in-authentication-with-microsoft-authenticator-azure-ad-and-citrix-workspace/">How to setup password-less phone sign-in authentication with Microsoft Authenticator, Azure AD, and Citrix Workspace – JasonSamuel.com</a></p>
+<p>Microsoft Docs article for reference can be found here:</p>
+<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone">Passwordless sign-in with the Microsoft Authenticator app – Azure Active Directory | Microsoft Docs</a></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If you are also using the number matching preview for Authenticator App push notifications, the passwordless configuration is covered under the same settings in Azure AD. If you are using groups to selectively roll out these settings, I cover targeting groups here:</p>
+<p><a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a></p>
+</div>
 
 
 

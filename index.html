@@ -357,6 +357,31 @@
   
   
     <li class="md-nav__item">
+      <a href="archive/2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2022
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="archive/2021/" class="md-nav__link">
         
   
@@ -1712,6 +1737,70 @@ distinct ServicePrincipalId
 <p>In the nOAuth case, the organizations selling SaaS applications were not named, and the problem was mitigated behind the scenes. But it’s a case of luck in that the “good team” was first to find the rampant use of these antipatterns. If things turned out worse, and account takeover has happened, it can become a very fast trip to the loss of consumer confidence and depending on your industry or geopolitical region regulator fines and other penalties, from data exfiltration and exposure. It also instills the fear, uncertainty, and doubt, in the industry, almost as a self-fulfilling prophecy that inhibits the industry to move forward. Imagine if your bank account could simply be taken over by someone spoofing your email address in a claim – it’s a fast route to never modernizing identity and leaving us in our current state of too many accounts, too many passwords, too many ways to authenticate, failing our end users.</p>
 <h3 id="final-thoughts"><a class="toclink" href="2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#final-thoughts">Final Thoughts</a></h3>
 <p>Start collaborating on identity within your organization across all the silos it touches. Prioritize education, for real this time. Your consumers will thank you for it, even if they don’t know they need to.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-increasing-security-within-the-mfa-experience"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security Within The MFA Experience</a></h2>
+<p>MFA push notifications – one of the more polarizing MFA options available within Azure AD. From a usability perspective, the perception is that it’s less interruptive and less complex for end users. From a security perspective, it’s a low barrier of entry for a malicious actor; especially when targeting a user who may approve push notifications for MFA without much thought.</p>
+<p>We have seen Microsoft implement various methods of interaction into push notifications to try and combat users just hitting Approve without a second thought. The Authenticator App for passwordless, sometimes referred to as phone sign-in, already has number matching implemented. But this never made it into our more common corporate MFA scenarios – until recently when additional options for the Authenticator App showed up in Public Preview.</p>
+<p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
+<p><img alt="Figure 1" src="/images/2022/02/22/img1.png" /><img alt="Figure 2" src="/images/2022/02/22/img2.png" /></p>
+<p><em>Before and after</em></p>
+<h3 id="number-matching"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#number-matching">Number matching</a></h3>
+<p>Number matching is the component that creates a stronger second factor for our end users, because they will no longer be able to just hit Approve to that push notification. According to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-number-match">Microsoft Docs article</a>, once number matching goes GA, it will be enabled within all tenants a few months after. It’s tough to tell at this point whether customers will then have the option to retroactively disable number matching, but the interface makes it seem like it could be possible – not that it would be recommended.</p>
+<p><img alt="Figure 3" src="/images/2022/02/22/img3.png" /></p>
+<p><em>Number matching dialogue after primary authentication</em></p>
+<p>Per Microsoft number matching will support the following scenarios:</p>
+<ul>
+<li>Multi-factor</li>
+<li>Self-service password reset</li>
+<li>Combined SSPR and MFA registration</li>
+<li>AD FS adapter</li>
+<li>NPS extension</li>
+</ul>
+<p>Probably should place an asterisk on the NPS extension, because unless you are using PAP as your RADIUS protocol, push notifications will “downgrade” to an Approve/Deny without number matching (there is no ability to interact with EAP/MS-CHAPv2).</p>
+<h4 id="enabling-number-matching"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-number-matching">Enabling number matching</a></h4>
+<p>Again, will speculate that the long term goal is that number matching will be enabled by default in all tenants, and it’s going to become the new normal for our end users. But with this in Public Preview at the moment, it’s something we have to opt into.</p>
+<p>Also, we have the choice of either enabling number matching for the entire organization or for a group of users; the latter allowing for more finesse in testing, piloting, staged rollouts, and the such.</p>
+<p>Referencing the docs article linked above, it’s a relatively straightforward process. The article itself actually comes across at first as if you <strong>have</strong> to use Graph for updating/creating the policy; when you scroll down within it, you’ll see that it can also be performed through the portal. We’ll run through here looking at the options through Graph and seeing how they impact what the portal looks like.</p>
+<p>Before jumping into things, I will note that the changes were relatively quick to notice within my test tenant – within a few minutes the changes were apparent to my test users. Likewise with testing of disabling the settings.</p>
+<h5 id="gathering-the-current-state"><a class="toclink" href="2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#gathering-the-current-state">Gathering the current state</a></h5>
+<p>Before making any changes, let’s check out the current state of our policy.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to perform the actions within Graph Explorer, you will want to sign-in, and make sure that you consent to <strong>Policy.Read.All</strong> and <strong>Policy.ReadWrite.AuthenticationMethod</strong> permissions.</p>
+</div>
+<p>We can do this by running the following query in Graph Explorer:</p>
     
   </div>
 </article>

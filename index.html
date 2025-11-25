@@ -1575,8 +1575,8 @@ distinct ServicePrincipalId
   <div class="md-post__content md-typeset">
     <h2 id="protect-your-privilege-with-paw"><a class="toclink" href="2023/07/17/protect-your-privilege-with-paw/">Protect Your Privilege with PAW</a></h2>
 <p>According to the Microsoft Digital Defense Report 2022, weak identity controls are listed as a top three contributing factors found during ransomware incident response. One particularly troubling finding within identity controls is the lack of Privileged Access Workstations (PAW) found in any response engagement:</p>
-<p>*None of the impacted organizations implemented proper administrative credential segregation and least privilege access principals via dedicated workstations during the management of their critical identity and high-value assets, such as proprietary systems and business-critical applications.</p>
-<p><a href="https://www.microsoft.com/en-us/security/business/microsoft-digital-defense-report-2022?WT.mc_id=SEC-MVP-5005105">Microsoft Digital Defense Report 2022, page 15 (Microsoft Digital Defense Report 2022 | Microsoft Security)</a>*</p>
+<p><em>None of the impacted organizations implemented proper administrative credential segregation and least privilege access principals via dedicated workstations during the management of their critical identity and high-value assets, such as proprietary systems and business-critical applications.</em></p>
+<p><em><a href="https://www.microsoft.com/en-us/security/business/microsoft-digital-defense-report-2022?WT.mc_id=SEC-MVP-5005105">Microsoft Digital Defense Report 2022, page 15 (Microsoft Digital Defense Report 2022 | Microsoft Security)</a></em></p>
 <p>The report does not speculate as to <strong>why</strong> the organizations were not using PAW, but for anyone seasoned out there in the world of consultancy the answers will look like:</p>
 <ul>
 <li>Lack of time/budget/resources/priority</li>
@@ -1588,8 +1588,8 @@ distinct ServicePrincipalId
 <p>Awareness is the first principle of ADKAR (<a href="https://www.prosci.com/resources/articles/why-the-adkar-model-works">The Prosci ADKAR Model: Why it Works</a>). May this article build that awareness, so you’ll come out of it with the second principle, desire.</p>
 <h3 id="keeping-it-clean"><a class="toclink" href="2023/07/17/protect-your-privilege-with-paw/#keeping-it-clean">Keeping it clean</a></h3>
 <p>One of the foundational components of privileged access is the clean source principle, which per Microsoft states:</p>
-<p>*The clean source principle requires all security dependencies to be as trustworthy as the object being secured.</p>
-<p>Microsoft Learn, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-success-criteria?WT.mc_id=SEC-MVP-5005105#clean-source-principle">Success criteria for privileged access strategy | Microsoft Learn</a>*</p>
+<p><em>The clean source principle requires all security dependencies to be as trustworthy as the object being secured.</em></p>
+<p><em>Microsoft Learn, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-success-criteria?WT.mc_id=SEC-MVP-5005105#clean-source-principle">Success criteria for privileged access strategy | Microsoft Learn</a></em></p>
 <p>To phrase this another way, all components related to privileged access – the user accounts, the devices, the first- and third-party tools, all need to exist and be managed fully within the same security tier. Since the primary focus of PAW is for privileged access, that means everything related to PAW needs to be encompassed within the same tier as privileged access.</p>
 <p>Microsoft documents this in their privileged access implementation documentation, and diagrams this out as follows:</p>
 <p><img alt="Figure 1" src="/images/2023/07/17/img1.png" /></p>

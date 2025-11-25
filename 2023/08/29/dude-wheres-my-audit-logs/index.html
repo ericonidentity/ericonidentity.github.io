@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2025/02/20/an-interesting-m365-billing-scam/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/08/29/dude-wheres-my-audit-logs/">
       
       
-        <link rel="prev" href="../../../01/13/spying-on-your-isvs-credential-choices/">
       
-      
-        <link rel="next" href="../../../09/02/entra-useless-insights-report/">
+        <link rel="next" href="../../../../2024/03/26/the-intersection-of-graph-and-entra-id-application-permissions-and-roles/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>An Interesting M365 Billing Scam - Eric on Identity</title>
+        <title>Dude, Where's My Audit Logs? - Eric on Identity</title>
       
     
     
@@ -85,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#an-interesting-m365-billing-scam" class="md-skip">
+        <a href="#dude-wheres-my-audit-logs" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              An Interesting M365 Billing Scam
+              Dude, Where's My Audit Logs?
             
           </span>
         </div>
@@ -385,18 +383,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#update" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
-      Update
+      The problem
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-scam" class="md-nav__link">
+  <a href="#missing-log-data" class="md-nav__link">
     <span class="md-ellipsis">
-      The Scam
+      Missing log data
     </span>
   </a>
   
@@ -458,7 +456,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2025-02-20 00:00:00+00:00" class="md-ellipsis">February 20, 2025</time>
+                        <time datetime="2023-08-29 00:00:00+00:00" class="md-ellipsis">August 29, 2023</time>
                       </div>
                     </li>
                     
@@ -470,7 +468,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              5 min read
+                              2 min read
                             
                           </span>
                         </div>
@@ -494,221 +492,23 @@
 
 
 
-<h1 id="an-interesting-m365-billing-scam">An Interesting M365 Billing Scam</h1>
-<h2 id="update">Update</h2>
-<p>I called the 888 number this morning and it does indeed go to a scam call center. I played along with the person on the other end, who ultimately wanted my first and last name, email address, the order number, and most importantly, my credit card number, so they “could reverse the charge” 🤣</p>
-<h2 id="the-scam">The Scam</h2>
-<p>This is a case where I’d actually love to see how this plays out – when you see the way that scammers try to string things together. I’ve been receiving a rash of unpaid toll bill texts, which give themselves away pretty easily based on the source number. But I’m not here to talk about that scam.</p>
-<p>Instead, I’m here to dig into this email I received last week:</p>
-<p><img alt="Figure 1" src="/images/2025/02/20/img1.png" /></p>
-<p><em>Last time I checked, I’m not Molly Wagner</em></p>
-<p>It looked authentic, and when I checked the headers, it is indeed from Microsoft. I do subscribe to various Microsoft services and receiving emails like this are not abnormal, but I was certainly confused by the service, as well as who it was to.</p>
-<p>I scroll down a bit more into the rest of the email:</p>
-<p><img alt="Figure 1" src="/images/2025/02/20/img2.png" /></p>
-<p>Notice anything unusual? At first, I didn’t. To give myself props, even though it all seemed legitimate, I didn’t click on the link.</p>
-<p>But when I saw the domain JacksonLyons.onmicrosoft.com I decided to go look it up over at <a href="https://aadinternals.com/osint/">https://aadinternals.com/osint/</a>. The results:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Default domain</td>
-<td>JacksonLyons.onmicrosoft.com</td>
-</tr>
-<tr>
-<td>Tenant name</td>
-<td>null</td>
-</tr>
-<tr>
-<td>Tenant brand</td>
-<td>Microsoft We appreciate your purchase and have finished your recent order for 592.99 USD. Please contact us at (888) 929-1904 for help or cancelation.</td>
-</tr>
-<tr>
-<td>Tenant id</td>
-<td>6cc54dbc-77fb-44e7-9c6f-ca766a8e26b1</td>
-</tr>
-<tr>
-<td>Tenant region</td>
-<td>NA</td>
-</tr>
-<tr>
-<td>Seamless single sign-on (SSSO)</td>
-<td>disabled</td>
-</tr>
-<tr>
-<td>Uses Azure AD Connect cloud sync</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Certificate-based authentication (CBA)</td>
-<td>N/A</td>
-</tr>
-</tbody>
-</table>
-<p>The results make me wonder if the tenant is turned off on the Microsoft side, as there are no verified domains, but there is a Tenant ID, and the interesting Tenant brand.</p>
-<p>Of course, it appears that <em>smithkrause.onmicrosoft.com</em> is the vehicle behind this, and in particular <em>mollywagner@smithkrause.onmicrsoft.com</em>.</p>
-<p>Back to another lookup courtesy of <a href="https://bsky.app/profile/drazuread.bsky.social">@drazuread.bksy.social</a>:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Default domain</td>
-<td>SmithKrause.onmicrosoft.com</td>
-</tr>
-<tr>
-<td>Tenant name</td>
-<td>SmithKrause.onmicrosoft.com</td>
-</tr>
-<tr>
-<td>Tenant brand</td>
-<td>SmithKrause</td>
-</tr>
-<tr>
-<td>Tenant id</td>
-<td>eecfe604-36e5-4e7c-86ee-2313e05112aa</td>
-</tr>
-<tr>
-<td>Tenant region</td>
-<td>NA</td>
-</tr>
-<tr>
-<td>Seamless single sign-on (SSSO)</td>
-<td>disabled</td>
-</tr>
-<tr>
-<td>Uses Azure AD Connect cloud sync</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Certificate-based authentication (CBA)</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Verified domains</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Domain</th>
-<th>Type</th>
-<th>STS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>addiamaryellen.gigasphere.site</td>
-<td>Managed</td>
-<td></td>
-</tr>
-<tr>
-<td>SmithKrause.onmicrosoft.com</td>
-<td>Managed</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Pulling a whois of <em>gigasphere.site</em>, the domain is relatively fresh:</p>
-<div class="highlight"><pre><span></span><code>Domain Name: GIGASPHERE.SITE
-Registry Domain ID: D524536986-CNIC
-Registrar WHOIS Server: whois.namecheap.com
-Registrar URL: https://namecheap.com
-Updated Date: 2025-02-05T10:49:53.0Z
-Creation Date: 2025-02-05T10:49:48.0Z
-Registry Expiry Date: 2026-02-05T23:59:59.0Z
-Registrar: Namecheap
-Registrar IANA ID: 1068
-</code></pre></div>
-<p>When digging into DNS, both <em>gigasphere.site</em> and <em>addiamaryellen.gigasphere.site</em> only have MX and SPF records for EXO (<em>gigasphere.site</em> DNS is hosted by Cloudflare).</p>
-<p>Of course, the email originated from a <em>smithkrause.onmicrosoft.com</em> domain, which I can’t tell the age of, or at least not through AAD Internals OSINIT. Another interesting thing to note is that the people behind the scam are populating a distribution list with the target email addresses; when looking at the headers the To: is indeed <em>mollywagner@smithkrause.onmicrosoft.com</em>.</p>
-<p>In due diligence I submitted the email review in M365 Defender, which came back with a no threats found</p>
-<p><img alt="Figure 3" src="/images/2025/02/20/img3.png" /></p>
-<p>Apparently, the body of the email containing <em>"Microsoft We appreciate your purchase and have finished your recent order for 592.99 USD. Please contact us at (888) 929-1904 for help or cancelation."</em> isn’t sufficient enough to be considered suspicious 🙄.</p>
-<p>For fun, I did call the number, but right now the scammers number just forwards to a voicemail box; if I’m able to get ahold of them and resolve my billing issues I’ll follow up 😉.</p>
-<p>And the link? The link is benign, it just goes to the M365 admin billing portal, because the email as far as I can tell is legit from Microsoft.</p>
-<p>The first few hops on the headers appear to be coming from some MS backend service and it hits the DL on hop 5, based on looking at the headers on <a href="https://mxtoolbox.com/EmailHeaders.aspx">https://mxtoolbox.com/EmailHeaders.aspx</a>:</p>
-<table>
-<thead>
-<tr>
-<th>Hop</th>
-<th>Delay</th>
-<th>From</th>
-<th>By</th>
-<th>With</th>
-<th>Time (UTC)</th>
-<th>Blacklist</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>*</td>
-<td>outlook.office365.com 2603:10b6:303:18d::16</td>
-<td>MW4PR20MB4527.namprd20.prod.outlook.com</td>
-<td>HTTP</td>
-<td>2/13/2025 2:40:06 PM</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2 seconds</td>
-<td>NAM10-DM6-obe.outbound.protection.outlook.com 2a01:111:f403:2413::720</td>
-<td>SJ1PEPF00002313.mail.protection.outlook.com 2603:10b6:a0f:fc02::1a7</td>
-<td>Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384)</td>
-<td>2/13/2025 2:40:08 PM</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>3</td>
-<td>0 seconds</td>
-<td>SJ1PEPF00002313.namprd03.prod.outlook.com 2603:10b6:a03:54:cafe::b3</td>
-<td>BYAPR02CA0055.outlook.office365.com 2603:10b6:a03:54::32</td>
-<td>Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384)</td>
-<td>2/13/2025 2:40:08 PM</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>4</td>
-<td>0 seconds</td>
-<td>BYAPR02CA0055.namprd02.prod.outlook.com 2603:10b6:a03:54::32</td>
-<td>SJ2PR17MB6565.namprd17.prod.outlook.com 2603:10b6:a03:4f6::19</td>
-<td>Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)</td>
-<td>2/13/2025 2:40:08 PM</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>5</td>
-<td>47 seconds</td>
-<td>BY5PR17MB3063.namprd17.prod.outlook.com fe80::bf8c:c1de:31b1:4af5</td>
-<td>BY5PR17MB3063.namprd17.prod.outlook.com fe80::bf8c:c1de:31b1:4af5</td>
-<td>mapi</td>
-<td>2/13/2025 2:40:55 PM</td>
-<td>❌</td>
-</tr>
-</tbody>
-</table>
-<p>Additionally, I would think if the email was fake, they wouldn’t include a legit link to the M365 Admin billing site.</p>
-<p>Here is what I believe is going on:</p>
-<ol>
-<li>Scammer sets up junk tenant with the scam text tenant brand info</li>
-<li>Distribution list is created with target email addresses</li>
-<li>DL is used as the billing contact email</li>
-<li>Scammer signs up for trial and/or service (not sure of this part in that when I looked up Dynamics 365 Sales Enterprise Edition, it’s $120 USD /month)</li>
-<li>Email is blasted to all the targets via the DL</li>
-</ol>
-<p>Anyway, I thought it was worth a share as this seems like a new twist on using Microsoft tools to try and scam people.</p>
-<p>In the meantime, I’ll be trying to poke at Microsoft people to take down the smithkrause domain.</p>
+<h1 id="dude-wheres-my-audit-logs">Dude, Where's My Audit Logs?</h1>
+<p>Audit logs can provide all sorts of wonderful points of data. In the interest of identity security, we have historically seen that we can glean rich sets of information around what’s happening in a directory service with some properly functioning audit logging. For many identity practitioners, there is the expectation that while we may not always look at the audit logs or their details, if or when we need them, they’ll be there to help us understand whatever it is we are investigating. Same goes for compliance and auditing as well.</p>
+<p>Considering that customers have no ability to impact what or how auditing happens in Entra ID, in the shared responsibility model, it’s on Microsoft to ensure all events are audited.</p>
+<p><img alt="Figure 1" src="/images/2023/08/29/img1.png" />
+<em>Shared responsiblity model, courtesy Microsoft, with identity and directory infrastructure highlighted.</em></p>
+<p>Microsoft documents what is audited in Entra ID, which you can find here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-audit-activities?WT.mc_id=SEC-MVP-5005105">Azure Active Directory (Azure AD) audit activity reference – Microsoft Entra | Microsoft Learn</a>.</p>
+<h2 id="the-problem">The problem</h2>
+<p>I’ve recently been down the rabbit hole part time picking apart Entra ID audit logs, and in my analysis of the audit log data for Entra ID, some audit logs slot into one of two buckets:</p>
+<ul>
+<li>Data is missing</li>
+<li>Data is inconsistent/poor quality</li>
+</ul>
+<p><img alt="Figure 2" src="/images/2023/08/29/img2.jpg" />
+<em>Or perhaps in our case, what has been unseen cannot be seen.</em></p>
+<p>To be fair, a broad set of changes <strong>are</strong> audited in Entra ID, but at the same time I found it rather surprising that <strong>most SSPR</strong> configuration changes are not properly audited, which, if you look at the document above, Microsoft does not seem to argue. Considering recent events that surface what is logged in Entra ID and the M365 ecosystem, in this persons opinion Microsoft should be continually striving to audit 100% of all configuration changes in Entra ID.</p>
+<h2 id="missing-log-data">Missing log data</h2>
+<p>These are instances where Entra ID log data is incomplete, usually in that the modified properties data is null.</p>
 
 
 

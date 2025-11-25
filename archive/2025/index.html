@@ -529,59 +529,6 @@ user@domain.com     xxxxx                                Microsoft Authenticator
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2025-06-21 00:00:00+00:00">June 21, 2025</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns"><a class="toclink" href="../../2025/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">The nOAuth “flaw” is a symptom of industry antipatterns</a></h2>
-<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
-<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
-<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
-<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
-<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
-<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
-<h3 id="the-real-flaw-starts-with-the-security-industry-letting-its-people-down"><a class="toclink" href="../../2025/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#the-real-flaw-starts-with-the-security-industry-letting-its-people-down">The real flaw starts with the security industry letting its people down</a></h3>
-<p>So how exactly can we move from a technical problem to blaming the security industry as a whole? Microsoft speaks to the real flaw in their blog article – too many developers using antipatterns in software development for authentication and authorization. We can’t truly blame the developers, as we shouldn’t expect every developer to just magically be an expert at modern authentication. It’s difficult to even get identity practitioners to accurately describe the flows many times, so how can we point the finger at others.</p>
-<h3 id="education-is-the-enemy-of-antipatterns-but-who-has-time-for-that"><a class="toclink" href="../../2025/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#education-is-the-enemy-of-antipatterns-but-who-has-time-for-that">Education is the enemy of antipatterns, but who has time for that</a></h3>
-<p>The antipattern word is key here. Antipatterns are patterns that are common enough to become known, yet go against effective design. In this case, the antipattern is developers using the email claim within an ID token to make a “good enough” assessment of whom the user is.</p>
-<p>Antipatterns develop when there is a lack of education, which both the security and software development industry are ripe with. We need every application to do more things faster and quicker and always operating in some perpetual state of beta to ship things quicker to beat the competition. And no, we don’t have time to slow down to understand what we are doing. Ship it now, fix it later, which is exactly what has happened in this case.</p>
-<h3 id="the-silos-of-security-infrastructure-and-development-hinder-progress"><a class="toclink" href="../../2025/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#the-silos-of-security-infrastructure-and-development-hinder-progress">The silos of security, infrastructure, and development hinder progress</a></h3>
-<p>The fact that most organizations still operate with varying degrees of silos is the secret everyone knows about but in most cases chooses to ignore.</p>
-<p>For proper modern authentication development, we need developers that cross the boundaries between identity practitioner and coder. While logically most organizations can’t operate in a flat structure, we need to better adapt to remove these silos and let key players straddle the line. These key players need to be architects and engineers and developers who are allowed to cross-collaborate and want to cross-collaborate. If we enter a realm where identity security is dictated instead of collaborated, things rapidly break down.</p>
-<p>This collaborative team should be proportionately sized to the organization, but whether you are an identity software vendor (ISV) or an enterprise that develops line-of-business (LOB) applications, you will still greatly benefit from the collaboration around identity implementations within your software.</p>
-<h3 id="ignoring-the-need-for-change-continues-to-accrue-risk"><a class="toclink" href="../../2025/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#ignoring-the-need-for-change-continues-to-accrue-risk">Ignoring the need for change continues to accrue risk</a></h3>
-<p>In the nOAuth case, the organizations selling SaaS applications were not named, and the problem was mitigated behind the scenes. But it’s a case of luck in that the “good team” was first to find the rampant use of these antipatterns. If things turned out worse, and account takeover has happened, it can become a very fast trip to the loss of consumer confidence and depending on your industry or geopolitical region regulator fines and other penalties, from data exfiltration and exposure. It also instills the fear, uncertainty, and doubt, in the industry, almost as a self-fulfilling prophecy that inhibits the industry to move forward. Imagine if your bank account could simply be taken over by someone spoofing your email address in a claim – it’s a fast route to never modernizing identity and leaving us in our current state of too many accounts, too many passwords, too many ways to authenticate, failing our end users.</p>
-<h3 id="final-thoughts"><a class="toclink" href="../../2025/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#final-thoughts">Final Thoughts</a></h3>
-<p>Start collaborating on identity within your organization across all the silos it touches. Prioritize education, for real this time. Your consumers will thank you for it, even if they don’t know they need to.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
           <time datetime="2025-02-20 00:00:00+00:00">February 20, 2025</time></li>
         
         

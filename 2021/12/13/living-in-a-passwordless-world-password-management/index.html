@@ -632,19 +632,19 @@
 SmartcardLogonRequired,PasswordLastSet | `
 select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
 </code></pre></div>
-<p><img alt="Figure 1" src="/images/2023/12/13/img1.png" /></p>
+<p><img alt="Figure 1" src="/images/2021/12/13/img1.png" /></p>
 <p>To enable SCRIL, we toggle on SmartCardLogonRequired, which adjusts the userAccountControl attribute for us:</p>
 <div class="highlight"><pre><span></span><code>Set-Aduser -Identity &lt;username&gt; -SmartcardLogonRequired $true
 </code></pre></div>
-<p><img alt="Figure 2" src="/images/2023/12/13/img2.png" /></p>
+<p><img alt="Figure 2" src="/images/2021/12/13/img2.png" /></p>
 <p>SCRIL is now enabled on the user account; one thing that might seem surprising is that the password on the user is not actually changed when enabled on the account, so let’s look at how this behaves.</p>
 <h3 id="the-user-experience-and-ad-password-change">The user experience and AD password change</h3>
 <p>Now we have Lee attempt to log into his Windows 11 device with a password:</p>
-<p><img alt="Figure 3" src="/images/2023/12/13/img3.png" /></p>
+<p><img alt="Figure 3" src="/images/2021/12/13/img3.png" /></p>
 <p>When attempting to sign-in, we are presented with the following message:</p>
-<p><img alt="Figure 4" src="/images/2023/12/13/img4.png" /></p>
+<p><img alt="Figure 4" src="/images/2021/12/13/img4.png" /></p>
 <p>Let’s look at the account again in AD:</p>
-<p><img alt="Figure 5" src="/images/2023/12/13/img5.png" /></p>
+<p><img alt="Figure 5" src="/images/2021/12/13/img5.png" /></p>
 <p>And we see that the time Lee attempted logon, his password was changed in AD.</p>
 <p><strong>Takeaway #1</strong></p>
 <p>Until the user attempts authentication against Active Directory, their password will not be changed within AD.</p>
@@ -660,16 +660,16 @@ select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
 <p><img alt="Figure 6" src="/images/2023/12/13/img6.png" /></p>
 <p>Select OK, and now whenever the users password is going to expire, based on the policy applied to them, a new random 128 bit password will be assigned to the users account.</p>
 <p>As an example, let’s look at a FGPP in AD applied to this user account, with a maximum password age of 1 day:</p>
-<p><img alt="Figure 7" src="/images/2023/12/13/img7.png" /></p>
+<p><img alt="Figure 7" src="/images/2021/12/13/img7.png" /></p>
 <p>And the results from a few days of user authentication:</p>
-<p><img alt="Figure 8" src="/images/2023/12/13/img8.png" /></p>
+<p><img alt="Figure 8" src="/images/2021/12/13/img8.png" /></p>
 <p><strong>Takeaway #3</strong></p>
 <p>Within Active Directory, we can apply password policies to our passwordless users, and be able to maintain compliance with rotation policies, all while still having a great user experience.</p>
 <h3 id="the-entra-id-side-of-the-story">The Entra ID side of the story</h3>
 <p>Now that we have our user operating in a truly passwordless world in Active Directory, let’s turn our eyes to the other half of the equation – Azure AD.</p>
 <p>Even though AD is managing the password, it’s still an attribute that is synchronized to Azure AD. Recall that Azure AD synchronizes passwords in a channel that is separate from the rest of the synchronization process, so password changes show up in Azure AD shortly after changing them in AD.</p>
 <p>Let’s look at our test user:</p>
-<p><img alt="Figure 9" src="/images/2023/12/13/img9.png" /></p>
+<p><img alt="Figure 9" src="/images/2021/12/13/img9.png" /></p>
 <p>Shortly after updating the users' password in AD, the password change has synchronized to Azure AD.</p>
 <h3 id="entra-id-password-change-mechanisms">Entra ID password change mechanisms</h3>
 <p>If we have password writeback enabled in Azure AD Connect, there are methods still available for our users to change their password – falling into two scenarios:</p>
@@ -682,7 +682,7 @@ select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
 <h4 id="password-change-without-existing-password-sspr">Password change without existing password (SSPR)</h4>
 <p>This is the one area where we need to potentially adjust our Azure AD tenant settings. While many organizations may have moved towards enabling SSPR for all users in the tenant, we now have a need to disallow SSPR for users who have SCRIL enabled.</p>
 <p>In <strong>Entra ID, Password reset, Properties</strong>, we can adjust the toggle to specify only users in a selected group are allowed to use SSPR; we would be disallowing SSPR for SCRIL users and wanting to ensure they are out of the scope for the group selected.</p>
-<p><img alt="Figure 10" src="/images/2023/12/13/img10.png" /></p>
+<p><img alt="Figure 10" src="/images/2021/12/13/img10.png" /></p>
 <p><strong>Takeaway #4</strong></p>
 <p>With a little bit of work on the SSPR side of things, we can easily accommodate SCRIL within Azure AD, without worry that users can subvert our efforts.</p>
 <h2 id="final-notes">Final notes</h2>

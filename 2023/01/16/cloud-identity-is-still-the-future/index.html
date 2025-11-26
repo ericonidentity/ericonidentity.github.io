@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/01/29/azure-ad-101-azure-subscription-relationship/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/01/16/cloud-identity-is-still-the-future/">
       
       
-        <link rel="prev" href="../../16/cloud-identity-is-still-the-future/">
+        <link rel="prev" href="../../../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">
       
       
-        <link rel="next" href="../../../02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
+        <link rel="next" href="../../29/azure-ad-101-azure-subscription-relationship/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Azure AD 101: Azure Subscription Relationship - Eric on Identity</title>
+        <title>Cloud Identity Is Still The Future - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#azure-ad-101-azure-subscription-relationship" class="md-skip">
+        <a href="#cloud-identity-is-still-the-future" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Azure AD 101: Azure Subscription Relationship
+              Cloud Identity Is Still The Future
             
           </span>
         </div>
@@ -435,45 +435,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-look-at-pre-cloud-infrastructures" class="md-nav__link">
+  <a href="#saas-is-king-for-business-productivity" class="md-nav__link">
     <span class="md-ellipsis">
-      A look at pre-cloud infrastructures
+      SaaS is king for business productivity
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#translating-to-the-cloud-trust-model" class="md-nav__link">
+  <a href="#vpn-is-an-antiquated-means-of-access" class="md-nav__link">
     <span class="md-ellipsis">
-      Translating to the cloud trust model
+      VPN is an antiquated means of access
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-permission-confusion" class="md-nav__link">
+  <a href="#cloud-native-devices-ease-administrative-burden" class="md-nav__link">
     <span class="md-ellipsis">
-      The permission confusion
+      Cloud-native devices ease administrative burden
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#digging-deeper" class="md-nav__link">
+  <a href="#cloud-applications-need-cloud-identity" class="md-nav__link">
     <span class="md-ellipsis">
-      Digging deeper
+      Cloud applications need cloud identity
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#one-last-point-language-matters" class="md-nav__link">
+  <a href="#what-about-those-on-prem-servers" class="md-nav__link">
     <span class="md-ellipsis">
-      One last point - language matters
+      What about those on-prem servers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-way-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      The way forward
     </span>
   </a>
   
@@ -535,7 +544,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-01-29 00:00:00+00:00" class="md-ellipsis">January 29, 2023</time>
+                        <time datetime="2023-01-16 00:00:00+00:00" class="md-ellipsis">January 16, 2023</time>
                       </div>
                     </li>
                     
@@ -571,66 +580,34 @@
 
 
 
-<h1 id="azure-ad-101-azure-subscription-relationship">Azure AD 101: Azure Subscription Relationship</h1>
-<p>Whether you are dipping your toe or diving headfirst into Azure, one of the points of confusion is the relationship between Azure Active Directory and Azure subscriptions. Azure subscriptions may be referred to as subscriptions, or sometimes even just Azure. An Azure Active Directory tenant, which is the cloud identity provider, is usually referred to as Azure AD or AAD, or sometimes just tenant.</p>
-<p>While Microsoft has decent documentation on the relationship, I tend to find that drawing analogies along with additional visuals can help really drive the relationship home for folks. For the MS Docs article, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory?WT.mc_id=SEC-MVP-5005105">Add an existing Azure subscription to your tenant – Azure AD – Microsoft Entra | Microsoft Learn</a>.</p>
-<h2 id="a-look-at-pre-cloud-infrastructures">A look at pre-cloud infrastructures</h2>
-<p>When we take a look at very classic on-premises infrastructure, if it’s a Microsoft shop we’ll almost always have Active Directory, an identity provider, usually running on physical or virtualized servers in a high availability architecture. For purposes here, we’ll abstract it from the underlying server infrastructure:</p>
-<p><img alt="Figure 1" src="/images/2023/01/29/img1.png" /></p>
-<p><em>Our Active Directory domain</em></p>
-<p>Likewise, we have all sorts of servers running, again possibly a mix of physical servers, as well as virtualized servers (even though the hypervisor itself is running on some form of physical server). Below we have a simple example of a Windows Server that is running Hyper-V, and has four virtual machines running:</p>
-<p><img alt="Figure 2" src="/images/2023/01/29/img2.png" /></p>
-<p><em>A Hyper-V environment running on a Windows server</em></p>
-<p>When we connect these two systems, Active Directory and the Windows Server, we form a trust relationship between the two. The trust relationship is represented in Active Directory by the computer object that represents that Hyper-V server.</p>
-<p><img alt="Figure 3" src="/images/2023/01/29/img3.png" /></p>
-<p><em>The AD and Windows Server trust relationship</em></p>
-<p>To expand this out a bit further, we likely have several different servers running several different types of workloads in our environment:</p>
-<p><img alt="Figure 4" src="/images/2023/01/29/img4.png" /></p>
-<p><em>Our simple multi-server environment</em></p>
-<p>The one commonality is that regardless of the type of workload running on the server, we have that trust relationship between Active Directory and each server.</p>
-<h2 id="translating-to-the-cloud-trust-model">Translating to the cloud trust model</h2>
-<p>With our understanding of having that trust relationship between Active Directory and each Windows Server, we can translate this to a <strong>similar</strong> trust relationship between our <strong>Azure Active Directory tenant</strong> and <strong>Azure Subscriptions</strong>.</p>
-<p>In our example below, we see that a subscription can be mostly analogous to a Windows Server. They both contain virtual machines, and both the subscription and the server have their own type of trust relationship to their relative identity provider:</p>
-<p><img alt="Figure 5" src="/images/2023/01/29/img5.png" /></p>
-<p><em>A tenant-subscription trust</em></p>
-<p>Similar to how we may run several different workloads on several different servers, we can have several different subscriptions that are managing several different workloads:</p>
-<p><img alt="Figure 6" src="/images/2023/01/29/img6.png" /></p>
-<p><em>A multi-subscription trust model</em></p>
-<p>Similar to Active Directory, where you can only join a Windows server to <strong>one</strong> domain, an Azure subscription can only have <strong>one</strong> trust relationship to an Azure AD tenant.</p>
-<p>Unlike Active Directory, where the trust relationship is observable as a computer object, the subscription won’t be something that you’ll see represented in Azure AD itself, but with the right permissions you’ll be able to observe all subscriptions associated with that tenant when you sign into the Azure portal.</p>
-<p>With Windows servers, we occasionally may run into instances where we wanted to migrate a Windows server from one Active Directory Forest to another. Similarly, we <strong>can</strong> migrate an Azure subscription relationship from one Azure AD tenant to another:</p>
-<p><img alt="Figure 7" src="/images/2023/01/29/img7.png" /></p>
-<p><em>Changing the trust relationship</em></p>
-<p>In both models, the trust relationship is changed, because we can still only have <strong>one</strong> trust relationship between a subscription and a tenant.</p>
-<p>Similar to Active Directory and changing the associated forest, depending on the types of workloads in the subscription, there may be post migration work that needs to happen. At the very least, we will need to re-assign the appropriate permissions to the subscription.</p>
-<h2 id="the-permission-confusion">The permission confusion</h2>
-<p>Not only is the relationship between a tenant and subscription confusing, but so is the permission model, and where things should, or should not, crossover.</p>
-<p>With Active Directory, in a properly tiered permission model, Domain Administrator should primarily be used for management of Active Directory, and nothing more. All of those servers joined to Active Directory should use a separate set of permissions, many times referred to as a Server Administrator. Domain Administrators have no business logging onto the member servers, and Server Administrators have no business managing Active Directory. This all becomes <strong>really important</strong> when you start talking about least privilege and privilege separation.</p>
-<p>You can think of the fact that each Windows server has its own set of local permissions you can delegate and control on the server. And those permissions are managed <strong>local</strong> to that server. While you may create groups of objects in Active Directory, say, Hyper-V Server Administrators, you then assign that group local on each Hyper-V server to have the necessary rights.</p>
-<p>The same goes in Azure subscriptions. Subscription Owners are effectively the Local Administrators, and the permissions themselves are assigned <strong>on the subscription</strong>. While the permissions may be abstracted in the sense that you use a single portal or command across multiple subscriptions, the permissions are still encompassed around that subscription.</p>
-<p>And just like Active Directory, you generally <strong>do not need</strong> to assign a Global Administrator any permissions into or over a subscription. While some organizations may accept the risk with a limited number of Global Administrators, the problem becomes pervasive in organizations that believe they need to continue to hand out Global Administrator roles just so that subscription ownership can happen.</p>
-<p><img alt="Figure 8" src="/images/2023/01/29/img8.png" /></p>
-<p>While it is a shift in how organizations work and operate, overly permissive models with a lack of privilege separation are a great way to help threat actors into your environment.</p>
-<h2 id="digging-deeper">Digging deeper</h2>
-<p>Our examples are simple, to help build an understanding of the relationship model. And just like we may divide server workloads up by application groups or regions, and how we likely architect web farms and Hyper-V clusters, elaborate subscription models require thoughtful architecture behind them. This is where the Microsoft Cloud Adoption Framework and Azure Landing Zones come into play.</p>
-<p>You can find more information on these here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/?WT.mc_id=SEC-MVP-5005105">Microsoft Cloud Adoption Framework for Azure – Cloud Adoption Framework | Microsoft Learn</a>, and here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/?WT.mc_id=SEC-MVP-5005105">What is an Azure landing zone? – Cloud Adoption Framework | Microsoft Learn</a>.</p>
-<p>It’s especially important from an identity and security perspective properly design the security of your subscriptions – many organizations have overly permissive architectural designs around their subscription permissions, including on items of critical infrastructure, such as Active Directory Domain Controllers running as virtual machines in Azure.</p>
-<p>For further information on securing privileges access, take a look at <a href="https://learn.microsoft.com/en-us/security/compass/overview?WT.mc_id=SEC-MVP-5005105">Securing privileged access overview | Microsoft Learn</a>.</p>
-<h2 id="one-last-point-language-matters">One last point - language matters</h2>
-<p>This is one of those areas where language matters, especially if you are an identity practitioner or working in a role where you help manage and service your customers Azure subscriptions and Azure AD tenant(s).</p>
-<p>It is not:</p>
-<ul>
-<li>Azure tenant</li>
-<li>Azure AD subscription</li>
-<li>AAD subscription</li>
-<li>Azure directory</li>
-</ul>
-<p>It is:</p>
-<ul>
-<li>Azure AD tenant</li>
-<li>Azure subscription</li>
-</ul>
-<p>While for some organizations you may be able to get away with interchanging terminology, if you were to have a project assigned to you, or scope a project for a customer, and the details were similar to “<em>perform an audit of the AAD subscription and make recommendations on a privilege model</em>”, would you be talking about auditing the permissions in Azure Active Directory? In an Azure subscription? Which Azure subscription if the organization has multiple? You can see where this is going.</p>
+<h1 id="cloud-identity-is-still-the-future">Cloud Identity Is Still The Future</h1>
+<p>In October 2022, the CTO of 37signals, David Heinemeier Hansson, published a piece on why hey.com was leaving the cloud. You can read the full article here, <a href="https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0">Why we’re leaving the cloud (hey.com)</a>; the gist of the post is that cloud is not cost-effective. More recently, InfoWorld published a piece by David Linthicum, <a href="https://www.infoworld.com/article/3684369/2023-could-be-the-year-of-public-cloud-repatriation.html">2023 could be the year of public cloud repatriation | InfoWorld</a>, hitting on why it may be more cost-effective to move back to private data centers. You see the trend – cloud may not be providing the ROI that is expected, especially if your organization has just performed a bunch of lift-and-shift without application refactoring.</p>
+<p>While the titles are attention grabbing, and the articles have valid points, they don’t really tell the full story. Folks in the industry may scan the headlines and believe that a mass cloud exodus is on the verge of happening, but we really need to look at what part of the cloud we are speaking to. We need to distinguish between IaaS, PaaS and SaaS, as well as related services and systems, such as IDaaS (identity as a service, aka Azure AD, Okta, and so on).</p>
+<h2 id="saas-is-king-for-business-productivity">SaaS is king for business productivity</h2>
+<p>37signals is a SaaS application company – with basecamp.com, a project management platform, and hey.com, a cloud email service. Neither product offers a private hosted version, so while 37signals is leaving the cloud, the services they offer you, well, are still cloud services. Sure, they may not be hosted in AWS or GCP, but the organizations that consume these platforms will be accessing and using them as cloud services.</p>
+<p>These days, nobody wants to manage a SharePoint farm, and certainly not Exchange Server. But it’s not just office suites such as Office 365 and Google Workspace (and hey.com). In recent years we have seen an explosion of growth with SaaS applications and platforms, and this is something that is continuing to trend upward.</p>
+<h2 id="vpn-is-an-antiquated-means-of-access">VPN is an antiquated means of access</h2>
+<p>Whether it’s IaaS or PaaS, hosted in private data centers or in some form of cloud, needing to access applications from everywhere and anywhere is as important as ever. With COVID-19 and the remote workforce, it strained organizations trying to find ways to allow access to applications for the workforce. While VPN may have been the path of least resistance to allowing remote access, it’s certainly not well aligned to Zero Trust. Cloud platforms provide means for modern access, and modern authentication, to applications, regardless of where they exist. Products such as Azure AD Application Proxy can be that conduit, are easy to deploy, and can be used to supplant VPN access. Sure, there may be the edge cases where VPN still provides the necessary means of access, but organizations should realize that success is much easier when we are not picking one-size-fits-all solutions.</p>
+<h2 id="cloud-native-devices-ease-administrative-burden">Cloud-native devices ease administrative burden</h2>
+<p>Closely tied to VPN access was the struggle of organizations trying to manage Windows devices that were Active Directory joined, or Hybrid Azure AD Joined. Concerns included patch management, group policy changes, and expired user passwords. The question of machine account password age and the relationship it has with Active Directory became a huge point and topic of confusion.</p>
+<p>Microsoft has used the past few years to really push Azure AD Joined devices, making device identity cloud-native. Yes, we still have the issue of remote troubleshooting, which is regardless of how they device identity exists. Yes, we still need to use something like Intune to manage the devices, and the road has been bumpy in replacing group policy. And yes the ROI is not worth it for most organizations to redeploy Windows on existing Hybrid Azure AD Joined devices until those devices are due for a hardware refresh. But we should continue to build the path towards the cloud, away from Active Directory, for client devices.</p>
+<p>For those in the Microsoft ecosystem with Active Directory and Azure AD, cloud-native devices can still access on-prem resources tied to Active Directory, either when on a corporate network or coming across the VPN (unfortunately).</p>
+<h2 id="cloud-applications-need-cloud-identity">Cloud applications need cloud identity</h2>
+<p>The benefits should be clear for cloud identity systems. While there have been a few major outages in the past three or so years with Azure AD, the level of complexity required to maintain a 99.99% SLA for a publicly connected directory services system just cannot compare.</p>
+<p>If we look at what it takes to manage an AD FS farm with a high level of redundancy – at least three sites with Active Directory replicated across, at least one AD FS server (but likely two) in each respective location. If more than one AD FS farm server is in each location, you need location-specific load balancing. For the public edge, you need at least three disparate DMZ networks, with a minimum of one WAP server (but likely two), and then to route the traffic between locations a global traffic management solution, which usually looks like a DNS-based load balancing solution, such as Azure Traffic Manager.</p>
+<p><img alt="Figure 1" src="/images/2023/01/16/img1.png" /></p>
+<p><em>A highly redundant AD FS farm reference architecture</em></p>
+<p>Organizations still need to harden and secure this environment, patch it monthly with orchestrated patch management to ensure availability, and monitor from a security and availability perspective. At the end of it all, this still pales in comparison to Azure AD. AD FS access control policies come nowhere near conditional access. Management and writing of claims policies are still harder for the average person to understand, and Solorigate has shown us what happens when AD FS is compromised.</p>
+<p>A pretty surmised way of looking at it – cloud-native directory services are designed with identity security practitioners in mind. On-prem directory services are designed with infrastructure practitioners in mind. AD FS is still an “infrastructure” identity system.</p>
+<p>While one can argue some pros of owning your own systems, that argument falls flat when you look at the realization that any of the major identity providers platform developers are investing in cloud-native identity first.</p>
+<h2 id="what-about-those-on-prem-servers">What about those on-prem servers</h2>
+<p>For as long as Windows server remains in your organization, it’s likely that Active Directory is not going anywhere. While we have had huge advancements with Windows clients and the cloud, server is another story. Sure, we have things like Azure Arc and Desired State Config (DSC), but many argue that DSC is too complex and not a replacement for group policy. It still makes sense to keep identity close to the servers, so even if you could Azure AD Join a Windows server, majority of use cases would not be well-served.</p>
+<p>Until applications are refactored, the Windows servers they run on aren’t going anywhere. And the associated service accounts that run these services will likely still need to exist in Active Directory.</p>
+<p>But what we may continue to see is a wide array of patterns emerge. Organizations that primarily need Active Directory for compute workloads may drive end-user identity into the cloud, and AD remains as the glue for server administration only. Others that are further behind on their application modernization journey may need to persist user identities in AD.</p>
+<h2 id="the-way-forward">The way forward</h2>
+<p>One of the most important investments organizations can make with cloud identity is not just selecting the platform, but skilling the people. From experiences in performing security assessments of Azure AD, a lack of strong skilling leads to the majority of insecure and inefficient implementations of various components of cloud identity.</p>
+<p>We also need to continue to push to transform identity from an infrastructure system to a security system. And this is much more than just transferring ownership and landing a complex identity system in the laps of folks completely unfamiliar with it all. Organizations will need to take a look at what it will take to properly staff identity under the security ecosystem within. This is its own ball of yarn, which I’ll save for another time.</p>
+<p>One thing is for sure – cloud identity is here to stay.</p>
 
 
 

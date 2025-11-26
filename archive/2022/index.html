@@ -1044,7 +1044,7 @@ isaiah@Azure:~$
           
           <li class="md-meta__item">
             
-              7 min read
+              13 min read
             
           </li>
         
@@ -1114,6 +1114,52 @@ isaiah@Azure:~$
 <p>Both of these keys have a striking resemblance to each other; on the back of the T2F2-mini is an imprint on the PCB of FT10823. Interestingly, the K10 is roughly $5 USD more than the T2F2-mini, while the feature-set between the two is the same.</p>
 <p><img alt="Figure 4" src="/images/2022/09/08/img4.png" /> <img alt="Figure 5" src="/images/2022/09/08/img5.png" /></p>
 <p><em>Feitian K10 (left) and Token2 T2F2-mini (right)</em></p>
+<h3 id="technical-bits"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#technical-bits">Technical Bits</a></h3>
+<h4 id="standards"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#standards">Standards</a></h4>
+<p>The range of keys evaluated support a minimal to broad range of standards. Azure AD only leverages FIDO2, but if your organization has other platforms in place that use these other standards, it may be a relatively important factor.</p>
+<h4 id="fido2"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#fido2">FIDO2</a></h4>
+<p>The only thing that matters in the world of Azure AD. FIDO2 uses an asymmetric key-pair for authentication.</p>
+<p>When you browse to a website over HTTPS, the web server has the private key, only known to itself, and everyone can see a copy of the public key. That mechanism allows for users to securely communicate with the site without ever having hold of the secret (private key), and also allows the site to identify that it is, in fact, the site it claims to be.</p>
+<p>FIDO2 essentially flips that around. The private key is maintained on the FIDO2 key, and it never leaves it. During the enrollment process, the public key is provided to Azure AD and associated with your user object; the PIN and/or biometrics enabled on the key is stored local to it, and is entropy used to unlock the private key local to the FIDO2 key’s secure enclave. During authentication, the private key is used to digitally sign a nonce received from Azure AD. Because Azure AD holds the public key, it’s able to verify the signature of the nonce. There’s a bit more depth to the process, but this is why it’s not possible to adversary-in-the-middle (AiTM) (previously commonly referred to as man-in-the-middle, MITM) a FIDO2 security key.</p>
+<h4 id="fido-u2f"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#fido-u2f">FIDO U2F</a></h4>
+<p>Leveraged heavily in the world of Google (among other places), FIDO U2F is similar to FIDO2, in that asymmetric keys are leveraged. Unlike FIDO2, FIDO U2F still requires a username and password, and then the key-pair is used for MFA.</p>
+<p>The biggest weakness in FIDO U2F is that the user is still required to know their password, as well as that the password can still be exposed in certain attack mechanisms. While the password may not be usable in that instance, the threat actor may attempt to use or disseminate it.</p>
+<h4 id="smart-card"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#smart-card">Smart card</a></h4>
+<p>Many keys may also provide smart card support, which seems like a natural fit, as smart cards use similar asymmetric key-pairs for authentication. You could think of smart cards as the predecessor to FIDO2, even though their use is alive and well. Sometimes manufacturers may refer to the functionality as PIV (personal identity verification), based on the NIST standard that defines it.</p>
+<p>As smart card rollout can be a more complex process, if this support is important to your organization, it would be critical to pilot the usage.</p>
+<h4 id="totp"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#totp">TOTP</a></h4>
+<p>Time-based One Time Password (TOTP), sometimes also referred to as Time-based One Time Passcode, is the same as the software-based OATH token (not to be confused with OAuth) that is commonplace in all smartphone authenticator apps, including the Microsoft Authenticator. That rolling code you see, it’s TOTP. In the instance of a security key, the secret key is stored on the key (commonly referred to as a seed), and then companion software is required to generate the OTP.</p>
+<p>While TOTP may seem convenient to roll into the security key, the software requirement makes usage more complex than purchasing a relatively cheap hardware OATH TOTP key, showing the rotating code on a small display. Anyone that’s been around for a while in IT would likely think of these as RSA SecureID fobs (RSA SecureID hardware however uses a proprietary mechanism).</p>
+<h4 id="hotp"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#hotp">HOTP</a></h4>
+<p>Event-based One Time Password (HOTP), the name comes from HMAC-based One Time Password, and HMAC stands for Hash-Based Message Authentication Code.</p>
+<p>HOTP is similar to TOTP, with the one key difference in that the OTP is valid forever until it is used, or a subsequently generated OTP is used. From a security perspective, this makes HOTP weaker than TOTP as there is a larger window for brute-force OTP guessing.</p>
+<p><img alt="Figure 6" src="/images/2022/09/08/img6.jpg" /></p>
+<h3 id="fido-levels"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#fido-levels">FIDO Levels</a></h3>
+<p>Of all the keys tested, only TrustKey and GoTrust have an Authenticator Level 2 Certification from the FIDO Alliance. When you look at keys and/or their packaging where they choose to show the FIDO certification logo, there might be a lock symbol with an L and a number in it.</p>
+<p><img alt="Figure 7" src="/images/2022/09/08/img7.png" /></p>
+<p><em>FIDO2 Level 2 Certification</em></p>
+<p>TrustKey has a write-up, <a href="https://www.trustkeysolutions.com/blog/why-fido-level-2-certification-matters/">Why FIDO Level 2 Certification Matters | Blog (trustkeysolutions.com)</a>, that dives into the details on Level 2 certification. The FIDO Alliance also provides a vast amount of information on the different levels of certification here, Certified Authenticator Levels – FIDO Alliance.</p>
+<p>The purpose of Level 2 is to protect the key from scalable client-side attacks, which gets very deep into the weeds; if you are interested in reading more, the FIDO Alliance has a draft 2.1 spec detailing attack classes here, <a href="https://fidoalliance.org/specs/common-specs/fido-security-ref-v2.1-rd-20210525.html">FIDO Security Reference (fidoalliance.org)</a>.</p>
+<h3 id="microsoft-certified"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#microsoft-certified">Microsoft Certified</a></h3>
+<p>It’s possible that some vendors argue the validity of this process, but if Microsoft has not validated the security key, users will receive an enrollment failure. This can be overcome by disabling <strong>Enforce attestation</strong> within the Azure AD portal. The unfortunate part is that this also disables the ability to check against the FIDO Alliance Metadata service, as the two are tied together in this toggle. While we haven’t seen anything in the form of malicious security keys, this setting is generally considered a security setting as it’s another step in validation of the key; Microsoft would recommend that this stay enabled.</p>
+<p>If an organization were to need to disable attestation, they may decide to restrict the keys that can be enrolled to the select AAGUIDS.</p>
+<p>End of the day, Microsoft is looking to validate the keys to ensure that end users have a quality experience, which brings forth their certification process.</p>
+<h3 id="biometrics"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#biometrics">Biometrics</a></h3>
+<p>Looking through the reviewed devices, 7 of the 21 devices have biometric fingerprint support. Again, since any biometric for FIDO support is required to be encapsulated on the device, it’s why these keys can’t leverage something like an IR camera for face recognition – you’d be surprised how some folks wonder why you can’t just glue things together for some hot mess authentication experience.</p>
+<p>Two items that are critical in the realm of biometrics: <strong>usability</strong> and <strong>enforcement</strong>.</p>
+<p>On the usability front, the enrollment experience for the AuthenTrend ATKey.Card and Feitian Fingerprint Card was absolutely dismal, the details of the enrollment processes are described in their respective reviews. On the other keys, only the Token2 T2F2-Bio seemed to be less responsive as far as fingerprint recognition.</p>
+<p>As fare as biometric enforcement goes, for the majority of keys, when enrolled against Azure AD, the end user is not forced to configure biometrics. I have not had a chance to delve further into if there is a mechanism to ensure such happens, but currently it’s left up to the user to optionally enroll.</p>
+<h3 id="cost"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#cost">Cost</a></h3>
+<p>A typical factor, this one has a pretty broad range. Of the key style security keys listed in at the top of this article, the price varies from $14 USD for the Identiv uTrust FIDO2 NFC all the way up to $80 USD for the Yubico YubiKey BIO. Some vendors that claim to be cost-effective, when comparing features, end up being far from such. Perhaps there are some corporate discounts in there, but the purchasing model also seems to greatly vary, and it’s uncertain what large-scale enterprise purchases might look like.</p>
+<h3 id="the-other-stuff"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-other-stuff">The other stuff</a></h3>
+<h4 id="corporate-citizenship"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#corporate-citizenship">Corporate citizenship</a></h4>
+<p>For the majority of the security key manufacturers, they seem to primarily stick to the business of manufacturing security keys. Yubico is the most prominent to standout from the pack as far as corporate citizenship goes. For every 20 keys sold, Yubico states that 1 key is donated as part of their <a href="https://www.yubico.com/about/about-us/secure-it-forward/">Secure it Forward</a> program. Yubico also was prominent in donating 20,000 keys in this past year to Ukraine in efforts to help secure authentication in the ongoing war.</p>
+<h4 id="site-usability"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#site-usability">Site usability</a></h4>
+<p>While this falls somewhat into the subjective category, in researching all the keys out there, trying to find a wide array of different brands and types, site usability always ended up being somewhat of a factor in research.</p>
+<p>I would say that Yubico and TrustKey sit at front as far as site usability goes, as well as design. All the information you need about the key is clearly marked on it’s relative page, and the links to software downloads were easy to find.</p>
+<p>On the other end, AuthenTrend has some deceptive graphics that would make one think that the ATKey.Card could fit into a badge holder or that it would easily function within one (recall the slide-out side USB blade for auth and/or charging). The Feitian websites – both ftsafe.com and ftsafe.us, the ability to find quality information is all over the place. Downloads to detailed papers land you on marketing documents with little relevant material. Some of the site looks like it was designed with FrontPage.</p>
+<h3 id="final-notes"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#final-notes">Final notes</a></h3>
+<p>For those that have wanted a bit of a different perspective on the security keys that have been evaluated so far, hopefully this sheds some light. If there is something I’ve missed, something that you feel is incorrect, or something you’d like me to expand upon, reach out to me on LinkedIn or Twitter.</p>
     
   </div>
 </article>

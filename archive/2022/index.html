@@ -488,7 +488,7 @@
 <h4 id="azure-ad-hybrid-join"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-hybrid-join">Azure AD Hybrid Join</a></h4>
 <p>When you think of Azure AD Hybrid Join (HAADJ), it helps to think of the Windows device having a duality of identity for the signed-in user.</p>
 <p><img alt="Figure 1" src="/images/2022/06/16/img1.png" /></p>
-<p>When a user signs-in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
+<p>When a user signs in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
 <p>And this PRT piece is key – while the technology behind it is quite different, it’s logically the Azure AD version of the TGT, which allows your device to speak modern authentication natively with Azure AD.</p>
 <p>For an extremely in-depth look at all the mechanics at play for authentication on a hybrid joined device, and how obtaining a PRT flows, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#detailed-flows">Primary Refresh Token (PRT) and Azure AD – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
 <h4 id="azure-ad-seamless-sso"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-seamless-sso">Azure AD Seamless SSO</a></h4>

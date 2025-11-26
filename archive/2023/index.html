@@ -1070,6 +1070,86 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2023-06-20 00:00:00+00:00">June 20, 2023</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              9 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="identiverse-2023-recap-and-highlights"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/">Identiverse 2023: Recap And Highlights</a></h2>
+<p>Going to a conference like Identiverse is a privilege, even if the travel is funded by airline and hotel miles earned by the feverish pace of pre-COVID travel from my time at Microsoft. The recommendation that every identity and security practitioner should try to attend at least one Identiverse in their career comes with the understanding that the means of doing so could vary greatly. But for those that can – you should absolutely put Identiverse 2024 on your priority list of <strong>big</strong> conferences to attend, especially for those within North America.</p>
+<p>While I take in security content, and sometimes speak at regional events, as an identity practitioner there was no greater clarity provided on some hot topic items than at Identiverse this year. And despite working and living primarily in the Microsoft ecosystem of identity, a few of the most poignant sessions were from those who are not within that ecosystem at all; looking at identity from the angle of a pure practitioner is something that is a growth mindset activity.</p>
+<p><img alt="Figure 1" src="/images/2023/06/20/img1.jpeg" /></p>
+<p><em>With my new friend and Entra identity wiz, Chris Brumm (<a href="https://twitter.com/cbrhh">@cbrhh</a>)</em></p>
+<h3 id="top-six-takeaways"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#top-six-takeaways">Top six takeaways</a></h3>
+<h4 id="can-authorization-be-centralized"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#can-authorization-be-centralized">Can authorization be centralized?</a></h4>
+<p>While practitioners currently in the field implementing the things may disagree, from a moving forward perspective, the industry has come a long way with centralizing authentication. So what’s next? Authorization. Several vendors have built their own authorization policy engines and languages – AWS has recently released <a href="https://aws.amazon.com/about-aws/whats-new/2023/05/cedar-open-source-language-access-control/">Cedar</a>, Strata has <a href="https://www.strata.io/resources/blog/policy-orchestration/idql-hexa-new-identity-standard-policy-orchestration/">IDQL</a>, there are projects like <a href="https://www.opal.ac/">OPAL</a>. This list is neither extensive nor am I an expert in any existing centralized authorization platform.</p>
+<p>But the question at hand is – how can we centrally manage, and centrally audit, authorization within applications. Having worked on some broad IGA projects, it gets really sticky once you are trying to control authorization within those applications. We can easily say Tom gets access to Salesforce, while Fred does not. But how do we define what Tom can do within Salesforce? Currently, it’s a lot of one-off integrations specific to the application at hand. We have similar issues within Cloud platforms on the management, data and workload planes, which CIEM solutions are trying to solve, but again are very vendor-specific. Rights and roles in AWS do not directly translate to rights and roles in Azure or GCP. So can this all be centrally managed with the rules being written in a vendor-agnostic language?</p>
+<p>During his keynote, Alex Simons hinted at that maybe we don’t need to unify the languages across platforms, but it’s a place where AI can be trained to translate between different platforms… cue the Security Copilot pitch. To be fair vendors are already working on policy orchestration across multi-cloud, multi-app scenarios, but it makes sense though that Microsoft, who generally embraces multi-cloud, attempt to take a swing at bringing their hand into the mix, without trying to muddy the water with their own new policy language. Where my curiosity leads though, will we just end up with orchestration and abstraction, or will there be an authorization policy adoption in the likes of the way the industry has adopted modern authentication.</p>
+<h4 id="ai-is-messing-things-up"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#ai-is-messing-things-up">AI is messing things up</a></h4>
+<p>In a flashy opening keynote, Andre Durand sat silent for a few minutes while an AI generated audio clip played in the background. The clip was him calling into a colleague that knows him, acting as the executive in a time crunch, requesting that his password be reset. It’s like the next generation of those texts people get from their “CEO” asking them to go buy a bunch of iTunes gift cards for them while they are in a meeting.</p>
+<p>As the keynote continued, Andre noted that he believes that in the realm of AI for bad vs AI for good, in the realm of identity security, AI for bad is going to be a great challenge, not just in combating it with AI for good, but how are we as identity practitioners going to deal with the rapid pace of change caused by AI.</p>
+<h4 id="identity-security-is-still-in-its-infancy"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#identity-security-is-still-in-its-infancy">Identity security is still in its infancy</a></h4>
+<p>There were <strong>several</strong> sessions related to securing Active Directory and hybrid identity, yet despite the quantity and quality of the sessions, the attendance was lower than one might expect. While conference attendees of Identiverse are split between identity practitioners working on the things of tomorrow and identity practitioners trying to wrangle with the present day, I wondered if this is also due to the echo-chamber effect of an identity conference – most practitioners here already knowing about and understanding the attack vectors relative to Active Directory, or if it’s a question of whether identity security is still not taken seriously enough within the industry. I tend to lean somewhat towards the latter.</p>
+<p>During a fantastic keynote session from Ken Munro (<a href="https://twitter.com/TheKenMunroShow">@TheKenMunroShow</a>) of Pen Test Partners, Ken discussed how he was able to obtain Domain Admin via a cars Telematics Control Unite (TCU) 👀. You can read the story here, <a href="https://www.pentestpartners.com/security-blog/from-a-tcu-to-corporate-domain-admin/">From a TCU to Corporate Domain Admin | Pen Test Partners</a>.</p>
+<p><img alt="Figure 2" src="/images/2023/06/20/img2.jpg" /></p>
+<p><em>Guido Grillenmeier (<a href="https://twitter.com/GGrillen">@GGrillen</a>) speaking about recovering Active Directory during an active attack</em></p>
+<h4 id="everyone-is-all-in-on-passkeys"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#everyone-is-all-in-on-passkeys">Everyone is all in on passkeys</a></h4>
+<p>The passkey theme ran throughout the conference. The FIDO Alliance (<a href="https://twitter.com/FIDOAlliance">@FIDOAlliance</a>) Executive Director Andrew Shikiar (<a href="https://twitter.com/andrewshikiar">@andrewshikiar</a>) gave a keynote on advancements in passkey UX, and there were several sessions geared towards developers as well as practitioners on the uptake of passkeys in both commercial and consumer scenarios.</p>
+<p>One interesting highlight to come from the few passkey sessions I sat in on, is that the industry may be flipping the story a bit towards end users as far as how we “sell” the passkey story to them. As we can tend to see across the industry, consumer uptake of strong authentication is relatively low, and most consumers do not tend to bother or care about securing their identity. The emphasis is changing to point out the ease of use and convenience of passkeys instead of their security origin for consumers. I’m curious to see how this goes – the FIDO Alliance has put a lot of work into building out development guidelines around the user experience to ensure that it’s quality, but as with most things time will tell if the use and convenience of passkeys is really something that consumers latch onto.</p>
+<p>In a bit of a chicken-and-egg problem, more services need to start supporting passkeys, but some organizations seem to hesitate in investing effort into them until there is a proven return on supporting passkeys.</p>
+<p>On the enterprise side of passkeys, a session from Dean Saxe of AWS gave a clear and concise deep-dive into the differences behind device-bound passkeys and synced (multi-device) passkeys. That session alone is worth a deeper recap in itself.</p>
+<p><img alt="Figure 3" src="/images/2023/06/20/img3.jpg" /></p>
+<p><em>From Dean's session on passkeys</em></p>
+<h4 id="decentralized-identity-suffers-from-marketing-speak"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#decentralized-identity-suffers-from-marketing-speak">Decentralized identity suffers from marketing speak</a></h4>
+<p>One of the other sessions that drove lot of clarity for myself, and seemingly the quite packed room, was Vittorio Bertoccio (<a href="https://twitter.com/vibronet">@vibronet</a>) of Okta speaking about Verifiable Credentials for the Identity Practitioner.</p>
+<p>The session really helped build a strong understanding of what verifiable credentials and decentralized identity <strong>is</strong>, as well as what it <strong>is not</strong>, despite how companies and marketing may try to sell it.</p>
+<p><img alt="Figure 4" src="/images/2023/06/20/img4.jpg" /></p>
+<p><em>Vittorio stressing that it can be difficult with many cooks in the kitchen</em></p>
+<p>The key takeaway is that while decentralized identity and verifiable credentials may put the holder (yourself) in control over who you provide identity data to, and that you can restrict what data you give out, that centralized identity repositories will still not go away, either on the issuers side (IdP) or the verifiers side (the application, relying party).</p>
+<p>The issuers are still ultimately the final source of truth, and therefore need to continue to retain the information that is given to the holder for their wallet. In the cases that the data is lost, for example, you need a way to retrieve an authentic copy. And likewise most verifiers will have a strong reason to also need to retain the data you’ve presented to them.</p>
+<p>A paraphrased example that Vittorio gave – if a university issues you a digital credential representing your diploma, and your diploma is a requirement as part of your work visa program – neither the university is going to remove the original record showing that you received that diploma, nor would that employer not retain the diploma information in the case that they need to attest to that information. In the case of the university, you certainly want them to retain the records that you graduated. From the employer side, in most cases a metadata bit of information that represented that they checked for your diploma likely won’t hold water; the employer is going to want to retain the information you provided, not an abstraction of it. Of course, where you have control is that you, as the holder of the digital credential for this, can only give your employer the information that you hold the degree – perhaps you don’t need to provide your grade point average and other details about attending.</p>
+<h4 id="identity-needs-better-representation-in-the-organization-at-all-levels"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#identity-needs-better-representation-in-the-organization-at-all-levels">Identity needs better representation in the organization at all levels</a></h4>
+<p>In the series of Thursday morning keynotes, one that was particularly fascinating to myself was the panel discussion “Identity in the C-Suite? The role of the Chief Identity Officer”. It’s continually apparent that in many organizations, identity is underserved on all levels, from where and how individual contributors sit in the organization, to where and how identity rolls up. I’ve for a long time believed that many CISO are not adequately adjusted to own an identity program, and yet the infrastructure roots that identity has in many organizations is no longer the place it should be retained. This keynote was taking things one step further, and really driven by the fact that while identity is as the center of security, security <strong>is not</strong> the only center of identity. When we start to explore all the other facets of identity that have varying degrees of how adjacent they are to security, it becomes clear that it may hinder usability, as an example. So the question arises, does identity receive its own seat at the table?</p>
+<p>When we turn to look at the IC, the strong focus of identity as a security function also falls short there. Lance Peterman (<a href="https://twitter.com/LancePeterman">@LancePeterman</a>) and Arynn Crow (<a href="https://twitter.com/arynncrow">@arynncrow</a>) both gave strong sessions on generating new identity talent, and how the industry as a large is failing to really provide security professionals a strong identity foundation. Both were quite invigorating and for all identity practitioners it’s a call to help us build up the surrounding community.</p>
+<p>The threads running through this felt close to my session from BSides Salt Lake City this past December, “Identity and Security: It’s time for a hug”.</p>
+<p>I have more thoughts on both of these topics, but those are for another time and another post.</p>
+<h3 id="other-takeaways"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#other-takeaways">Other takeaways</a></h3>
+<h4 id="favorite-identity-adjacent-session"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#favorite-identity-adjacent-session">Favorite identity adjacent session</a></h4>
+<p>I’ve always been a huge proponent of change management, and while my Prosci is a bit rusty these days, I loved seeing Sarah Villarmarzo speak on this topic. I’ve seen so many organizations dismiss the benefits of change management, only to then wonder why there is so much friction in the security changes they are implementing. A little bit of awareness and desire can go a long way for your employees.</p>
+<p><img alt="Figure 5" src="/images/2023/06/20/img5.jpg" /></p>
+<h4 id="too-many-sessions"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#too-many-sessions">Too many sessions</a></h4>
+<p>There were just too many sessions to really be able to take all the knowledge in that you’d like, and even though for attendees there is access to recordings. we all know how it goes when recordings are available… they just never really get the mental attention they deserve.</p>
+<p>I missed the majority of David Lees (<a href="https://twitter.com/iamhdavidlee">@iamhdavidlee</a>) keynote unfortunately, and really wanted to attend more of the passkey and verifiable credential sessions. At certain points I had four sessions I bookmarked as attending that all ran at the same time, and would be back and forth in my head about which to attend. Trying to mix in some hallways conversations, forcing my introverted self to be more outgoing… it can be a lot.</p>
+<h3 id="it-is-absolutely-worth-attending-if-you-can"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#it-is-absolutely-worth-attending-if-you-can">It is absolutely worth attending if you can</a></h3>
+<p>I’m looking forward to 2024, and hope to see other folks there. The amount of thoughts and ideas that I took away for my career, for the industry, for myself, for the community – it was all so much that I really needed the bit of downtime following the conference. If your employer doesn't pay your way… save up those points and miles, at least to make the journey one time.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2023-02-13 00:00:00+00:00">February 13, 2023</time></li>
         
         

@@ -1741,6 +1741,86 @@ distinct ServicePrincipalId
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2023-06-20 00:00:00+00:00">June 20, 2023</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              9 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="identiverse-2023-recap-and-highlights"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/">Identiverse 2023: Recap And Highlights</a></h2>
+<p>Going to a conference like Identiverse is a privilege, even if the travel is funded by airline and hotel miles earned by the feverish pace of pre-COVID travel from my time at Microsoft. The recommendation that every identity and security practitioner should try to attend at least one Identiverse in their career comes with the understanding that the means of doing so could vary greatly. But for those that can – you should absolutely put Identiverse 2024 on your priority list of <strong>big</strong> conferences to attend, especially for those within North America.</p>
+<p>While I take in security content, and sometimes speak at regional events, as an identity practitioner there was no greater clarity provided on some hot topic items than at Identiverse this year. And despite working and living primarily in the Microsoft ecosystem of identity, a few of the most poignant sessions were from those who are not within that ecosystem at all; looking at identity from the angle of a pure practitioner is something that is a growth mindset activity.</p>
+<p><img alt="Figure 1" src="/images/2023/06/20/img1.jpeg" /></p>
+<p><em>With my new friend and Entra identity wiz, Chris Brumm (<a href="https://twitter.com/cbrhh">@cbrhh</a>)</em></p>
+<h3 id="top-six-takeaways"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#top-six-takeaways">Top six takeaways</a></h3>
+<h4 id="can-authorization-be-centralized"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#can-authorization-be-centralized">Can authorization be centralized?</a></h4>
+<p>While practitioners currently in the field implementing the things may disagree, from a moving forward perspective, the industry has come a long way with centralizing authentication. So what’s next? Authorization. Several vendors have built their own authorization policy engines and languages – AWS has recently released <a href="https://aws.amazon.com/about-aws/whats-new/2023/05/cedar-open-source-language-access-control/">Cedar</a>, Strata has <a href="https://www.strata.io/resources/blog/policy-orchestration/idql-hexa-new-identity-standard-policy-orchestration/">IDQL</a>, there are projects like <a href="https://www.opal.ac/">OPAL</a>. This list is neither extensive nor am I an expert in any existing centralized authorization platform.</p>
+<p>But the question at hand is – how can we centrally manage, and centrally audit, authorization within applications. Having worked on some broad IGA projects, it gets really sticky once you are trying to control authorization within those applications. We can easily say Tom gets access to Salesforce, while Fred does not. But how do we define what Tom can do within Salesforce? Currently, it’s a lot of one-off integrations specific to the application at hand. We have similar issues within Cloud platforms on the management, data and workload planes, which CIEM solutions are trying to solve, but again are very vendor-specific. Rights and roles in AWS do not directly translate to rights and roles in Azure or GCP. So can this all be centrally managed with the rules being written in a vendor-agnostic language?</p>
+<p>During his keynote, Alex Simons hinted at that maybe we don’t need to unify the languages across platforms, but it’s a place where AI can be trained to translate between different platforms… cue the Security Copilot pitch. To be fair vendors are already working on policy orchestration across multi-cloud, multi-app scenarios, but it makes sense though that Microsoft, who generally embraces multi-cloud, attempt to take a swing at bringing their hand into the mix, without trying to muddy the water with their own new policy language. Where my curiosity leads though, will we just end up with orchestration and abstraction, or will there be an authorization policy adoption in the likes of the way the industry has adopted modern authentication.</p>
+<h4 id="ai-is-messing-things-up"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#ai-is-messing-things-up">AI is messing things up</a></h4>
+<p>In a flashy opening keynote, Andre Durand sat silent for a few minutes while an AI generated audio clip played in the background. The clip was him calling into a colleague that knows him, acting as the executive in a time crunch, requesting that his password be reset. It’s like the next generation of those texts people get from their “CEO” asking them to go buy a bunch of iTunes gift cards for them while they are in a meeting.</p>
+<p>As the keynote continued, Andre noted that he believes that in the realm of AI for bad vs AI for good, in the realm of identity security, AI for bad is going to be a great challenge, not just in combating it with AI for good, but how are we as identity practitioners going to deal with the rapid pace of change caused by AI.</p>
+<h4 id="identity-security-is-still-in-its-infancy"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#identity-security-is-still-in-its-infancy">Identity security is still in its infancy</a></h4>
+<p>There were <strong>several</strong> sessions related to securing Active Directory and hybrid identity, yet despite the quantity and quality of the sessions, the attendance was lower than one might expect. While conference attendees of Identiverse are split between identity practitioners working on the things of tomorrow and identity practitioners trying to wrangle with the present day, I wondered if this is also due to the echo-chamber effect of an identity conference – most practitioners here already knowing about and understanding the attack vectors relative to Active Directory, or if it’s a question of whether identity security is still not taken seriously enough within the industry. I tend to lean somewhat towards the latter.</p>
+<p>During a fantastic keynote session from Ken Munro (<a href="https://twitter.com/TheKenMunroShow">@TheKenMunroShow</a>) of Pen Test Partners, Ken discussed how he was able to obtain Domain Admin via a cars Telematics Control Unite (TCU) 👀. You can read the story here, <a href="https://www.pentestpartners.com/security-blog/from-a-tcu-to-corporate-domain-admin/">From a TCU to Corporate Domain Admin | Pen Test Partners</a>.</p>
+<p><img alt="Figure 2" src="/images/2023/06/20/img2.jpg" /></p>
+<p><em>Guido Grillenmeier (<a href="https://twitter.com/GGrillen">@GGrillen</a>) speaking about recovering Active Directory during an active attack</em></p>
+<h4 id="everyone-is-all-in-on-passkeys"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#everyone-is-all-in-on-passkeys">Everyone is all in on passkeys</a></h4>
+<p>The passkey theme ran throughout the conference. The FIDO Alliance (<a href="https://twitter.com/FIDOAlliance">@FIDOAlliance</a>) Executive Director Andrew Shikiar (<a href="https://twitter.com/andrewshikiar">@andrewshikiar</a>) gave a keynote on advancements in passkey UX, and there were several sessions geared towards developers as well as practitioners on the uptake of passkeys in both commercial and consumer scenarios.</p>
+<p>One interesting highlight to come from the few passkey sessions I sat in on, is that the industry may be flipping the story a bit towards end users as far as how we “sell” the passkey story to them. As we can tend to see across the industry, consumer uptake of strong authentication is relatively low, and most consumers do not tend to bother or care about securing their identity. The emphasis is changing to point out the ease of use and convenience of passkeys instead of their security origin for consumers. I’m curious to see how this goes – the FIDO Alliance has put a lot of work into building out development guidelines around the user experience to ensure that it’s quality, but as with most things time will tell if the use and convenience of passkeys is really something that consumers latch onto.</p>
+<p>In a bit of a chicken-and-egg problem, more services need to start supporting passkeys, but some organizations seem to hesitate in investing effort into them until there is a proven return on supporting passkeys.</p>
+<p>On the enterprise side of passkeys, a session from Dean Saxe of AWS gave a clear and concise deep-dive into the differences behind device-bound passkeys and synced (multi-device) passkeys. That session alone is worth a deeper recap in itself.</p>
+<p><img alt="Figure 3" src="/images/2023/06/20/img3.jpg" /></p>
+<p><em>From Dean's session on passkeys</em></p>
+<h4 id="decentralized-identity-suffers-from-marketing-speak"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#decentralized-identity-suffers-from-marketing-speak">Decentralized identity suffers from marketing speak</a></h4>
+<p>One of the other sessions that drove lot of clarity for myself, and seemingly the quite packed room, was Vittorio Bertoccio (<a href="https://twitter.com/vibronet">@vibronet</a>) of Okta speaking about Verifiable Credentials for the Identity Practitioner.</p>
+<p>The session really helped build a strong understanding of what verifiable credentials and decentralized identity <strong>is</strong>, as well as what it <strong>is not</strong>, despite how companies and marketing may try to sell it.</p>
+<p><img alt="Figure 4" src="/images/2023/06/20/img4.jpg" /></p>
+<p><em>Vittorio stressing that it can be difficult with many cooks in the kitchen</em></p>
+<p>The key takeaway is that while decentralized identity and verifiable credentials may put the holder (yourself) in control over who you provide identity data to, and that you can restrict what data you give out, that centralized identity repositories will still not go away, either on the issuers side (IdP) or the verifiers side (the application, relying party).</p>
+<p>The issuers are still ultimately the final source of truth, and therefore need to continue to retain the information that is given to the holder for their wallet. In the cases that the data is lost, for example, you need a way to retrieve an authentic copy. And likewise most verifiers will have a strong reason to also need to retain the data you’ve presented to them.</p>
+<p>A paraphrased example that Vittorio gave – if a university issues you a digital credential representing your diploma, and your diploma is a requirement as part of your work visa program – neither the university is going to remove the original record showing that you received that diploma, nor would that employer not retain the diploma information in the case that they need to attest to that information. In the case of the university, you certainly want them to retain the records that you graduated. From the employer side, in most cases a metadata bit of information that represented that they checked for your diploma likely won’t hold water; the employer is going to want to retain the information you provided, not an abstraction of it. Of course, where you have control is that you, as the holder of the digital credential for this, can only give your employer the information that you hold the degree – perhaps you don’t need to provide your grade point average and other details about attending.</p>
+<h4 id="identity-needs-better-representation-in-the-organization-at-all-levels"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#identity-needs-better-representation-in-the-organization-at-all-levels">Identity needs better representation in the organization at all levels</a></h4>
+<p>In the series of Thursday morning keynotes, one that was particularly fascinating to myself was the panel discussion “Identity in the C-Suite? The role of the Chief Identity Officer”. It’s continually apparent that in many organizations, identity is underserved on all levels, from where and how individual contributors sit in the organization, to where and how identity rolls up. I’ve for a long time believed that many CISO are not adequately adjusted to own an identity program, and yet the infrastructure roots that identity has in many organizations is no longer the place it should be retained. This keynote was taking things one step further, and really driven by the fact that while identity is as the center of security, security <strong>is not</strong> the only center of identity. When we start to explore all the other facets of identity that have varying degrees of how adjacent they are to security, it becomes clear that it may hinder usability, as an example. So the question arises, does identity receive its own seat at the table?</p>
+<p>When we turn to look at the IC, the strong focus of identity as a security function also falls short there. Lance Peterman (<a href="https://twitter.com/LancePeterman">@LancePeterman</a>) and Arynn Crow (<a href="https://twitter.com/arynncrow">@arynncrow</a>) both gave strong sessions on generating new identity talent, and how the industry as a large is failing to really provide security professionals a strong identity foundation. Both were quite invigorating and for all identity practitioners it’s a call to help us build up the surrounding community.</p>
+<p>The threads running through this felt close to my session from BSides Salt Lake City this past December, “Identity and Security: It’s time for a hug”.</p>
+<p>I have more thoughts on both of these topics, but those are for another time and another post.</p>
+<h3 id="other-takeaways"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#other-takeaways">Other takeaways</a></h3>
+<h4 id="favorite-identity-adjacent-session"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#favorite-identity-adjacent-session">Favorite identity adjacent session</a></h4>
+<p>I’ve always been a huge proponent of change management, and while my Prosci is a bit rusty these days, I loved seeing Sarah Villarmarzo speak on this topic. I’ve seen so many organizations dismiss the benefits of change management, only to then wonder why there is so much friction in the security changes they are implementing. A little bit of awareness and desire can go a long way for your employees.</p>
+<p><img alt="Figure 5" src="/images/2023/06/20/img5.jpg" /></p>
+<h4 id="too-many-sessions"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#too-many-sessions">Too many sessions</a></h4>
+<p>There were just too many sessions to really be able to take all the knowledge in that you’d like, and even though for attendees there is access to recordings. we all know how it goes when recordings are available… they just never really get the mental attention they deserve.</p>
+<p>I missed the majority of David Lees (<a href="https://twitter.com/iamhdavidlee">@iamhdavidlee</a>) keynote unfortunately, and really wanted to attend more of the passkey and verifiable credential sessions. At certain points I had four sessions I bookmarked as attending that all ran at the same time, and would be back and forth in my head about which to attend. Trying to mix in some hallways conversations, forcing my introverted self to be more outgoing… it can be a lot.</p>
+<h3 id="it-is-absolutely-worth-attending-if-you-can"><a class="toclink" href="2023/06/20/identiverse-2023-recap-and-highlights/#it-is-absolutely-worth-attending-if-you-can">It is absolutely worth attending if you can</a></h3>
+<p>I’m looking forward to 2024, and hope to see other folks there. The amount of thoughts and ideas that I took away for my career, for the industry, for myself, for the community – it was all so much that I really needed the bit of downtime following the conference. If your employer doesn't pay your way… save up those points and miles, at least to make the journey one time.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2023-02-13 00:00:00+00:00">February 13, 2023</time></li>
         
         
@@ -1849,195 +1929,6 @@ distinct ServicePrincipalId
 <p>This past summer I was trying to update NS records for a domain with Directnic, and ticket response time was 12-24 hours, let alone actually having the records updated. Why did I open a ticket? Updates in the portal were not reflecting days after the change.</p>
 <p>While it may seem suboptimal, the most resilient path would be hosting DNS either in another small subscription and tenant that has no association to your primary production tenant, or using another large-scale cloud provider for DNS, but not associating authentication back to Azure AD.</p>
 <p>Considering the reality that most organizations struggle to keep as many nines as cloud providers (even with their occasional outages), this wouldn’t be time for a knee-jerk reaction to bring DNS back to an on-premise data center, unless your organization is still robust enough to handle those high SLA’s.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-06-16 00:00:00+00:00">June 16, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              10 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-which-sso-is-the-right-sso"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/">Azure AD: Which SSO Is The Right SSO?</a></h2>
-<p>It’s great having choices, except when you are not sure which choice to make.</p>
-<p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
-<p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
-<p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
-<h3 id="sso-mechanics"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-mechanics">SSO mechanics</a></h3>
-<p>Before getting into the compare and contrast, it’s important to understand the fundamental reason as to why SSO works differently depending on the method implemented.</p>
-<h4 id="azure-ad-hybrid-join"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-hybrid-join">Azure AD Hybrid Join</a></h4>
-<p>When you think of Azure AD Hybrid Join (HAADJ), it helps to think of the Windows device having a duality of identity for the signed-in user.</p>
-<p><img alt="Figure 1" src="/images/2022/06/16/img1.png" /></p>
-<p>When a user signs-in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
-<p>And this PRT piece is key – while the technology behind it is quite different, it’s logically the Azure AD version of the TGT, which allows your device to speak modern authentication natively with Azure AD.</p>
-<p>For an extremely in-depth look at all the mechanics at play for authentication on a hybrid joined device, and how obtaining a PRT flows, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#detailed-flows">Primary Refresh Token (PRT) and Azure AD – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
-<h4 id="azure-ad-seamless-sso"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-seamless-sso">Azure AD Seamless SSO</a></h4>
-<p>Unlike Hybrid Join, Azure AD Seamless SSO flips things around, and essentially provides the ability for Azure AD to participate in Active Directory, not from an authentication provider perspective, but as a member computer object.</p>
-<p><img alt="Figure 2" src="/images/2022/06/16/img2.png" /></p>
-<p><em>Courtesy Microsoft Learn</em></p>
-<p>From the diagram, we see that Azure AD has a computer account representation in Active Directory, with the computer object <strong>AZUREADSSO</strong> being the representation in AD. Azure AD holds the Kerberos decryption key for this computer object, which is what allows Azure AD to handle the TGT being passed to it.</p>
-<p>The most critical piece within this model for SSO, is that line-of-sight of Active Directory is <strong>required</strong> for SSO to function.</p>
-<h3 id="sso-breakdown"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-breakdown">SSO Breakdown</a></h3>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Azure AD Hybrid Join</th>
-<th>Azure AD Seamless SSO</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Configured with Azure AD Connect</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Requires AD line-of-sight for configuration</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No group policy needed for core config</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>No computer object sync to Azure AD</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No browser plugin needed for Edge</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No browser plugin needed for Chrome</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No browser plugin needed for Firefox</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Deployment is non-disruptive to users</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Supports Windows 8.1</td>
-<td>⚠️</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Supports Windows 10</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Supports Windows 11</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Uses Active Directory for Authentication</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Uses Azure AD for Authentication</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Works without AD line-of-sight</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>No Kerberos decryption key to rollover</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Is completely Seamless SSO</td>
-<td>✅</td>
-<td>⚠️</td>
-</tr>
-</tbody>
-</table>
-<h4 id="configuration"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#configuration">Configuration</a></h4>
-<p>Whether it’s Hybrid Azure AD Join, or Azure AD Seamless SSO, both are first enabled primarily using Azure AD Connect.</p>
-<p>For details on enablement of Hybrid Azure AD Join, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/howto-hybrid-azure-ad-join">Configure hybrid Azure Active Directory join – Microsoft Entra | Microsoft Docs</a>.</p>
-<p>For details on enablement of Azure AD Seamless SSO, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-quick-start">Azure AD Connect: Seamless Single Sign-On – quickstart – Microsoft Entra | Microsoft Docs</a>.</p>
-<h4 id="active-directory-line-of-sight-for-client-enablement"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#active-directory-line-of-sight-for-client-enablement">Active Directory line-of-sight for client enablement</a></h4>
-<p>When deploying Azure AD Hybrid Join, it is required that computers have line-of-sight of Active Directory in a PHS or PTA scenario (and usually for ease in a federated scenario). The reason is that Azure AD Connect is the means for Windows to bootstrap its trust relationship with Azure AD – when you enable hybrid join, you’ll note that the computer object in scope has the <strong>userCertificate</strong> attribute in Active Directory populated. This is the public half of a key-pair generated by the Windows device, which makes it way up to Azure AD, via Azure AD Connect, and is tied to the created device object in Azure AD. When you see a device with a Registered date/time of <strong>Pending</strong>, it means the device has been created in Azure AD, but the Windows client itself hasn’t finished the hybrid join process. Now that we have the means for a trust relationship to be established, the Windows client uses this key-pair to connect to Azure Active Directory Device Registration Service (AAD DRS); the key-pair used is replaced with a permanent key-pair, and hybrid join is complete. <strong>Afterward</strong>, line-of-sight of Active Directory is not required for authentication to Azure AD, even though you still will want to keep your hybrid joined devices in scope for Azure AD Connect, so that device disable and device delete actions will flow up to Azure AD.</p>
-<p>For Azure AD Seamless SSO, you’ll always need AD line-of-sight for this to function, and many orgs tend to use group policy to roll out the configuration, which also would need that same line-of-sight.</p>
-<h4 id="group-policy-for-client-configuration"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#group-policy-for-client-configuration">Group policy for client configuration</a></h4>
-<p>For rollout of Azure AD Hybrid Join across an organization, there is no need to configure anything additional through group policy. This is because, by default, configuration of HAADJ leverages a Service Connection Point (SCP) in Active Directory. Because the SCP is stored in the Configuration partition in AD, this is the reason configuration of Hybrid Join requires Enterprise Administrator. And while your Azure AD Connect server <strong>should</strong> be treated as Tier 0, if you have concern using an Enterprise Admin account on the Azure AD Connect server, a script can be downloaded to configure and run this from another system. The exception to no group policy is for organizations which are performing a targeted rollout of HAADJ, even though you can also control rollout by excluding devices from synchronization in Azure AD Connect.</p>
-<p>For Azure AD Seamless SSO, there are group policy settings that are inevitably needed regardless of the rollout plan. By default, browsers will not send Kerberos tickets to an internet endpoint, so configuration on the client is required to set an Azure AD URL to Intranet zone. And yes, you may be able to use alternatives such as Intune to push these settings to clients, but it still comes down to needing to push a configuration change to clients.</p>
-<h4 id="azure-ad-computer-object-sync"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-computer-object-sync">Azure AD computer object sync</a></h4>
-<p>Now, some may consider this an advantage, not having to synchronize their computer objects to Azure AD for Azure AD Seamless SSO.</p>
-<p>Many organizations, however, going down the modern device management route, or wanting to strengthen their security posture in conditional access with policies based on compliance or hybrid join, will need to sync their computer objects, as part of the requirement for hybrid join (excluding organizations with AD FS in place). And if you’re looking to go passwordless with Windows Hello for Business on these devices, hybrid join is also a prerequisite.</p>
-<p>And considering what a non-event it is to enable hybrid join, it’s hard to argue against it.</p>
-<h4 id="browser-support"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#browser-support">Browser Support</a></h4>
-<h5 id="edge"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#edge">Edge</a></h5>
-<p>Neither method of SSO requires anything additional in Edge.</p>
-<h5 id="chrome"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#chrome">Chrome</a></h5>
-<p>For Chrome to be able to take advantage of the PRT with hybrid join (or Azure AD Join), and subsequently perform SSO using the PRT, you’ll want to install the Windows Accounts extension in Chrome, <a href="https://chrome.google.com/webstore/detail/windows-accounts/ppnbnpeolgkicgegkbkbjmhlideopiji/related?hl=en-US">Windows Accounts – Chrome Web Store (google.com)</a>.</p>
-<p>Azure AD Seamless SSO does not require this browser extension, as Chrome has long supported integrated authentication.</p>
-<h5 id="firefox"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#firefox">Firefox</a></h5>
-<p>Mozilla, likely in a move to keep Firefox competitive, released an update starting with version 91 to support PRT authentication natively within the browser, <a href="https://support.mozilla.org/en-US/kb/windows-sso">Windows SSO | Firefox Help (mozilla.org)</a>.</p>
-<p>Like Chrome, Firefox has long had support for integrated authentication, so it’s able to handle Azure AD Seamless SSO without a plugin.</p>
-<h4 id="os-support"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#os-support">OS Support</a></h4>
-<h5 id="windows-1011"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#windows-1011">Windows 10/11</a></h5>
-<p>As noted in the article highlighted earlier, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, recommendation for these modern versions of Windows is to use hybrid join and subsequently a PRT for SSO.</p>
-<h5 id="windows-81"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#windows-81">Windows 8.1</a></h5>
-<p>If, for some unfortunate reason, you still have Windows 8.1 (or no longer supported Windows 7 or 8) in your environment, and still want all the snazziness of letting decrepit operating systems enjoy the cloud, Azure AD Seamless SSO is going to be the easier bet. Hybrid Join for downlevel devices requires installation of the Workplace Join agent and some additional configuration to support hybrid join.</p>
-<h4 id="end-user-experience"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#end-user-experience">End-user experience</a></h4>
-<p>From the end user experience, hybrid join is going to give our users what is Azure AD native SSO. The user signs in to Windows, and they receive or refresh their Azure AD PRT, and off they go. When browsing, the user won’t be prompted to enter their username or password, and will just be right into their applications.</p>
-<p>Azure AD Seamless SSO, on the other hand, has a few specifics about what SSO looks like. When a user goes to access an application the first time, they will be prompted to enter their username, but shouldn’t be asked for their password. There are ways to work around this with altering the URL to contain a login hint, but it generally would not be intuitive for a user. Also, if a user chooses to sign out from an application tied to Azure AD, upon sign-in, they are required to enter their password – this is considered by design. But even if we look past these, when our user is away from the corporate network, they will be asked to enter their password. And asking our users to have to enter their password when we can provide the means not to, isn’t the best for our user experience, and isn’t the best for security.</p>
-<h4 id="maintenance"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#maintenance">Maintenance</a></h4>
-<p>For hybrid join, there is potential maintenance in needing to restructure how OU’s are synchronized with Azure AD Connect, though generally many organizations find ways to make this a bit of a one and done scenario.</p>
-<p>For Azure AD Seamless SSO, it is recommended that organizations rollover the Kerberos decryption key stored in Azure AD for the <strong>AZUREADSSO</strong> computer object every 30 days. This has to be performed manually, or automated through a process that though subsequently requires providing some task Domain Administrator credentials. Less than ideal, but because Azure AD isn’t able to directly perform this process against AD, we are left with no other choice.</p>
-<h3 id="so-which-sso-is-the-right-sso"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#so-which-sso-is-the-right-sso">So which SSO is the right SSO?</a></h3>
-<p>If your organization is primarily Windows 10/11 devices that are AD domain joined, <strong>Azure AD Hybrid Join</strong> is the route to go. To be clear, <strong>you do not</strong> need to deploy Azure AD Seamless SSO along with hybrid join; your clients <strong>will not</strong> use Azure AD Seamless SSO if the device has a PRT.</p>
-<p>If you have to support downlevel installs of Windows 8.1, Seamless SSO may be an easier route than hybrid join, and you can enable seamless SSO and just target those devices for configuration.</p>
-<p>Likewise, if you are supporting MacOS in your environment, enabling Azure AD Seamless SSO can provide a better authentication experience if those Macs are Active Directory domain joined. Even though at this point you may want to look at the Enterprise SSO plugin for MacOS, <a href="https://docs.microsoft.com/en-us/mem/intune/configuration/use-enterprise-sso-plug-in-ios-ipados-macos">Microsoft Enterprise SSO plug-in in Microsoft Intune | Microsoft Docs</a>.</p>
-<p>There’s no harm in having both methods configured, but if the mechanism for Seamless SSO isn’t actually being leveraged in your environment, and if you have hybrid joined Windows 10/11 devices <strong>it’s not</strong>, it’s just an extra bit of configuration to manage and maintain with no benefit.</p>
-<h4 id="what-about-federated-identity"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#what-about-federated-identity">What about federated identity?</a></h4>
-<p>If an organization has AD FS or a supported 3rd party IdP in the mix, such as PingFederate or Okta, the proper route to go, from an Azure AD perspective, is still hybrid join.</p>
-<p>Hybrid join is still going to provide you SSO with your PRT for applications leveraging Azure AD as their identity provider – when you authenticate interactively with the Windows client at sign-on, WS-Trust is the means to authenticate you to your federated identity provider behind the scenes, and in return allowing Azure AD to give you a fresh PRT.</p>
-<p>The MS Docs articles indicate that Seamless SSO is not supported with federated identity, and I’ve never tried to see what happens if you force it via PowerShell module – but would presume you run into conflicts with overlap in how Azure AD handles hints for bypassing username entry for Seamless SSO and how Azure AD handles hints for bypassing username entry for federated auth.</p>
-<h4 id="what-about-azure-ad-join"><a class="toclink" href="2022/06/16/azure-ad-which-sso-is-the-right-sso/#what-about-azure-ad-join">What about Azure AD join?</a></h4>
-<p>Azure AD Join (AADJ) should be the long-term goal for organizations, going cloud native and removing their clients dependency on Active Directory. Under the hood, the mechanics of authentication for AADJ are <strong>just</strong> the bits that give you that Azure AD PRT, and Azure AD is now the authoritative identity provider for those clients. For many organizations, it tends to be client management and group policies that lend the most complexity in going cloud native, even though it is the future, so now is as good as ever to start a pilot down that road while you continue to support existing clients with Hybrid Azure AD Join.</p>
     
   </div>
 </article>

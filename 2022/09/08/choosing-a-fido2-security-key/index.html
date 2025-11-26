@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2022/10/05/azure-ad-new-controls-for-authentication-strength/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/09/08/choosing-a-fido2-security-key/">
       
       
-        <link rel="prev" href="../../../09/08/choosing-a-fido2-security-key/">
+        <link rel="prev" href="../../../08/09/an-agile-refresh-of-the-passwordless-strategy/">
       
       
-        <link rel="next" href="../../12/vm-contributor-to-domain-admin-in-60-seconds/">
+        <link rel="next" href="../../../10/05/azure-ad-new-controls-for-authentication-strength/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Azure AD: New Controls For Authentication Strength - Eric on Identity</title>
+        <title>Choosing a FIDO2 Security Key - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#azure-ad-new-controls-for-authentication-strength" class="md-skip">
+        <a href="#choosing-a-fido2-security-key" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Azure AD: New Controls For Authentication Strength
+              Choosing a FIDO2 Security Key
             
           </span>
         </div>
@@ -435,28 +435,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-prior-state-of-azure-ad-mfa" class="md-nav__link">
+  <a href="#design" class="md-nav__link">
     <span class="md-ellipsis">
-      The prior state of Azure AD MFA
+      Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-key-is-a-key-is-a-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      A key is a key is a key
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#require-authentication-strength" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#the-badge" class="md-nav__link">
     <span class="md-ellipsis">
-      Require authentication strength
+      The badge
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Require authentication strength">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#multifactor-authentication" class="md-nav__link">
+  <a href="#the-permanent-fixtures" class="md-nav__link">
     <span class="md-ellipsis">
-      Multifactor authentication
+      The permanent fixtures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-outliers" class="md-nav__link">
+    <span class="md-ellipsis">
+      The outliers
     </span>
   </a>
   
@@ -468,38 +486,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#passwordless-multifactor-authentication" class="md-nav__link">
+  <a href="#location-matters" class="md-nav__link">
     <span class="md-ellipsis">
-      Passwordless multifactor authentication
+      Location matters?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#phishing-resistant-multifactor-authentication" class="md-nav__link">
+  <a href="#whos-who" class="md-nav__link">
     <span class="md-ellipsis">
-      Phishing-resistant multifactor authentication
+      Who's who
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Who&#39;s who">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thetis-excelsecu-and-token2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thetis, ExcelSecu and Token2
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#some-odd-behavior" class="md-nav__link">
-    <span class="md-ellipsis">
-      Some odd behavior
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts-and-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final thoughts and notes
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -559,7 +574,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2022-10-05 00:00:00+00:00" class="md-ellipsis">October 5, 2022</time>
+                        <time datetime="2022-09-08 00:00:00+00:00" class="md-ellipsis">September 8, 2022</time>
                       </div>
                     </li>
                     
@@ -571,7 +586,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              8 min read
+                              6 min read
                             
                           </span>
                         </div>
@@ -595,97 +610,62 @@
 
 
 
-<h1 id="azure-ad-new-controls-for-authentication-strength">Azure AD: New Controls For Authentication Strength</h1>
-<p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
-<p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
-<h2 id="the-prior-state-of-azure-ad-mfa">The prior state of Azure AD MFA</h2>
-<p>Within the Grant Control section of a Conditional Access policy, we’ve always had the <strong>Require multifactor authentication</strong> control, which enforced MFA. But up until now, we never had the ability to specify what that level could be – if a user in a tenant has a FIDO2 security key, but also is registered for SMS text, they could use either that security key or their password and SMS text for MFA. In many tenants it’s always practical to try and restrict users from using weaker forms of MFA, especially at times when they may need to use that to bootstrap themselves into stronger authentication methods such as passwordless. And since this is a tenant-wide setting, we have had the historical issue where we couldn’t say enforce stronger forms of authentication for privileged accounts, such as Global Admins.</p>
-<h2 id="require-authentication-strength">Require authentication strength</h2>
-<p>Within Grant Controls, we now have a new option, <strong>Require authentication strength</strong>. When we select this dropdown, we see that we have the following options available:</p>
+<h1 id="choosing-a-fido2-security-key">Choosing a FIDO2 Security Key</h1>
+<p>As I’ve been keeping up with my FIDO2 Security Key roundup, which you can find here, <a href="https://ericonidentity.com/2022/05/18/azure-ad-fido2-security-key-roundup-and-review/">Azure AD: FIDO2 Security Key Roundup and Review – Eric on Identity</a>, I’ve had some folks on occasion ask me what key(s) I would recommend.</p>
+<p>In the roundup, while it’s hard to not inject some subjectivity, I try to stay objective, hence my reason to not score/rank the keys. Also, that would be a lot more work.</p>
+<p>At the end of this article, I still won’t have provided a ranking of everything out there, but hope the points indicated within can help organizations make some informed decisions.</p>
+<p><em>Note that any lists included within are in brand alphabetical order and does not indicate an order of preference.</em></p>
+<h2 id="design">Design</h2>
+<h3 id="a-key-is-a-key-is-a-key">A key is a key is a key</h3>
+<p>In the review there are several FIDO2 security keys that fit into what I would consider the classic key shape:</p>
 <ul>
-<li>Multifactor authentication – Combinations of methods that satisfy strong authentication such as Password + SMS</li>
-<li>Passwordless multifactor authentication – Passwordless methods that satisfy strong authentication, such as Microsoft Authenticator</li>
-<li>Phishing-resistant multifactor authentication – Phishing-resistant Passwordless methods for the strongest authentication, such as FIDO2 Security Key</li>
+<li>Feitian EPass K9</li>
+<li>GoTrust Idem Key</li>
+<li>Identiv UTrust FIDO2 NFC</li>
+<li>SoloKeys Solo 1 Tap</li>
+<li>Token2 T2F2-NFC-Slim</li>
+<li>TrustKey T110</li>
+<li>TrustKey G320H</li>
+<li>Yubico YubiKey 5 NFC</li>
+<li>Yubico YubiKey Bio</li>
 </ul>
-<p><img alt="Figure 1" src="/images/2022/10/05/img1.png" /></p>
-<p>We also have the ability to define custom authentications strengths in Azure AD, which we can find under Security -&gt; Authentication Methods -&gt; Authentication Strengths (Preview).</p>
-<p><img alt="Figure 2" src="/images/2022/10/05/img2.png" /></p>
-<p>And if we look at the details, this opens up a whole world of options for us:</p>
-<p><img alt="Figure 3" src="/images/2022/10/05/img3.png" /></p>
-<p>First, let us examine the out-of-the-box options.</p>
-<h3 id="multifactor-authentication">Multifactor authentication</h3>
-<p>The lowest denominator for MFA, this setting should be parity to the <strong>Require multifactor authentication</strong> setting that we’ve had available for as long as Conditional Access has existed.</p>
-<p>We can examine this by changing an existing policy from Require multifactor authentication to Require authentication strength and selecting Multifactor authentication.</p>
-<p>As a baseline, lets first look at what our Azure AD logs show us in the current state, with Require multifactor authentication enabled:</p>
-<p><img alt="Figure 4" src="/images/2022/10/05/img4.png" /></p>
-<p>And if we look at the Conditional Access Policy details:</p>
-<p><img alt="Figure 5" src="/images/2022/10/05/img5.png" /></p>
-<p>Now let’s change our policy to use the <strong>require authentication strength</strong> setting with <strong>multifactor authentication</strong> selected:</p>
-<p><img alt="Figure 6" src="/images/2022/10/05/img6.png" /></p>
-<p><em>Switching to the new MFA setting</em></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Require multifactor authentication and Require authentication strength are mutually exclusive, as they both enforce multifactor. Enabling one will disable the ability to use the other within the same Conditional Access Policy.</p>
-</div>
-<p>After we authenticate, the sign-in log looks the same:</p>
-<p><img alt="Figure 7" src="/images/2022/10/05/img7.png" /></p>
-<p>However, if we examine the Conditional Access Policy details, we will see that we are satisfying for the new authentication strength grant control:</p>
-<p><img alt="Figure 8" src="/images/2022/10/05/img8.png" /></p>
-<h2 id="passwordless-multifactor-authentication">Passwordless multifactor authentication</h2>
-<p>Let’s kick the strength of the Conditional Access policy up:</p>
-<p><img alt="Figure 9" src="/images/2022/10/05/img9.png" /></p>
-<p>With things turned up, let’s first look at the behavior if we attempt to authenticate with a password anyway.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Remember that Conditional Access evaluates <strong>after</strong> primary authentication, so our policies will not prevent a user from still attempting to perform password authentication.</p>
-</div>
-<p><img alt="Figure 10" src="/images/2022/10/05/img10.png" /></p>
-<p>We are then presented with another dialog, telling us that our organization requires additional sign in methods to access this resource:</p>
-<p><img alt="Figure 11" src="/images/2022/10/05/img11.png" /></p>
-<p>Now if we take a look at our Sign-in logs, we’ll see that the initial username/password auth occurs, as well as passwordless to satisfy MFA requirements:</p>
-<p><img alt="Figure 12" src="/images/2022/10/05/img12.png" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Microsoft Authenticator passwordless (phone sign-in) <strong>is not phishing-resistant</strong>. Because of this, the Passwordless MFA setting really does not have any advantage over push notifications for MFA with number matching enabled.</p>
-</div>
-<p>Now if we repeat this process, and instead use something like Microsoft Authenticator for passwordless (phone sign-in), we will go right into our application:</p>
-<p><img alt="Figure 13" src="/images/2022/10/05/img13.png" /></p>
-<p>And what happens if our user does not have a FIDO2 security key, is not on a machine with Windows Hello for Business, and does not have Microsoft Authenticator passwordless (phone sign-in) enabled?</p>
-<p>If the authentication strength policy is applied to all resources, the user will get stuck in an endless loop of trying to enroll a stronger form of authentication:</p>
-<p><img alt="Figure 14" src="/images/2022/10/05/img14.png" /></p>
-<p>Now this behavior, from a security standpoint, is not necessarily bad. However, from an end-user perspective it’s something to watch out for.</p>
-<p>If you’re using a Temporary Access Pass (TAP) and accessing https://aka.ms/mysecurityinfo to enroll in strong authentication, that does satisfy the policy.</p>
-<h2 id="phishing-resistant-multifactor-authentication">Phishing-resistant multifactor authentication</h2>
-<p>Finally, we’ll turn the dial all the way up, to phishing-resistant MFA:</p>
-<p><img alt="Figure 15" src="/images/2022/10/05/img15.png" /></p>
-<p>Using our FIDO2 security key, we are able to access our resources without issue:</p>
-<p><img alt="Figure 16" src="/images/2022/10/05/img16.png" /></p>
-<p>And if we attempt to use our password:</p>
-<p><img alt="Figure 17" src="/images/2022/10/05/img17.png" /></p>
-<p>We are prompted to use a security key:</p>
-<p><img alt="Figure 18" src="/images/2022/10/05/img18.png" /></p>
-<p>Now if our user doesn’t have a FIDO2 security key enrolled or is not accessing the resource from a device using Windows Hello for Business, they again will get stuck in an endless enrollment loop if the policy is applied to all resources.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Windows Hello for Business, FIDO2 security keys, and certificate-based authentication are the only mechanisms considered phishing-resistant within Azure AD.</p>
-</div>
-<h2 id="some-odd-behavior">Some odd behavior</h2>
-<p>In my testing, I happened upon that require authentication strength does not seem to play well with other grant controls. My test policy had been configured previously to Require one of the selected controls, effectively an OR situation, between Require multifactor authentication or Require device to be marked as compliant:</p>
-<p><img alt="Figure 19" src="/images/2022/10/05/img19.png" /></p>
-<p>When testing, and switching to use this new setting, I found that the policy effectively turned into a device compliance required policy – before even being able to attempt MFA, I was presented with an error due to lack of device compliance:</p>
-<p><img alt="Figure 20" src="/images/2022/10/05/img20.png" /></p>
-<p>I’ve reached out to Microsoft about this behavior, but it just leaves a bit of a cautionary tale to ensure that you selectively test who you are applying these policy changes to. When I find out more information, I’ll update this article. While this one specific case could be worked around by excluding compliant devices as a condition instead of a control, many organizations may still be using device compliance grant controls due to the feature having existed longer.</p>
-<h2 id="final-thoughts-and-notes">Final thoughts and notes</h2>
-<p>With this new setting for granular control of authentication strength, we can finally do things in our tenant such as (only a few initial thoughts):</p>
+<p>Of course this is all somewhat subject to individual interpretation. While I classify the BioPass K27 as a key in the security key roundup, I dropped it from this list because it does not have the classic USB-A flat-blade. Likewise, the only reason I left the G320H on the list is that it has a USB-A counterpart with that classic look. A few vendors like Identiv and SoloKeys have a bit of a play on the potentially boring matte black look of the keys, but overall they are all almost interchangeable from a design perspective.</p>
+<p>It makes it a rather safe presumption that this design is going to continue to be mainstream for security keys, at least until some larger innovation happens with NFC or Bluetooth. And generally the design works well – none of the keys listed are too bulky or heavy, but also not small enough to lose.</p>
+<h3 id="the-badge">The badge</h3>
+<p>When working with a couple customers who were accustom to using smartcards, there was a strong desire to find a FIDO2 security key that matched that employee badge aesthetic.</p>
+<p>While Thales and HID make badge-style FIDO2 security keys, they are much harder to obtain as you primarily have to have a vendor relationship and purchase in bulk. Up to this point, I’ve only been able to work with a demo Feitian Fingerprint Card. I don’t qualify the AuthenTrend ATKey.Card in this group because of it’s thickness not fitting into the spec for the ID-1 or CR80 card size. To help better understand the market, I do have the GoTrust Idem Card added to the review list.</p>
+<p>I don’t want to speculate too much here, as perhaps industrial design experts, who know a lot more than myself, have well-executed cases using badge-style FIDO2 security keys. In work from home scenarios, it feels more awkward having to use NFC than just using a USB key – you need to buy more things (NFC reader) to produce a worse usability experience. Even in a shared device situation, such as a conference room computer, it would still incur more cost with all those NFC readers. The only net benefit I can see is for organizations that really want to have a single card for authentication; the Feitian demo card includes a sample printed badge on the other side.</p>
+<h3 id="the-permanent-fixtures">The permanent fixtures</h3>
+<p>The Yubico YubiKey 5 Nano, and Token2 T2F2-mini, are the two keys tested of the micro design. While a bit niche, these keys shine when it comes to needing a security key that is permanently left within the device. A common use case would be retrofitting a device for stronger authentication, but the device itself does not have a TPM onboard. As long as you have a USB port to burn, you can stick one of these keys in and instantly upgrade the quality of strong authentication on the device. Considering that the key still requires a PIN for entropy and physical touch for the presence component, there is little real world security concern in most scenarios for just leaving the key in the device.</p>
+<h3 id="the-outliers">The outliers</h3>
+<p>From the faux badge AuthenTrend ATKey.Card to the oddly shaped Feitian MultiPass K32, and not missing the potentially bulky swivel thumb-drive style Token2 T2F2-Bio, there is an array of keys out there that are trying to find their own path.</p>
+<p>Reading through my reviews of all of them, there is nothing particularly exciting about any of the design outliers. While some have valid reasons for a bit of bulk, such as the Thetis as it requires room for a battery for Bluetooth functionality, others do not, such as the mentioned Token2 T2F2-Bio, which is about 10x the volume of a YubiKey Bio with no incurred benefit.</p>
+<p>While there are a few out there if you prefer to go fully fob style with NFC, such as the Feitian MultiPass K16, the majority of outliers appear they are just destined to remain that way.</p>
+<h2 id="location-matters">Location matters?</h2>
+<p>The keys greatly varied as far as where they were manufactured, and vendors varied as well in how well they do (or do not) use that for marketing.</p>
+<p>Some vendors clearly had written on the packaging where the key was manufactured, some specify it on their websites, and some required you to perform a bit of internet sleuthing to determine.</p>
+<p>Ultimately it depends on whether this matters to your organization. On one hand you could be wearing your tinfoil hat and be concerned about the origin of the keys and have thoughts regarding the security of such. On the other hand, the device you’re plugging the key into likely has plenty of its components or is wholly manufactured in said same country.</p>
 <ul>
-<li>Require privileged users to have to use a phishing-resistant form of MFA</li>
-<li>In organizations such as higher-ed, restrict faculty and staff to stronger authentication while allowing students to continue to use weaker forms of MFA (as it required many times)</li>
-<li>Potentially have other avenues to restrict the ability to enroll other forms of MFA only from strong forms of MFA</li>
+<li>AuthenTrend, Feitian, Thetis do not market their source of origin but are manufactured in China.</li>
+<li>TrustKey lightly markets that their keys are made in South Korea.</li>
+<li>GoTrust manufactures their keys in Taiwan.</li>
+<li>Yubico markets that their keys are manufactured in the United States or Sweden.</li>
+<li>Identiv, which appears squarely aimed at the US military and law enforcement, indicates their keys are manufactured in the United States.</li>
+<li>SoloKeys are interestingly made in Italy.</li>
+<li>Hypersecu does not indicate where their key is manufactured.</li>
 </ul>
-<p>Because this is only limiting the options used during authentication, this will not prevent a privileged user from enrolling in a weaker form of MFA, such as SMS. They’ll just never necessarily be permitted to leverage that.</p>
-<p>Also, as I’ve found in testing, you’ll want to test these new settings thoroughly, to ensure that you aren’t creating scenarios for your end users where they can’t enroll in stronger authentication, and subsequently get stuck in a proof-up loop. Applying this new grant control across all users, for all applications, is likely too broad of a policy for the majority of organizations, unless you are certain about your existing passwordless usage. There’s nothing like a few hiccups with an authentication change in an organization to completely stall any progress.</p>
-<p>I still have more testing I want to do – exploring what this looks like with external users and cross-tenant access settings. And there is the ability to create custom authentication strengths as well, which is ripe with granularity for all sorts of custom authentication strength. In all the testing of the different permutations, and a few setbacks from unexpected behavior, this article took longer than initially thought to craft.</p>
-<p>End of the day, this is still a great step forward to ensuring that strong authentication is used when it matters within tenants. Can’t wait to see Global Admins voluntarily applying these policies to themselves. Just don’t forget to exclude those break-glass accounts.</p>
+<p>Token2 also does not indicate where their keys are manufactured. I might note a slight bit of deception in marketing on their part. The Token2 website has a tagline <strong>Swiss made software</strong>, however, at least some of their keys are <strong>definitely not</strong> made in Switzerland – the T2F2-mini is made for them by Feitian.</p>
+<h2 id="whos-who">Who's who</h2>
+<p>Loosely tied to the location, it’s apparent that some keys are not manufactured necessarily by the vendor selling them. Feitian is probably the most well known for making keys for other companies, as they manufacture the Google Titan Keys (which are not reviewed here as they only support FIDO U2F).</p>
+<p>Ultimately it may have little relevance in the procurement process, and while it’s common to have parts sourced from the same manufacturers, was surprised to see the similarities, especially when they came along with a price difference.</p>
+<p>During my procurement of keys, I came across the following.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>None of these observations have been posed to or confirmed by any vendor</p>
+</div>
+<h3 id="thetis-excelsecu-and-token2">Thetis, ExcelSecu and Token2</h3>
+<p>The style and manufacturing traits of the Thetis, ExcelSecu and Token2 keys that are of “swivel style” all bear a striking resemblance to each other. When I received the Token2 T2F2-Bio, and then examined the Thetis FIDO2 Security Key, they both have similar design features in the metal shell. Likewise, the plastic housing for the key itself has a striking similar opaqueness to it, and the same very specific dimpled design on the back end. They all also share a similar trait in being particularly oversized compared to other keys of similar features and function. Note that the stock images from Thetis and ExcelSecu are doctored up a bit (or perhaps drawings), the plastic on the Thetis I have in hand is much more opaque than the image.</p>
+<p><img alt="Figure 1" src="/images/2022/09/08/img1.png" /> <img alt="Figure 2" src="/images/2022/09/08/img2.png" /> <img alt="Figure 3" src="/images/2022/09/08/img3.jpg" /></p>
 
 
 
@@ -728,7 +708,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../../09/08/choosing-a-fido2-security-key/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Choosing a FIDO2 Security Key">
+          <a href="../../../08/09/an-agile-refresh-of-the-passwordless-strategy/" class="md-footer__link md-footer__link--prev" aria-label="Previous: An Agile Refresh Of The Passwordless Strategy">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -738,20 +718,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Choosing a FIDO2 Security Key
+                An Agile Refresh Of The Passwordless Strategy
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../12/vm-contributor-to-domain-admin-in-60-seconds/" class="md-footer__link md-footer__link--next" aria-label="Next: VM Contributor To Domain Admin In 60 Seconds">
+          <a href="../../../10/05/azure-ad-new-controls-for-authentication-strength/" class="md-footer__link md-footer__link--next" aria-label="Next: Azure AD: New Controls For Authentication Strength">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                VM Contributor To Domain Admin In 60 Seconds
+                Azure AD: New Controls For Authentication Strength
               </div>
             </div>
             <div class="md-footer__button md-icon">

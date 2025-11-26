@@ -1312,6 +1312,95 @@ isaiah@Azure:~$
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-09-08 00:00:00+00:00">September 8, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="choosing-a-fido2-security-key"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/">Choosing a FIDO2 Security Key</a></h2>
+<p>As I’ve been keeping up with my FIDO2 Security Key roundup, which you can find here, <a href="https://ericonidentity.com/2022/05/18/azure-ad-fido2-security-key-roundup-and-review/">Azure AD: FIDO2 Security Key Roundup and Review – Eric on Identity</a>, I’ve had some folks on occasion ask me what key(s) I would recommend.</p>
+<p>In the roundup, while it’s hard to not inject some subjectivity, I try to stay objective, hence my reason to not score/rank the keys. Also, that would be a lot more work.</p>
+<p>At the end of this article, I still won’t have provided a ranking of everything out there, but hope the points indicated within can help organizations make some informed decisions.</p>
+<p><em>Note that any lists included within are in brand alphabetical order and does not indicate an order of preference.</em></p>
+<h3 id="design"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#design">Design</a></h3>
+<h4 id="a-key-is-a-key-is-a-key"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#a-key-is-a-key-is-a-key">A key is a key is a key</a></h4>
+<p>In the review there are several FIDO2 security keys that fit into what I would consider the classic key shape:</p>
+<ul>
+<li>Feitian EPass K9</li>
+<li>GoTrust Idem Key</li>
+<li>Identiv UTrust FIDO2 NFC</li>
+<li>SoloKeys Solo 1 Tap</li>
+<li>Token2 T2F2-NFC-Slim</li>
+<li>TrustKey T110</li>
+<li>TrustKey G320H</li>
+<li>Yubico YubiKey 5 NFC</li>
+<li>Yubico YubiKey Bio</li>
+</ul>
+<p>Of course this is all somewhat subject to individual interpretation. While I classify the BioPass K27 as a key in the security key roundup, I dropped it from this list because it does not have the classic USB-A flat-blade. Likewise, the only reason I left the G320H on the list is that it has a USB-A counterpart with that classic look. A few vendors like Identiv and SoloKeys have a bit of a play on the potentially boring matte black look of the keys, but overall they are all almost interchangeable from a design perspective.</p>
+<p>It makes it a rather safe presumption that this design is going to continue to be mainstream for security keys, at least until some larger innovation happens with NFC or Bluetooth. And generally the design works well – none of the keys listed are too bulky or heavy, but also not small enough to lose.</p>
+<h4 id="the-badge"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-badge">The badge</a></h4>
+<p>When working with a couple customers who were accustom to using smartcards, there was a strong desire to find a FIDO2 security key that matched that employee badge aesthetic.</p>
+<p>While Thales and HID make badge-style FIDO2 security keys, they are much harder to obtain as you primarily have to have a vendor relationship and purchase in bulk. Up to this point, I’ve only been able to work with a demo Feitian Fingerprint Card. I don’t qualify the AuthenTrend ATKey.Card in this group because of it’s thickness not fitting into the spec for the ID-1 or CR80 card size. To help better understand the market, I do have the GoTrust Idem Card added to the review list.</p>
+<p>I don’t want to speculate too much here, as perhaps industrial design experts, who know a lot more than myself, have well-executed cases using badge-style FIDO2 security keys. In work from home scenarios, it feels more awkward having to use NFC than just using a USB key – you need to buy more things (NFC reader) to produce a worse usability experience. Even in a shared device situation, such as a conference room computer, it would still incur more cost with all those NFC readers. The only net benefit I can see is for organizations that really want to have a single card for authentication; the Feitian demo card includes a sample printed badge on the other side.</p>
+<h4 id="the-permanent-fixtures"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-permanent-fixtures">The permanent fixtures</a></h4>
+<p>The Yubico YubiKey 5 Nano, and Token2 T2F2-mini, are the two keys tested of the micro design. While a bit niche, these keys shine when it comes to needing a security key that is permanently left within the device. A common use case would be retrofitting a device for stronger authentication, but the device itself does not have a TPM onboard. As long as you have a USB port to burn, you can stick one of these keys in and instantly upgrade the quality of strong authentication on the device. Considering that the key still requires a PIN for entropy and physical touch for the presence component, there is little real world security concern in most scenarios for just leaving the key in the device.</p>
+<h4 id="the-outliers"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-outliers">The outliers</a></h4>
+<p>From the faux badge AuthenTrend ATKey.Card to the oddly shaped Feitian MultiPass K32, and not missing the potentially bulky swivel thumb-drive style Token2 T2F2-Bio, there is an array of keys out there that are trying to find their own path.</p>
+<p>Reading through my reviews of all of them, there is nothing particularly exciting about any of the design outliers. While some have valid reasons for a bit of bulk, such as the Thetis as it requires room for a battery for Bluetooth functionality, others do not, such as the mentioned Token2 T2F2-Bio, which is about 10x the volume of a YubiKey Bio with no incurred benefit.</p>
+<p>While there are a few out there if you prefer to go fully fob style with NFC, such as the Feitian MultiPass K16, the majority of outliers appear they are just destined to remain that way.</p>
+<h3 id="location-matters"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#location-matters">Location matters?</a></h3>
+<p>The keys greatly varied as far as where they were manufactured, and vendors varied as well in how well they do (or do not) use that for marketing.</p>
+<p>Some vendors clearly had written on the packaging where the key was manufactured, some specify it on their websites, and some required you to perform a bit of internet sleuthing to determine.</p>
+<p>Ultimately it depends on whether this matters to your organization. On one hand you could be wearing your tinfoil hat and be concerned about the origin of the keys and have thoughts regarding the security of such. On the other hand, the device you’re plugging the key into likely has plenty of its components or is wholly manufactured in said same country.</p>
+<ul>
+<li>AuthenTrend, Feitian, Thetis do not market their source of origin but are manufactured in China.</li>
+<li>TrustKey lightly markets that their keys are made in South Korea.</li>
+<li>GoTrust manufactures their keys in Taiwan.</li>
+<li>Yubico markets that their keys are manufactured in the United States or Sweden.</li>
+<li>Identiv, which appears squarely aimed at the US military and law enforcement, indicates their keys are manufactured in the United States.</li>
+<li>SoloKeys are interestingly made in Italy.</li>
+<li>Hypersecu does not indicate where their key is manufactured.</li>
+</ul>
+<p>Token2 also does not indicate where their keys are manufactured. I might note a slight bit of deception in marketing on their part. The Token2 website has a tagline <strong>Swiss made software</strong>, however, at least some of their keys are <strong>definitely not</strong> made in Switzerland – the T2F2-mini is made for them by Feitian.</p>
+<h3 id="whos-who"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#whos-who">Who's who</a></h3>
+<p>Loosely tied to the location, it’s apparent that some keys are not manufactured necessarily by the vendor selling them. Feitian is probably the most well known for making keys for other companies, as they manufacture the Google Titan Keys (which are not reviewed here as they only support FIDO U2F).</p>
+<p>Ultimately it may have little relevance in the procurement process, and while it’s common to have parts sourced from the same manufacturers, was surprised to see the similarities, especially when they came along with a price difference.</p>
+<p>During my procurement of keys, I came across the following.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>None of these observations have been posed to or confirmed by any vendor</p>
+</div>
+<h4 id="thetis-excelsecu-and-token2"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#thetis-excelsecu-and-token2">Thetis, ExcelSecu and Token2</a></h4>
+<p>The style and manufacturing traits of the Thetis, ExcelSecu and Token2 keys that are of “swivel style” all bear a striking resemblance to each other. When I received the Token2 T2F2-Bio, and then examined the Thetis FIDO2 Security Key, they both have similar design features in the metal shell. Likewise, the plastic housing for the key itself has a striking similar opaqueness to it, and the same very specific dimpled design on the back end. They all also share a similar trait in being particularly oversized compared to other keys of similar features and function. Note that the stock images from Thetis and ExcelSecu are doctored up a bit (or perhaps drawings), the plastic on the Thetis I have in hand is much more opaque than the image.</p>
+<p><img alt="Figure 1" src="/images/2022/09/08/img1.png" /> <img alt="Figure 2" src="/images/2022/09/08/img2.png" /> <img alt="Figure 3" src="/images/2022/09/08/img3.jpg" /></p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-08-09 00:00:00+00:00">August 9, 2022</time></li>
         
         
@@ -1409,75 +1498,6 @@ isaiah@Azure:~$
 <p>As we continue to shift towards cloud-native solutions designed to be accessed by everyone from everywhere, it is not just solving for passwordless anymore, and organizations can find themselves either ahead of or behind the ball with supporting modern forms of authentication, such as SAML or OpenID Connect (OIDC).</p>
 <h3 id="final-thoughts"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#final-thoughts">Final thoughts</a></h3>
 <p>Passwordless deployments, for many organizations, are a litmus test for how well the organization adopts to organizational change and technology advancements. They also are a potential pain point between the C-suite and technology staff, in both directions. Organizations can suffer from technology staff not properly articulating the business value in going passwordless, and what business assets passwordless will protect – these days it’s more than just implementing “all the things” without any concern for the relative value to the business. On the other hand, passwordless is a complex topic that is tough to translate and isn’t always well received by the C-suite. Considering that some organizations still suffer from executives who don’t want MFA because it’s a burden, we have a lot of organizational change that needs to happen across the board. When organizations can implement passwordless to the further extent possible, the net effect is the organization is that much more protected than implementing nothing at all.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-07-14 00:00:00+00:00">July 14, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="authenticator-app-ios-multiple-passwordless-account-support-is-here"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/">Authenticator App: IOS Multiple Passwordless Account Support Is Here!</a></h2>
-<p>For anyone who lives in a world of multiple Azure AD accounts and the Authenticator App, you can finally rejoice over not having to make the difficult decision over which account is the one you enable for passwordless… or potentially not having to carry multiple devices.</p>
-<p>To date, you could enroll one Azure AD account and one personal Microsoft Account (MSA) for passwordless in the Authenticator App. Even with multiple Azure AD accounts in the same tenant, only one could go passwordless.</p>
-<p>With this update, not only can you go passwordless for multiple accounts in the same Azure AD tenant, but across multiple tenants as well.</p>
-<h3 id="enabling-the-preview"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#enabling-the-preview">Enabling the preview</a></h3>
-<p>First you’ll want to make sure you have the latest version of the MS Authenticator App from the Apple App Store, which you can check here, <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">Microsoft Authenticator on the App Store (apple.com)</a>.</p>
-<p>Per Microsoft, you’ll also need to enable a usage data setting within the Settings of the Authenticator App. You can do this by opening the hamburger menu in the upper left, and select <strong>Settings</strong>.</p>
-<p>Within settings, you’ll want to enable <strong>Usage Data</strong> (the screenshot shows it disabled, but you need to enable it). The associated MS Docs article is here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone#multiple-accounts-on-ios-preview">Passwordless sign-in with Microsoft Authenticator – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In my testing I found you need to force quit the Authenticator App after enabling Usage Data to allow for multiple account enrollment.</p>
-</div>
-<p><img alt="Figure 1" src="/images/2022/07/14/img1.png" /></p>
-<h3 id="multiple-passwordless-accounts-in-the-same-azure-ad-tenant"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#multiple-passwordless-accounts-in-the-same-azure-ad-tenant">Multiple passwordless accounts in the same Azure AD tenant</a></h3>
-<p>On each additional account you want to go passwordless, select the account in the Authenticator App, and choose <strong>Enable phone sign-in</strong>. This is the same as the experience to enable for the first account, with an exception that you do not need to register the device again.</p>
-<p><img alt="Figure 2" src="/images/2022/07/14/img2.png" /></p>
-<p>You’ll see that the device indicates it is already registered, just select Continue.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>You will be prompted to perform MFA if you have not recently authenticated on the device.</p>
-</div>
-<h3 id="multiple-passwordless-accounts-in-different-azure-ad-tenants"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#multiple-passwordless-accounts-in-different-azure-ad-tenants">Multiple passwordless accounts in different Azure AD tenants</a></h3>
-<p>If your accounts exist across multiple Azure AD tenants, you can still initiate it through the same process as above, select the additional account, and select <strong>Enable phone sign-in</strong>. During this process, the device will just require you to register it within that second Azure AD tenant.</p>
-<p>After device registration is completed, passwordless will be enabled for both accounts in both tenants.</p>
-<p>We can examine this within the Authenticator App, by browsing to <strong>Settings</strong>, <strong>Device Registration</strong>, where we see the tenants the device is registered with.</p>
-<p><img alt="Figure 3" src="/images/2022/07/14/img3.png" /></p>
-<p>You can drill further into each tenant within the settings, see the Device ID, and optionally unregister the device from said tenant.</p>
-<p>If the device is unregistered from an Azure AD tenant, the associated accounts will automatically be disabled for passwordless on it.</p>
-<p>Note that the Device ID is unique per Azure AD tenant.</p>
-<p><img alt="Figure 4" src="/images/2022/07/14/img4.png" /></p>
-<h3 id="the-experience"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#the-experience">The experience</a></h3>
-<p>I’ve been testing this experience in a private preview for a while now, and I’ll say it’s been as smooth as one could want. Naturally, as the private preview recommends not using preview software for production use, I immediately installed it on my primary iPhone and enabled all of my Azure AD accounts for passwordless. I currently have multiple accounts enabled for passwordless across three Azure AD tenants, to which I’ve authenticated multiple times a week, and an issue has not arisen.</p>
-<h3 id="final-thoughts"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#final-thoughts">Final thoughts</a></h3>
-<p>This is a simple yet fantastic step forward in the passwordless journey by Microsoft; while not everyone out there has multiple Azure AD accounts, for those of us that do, we finally don’t have to make choices anymore.</p>
-<p>For organizations out there who have not gone passwordless, because of concerns about push notification fatigue, now is the time to enable push notifications and allow for passwordless authentication for our end users. With the addition of number matching and additional context, we can protect our organizations from accidental notification approval, which I cover here, <a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a>.</p>
-<p>To provide a great user experience, we need to not lock our users into a singular means of strong authentication, and allowing users to choose the <strong>strong</strong> authentication experience that works best for them promotes better end user habits and better organizational security.</p>
     
   </div>
 </article>

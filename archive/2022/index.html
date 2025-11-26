@@ -1038,6 +1038,95 @@ isaiah@Azure:~$
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-09-08 00:00:00+00:00">September 8, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="choosing-a-fido2-security-key"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/">Choosing a FIDO2 Security Key</a></h2>
+<p>As I’ve been keeping up with my FIDO2 Security Key roundup, which you can find here, <a href="https://ericonidentity.com/2022/05/18/azure-ad-fido2-security-key-roundup-and-review/">Azure AD: FIDO2 Security Key Roundup and Review – Eric on Identity</a>, I’ve had some folks on occasion ask me what key(s) I would recommend.</p>
+<p>In the roundup, while it’s hard to not inject some subjectivity, I try to stay objective, hence my reason to not score/rank the keys. Also, that would be a lot more work.</p>
+<p>At the end of this article, I still won’t have provided a ranking of everything out there, but hope the points indicated within can help organizations make some informed decisions.</p>
+<p><em>Note that any lists included within are in brand alphabetical order and does not indicate an order of preference.</em></p>
+<h3 id="design"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#design">Design</a></h3>
+<h4 id="a-key-is-a-key-is-a-key"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#a-key-is-a-key-is-a-key">A key is a key is a key</a></h4>
+<p>In the review there are several FIDO2 security keys that fit into what I would consider the classic key shape:</p>
+<ul>
+<li>Feitian EPass K9</li>
+<li>GoTrust Idem Key</li>
+<li>Identiv UTrust FIDO2 NFC</li>
+<li>SoloKeys Solo 1 Tap</li>
+<li>Token2 T2F2-NFC-Slim</li>
+<li>TrustKey T110</li>
+<li>TrustKey G320H</li>
+<li>Yubico YubiKey 5 NFC</li>
+<li>Yubico YubiKey Bio</li>
+</ul>
+<p>Of course this is all somewhat subject to individual interpretation. While I classify the BioPass K27 as a key in the security key roundup, I dropped it from this list because it does not have the classic USB-A flat-blade. Likewise, the only reason I left the G320H on the list is that it has a USB-A counterpart with that classic look. A few vendors like Identiv and SoloKeys have a bit of a play on the potentially boring matte black look of the keys, but overall they are all almost interchangeable from a design perspective.</p>
+<p>It makes it a rather safe presumption that this design is going to continue to be mainstream for security keys, at least until some larger innovation happens with NFC or Bluetooth. And generally the design works well – none of the keys listed are too bulky or heavy, but also not small enough to lose.</p>
+<h4 id="the-badge"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-badge">The badge</a></h4>
+<p>When working with a couple customers who were accustom to using smartcards, there was a strong desire to find a FIDO2 security key that matched that employee badge aesthetic.</p>
+<p>While Thales and HID make badge-style FIDO2 security keys, they are much harder to obtain as you primarily have to have a vendor relationship and purchase in bulk. Up to this point, I’ve only been able to work with a demo Feitian Fingerprint Card. I don’t qualify the AuthenTrend ATKey.Card in this group because of it’s thickness not fitting into the spec for the ID-1 or CR80 card size. To help better understand the market, I do have the GoTrust Idem Card added to the review list.</p>
+<p>I don’t want to speculate too much here, as perhaps industrial design experts, who know a lot more than myself, have well-executed cases using badge-style FIDO2 security keys. In work from home scenarios, it feels more awkward having to use NFC than just using a USB key – you need to buy more things (NFC reader) to produce a worse usability experience. Even in a shared device situation, such as a conference room computer, it would still incur more cost with all those NFC readers. The only net benefit I can see is for organizations that really want to have a single card for authentication; the Feitian demo card includes a sample printed badge on the other side.</p>
+<h4 id="the-permanent-fixtures"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-permanent-fixtures">The permanent fixtures</a></h4>
+<p>The Yubico YubiKey 5 Nano, and Token2 T2F2-mini, are the two keys tested of the micro design. While a bit niche, these keys shine when it comes to needing a security key that is permanently left within the device. A common use case would be retrofitting a device for stronger authentication, but the device itself does not have a TPM onboard. As long as you have a USB port to burn, you can stick one of these keys in and instantly upgrade the quality of strong authentication on the device. Considering that the key still requires a PIN for entropy and physical touch for the presence component, there is little real world security concern in most scenarios for just leaving the key in the device.</p>
+<h4 id="the-outliers"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#the-outliers">The outliers</a></h4>
+<p>From the faux badge AuthenTrend ATKey.Card to the oddly shaped Feitian MultiPass K32, and not missing the potentially bulky swivel thumb-drive style Token2 T2F2-Bio, there is an array of keys out there that are trying to find their own path.</p>
+<p>Reading through my reviews of all of them, there is nothing particularly exciting about any of the design outliers. While some have valid reasons for a bit of bulk, such as the Thetis as it requires room for a battery for Bluetooth functionality, others do not, such as the mentioned Token2 T2F2-Bio, which is about 10x the volume of a YubiKey Bio with no incurred benefit.</p>
+<p>While there are a few out there if you prefer to go fully fob style with NFC, such as the Feitian MultiPass K16, the majority of outliers appear they are just destined to remain that way.</p>
+<h3 id="location-matters"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#location-matters">Location matters?</a></h3>
+<p>The keys greatly varied as far as where they were manufactured, and vendors varied as well in how well they do (or do not) use that for marketing.</p>
+<p>Some vendors clearly had written on the packaging where the key was manufactured, some specify it on their websites, and some required you to perform a bit of internet sleuthing to determine.</p>
+<p>Ultimately it depends on whether this matters to your organization. On one hand you could be wearing your tinfoil hat and be concerned about the origin of the keys and have thoughts regarding the security of such. On the other hand, the device you’re plugging the key into likely has plenty of its components or is wholly manufactured in said same country.</p>
+<ul>
+<li>AuthenTrend, Feitian, Thetis do not market their source of origin but are manufactured in China.</li>
+<li>TrustKey lightly markets that their keys are made in South Korea.</li>
+<li>GoTrust manufactures their keys in Taiwan.</li>
+<li>Yubico markets that their keys are manufactured in the United States or Sweden.</li>
+<li>Identiv, which appears squarely aimed at the US military and law enforcement, indicates their keys are manufactured in the United States.</li>
+<li>SoloKeys are interestingly made in Italy.</li>
+<li>Hypersecu does not indicate where their key is manufactured.</li>
+</ul>
+<p>Token2 also does not indicate where their keys are manufactured. I might note a slight bit of deception in marketing on their part. The Token2 website has a tagline <strong>Swiss made software</strong>, however, at least some of their keys are <strong>definitely not</strong> made in Switzerland – the T2F2-mini is made for them by Feitian.</p>
+<h3 id="whos-who"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#whos-who">Who's who</a></h3>
+<p>Loosely tied to the location, it’s apparent that some keys are not manufactured necessarily by the vendor selling them. Feitian is probably the most well known for making keys for other companies, as they manufacture the Google Titan Keys (which are not reviewed here as they only support FIDO U2F).</p>
+<p>Ultimately it may have little relevance in the procurement process, and while it’s common to have parts sourced from the same manufacturers, was surprised to see the similarities, especially when they came along with a price difference.</p>
+<p>During my procurement of keys, I came across the following.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>None of these observations have been posed to or confirmed by any vendor</p>
+</div>
+<h4 id="thetis-excelsecu-and-token2"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/#thetis-excelsecu-and-token2">Thetis, ExcelSecu and Token2</a></h4>
+<p>The style and manufacturing traits of the Thetis, ExcelSecu and Token2 keys that are of “swivel style” all bear a striking resemblance to each other. When I received the Token2 T2F2-Bio, and then examined the Thetis FIDO2 Security Key, they both have similar design features in the metal shell. Likewise, the plastic housing for the key itself has a striking similar opaqueness to it, and the same very specific dimpled design on the back end. They all also share a similar trait in being particularly oversized compared to other keys of similar features and function. Note that the stock images from Thetis and ExcelSecu are doctored up a bit (or perhaps drawings), the plastic on the Thetis I have in hand is much more opaque than the image.</p>
+<p><img alt="Figure 1" src="/images/2022/09/08/img1.png" /> <img alt="Figure 2" src="/images/2022/09/08/img2.png" /> <img alt="Figure 3" src="/images/2022/09/08/img3.jpg" /></p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-08-09 00:00:00+00:00">August 9, 2022</time></li>
         
         
@@ -1593,82 +1682,6 @@ isaiah@Azure:~$
 <p>If you have business scenarios that call for the desire to prompt more frequently for MFA, Conditional access offers Sign-in frequency session controls as well as Persistent browser session controls, which can be targeted to non-corporate managed devices. Authentication context also allows for scenarios where we want to call for strong authentication scenarios when users are accessing sensitive information. These settings offer a higher level of precision to target certain scenarios while not negatively impacting the broader user experience.</p>
 <h3 id="final-notes"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#final-notes">Final notes</a></h3>
 <p>This setting really has been a carry-over from when we didn’t have the power available from Conditional Access, and unfortunately, it’s well hidden in that dusty MFA settings portal almost nobody ever treks into. Lucky for us, it’s a quick win in the name of security to disable.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-04-21 00:00:00+00:00">April 21, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              6 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-cross-tenant-access-settings-clarity"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">Azure AD: Cross-tenant Access Settings Clarity</a></h2>
-<p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
-<p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
-<p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
-<h3 id="terminology"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#terminology">Terminology</a></h3>
-<p><strong>Guest</strong> – For clarity, when speaking about guest users for the context of this post, we are talking about users invited into your Azure AD tenant.</p>
-<p><strong>Resource Azure AD Tenant [Resource Tenant]</strong> – If you are inviting guests <strong>into</strong> your Azure AD tenant, <strong>your</strong> tenant is the resource tenant. It represents your organization. If you are a <strong>guest</strong>, then the resource tenant is the tenant you have been invited into.</p>
-<p><strong>Home Azure AD Tenant [Home Tenant]</strong> – This is the tenant where the user objects live. If your user object exists in your organizations Azure AD tenant, your tenant is <strong>both</strong> the home tenant and resource tenant – your users and applications all “live” in the same place. Guests into your tenant will have a <strong>different</strong> home tenant.</p>
-<h3 id="what-it-is-not"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is-not">What it is not</a></h3>
-<p>Before getting into what we can do with cross-tenant access settings, let’s cover what this is not (at least at the time of this writing).</p>
-<h4 id="parity-to-an-active-directory-trust"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#parity-to-an-active-directory-trust">Parity to an Active Directory trust</a></h4>
-<p>Cross-tenant access settings may invoke a feeling of configuring a trust in Active Directory, which many Microsoft identity practitioners may be familiar with.</p>
-<p>It is closer to the <strong>opposite</strong> of a trust, in the sense that by default Active Directory has no implicit trusts, and you must explicitly configure trusts. Azure AD historically is opposite, any organization, unless settings are adjusted, can invite users from any Azure AD tenant into the organization. These settings allow us to be more granular in how we <strong>restrict</strong> guest access inbound and outbound to our Azure AD tenant.</p>
-<p>Further, when we examine B2B Direct Connect, we realize that the only use case, currently, is Teams shared channels.</p>
-<p>When we think of an Active Directory trust, we think of the fact that user objects only exist in the source user forest. With cross-tenant access settings, and the limitations with B2B Direct Connect, we still must invite user objects into our resource tenant – all the other “things” tied to our Azure AD tenant need the objectID within our resource tenant to reference.</p>
-<h3 id="what-it-is"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is">What it is</a></h3>
-<h4 id="a-mechanism-to-provide-granular-b2b-guest-control"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-mechanism-to-provide-granular-b2b-guest-control">A mechanism to provide granular B2B guest control</a></h4>
-<p>When speaking about B2B guests and external identities, many organizations tend to focus on the aspect of guests being invited <strong>into</strong> their tenant. There is the other side to that B2B coin, which is restricting what organizations you may want your users to have access to.</p>
-<p>Certain organizations, especially those in the regulated industries, have concern over which external tenants their users can connect to. Up until now, organizations would need to apply tenant restrictions, <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/tenant-restrictions">Use tenant restrictions to manage access to SaaS apps – Azure AD | Microsoft Docs</a>, which has a higher level of complexity to it – the implementation requires a proxy to perform traffic inspection and HTTP header insertion.</p>
-<p>Now, organizations that have strict requirements regarding outbound guest access can, by default, restrict outbound access, and then create a more granular allow list.</p>
-<p>We also now can be granular down to user/group level of who can access certain organizations. Say you want to only allow employees from payroll to be able to access the tenant the vendor uses and restrict outbound access to everyone else – now you can do that.</p>
-<p>Likewise, there is granularity on the inbound side. Say you are that vendor that processes an organizations payroll and want to ensure that only the known users for the company you serve can come into your organization. You can restrict inbound as well, limiting what guests are allowed in.</p>
-<h4 id="a-way-to-trust-external-mfa-and-device-compliance"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-way-to-trust-external-mfa-and-device-compliance">A way to trust external MFA and Device Compliance</a></h4>
-<p>Many organizations that are familiar with conditional access and guest policies have encountered the need to enroll in Azure AD MFA twice or more – once for their home tenant and once in every other resource tenant they access. This experience, from a user perspective, is less than ideal.</p>
-<p>With cross-tenant access settings, we can now choose to trust MFA from the guest users home tenant. We also can be granular – if we want to trust MFA from certain tenants, but require MFA enrollment from others, we can do that.</p>
-<p>More interestingly, we can now trust device compliance and hybrid join status, from the guest home tenant. While I still have certain reservations about the quality of relying on hybrid join alone, focusing on device compliance, it really opens a lot of cross-tenant collaboration, and brings an innovative approach to leveraging Zero Trust modeling when working with guests. While this still has the requirement that the guest home tenant must be leveraging Intune or a 3rd party MDM that can report in device compliance, it makes this a possibility.</p>
-<p>In my own testing, I was able to leverage device compliance in conditional access for a device in a guest tenant, and it worked with ease.</p>
-<h3 id="a-few-lingering-questions"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-few-lingering-questions">A few lingering questions</a></h3>
-<h4 id="where-is-conditional-access-processed"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-conditional-access-processed">Where is Conditional Access processed?</a></h4>
-<p>This hasn’t changed with the new cross-tenant access settings, but it’s a good time to review.</p>
-<p>Conditional access is <strong>always</strong> evaluated in the <strong>resource</strong> tenant.</p>
-<p>The resource tenant needs to ensure that their Conditional Access policies meet the needs of protecting their applications.</p>
-<p>Likewise, the home tenant <strong>cannot</strong> restrict outbound access to another tenant with Conditional Access. Because the guest is not accessing resources in their tenant, even an all applications block CA policy will not prevent the user from accessing a resource tenant as a guest – which really brings us back to what these new settings solve.</p>
-<h4 id="where-is-identity-protection-processed"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-identity-protection-processed">Where is Identity Protection processed?</a></h4>
-<p>User risk is evaluated in the <strong>home</strong> tenant, and sign-in risk is evaluated in the <strong>resource</strong> tenant for B2B users. When firing up Tor, and accessing O365 with a guest, my test user was blocked by Identity Protection in the home tenant because it was flagged as a high user risk. So depending on the sort of threat detected by Identity Protection, you may find users being restricted by both the home and resource tenant when Identity Protection is in play.</p>
-<p>The details on this are further elaborated on in the Microsoft Docs article, <a href="https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-b2b#how-does-identity-protection-work-for-b2b-users">Identity Protection and B2B users – Azure Active Directory | Microsoft Docs</a>.</p>
-<h3 id="one-new-trick-out-of-a-possible-many"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#one-new-trick-out-of-a-possible-many">One new trick - out of a possible many</a></h3>
-<h4 id="pim-in-the-home-tenant-for-outbound-guest-access"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#pim-in-the-home-tenant-for-outbound-guest-access">PIM in the home tenant for outbound guest access</a></h4>
-<p>The ability to apply PIM to guest user accounts is not new. But if we combine the preview feature of PIM for group membership, and apply outbound restrictions to a certain group, the <strong>home</strong> tenant can build a request process for outbound access.</p>
-<p>In that this is quite restrictive, I would see a narrow range of use cases, as it really hampers collaboration between tenants. For those organizations who previously completely turned off the ability to collaborate with other organizations due to things like data sensitivity, the door might now be opened a bit.</p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#final-notes">Final notes</a></h3>
-<p>External Identities and B2B are continually evolving. While there is still a large gap to bridge for many situations, this definitely is bringing us one step closer. B2B Direct Access in particular will be interesting to see how Microsoft evolves it – will it come closer to how an AD trust operates, or will there be improvements on how guests are invited into tenants.</p>
-<p>As usual, any questions/concerns/comments please reach out to me, and if you find any new unique use cases for cross-tenant access settings, would love to hear them.</p>
     
   </div>
 </article>

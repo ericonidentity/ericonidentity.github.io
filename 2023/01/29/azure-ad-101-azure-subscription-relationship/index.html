@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/01/29/azure-ad-101-azure-subscription-relationship/">
       
       
-        <link rel="prev" href="../../../01/29/azure-ad-101-azure-subscription-relationship/">
+        <link rel="prev" href="../../../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">
       
       
-        <link rel="next" href="../../13/the-importance-of-identity-in-microsoft-certifications/">
+        <link rel="next" href="../../../02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Don't Let DNS Be Your Azure AD Recovery Downfall - Eric on Identity</title>
+        <title>Azure AD 101: Azure Subscription Relationship - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dont-let-dns-be-your-azure-ad-recovery-downfall" class="md-skip">
+        <a href="#azure-ad-101-azure-subscription-relationship" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Don't Let DNS Be Your Azure AD Recovery Downfall
+              Azure AD 101: Azure Subscription Relationship
             
           </span>
         </div>
@@ -435,9 +435,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#so-whats-the-resilient-path" class="md-nav__link">
+  <a href="#a-look-at-pre-cloud-infrastructures" class="md-nav__link">
     <span class="md-ellipsis">
-      So what's the resilient path?
+      A look at pre-cloud infrastructures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#translating-to-the-cloud-trust-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Translating to the cloud trust model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-permission-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      The permission confusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digging-deeper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digging deeper
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-last-point-language-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      One last point - language matters
     </span>
   </a>
   
@@ -499,7 +535,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-02-06 00:00:00+00:00" class="md-ellipsis">February 6, 2023</time>
+                        <time datetime="2023-01-29 00:00:00+00:00" class="md-ellipsis">January 29, 2023</time>
                       </div>
                     </li>
                     
@@ -511,7 +547,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              6 min read
                             
                           </span>
                         </div>
@@ -535,26 +571,66 @@
 
 
 
-<h1 id="dont-let-dns-be-your-azure-ad-recovery-downfall">Don't Let DNS Be Your Azure AD Recovery Downfall</h1>
-<p>In September of 2022, Joey Verlinden (<a href="https://twitter.com/jvldn1">@jvldn1</a>) published an excellent article on his experience with recovering access to an Azure AD tenant that he was completely locked out of. You can, and should, read the full article here, <a href="https://www.joeyverlinden.com/what-happens-if-you-lock-out-your-azure-tenant/">What happens if you lock-out your Azure Tenant? – Joey Verlinden</a>.</p>
-<p>In this, Joey details the process for recovering access to an Azure AD tenant, which includes a detailed verification process, which is rightfully put in place to ensure that someone isn’t capable of a tenant takeover through social engineer. As part of the process, the request is verified by means of either:</p>
+<h1 id="azure-ad-101-azure-subscription-relationship">Azure AD 101: Azure Subscription Relationship</h1>
+<p>Whether you are dipping your toe or diving headfirst into Azure, one of the points of confusion is the relationship between Azure Active Directory and Azure subscriptions. Azure subscriptions may be referred to as subscriptions, or sometimes even just Azure. An Azure Active Directory tenant, which is the cloud identity provider, is usually referred to as Azure AD or AAD, or sometimes just tenant.</p>
+<p>While Microsoft has decent documentation on the relationship, I tend to find that drawing analogies along with additional visuals can help really drive the relationship home for folks. For the MS Docs article, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory?WT.mc_id=SEC-MVP-5005105">Add an existing Azure subscription to your tenant – Azure AD – Microsoft Entra | Microsoft Learn</a>.</p>
+<h2 id="a-look-at-pre-cloud-infrastructures">A look at pre-cloud infrastructures</h2>
+<p>When we take a look at very classic on-premises infrastructure, if it’s a Microsoft shop we’ll almost always have Active Directory, an identity provider, usually running on physical or virtualized servers in a high availability architecture. For purposes here, we’ll abstract it from the underlying server infrastructure:</p>
+<p><img alt="Figure 1" src="/images/2023/01/29/img1.png" /></p>
+<p><em>Our Active Directory domain</em></p>
+<p>Likewise, we have all sorts of servers running, again possibly a mix of physical servers, as well as virtualized servers (even though the hypervisor itself is running on some form of physical server). Below we have a simple example of a Windows Server that is running Hyper-V, and has four virtual machines running:</p>
+<p><img alt="Figure 2" src="/images/2023/01/29/img2.png" /></p>
+<p><em>A Hyper-V environment running on a Windows server</em></p>
+<p>When we connect these two systems, Active Directory and the Windows Server, we form a trust relationship between the two. The trust relationship is represented in Active Directory by the computer object that represents that Hyper-V server.</p>
+<p><img alt="Figure 3" src="/images/2023/01/29/img3.png" /></p>
+<p><em>The AD and Windows Server trust relationship</em></p>
+<p>To expand this out a bit further, we likely have several different servers running several different types of workloads in our environment:</p>
+<p><img alt="Figure 4" src="/images/2023/01/29/img4.png" /></p>
+<p><em>Our simple multi-server environment</em></p>
+<p>The one commonality is that regardless of the type of workload running on the server, we have that trust relationship between Active Directory and each server.</p>
+<h2 id="translating-to-the-cloud-trust-model">Translating to the cloud trust model</h2>
+<p>With our understanding of having that trust relationship between Active Directory and each Windows Server, we can translate this to a <strong>similar</strong> trust relationship between our <strong>Azure Active Directory tenant</strong> and <strong>Azure Subscriptions</strong>.</p>
+<p>In our example below, we see that a subscription can be mostly analogous to a Windows Server. They both contain virtual machines, and both the subscription and the server have their own type of trust relationship to their relative identity provider:</p>
+<p><img alt="Figure 5" src="/images/2023/01/29/img5.png" /></p>
+<p><em>A tenant-subscription trust</em></p>
+<p>Similar to how we may run several different workloads on several different servers, we can have several different subscriptions that are managing several different workloads:</p>
+<p><img alt="Figure 6" src="/images/2023/01/29/img6.png" /></p>
+<p><em>A multi-subscription trust model</em></p>
+<p>Similar to Active Directory, where you can only join a Windows server to <strong>one</strong> domain, an Azure subscription can only have <strong>one</strong> trust relationship to an Azure AD tenant.</p>
+<p>Unlike Active Directory, where the trust relationship is observable as a computer object, the subscription won’t be something that you’ll see represented in Azure AD itself, but with the right permissions you’ll be able to observe all subscriptions associated with that tenant when you sign into the Azure portal.</p>
+<p>With Windows servers, we occasionally may run into instances where we wanted to migrate a Windows server from one Active Directory Forest to another. Similarly, we <strong>can</strong> migrate an Azure subscription relationship from one Azure AD tenant to another:</p>
+<p><img alt="Figure 7" src="/images/2023/01/29/img7.png" /></p>
+<p><em>Changing the trust relationship</em></p>
+<p>In both models, the trust relationship is changed, because we can still only have <strong>one</strong> trust relationship between a subscription and a tenant.</p>
+<p>Similar to Active Directory and changing the associated forest, depending on the types of workloads in the subscription, there may be post migration work that needs to happen. At the very least, we will need to re-assign the appropriate permissions to the subscription.</p>
+<h2 id="the-permission-confusion">The permission confusion</h2>
+<p>Not only is the relationship between a tenant and subscription confusing, but so is the permission model, and where things should, or should not, crossover.</p>
+<p>With Active Directory, in a properly tiered permission model, Domain Administrator should primarily be used for management of Active Directory, and nothing more. All of those servers joined to Active Directory should use a separate set of permissions, many times referred to as a Server Administrator. Domain Administrators have no business logging onto the member servers, and Server Administrators have no business managing Active Directory. This all becomes <strong>really important</strong> when you start talking about least privilege and privilege separation.</p>
+<p>You can think of the fact that each Windows server has its own set of local permissions you can delegate and control on the server. And those permissions are managed <strong>local</strong> to that server. While you may create groups of objects in Active Directory, say, Hyper-V Server Administrators, you then assign that group local on each Hyper-V server to have the necessary rights.</p>
+<p>The same goes in Azure subscriptions. Subscription Owners are effectively the Local Administrators, and the permissions themselves are assigned <strong>on the subscription</strong>. While the permissions may be abstracted in the sense that you use a single portal or command across multiple subscriptions, the permissions are still encompassed around that subscription.</p>
+<p>And just like Active Directory, you generally <strong>do not need</strong> to assign a Global Administrator any permissions into or over a subscription. While some organizations may accept the risk with a limited number of Global Administrators, the problem becomes pervasive in organizations that believe they need to continue to hand out Global Administrator roles just so that subscription ownership can happen.</p>
+<p><img alt="Figure 8" src="/images/2023/01/29/img8.png" /></p>
+<p>While it is a shift in how organizations work and operate, overly permissive models with a lack of privilege separation are a great way to help threat actors into your environment.</p>
+<h2 id="digging-deeper">Digging deeper</h2>
+<p>Our examples are simple, to help build an understanding of the relationship model. And just like we may divide server workloads up by application groups or regions, and how we likely architect web farms and Hyper-V clusters, elaborate subscription models require thoughtful architecture behind them. This is where the Microsoft Cloud Adoption Framework and Azure Landing Zones come into play.</p>
+<p>You can find more information on these here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/?WT.mc_id=SEC-MVP-5005105">Microsoft Cloud Adoption Framework for Azure – Cloud Adoption Framework | Microsoft Learn</a>, and here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/?WT.mc_id=SEC-MVP-5005105">What is an Azure landing zone? – Cloud Adoption Framework | Microsoft Learn</a>.</p>
+<p>It’s especially important from an identity and security perspective properly design the security of your subscriptions – many organizations have overly permissive architectural designs around their subscription permissions, including on items of critical infrastructure, such as Active Directory Domain Controllers running as virtual machines in Azure.</p>
+<p>For further information on securing privileges access, take a look at <a href="https://learn.microsoft.com/en-us/security/compass/overview?WT.mc_id=SEC-MVP-5005105">Securing privileged access overview | Microsoft Learn</a>.</p>
+<h2 id="one-last-point-language-matters">One last point - language matters</h2>
+<p>This is one of those areas where language matters, especially if you are an identity practitioner or working in a role where you help manage and service your customers Azure subscriptions and Azure AD tenant(s).</p>
+<p>It is not:</p>
 <ul>
-<li>Calling the phone number associated with a Tenant</li>
-<li>Emailing a Global Administrator</li>
-<li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
+<li>Azure tenant</li>
+<li>Azure AD subscription</li>
+<li>AAD subscription</li>
+<li>Azure directory</li>
 </ul>
-<p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
-<p>But say my tenant has come under some sort of cyberattack. Or more mundane You can’t guarantee that a phone call or email will still go to where you expect. And while these changes should be audited, when you’re in a state of needing to authenticate yourself from a support perspective, it’s likely you’ll still have to try and complete one of these steps, if you don’t want further delay.</p>
-<p>This leaves us with DNS. But what if that DNS is hosted in a subscription associated with the same Azure AD tenant? Things could potentially not turn out so well.</p>
-<p>Even if you have DNS management delegated out to accounts that are not a GA (which in a large-scale enterprise, GA should not own resources in subscriptions)… can you guarantee that their access would not be tampered with if a threat actor is involved?</p>
-<p>From a resilience perspective, it seems like it’s one of the times to not host DNS in Azure, or at least not in a subscription that is tied to the same tenant that uses those domains for services.</p>
-<p>You may already have a DNS architecture with secondary zones hosted outside of Azure, but those read-only copies won’t save you when you need to edit a zone.</p>
-<p>And if you host DNS with something like Amazon Route 53… do you federate authentication for your account owners and resources back to Azure AD? If your Azure tenant is breached, it’s certain a threat actor will try to follow your multi-cloud sprawl.</p>
-<h2 id="so-whats-the-resilient-path">So what's the resilient path?</h2>
-<p>Your mind may go to contacting your domain name registrar, and updating your NS records. But, you now are adding another external dependency.</p>
-<p>This past summer I was trying to update NS records for a domain with Directnic, and ticket response time was 12-24 hours, let alone actually having the records updated. Why did I open a ticket? Updates in the portal were not reflecting days after the change.</p>
-<p>While it may seem suboptimal, the most resilient path would be hosting DNS either in another small subscription and tenant that has no association to your primary production tenant, or using another large-scale cloud provider for DNS, but not associating authentication back to Azure AD.</p>
-<p>Considering the reality that most organizations struggle to keep as many nines as cloud providers (even with their occasional outages), this wouldn’t be time for a knee-jerk reaction to bring DNS back to an on-premise data center, unless your organization is still robust enough to handle those high SLA’s.</p>
+<p>It is:</p>
+<ul>
+<li>Azure AD tenant</li>
+<li>Azure subscription</li>
+</ul>
+<p>While for some organizations you may be able to get away with interchanging terminology, if you were to have a project assigned to you, or scope a project for a customer, and the details were similar to “<em>perform an audit of the AAD subscription and make recommendations on a privilege model</em>”, would you be talking about auditing the permissions in Azure Active Directory? In an Azure subscription? Which Azure subscription if the organization has multiple? You can see where this is going.</p>
 
 
 

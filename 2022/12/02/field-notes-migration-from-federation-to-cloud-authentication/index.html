@@ -1,0 +1,821 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/12/02/field-notes-migration-from-federation-to-cloud-authentication/">
+      
+      
+        <link rel="prev" href="../../../06/16/azure-ad-which-sso-is-the-right-sso/">
+      
+      
+        <link rel="next" href="../../19/spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Field Notes: Migration From Federation To Cloud Authentication - Eric on Identity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--nfc{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23.958%201.98C23.895%201%2023.143.256%2022.145.197c-1.102-.066-4.668-.12-5.693-.12%201.832%201.264%202.082%203.644%202.255%208.066.101%202.62.01%2011.799.002%2012.188l-.049%202.504-9.628-9.63v-3.014l7.656%207.658c.02-1.516.04-3.492.04-5.299%200-1.76-.026-3.354-.076-4.193-.288-4.819-.737-7.077-3.253-7.962-.77-.27-1.487-.335-2.683-.351C9.728.032%202.848.037%201.854.091.8.147.09.914.042%201.9c-.048.977-.064%2019.174%200%2020.165.062.98.815%201.724%201.812%201.782%201.102.067%204.668.075%205.694.075-1.832-1.264-2.083-3.643-2.255-8.066-.1-2.62-.009-11.8%200-12.188l.047-2.504%209.629%209.63v3.013L7.312%206.152c-.02%201.514-.04%203.49-.04%205.298%200%201.76.026%203.354.077%204.192.288%204.82.736%207.077%203.252%207.962.77.271%201.487.337%202.683.352.987.012%207.868.006%208.861-.047%201.056-.056%201.765-.822%201.813-1.811.048-.976.064-19.127%200-20.118%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#field-notes-migration-from-federation-to-cloud-authentication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Eric on Identity" class="md-header__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eric on Identity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Field Notes: Migration From Federation To Cloud Authentication
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Eric on Identity" class="md-nav__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    Eric on Identity
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2023
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2022
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2021
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ensuring-risk-is-mitigated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ensuring risk is mitigated
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-migration-risk-mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-migration risk mitigation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-migration risk mitigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staged-rollout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staged rollout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-expiration-policies-if-using-phs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password expiration policies (if using PHS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-desktop-infrastructure-vdi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Desktop Infrastructure (VDI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ad-fs-access-control-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      AD FS Access Control policies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ad-fs-certificate-based-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      AD FS certificate based authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-ad-hybrid-join-service-connection-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure AD Hybrid Join service connection point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-hello-for-business" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Hello for Business
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-frequency-conditional-access-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sign-in frequency Conditional Access policies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous-access-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Access Evaluation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federated-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Federated applications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-hint-with-staged-rollout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain hint with staged rollout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-your-federation-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Document your federation settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-ad-connect-health-and-planning-the-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure AD Connect Health and planning the migration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigating-risk-during-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigating risk during migration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigating-risk-post-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigating risk post migration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://www.ericonidentity.com">Eric Woodruff</a>
+                        
+                      </strong>
+                      <br>
+                      Identity Nerd
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2022-12-02 00:00:00+00:00" class="md-ellipsis">December 2, 2022</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              9 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="field-notes-migration-from-federation-to-cloud-authentication">Field Notes: Migration From Federation To Cloud Authentication</h1>
+<p>During my stint at Microsoft, I spent a good deal of time with Windows Hello for Business (WHfB), and subsequently would be involved in prerequisite work to set the stage. For the enablement of WHfB, one of these items is device join, and it usually would be Hybrid Azure AD Join (HAADJ) for existing devices already within Active Directory. Device join can be a bit of a rabbit hole if the organization has federated authentication with AD FS in place, as there are different ways you can configure the device join process.</p>
+<p>One customer I was working with decided that they wanted to use their WHfB prerequisite work as the same point to switch from federated to cloud authentication with PHS; they were already sending their passwords to Azure AD for use with Azure AD Identity Protection. I discussed high-level what was required to switch but figured the conversation would continue after lunch. Instead, the customer decided to implement the switch during lunch, and their thousand or so users were moved to cloud authentication, with relatively little planning.</p>
+<p>Luckily their environment was relatively straightforward from an identity architecture perspective; I wouldn’t recommend going into the switch without more thorough planning. But the point being made here is that the actual period of cutover has a much lower actual risk than perceived risk.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Managed authentication and managed domain can be used interchangeably with cloud authentication. In most documentation Microsoft has started to prefer using cloud authentication for the umbrella term for Password Hash Sync (PHS) and Pass-through Authentication (PTA)</p>
+</div>
+<p>Note that this article should be considered a companion to some excellent documentation Microsoft already has published, which you can find here:</p>
+<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/migrate-from-federation-to-cloud-authentication">Migrate from federation to cloud authentication in Azure Active Directory – Microsoft Entra | Microsoft Learn</a></p>
+<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-staged-rollout">Azure AD Connect: Cloud authentication via Staged Rollout – Microsoft Entra | Microsoft Learn</a></p>
+<h2 id="ensuring-risk-is-mitigated">Ensuring risk is mitigated</h2>
+<p>Migration risk falls into three buckets: <em>pre-migration</em>, <em>during migration</em>, and <em>post migration</em>. As we dig into them, you’ll note that during and post migration risks are mitigated by taking proper pre-migration actions.</p>
+<h2 id="pre-migration-risk-mitigation">Pre-migration risk mitigation</h2>
+<h3 id="staged-rollout">Staged rollout</h3>
+<p>While it was in public preview for over two years, staged rollout has been a pivotal piece in allowing organizations to mitigate migration risk in a few ways.</p>
+<p>From the perspective of pre-migration, risk becomes mitigated by allowing organizations to do what everyone loves the most – test in production. Staged rollout can start with as few users as desired, to dip your toes into the waters of what cloud authentication will look like.</p>
+<p>When a user is authenticating to Azure AD, upon the initial sign-in screen where you enter your UPN, Home Realm Discovery (HRD) is performed to determine where and how to authenticate you. Essentially Azure AD analyzes the UPN entered and routes you accordingly. This is how staged rollout can make decisions on who to continue to federate for authentication, and who should be authenticated in the cloud.</p>
+<p>The other key component is that staged rollout allows for the migration to happen in waves/phases/rings – however you want to put it. It’s usually a business decision as to who gets to go when and how, and requires some planning, but with staged rollout, your users are essentially <strong>already</strong> migrated. I’ve had some organizations move their <strong>entire</strong> user base to staged rollout so that it was a non-event when the actual switch from federated auth to cloud auth happened on the tenant level.</p>
+<h3 id="password-expiration-policies-if-using-phs">Password expiration policies (if using PHS)</h3>
+<p>I’ll stand on the side of the argument that for <em>most</em> personas, there is an overall usability benefit that also fosters better user behavior relative to risk of password phishing by not requiring password expiration in Azure AD.</p>
+<p>When relying on federated authentication, whatever password policies exist in Active Directory will impact user authentication in the cloud.</p>
+<p>Now, if you are choosing to go with PTA, Active Directory is still the final say on authentication, and so password policies in Azure AD for these hybrid users is not relevant. But if you are moving to PHS, you should weigh what your current password policy looks like and whether you want to continue to with password expiration with cloud authentication. If you do, you’ll want to look here for details on how to ensure that users in the cloud continue to have their password expire, <a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#password-expiration-policy">Implement password hash synchronization with Azure AD Connect sync – Microsoft Entra | Microsoft Learn</a>.</p>
+<h3 id="virtual-desktop-infrastructure-vdi">Virtual Desktop Infrastructure (VDI)</h3>
+<p>If your organization is running a VDI infrastructure, and you’re leveraging non-persistent virtual machines, it’s important to note that there are limitations for support with cloud authentication. More details can be found here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-device-identity-virtual-desktop-infrastructure#supported-scenarios">Device identity and desktop virtualization – Azure Active Directory – Microsoft Entra | Microsoft Learn</a>.</p>
+<h3 id="ad-fs-access-control-policies">AD FS Access Control policies</h3>
+<p>While not as common due to the broad uptake of Conditional Access policies, it’s important to make sure that if you have any access control policies in AD FS 2016 or later, or any authorization rules in AD FS 2012 R2 (or earlier), that you translate those rules into CA policies.</p>
+<h3 id="ad-fs-certificate-based-authentication">AD FS certificate based authentication</h3>
+<p>While too deep to cover within here, previously the lack of CBA was one of the reasons for organizations to continue to persist with AD FS. If you have CBA in place, you’ll want to make sure you have your use cases documented and well tested in Azure AD; this is another great place for staged rollout.</p>
+<h3 id="azure-ad-hybrid-join-service-connection-point">Azure AD Hybrid Join service connection point</h3>
+<p>Organizations that have been using HAADJ for a while and have had AD FS in play, may have configured their environment to use AD FS as the authentication service in the Service Connection Point (SCP) for hybrid join.</p>
+<p>Note that the SCP is <strong>only</strong> used for provisioning of hybrid join. Once devices have their trust relationship with Azure AD, there is nothing facilitated by the SCP. Because of this, there is not an ongoing dependency on the SCP for devices already hybrid joined.</p>
+<p>Downlevel devices (Windows 7/8/8.1) have dependencies for hybrid join in federated authentication on AD FS, but again this is for joining those devices, which hopefully the occurrences are low in spinning up new Windows 7 instances.</p>
+<p>As far as timing goes, the SCP should be re-configured <strong>before</strong> the final migration from federated to managed authentication.</p>
+<h3 id="windows-hello-for-business">Windows Hello for Business</h3>
+<p>Organizations that may have been earlier adopters of WHfB and rolled out Hybrid Certificate Trust, are going to find that they need to convert to a Hybrid Key Trust, or Cloud Kerberos Trust (the new name for Hybrid Cloud Trust).</p>
+<p>If you currently are using Hybrid Key Trust, you don’t have change anything to prepare for the migration.</p>
+<p>If you are using Hybrid Certificate Trust, you’ll need to take a look at the work required for preparing users to re-enroll in Windows Hello for Business, which you can find here, <a href="https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-kerberos-trust?tabs=intune#migrate-from-certificate-trust-deployment-model-to-cloud-kerberos-trust">Hybrid cloud Kerberos trust deployment (Windows Hello for Business) | Microsoft Learn</a>. Note that Microsoft never officially supported migration from Hybrid Certificate Trust to Hybrid Key Trust, but if you wanted to move to HKT, the same steps essentially can be taken, with the difference of targeting Hybrid Key Trust.</p>
+<h3 id="sign-in-frequency-conditional-access-policies">Sign-in frequency Conditional Access policies</h3>
+<p>If you have heavily restrictive sign-in frequency policies in place and are <strong>not</strong> using staged rollout on the targeted users, it is an area where the risk will be slightly higher during migration. You may want to evaluate to whom and how you have these policies applied, and potentially temporarily disable your CA policies ahead of the migration window.</p>
+<h3 id="continuous-access-evaluation">Continuous Access Evaluation</h3>
+<p>Yet another feature that can be used to minimize any risk during migration, continuous access evaluation greatly extends access token lifetimes. Having long token lifetimes will reduce the likelihood of users needing to re-authenticate during the migration window itself. Note that CAE requires the application to support this, so the focus here primarily is on Exchange Online, SharePoint Online and Teams.</p>
+<h3 id="federated-applications">Federated applications</h3>
+<p>It might be a surprise, but some organizations investigate migration to cloud authentication even when they still have applications federated to AD FS.</p>
+<p>While the thought may be that all applications <strong>must</strong> be migrated prior to cutover, that isn’t necessarily the case, as long as the organization understands the user authentication experience and flows. As the applications have no tie to Azure AD already, they will continue to operate without issue within AD FS. And beyond the fact that the organization will have to continue to maintain AD FS, the organization needs to understand that the user experience for authentication may give a fragmented perception. Users will now have three providers for authentication – Active Directory, Azure AD, and AD FS. In reality the user experience overall should be improved because authentication will be seamless to anything using Azure AD, but then when hitting an application tied to AD FS, the user may be prompted for forms authentication if they don’t have line-of-sight of Active Directory – which is likely the behavior they were already used to. I bring it up because it can become a place of optics and a lot of user subjectivity, and can make troubleshooting scenarios a bit more complex.</p>
+<h3 id="domain-hint-with-staged-rollout">Domain hint with staged rollout</h3>
+<p>Some applications may pass a domain_hint to Azure AD, which is used to bypass the Azure AD sign-on screen. This can be popular in environments with AD FS in play so that users do not need to enter their username upon the initial sign-in screen with Azure AD.</p>
+<p>Where this comes into play with staged rollout, is users could be directed to AD FS still for authentication. If your organization is already hybrid joined, and subsequently your users will have a PRT, the domain_hint piece is not even in play for authentication. If you have scenarios of users accessing Azure AD from things like personal devices with no trust relationship with Azure AD, it’s where you may want to see what the behavior for authentication looks like. You can read about domain hints here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/home-realm-discovery-policy#domain-hints">Home Realm Discovery policy – Microsoft Entra | Microsoft Learn</a>.</p>
+<h3 id="document-your-federation-settings">Document your federation settings</h3>
+<p>It may go without saying, but make sure you documented your federation settings, and understand the process to reverse things in the case that an issue arises post migration. This generally would look like using Azure AD Connect to re-configure the tenant for federated authentication unless you only need to selectively roll some of the domains back to federated authentication.</p>
+<h3 id="azure-ad-connect-health-and-planning-the-migration">Azure AD Connect Health and planning the migration</h3>
+<p>Along with all the technical checks, there is the question of when to perform the migration. Whether staged rollout is in place or not, the when is a key piece of information the business is going to want to understand (well, as noted in my intro, usually).</p>
+<p>For global organizations, the question can become an issue of “there is always someone working somewhere”. The two paths forward:</p>
+<ul>
+<li>A slightly less refined approach operates under the principal that the organization already has an outage window defined for IT operations. 60 minutes fits into almost any defined outage window an organization would have, and so subsequently the work is just scheduled during that time.</li>
+<li>A more refined and risk-adverse approach leverages Azure AD Connect Health. Azure AD Connect Health can help organizations understand when authentication is happening within AD FS, and subsequently you can use the data from this to determine when AD FS is least utilized. Of course, if you have not already deployed Azure AD Connect Health, you’ll likely want to let it run for a bit to allow it to gather a proper amount of data to make an educated decision. Rolling out Azure AD Connect Health is a relatively straightforward process, which you can read about its use here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-health-adfs">Using Azure AD Connect Health with AD FS – Microsoft Entra | Microsoft Learn</a>.</li>
+</ul>
+<h2 id="mitigating-risk-during-migration">Mitigating risk during migration</h2>
+<p>The level of risk used to be higher when ActiveSync was still heavily with legacy authentication, up until even a year or so ago. The reason for this is due to Exchange Online (EXO) having up to a four-hour period in which it may still attempt to authenticate to the federated identity source. Considering that Azure AD no longer has a trust relationship with AD FS, that is where things break down. Recall that with legacy authentication, the service such as EXO captures the user credentials and authentications on behalf of the user.</p>
+<p>With modern authentication you don’t have the same drawn-out risk. As long as your user has a valid refresh token (RT) for Azure AD, they will not hit AD FS upon renewal of their access token (AT). To put that another way, the user only talks to AD FS for initial authentication, and subsequent renewals of the AT only require silent interaction with Azure AD. As mentioned, if you have very restrictive sign-in frequency CA policies in place, that can impact this behavior.</p>
+<p>There still is a small window, Microsoft defines as up to 60 minutes, where the tenant is converting itself behind the scenes. But as long as you’ve checked all the pre-migration areas, the migration should generate next to no noise.</p>
+<p>If you’re curious to understand how to test the migration from the outside-in, Sander Berkouwer (<a href="https://twitter.com/SanderBerkouwer">@SanderBerkouwer</a>) has a nice way of leveraging domain_hint for that, which you can find here, <a href="https://dirteam.com/sander/2021/08/13/how-to-check-if-azure-ad-has-processed-the-hybrid-authentication-method-change/">How to check if Azure AD has processed the hybrid authentication method change – The things that are better left unspoken (dirteam.com)</a>.</p>
+<h2 id="mitigating-risk-post-migration">Mitigating risk post migration</h2>
+<p>As noted in the pre-migration tasks, documenting how federation is currently configured is what you’ll need to help rollback any changes. I have not encountered an organization that planned properly needing to roll back to federated authentication.</p>
+<p>You may want to continue to keep your AD FS farm around for a bit of time. For those that managed AD FS, it will be a joyous occasion to decommission.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.path", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": {"NFC": "nfc"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

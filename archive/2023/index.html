@@ -1253,6 +1253,47 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2023-03-11 00:00:00+00:00">March 11, 2023</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="entra-app-registrations-and-enterprise-applications-the-definitive-guide"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide</a></h2>
+<p>For those that must manage application integrations in Entra ID, it’s an inevitable question: What is the difference between an App Registration and an Enterprise Application? Why are there two different management blades? Why do I see some applications in both places?</p>
+<p>I’ll admit that this is not the first take at answering this question, and there are already some good answers out there. Microsoft breaks things down here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=SEC-MVP-5005105">Apps &amp; service principals in Azure AD – Microsoft Entra | Microsoft Learn</a>, with a decent visual at the end.</p>
+<p>Marilee Turscak also has an excellent breakdown here, <a href="https://marileeturscak.com/posts/app-registrations-enterprise-applications-service-principals/">The Differences Between App Registrations, Enterprise Applications, and Service Principals in Azure AD | Marilee Turscak</a>.</p>
+<p>And John Savill has fantastic video published covering this as well, <a href="https://www.youtube.com/watch?v=WVNvoiA_ktw">Azure AD App Registrations, Enterprise Apps and Service Principals – YouTube</a>.</p>
+<p>As John points out in his video, the understanding of App Registrations and Enterprise Apps can further be enhanced by understanding OpenID Connect and OAuth 2.0 flows. This is especially important for identity professionals and ITPros who may come from a sysadmin background. Modern authentication flows and concepts may feel foreign to folks who built their career on identity platforms such as Active Directory.</p>
+<p>For those that find it easiest to learn by doing, if you want to play around with App Registrations, Enterprise Apps and Service Principals, but don’t want to mess with your prod environment, sign up for an M365 Developer account, to have your own free tenant to work with here, Developer Program | Microsoft 365 Dev Center</p>
+<p>We’ll start with some definitions, and then try to walk through various scenarios that you may encounter. If you don’t see your question answered within the definitions, keep reading… we’ll try to hit on all the areas here.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2023-02-13 00:00:00+00:00">February 13, 2023</time></li>
         
         

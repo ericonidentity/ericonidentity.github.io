@@ -914,6 +914,119 @@ isaiah@Azure:~$
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-08-09 00:00:00+00:00">August 9, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              10 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="an-agile-refresh-of-the-passwordless-strategy"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/">An Agile Refresh Of The Passwordless Strategy</a></h2>
+<h3 id="background"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#background">Background</a></h3>
+<p>The Microsoft passwordless strategy guidance has existed since 2018, and since then it’s continued to be a solid document. You can view the full doc here, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Password-less strategy – Windows security | Microsoft Docs</a>, but where the focus usually lands is on the four-step graph at the top of that page:</p>
+<p><img alt="Figure 1" src="/images/2022/08/09/img1.png" /></p>
+<p><em>The Microsoft passwordless strategy</em></p>
+<p>When discussing the strategy with organizations, the focus is usually on Step 1 – develop (deploy) password replacement offerings, and the technology involved, such as Windows Hello for Business, FIDO2 security keys, and MS Authenticator App passwordless sign-in. After all, the strategy is provided as a stepped approach, so you start with the first step, and then move on.</p>
+<p>There are three primary issues with the approach:</p>
+<ul>
+<li>Organizations look at this as a reinforcement that passwordless must be deployed in a waterfall approach.</li>
+<li>Application authentication modernization is not emphasized strongly enough, and subsequently organizations do not right-size the efforts required.</li>
+<li>Organizations do not emphasize the pluralization on offerings, and potentially focus on the requirement of one-size-must-fit-all.</li>
+</ul>
+<p>While issue three is not specific to this approach as designed, many organizations will take the waterfall approach with a single solution, and then box themselves into only deploying one solution, slowing down progress.</p>
+<h3 id="the-waterfall-approach-problem"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#the-waterfall-approach-problem">The waterfall approach problem</a></h3>
+<p>While there have been great strides made organization wide, many still tend to suffer in that security and infrastructure teams still operate in a waterfall approach when it comes to managing identity platforms, products, and projects. A solid Identity Program or expert consultants can help rectify this, but not every organization has access to these. And sometimes, of course, organizations will simply point to the Microsoft docs and just take it all as literal guidance, with little desire to deter. From firsthand discussions with customers I’ve encountered all too often the desire to look at this as a serialized, singular method to tackle passwordless.</p>
+<p>For organizations that have been on other identity journeys in Azure AD, they likely will have seen similar problems in their approach to deploying things like MFA or conditional access policies – if you wait for a collective 100% of all problems to be resolved, you will move the needle 0%.</p>
+<p>In the case where a picture is worth a thousand words – some organizations will look at this diagram and disregard all the details within the associated docs. While it’s likely they aren’t the candidate to be reading this, it’s worth noting.</p>
+<h3 id="the-application-authentication-modernization-problem"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#the-application-authentication-modernization-problem">The application authentication modernization problem</a></h3>
+<p>A very common issue within organizations is that they successfully reach mass deployment of passwordless with most user personas, but when the project is “done” they realize that there is still a lot of work to accomplish to be able to fully realize a passwordless environment.</p>
+<p>For some organizations, this can result in passwordless being viewed as a failure. Focus will shift to organizations asking questions as to why LDAP or RADIUS do not support passwordless authentication, instead of asking why the organization wants to continue to depend on 20+ year old protocols that are inherently more insecure than modern counterparts.</p>
+<p>Sometimes this issue is because organizations effectively look at passwordless deployments solely as that first step. The focus is just on the technology, on the identity provider, and not on the broader ecosystem. And while consensus is that users will use the path of least resistance, which usually is passwordless, if they still have to use their password at times, there is a lower ROI as passwords are still exposed and subsequently users are still susceptible to password-based attacks such as phishing or password-spray.</p>
+<p>Other times, the issue is that organizations just simply don’t know where to start. Application modernization projects can be some of the most costly, complex, and time-consuming projects, that can become overwhelming at a rapid pace if not managed properly. It’s important that organizations understand the value and long-term return in application authentication modernization.</p>
+<h3 id="the-single-solution-problem"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#the-single-solution-problem">The single solution problem</a></h3>
+<p>The single solution problem isn’t specifically a problem with the current strategy. After all, the strategy indicates password replacement offering<strong>s</strong>. They common story for many organizations is this:</p>
+<p><em>We want to deploy passwordless. Let’s deploy Windows Hello for Business, then we’ll deploy FIDO2, then we’ll deploy Authenticator App passwordless sign-in.</em></p>
+<p>And the problem then becomes that organizations will focus solely on one method, and will not leave the opportunity to parallel thread progress. Reality is that all three mechanisms are relatively lightweight to deploy from a technical perspective, and end up consuming very little end-user cycles for initial enrollment, but organizations may take a FUD apprehensive approach, when they should instead give users options.</p>
+<p>To some, this may feel strange, as we’ve been wrongfully engrained by past actions in believing that users should not have choice, but be forced into a certain model – which ultimately leads users into inventing patterns of negative behavior to circumvent doing something they would rather not. For these organizations, they need to stop viewing end users as the opposition, but instead as their customers, even in the terms of workforce identity.</p>
+<p>Of course, counter to this point, there are organizations who are deterministic in saying that they require one solution to cover all solutions. While there are initiatives underway, such as passkey, and FIDO2 support is becoming broadly adopted by operating systems, the ecosystem is vastly different than 15 years ago when the single solution mindset worked. Where we only had to previously solve for a small and fixed set of criteria, with cloud sprawl and users wanting to access everything from everywhere all the time, we have to tackle this challenge with a growth mindset. And in this case that includes solving the problem with solutions that best fit the platforms.</p>
+<p>Customers will ask things like <em>why doesn’t Microsoft make Windows Hello for Business for iOS</em>, even though Microsoft does not own the operating system. Focus instead should be made on the rich ecosystem on iOS and Android devices to support brokered authentication with the Authenticator App or Company Portal. When these are combined with Authenticator App passwordless sign in, users can have a simple passwordless experience on those devices with ease. For the many organizations that encounter end users wanting to access things like email from personal Windows computers, it’s counterintuitive to security to not provide users with a FIDO2 security key and the ability to use such, so that their password is not exposed on devices or in environments with a low level of assurance.</p>
+<h3 id="an-agile-refresh-to-the-passwordless-strategy"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#an-agile-refresh-to-the-passwordless-strategy">An agile refresh to the passwordless strategy</a></h3>
+<p>Our problems are defined. But what does the solution look like?</p>
+<p><img alt="Figure 2" src="/images/2022/08/09/img2.png" /></p>
+<p>Within this strategy, nothing that Microsoft already recommends is gone, but we emphasize the application side of the equation, and we shift the focus to an iterative methodology that naturally lends to a more agile approach for deployments.</p>
+<p>Note that this can be considered an addendum to the existing strategy, and is not written to fully replace the existing recommendations. Therefore, it’s still worth reading the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Password-less strategy – Windows security | Microsoft Docs</a>.</p>
+<h4 id="passwordless-steps-reduced-to-three"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#passwordless-steps-reduced-to-three">Passwordless steps reduced to three</a></h4>
+<p>During my time at Microsoft, one of the most confusing bits to customers was Step 4, Eliminate passwords from the identity directory.</p>
+<p>The confusion comes out of the mixed messaging and likely reality that passwords will continue to exist, in some form, for a long while to continue.</p>
+<p>Active Directory has finished baking, and the closest mechanism to having no password is <strong>Smart Card Required for Interactive Logon</strong>, or SCRIL, where Active Directory effectively manages the users password in a way that renders the password useless and unknown to the end user. When SCRIL is enabled, users are rendered passwordless because:</p>
+<ul>
+<li>Their password is managed by Active Directory and they do not know it</li>
+<li>The user is no longer asked by Windows to change their password</li>
+<li>Domain Controllers disallow passwords for interactive authentication</li>
+<li>The password is set to a 128 random bit of data and can include non-typable characters</li>
+</ul>
+<p>SCRIL, then, is the ultimate goal for our Active Directory based user accounts. Additional benefits of SCRIL include:</p>
+<ul>
+<li>Hybrid users are supported, and users become passwordless in Azure AD</li>
+<li>Users, still having a password, are able to still comply with corporate password policies that may be required by cybersecurity companies or industry regulations</li>
+<li>The technology is not new, SCRIL has existed in Active Directory at least since Windows Server 2003, to support organizations previously deploying traditional smartcards within their environments.</li>
+</ul>
+<p>For a deeper dive into SCRIL, hybrid users, and password policy enforcement, take a look at this article, <a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a>.</p>
+<h4 id="circular-design-to-indicate-an-iterative-approach"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#circular-design-to-indicate-an-iterative-approach">Circular design to indicate an iterative approach</a></h4>
+<p>In case it isn’t apparent at this point, I’ll say it again. We want to work these efforts for passwordless in ways that allow for agile deployment, adopting in a way that best suits the organization and allows for passwordless progress.</p>
+<p>Whether you call them waves, rings, phases, or something else, it’s important that organizations identify user personas to target and deploy in a way that provides the path of least resistance and builds inertia for progress. For many organizations this should look like dogfooding passwordless, with infrastructure and security teams deploying the mechanisms to themselves first, along with their Service Desk personnel. This is the reminder that organizations always find more success with technology changes when they involve their Service Desk early in the process. Organizations should also look for champions, perhaps providing opportunity for users to opt in to new passwordless experiences. Many times organizations will focus cycles on the users who won’t want to move, instead of focusing on the users who have a hunger for technology and change. Those users can be key to building that organizational inertia, for finding those non-IT voices to champion progress, and building momentum to topple down those that resist change solely for the sake of such.</p>
+<p>The iterative approach can not only be used against user personas in the organization, but against the different passwordless mechanisms as well. We don’t want to lock users or the organization into a single-track mindset that only one passwordless method is suitable or feasible to use. And instances may be encountered where there is the desire to deploy multiple approaches, but one method is deployed faster than the other. An example may be deploying Windows Hello for Business first, as a means to then make bootstrapping easier for FIDO2 security keys.</p>
+<h4 id="application-authentication-modernization-is-a-parallel-but-separate-effort"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#application-authentication-modernization-is-a-parallel-but-separate-effort">Application authentication modernization is a parallel but separate effort</a></h4>
+<p>As most identity projects go these days, workstreams are rarely single-threaded, at least if you are looking to achieve success in a reasonable amount of time.</p>
+<p>Here we have said application authentication modernization is as important as deployment of the passwordless methods themselves. This may be different for every organization, depending on a mixture of several factors, including:</p>
+<ul>
+<li>Age of the organization – Older organizations are likely to have more legacy applications still persistent.</li>
+<li>Types of applications – Organizations with several line-of-business (LOB) applications may have a more varied array of authentication mechanisms existing, or if the organization has several applications running in on-premises deployments, vs organizations that primarily consume SaaS applications in a cloud, which likely already support modern forms of authentication.</li>
+<li>Number of applications – Again organizations can vary greatly in how many applications they have deployed. Efforts to modernize 10 applications likely will take less time than 100 applications.</li>
+<li>Application user personas and user base – Contradicting the number of applications, if an organization has 10 applications but 100,000 users per application, it may take longer to modernize authentication vs an organization with 100 applications but only 10 users accessing each application.</li>
+</ul>
+<p>Now you may read this and wonder how to prioritize applications for modernization and what the options are – a follow-up article will eventually be linked here to dive further into that.</p>
+<p>As critical as the modernization of applications, is the ability to separate out efforts to modernize those applications. Organizations may find themselves in situations where they enroll certain user personas for passwordless well before their full application catalog supports it, but organizations should also feel empowered to start modernizing applications as soon as they are identified, so that users can benefit from passwordless authentication as soon as they are enrolled.</p>
+<h4 id="start-application-authentication-modernization-first"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#start-application-authentication-modernization-first">Start application authentication modernization first</a></h4>
+<p>To further emphasize the importance, the arrow for application modernization actually starts a bit before passwordless deployment on purpose. While the reality is that many applications will be starting these in tandem as a passwordless initiative, it’s important to understand that support for modern authentication will benefit the application <strong>regardless</strong> of which methods of passwordless are used. There are several other benefits of application modernization, not just limited to passwordless, including:</p>
+<ul>
+<li>Ability to leverage Azure AD technologies for authentication, such as</li>
+<li>Conditional Access</li>
+<li>Device Compliance Requirements</li>
+<li>Azure AD Identity Protection</li>
+<li>Microsoft Defender for Cloud Apps</li>
+<li>Decouples application from legacy identity stores, setting it up to be closer to running in a cloud-native PaaS environment</li>
+<li>Support for Azure AD Application Proxy</li>
+</ul>
+<p>As we continue to shift towards cloud-native solutions designed to be accessed by everyone from everywhere, it is not just solving for passwordless anymore, and organizations can find themselves either ahead of or behind the ball with supporting modern forms of authentication, such as SAML or OpenID Connect (OIDC).</p>
+<h3 id="final-thoughts"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#final-thoughts">Final thoughts</a></h3>
+<p>Passwordless deployments, for many organizations, are a litmus test for how well the organization adopts to organizational change and technology advancements. They also are a potential pain point between the C-suite and technology staff, in both directions. Organizations can suffer from technology staff not properly articulating the business value in going passwordless, and what business assets passwordless will protect – these days it’s more than just implementing “all the things” without any concern for the relative value to the business. On the other hand, passwordless is a complex topic that is tough to translate and isn’t always well received by the C-suite. Considering that some organizations still suffer from executives who don’t want MFA because it’s a burden, we have a lot of organizational change that needs to happen across the board. When organizations can implement passwordless to the further extent possible, the net effect is the organization is that much more protected than implementing nothing at all.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-06-16 00:00:00+00:00">June 16, 2022</time></li>
         
         
@@ -1581,202 +1694,6 @@ isaiah@Azure:~$
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              8 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-increasing-security-within-the-mfa-experience"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security Within The MFA Experience</a></h2>
-<p>MFA push notifications – one of the more polarizing MFA options available within Azure AD. From a usability perspective, the perception is that it’s less interruptive and less complex for end users. From a security perspective, it’s a low barrier of entry for a malicious actor; especially when targeting a user who may approve push notifications for MFA without much thought.</p>
-<p>We have seen Microsoft implement various methods of interaction into push notifications to try and combat users just hitting Approve without a second thought. The Authenticator App for passwordless, sometimes referred to as phone sign-in, already has number matching implemented. But this never made it into our more common corporate MFA scenarios – until recently when additional options for the Authenticator App showed up in Public Preview.</p>
-<p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
-<p><img alt="Figure 1" src="/images/2022/02/22/img1.png" /> <img alt="Figure 2" src="/images/2022/02/22/img2.png" /></p>
-<p><em>Before and after</em></p>
-<h3 id="number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#number-matching">Number matching</a></h3>
-<p>Number matching is the component that creates a stronger second factor for our end users, because they will no longer be able to just hit Approve to that push notification. According to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-number-match">Microsoft Docs article</a>, once number matching goes GA, it will be enabled within all tenants a few months after. It’s tough to tell at this point whether customers will then have the option to retroactively disable number matching, but the interface makes it seem like it could be possible – not that it would be recommended.</p>
-<p><img alt="Figure 3" src="/images/2022/02/22/img3.png" /></p>
-<p><em>Number matching dialogue after primary authentication</em></p>
-<p>Per Microsoft number matching will support the following scenarios:</p>
-<ul>
-<li>Multi-factor</li>
-<li>Self-service password reset</li>
-<li>Combined SSPR and MFA registration</li>
-<li>AD FS adapter</li>
-<li>NPS extension</li>
-</ul>
-<p>Probably should place an asterisk on the NPS extension, because unless you are using PAP as your RADIUS protocol, push notifications will “downgrade” to an Approve/Deny without number matching (there is no ability to interact with EAP/MS-CHAPv2).</p>
-<h4 id="enabling-number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-number-matching">Enabling number matching</a></h4>
-<p>Again, will speculate that the long term goal is that number matching will be enabled by default in all tenants, and it’s going to become the new normal for our end users. But with this in Public Preview at the moment, it’s something we have to opt into.</p>
-<p>Also, we have the choice of either enabling number matching for the entire organization or for a group of users; the latter allowing for more finesse in testing, piloting, staged rollouts, and the such.</p>
-<p>Referencing the docs article linked above, it’s a relatively straightforward process. The article itself actually comes across at first as if you <strong>have</strong> to use Graph for updating/creating the policy; when you scroll down within it, you’ll see that it can also be performed through the portal. We’ll run through here looking at the options through Graph and seeing how they impact what the portal looks like.</p>
-<p>Before jumping into things, I will note that the changes were relatively quick to notice within my test tenant – within a few minutes the changes were apparent to my test users. Likewise with testing of disabling the settings.</p>
-<h5 id="gathering-the-current-state"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#gathering-the-current-state">Gathering the current state</a></h5>
-<p>Before making any changes, let’s check out the current state of our policy.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In order to perform the actions within Graph Explorer, you will want to sign-in, and make sure that you consent to <strong>Policy.Read.All</strong> and <strong>Policy.ReadWrite.AuthenticationMethod</strong> permissions.</p>
-</div>
-<p>We can do this by running the following query in Graph Explorer:</p>
-<div class="highlight"><pre><span></span><code>GET https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-</code></pre></div>
-<p>Which in our current tenant returns the following:</p>
-<div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;all_users&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>When we look in the portal we see the following:</p>
-<p><img alt="Figure 4" src="/images/2022/02/22/img4.png" /></p>
-<p>It’s important to note that <strong>default = Microsoft managed</strong>. And you may be asking what exactly is Microsoft managed? Microsoft managed effectively is the setting that allows Microsoft to make a decision whether these settings should be enabled in your tenant. Back to the thought earlier, eventually Microsoft managed will likely be the way in which Microsoft makes the decision to enable things in your tenant once it’s GA.</p>
-<h5 id="enabling-for-a-group"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-a-group">Enabling for a group</a></h5>
-<p>If you are looking to enable this for a single group, it’s just a matter of updating the returned content from our Graph query, and running a PATCH. We simply will replace the <strong>all_users</strong> portion of the policy with the Azure AD groups ObjectID, and update <strong>numberMatchingRequiredState</strong> with <strong>enabled</strong>.</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>As long as we get a 204 response, everything was successful. Looking in the portal again, after a refresh we will see:</p>
-<p><img alt="Figure 5" src="/images/2022/02/22/img5.png" /></p>
-<p>If you’re using the Authenticator App for passwordless (phone sign-in), this is where it can become confusing. If you had previously targeted all users for allowing passwordless through the Authenticator App, and now you’ve added this group, you’ll notice the targeting has changed. Subsequently, if you have users go to enroll for passwordless through the Authenticator App, they will see:</p>
-<p><img alt="Figure 6" src="/images/2022/02/22/img6.png" /></p>
-<p>We will want to make sure that we are now targeting two groups – a group that will allow for passwordless through Authenticator App, and the second being used for number matching. In our tenant this looks like:</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        },
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;44a9449d-ae6e-4d0b-bd40-c599dcb07441&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>And if we look in the portal we will see:</p>
-<p><img alt="Figure 7" src="/images/2022/02/22/img7.png" /></p>
-<p>In this instance, <strong>Security Ring 0</strong> is the group with number matching <strong>enabled</strong>, and <strong>Security Ring 1</strong> is the group with number matching left to <strong>default (Microsoft managed)</strong>.</p>
-<p>A few items to note:</p>
-<ul>
-<li>You cannot enable number matching on more than one group, if you attempt to do so through Graph you’ll receive a 400 error, and within the portal the option is grayed out.</li>
-<li>You cannot enable number matching on a group and also reference the all_users context. One may wish that you could target all users and then just selectively enable number matching on the group, however, if you attempt to reference all_users and a group within the policy, you’ll receive a 400 error.</li>
-</ul>
-<h5 id="enabling-for-all-users"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-all-users">Enabling for all users</a></h5>
-<p>The enablement for all users is even simpler. Same PATCH process, but instead we just leave the group set to <strong>all_users</strong>, and change <strong>numberMatchingRequiredState</strong> to <strong>enabled</strong>.</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;all_users&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>Now when we go look in the portal:</p>
-<p><img alt="Figure 8" src="/images/2022/02/22/img8.png" /></p>
-<h4 id="disabling-number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#disabling-number-matching">Disabling Number Matching</a></h4>
-<p>Ideally you will not be in a position to need to disable number matching, but in the case that you need to, it’s just a matter of setting <strong>numberMatchingRequiredState</strong> to <strong>default</strong>. Again, if you set this to <strong>disabled</strong>, there may be a chance that you will be in a state where your tenant will miss when this rolls out across all tenants.</p>
-<h3 id="additional-context"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#additional-context">Additional context</a></h3>
-<p>Along with number matching, we can enable additional contextual information about where the user is coming from with a map showing the rough geographic area, as well as what application is requesting the approval. Details of this process come from the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-additional-context">Microsoft Docs article</a>.</p>
-<p><img alt="Figure 9" src="/images/2022/02/22/img9.png" /> <img alt="Figure 10" src="/images/2022/02/22/img10.png" /></p>
-<p>While both mechanisms provide some additional security mechanisms to our end users, additional context alone is not going to prevent an unengaged user from selecting Approve, which is why additional context in itself should be considered a passive security mechanism. Number matching, to contrast, is active, because the user will not be able to perform MFA without interaction.</p>
-<h4 id="enabling-additional-context"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-additional-context">Enabling additional context</a></h4>
-<p>To enable additional context, whether for all users, or for a group, follows the same processes as enabling number matching. The only difference is we are focusing on the property <strong>displayAppInformationRequiredState</strong>.</p>
-<p>Out of the box, this property will be set to <strong>default</strong> when observing its value through Graph, or <strong>Microsoft managed</strong> in the portal. We can toggle this to <strong>enabled</strong> or <strong>disabled</strong>.</p>
-<p>A few items to note specific to additional context:</p>
-<ul>
-<li>When enabling additional context and using the Authenticator App for passwordless (phone sign-in), the app only receives policy information every 7 days. Because of this, users may not see a behavioral change for up to 7 days after.</li>
-<li>The NPS extension does not support providing additional context. Being that the NPS extension is simply signaling for MFA to be called, and primary authentication is happening against Active Directory, it makes sense that user location context is not available.</li>
-</ul>
-<h3 id="final-notes"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#final-notes">Final notes</a></h3>
-<p>As with all things that impact and change the way our users interact with our systems, while this may be an easier win from a security perspective, organizations will want to make sure that they communicate this change properly to end users. A rushed rollout or lack of communication is an almost certain way of creating friction with our end users, and potentially hurting the efforts to increase organizational security.</p>
-    
-  </div>
-</article>
-      
       
         
           
@@ -1784,7 +1701,7 @@ isaiah@Azure:~$
 
 
 <nav class="md-pagination">
-  
+  <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a>
 </nav>
         
       

@@ -1,0 +1,773 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/08/09/an-agile-refresh-of-the-passwordless-strategy/">
+      
+      
+        <link rel="prev" href="../../../06/16/azure-ad-which-sso-is-the-right-sso/">
+      
+      
+        <link rel="next" href="../../../10/12/vm-contributor-to-domain-admin-in-60-seconds/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>An Agile Refresh Of The Passwordless Strategy - Eric on Identity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--nfc{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23.958%201.98C23.895%201%2023.143.256%2022.145.197c-1.102-.066-4.668-.12-5.693-.12%201.832%201.264%202.082%203.644%202.255%208.066.101%202.62.01%2011.799.002%2012.188l-.049%202.504-9.628-9.63v-3.014l7.656%207.658c.02-1.516.04-3.492.04-5.299%200-1.76-.026-3.354-.076-4.193-.288-4.819-.737-7.077-3.253-7.962-.77-.27-1.487-.335-2.683-.351C9.728.032%202.848.037%201.854.091.8.147.09.914.042%201.9c-.048.977-.064%2019.174%200%2020.165.062.98.815%201.724%201.812%201.782%201.102.067%204.668.075%205.694.075-1.832-1.264-2.083-3.643-2.255-8.066-.1-2.62-.009-11.8%200-12.188l.047-2.504%209.629%209.63v3.013L7.312%206.152c-.02%201.514-.04%203.49-.04%205.298%200%201.76.026%203.354.077%204.192.288%204.82.736%207.077%203.252%207.962.77.271%201.487.337%202.683.352.987.012%207.868.006%208.861-.047%201.056-.056%201.765-.822%201.813-1.811.048-.976.064-19.127%200-20.118%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#an-agile-refresh-of-the-passwordless-strategy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Eric on Identity" class="md-header__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eric on Identity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              An Agile Refresh Of The Passwordless Strategy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Eric on Identity" class="md-nav__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    Eric on Identity
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2023
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2022
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2021
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-waterfall-approach-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The waterfall approach problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-application-authentication-modernization-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The application authentication modernization problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-single-solution-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The single solution problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-agile-refresh-to-the-passwordless-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      An agile refresh to the passwordless strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An agile refresh to the passwordless strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passwordless-steps-reduced-to-three" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passwordless steps reduced to three
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circular-design-to-indicate-an-iterative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Circular design to indicate an iterative approach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-authentication-modernization-is-a-parallel-but-separate-effort" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application authentication modernization is a parallel but separate effort
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-application-authentication-modernization-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start application authentication modernization first
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-thoughts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final thoughts
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://www.ericonidentity.com">Eric Woodruff</a>
+                        
+                      </strong>
+                      <br>
+                      Identity Nerd
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2022-08-09 00:00:00+00:00" class="md-ellipsis">August 9, 2022</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              10 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="an-agile-refresh-of-the-passwordless-strategy">An Agile Refresh Of The Passwordless Strategy</h1>
+<h2 id="background">Background</h2>
+<p>The Microsoft passwordless strategy guidance has existed since 2018, and since then it’s continued to be a solid document. You can view the full doc here, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Password-less strategy – Windows security | Microsoft Docs</a>, but where the focus usually lands is on the four-step graph at the top of that page:</p>
+<p><img alt="Figure 1" src="/images/2022/08/09/img1.png" /></p>
+<p><em>The Microsoft passwordless strategy</em></p>
+<p>When discussing the strategy with organizations, the focus is usually on Step 1 – develop (deploy) password replacement offerings, and the technology involved, such as Windows Hello for Business, FIDO2 security keys, and MS Authenticator App passwordless sign-in. After all, the strategy is provided as a stepped approach, so you start with the first step, and then move on.</p>
+<p>There are three primary issues with the approach:</p>
+<ul>
+<li>Organizations look at this as a reinforcement that passwordless must be deployed in a waterfall approach.</li>
+<li>Application authentication modernization is not emphasized strongly enough, and subsequently organizations do not right-size the efforts required.</li>
+<li>Organizations do not emphasize the pluralization on offerings, and potentially focus on the requirement of one-size-must-fit-all.</li>
+</ul>
+<p>While issue three is not specific to this approach as designed, many organizations will take the waterfall approach with a single solution, and then box themselves into only deploying one solution, slowing down progress.</p>
+<h2 id="the-waterfall-approach-problem">The waterfall approach problem</h2>
+<p>While there have been great strides made organization wide, many still tend to suffer in that security and infrastructure teams still operate in a waterfall approach when it comes to managing identity platforms, products, and projects. A solid Identity Program or expert consultants can help rectify this, but not every organization has access to these. And sometimes, of course, organizations will simply point to the Microsoft docs and just take it all as literal guidance, with little desire to deter. From firsthand discussions with customers I’ve encountered all too often the desire to look at this as a serialized, singular method to tackle passwordless.</p>
+<p>For organizations that have been on other identity journeys in Azure AD, they likely will have seen similar problems in their approach to deploying things like MFA or conditional access policies – if you wait for a collective 100% of all problems to be resolved, you will move the needle 0%.</p>
+<p>In the case where a picture is worth a thousand words – some organizations will look at this diagram and disregard all the details within the associated docs. While it’s likely they aren’t the candidate to be reading this, it’s worth noting.</p>
+<h2 id="the-application-authentication-modernization-problem">The application authentication modernization problem</h2>
+<p>A very common issue within organizations is that they successfully reach mass deployment of passwordless with most user personas, but when the project is “done” they realize that there is still a lot of work to accomplish to be able to fully realize a passwordless environment.</p>
+<p>For some organizations, this can result in passwordless being viewed as a failure. Focus will shift to organizations asking questions as to why LDAP or RADIUS do not support passwordless authentication, instead of asking why the organization wants to continue to depend on 20+ year old protocols that are inherently more insecure than modern counterparts.</p>
+<p>Sometimes this issue is because organizations effectively look at passwordless deployments solely as that first step. The focus is just on the technology, on the identity provider, and not on the broader ecosystem. And while consensus is that users will use the path of least resistance, which usually is passwordless, if they still have to use their password at times, there is a lower ROI as passwords are still exposed and subsequently users are still susceptible to password-based attacks such as phishing or password-spray.</p>
+<p>Other times, the issue is that organizations just simply don’t know where to start. Application modernization projects can be some of the most costly, complex, and time-consuming projects, that can become overwhelming at a rapid pace if not managed properly. It’s important that organizations understand the value and long-term return in application authentication modernization.</p>
+<h2 id="the-single-solution-problem">The single solution problem</h2>
+<p>The single solution problem isn’t specifically a problem with the current strategy. After all, the strategy indicates password replacement offering<strong>s</strong>. They common story for many organizations is this:</p>
+<p><em>We want to deploy passwordless. Let’s deploy Windows Hello for Business, then we’ll deploy FIDO2, then we’ll deploy Authenticator App passwordless sign-in.</em></p>
+<p>And the problem then becomes that organizations will focus solely on one method, and will not leave the opportunity to parallel thread progress. Reality is that all three mechanisms are relatively lightweight to deploy from a technical perspective, and end up consuming very little end-user cycles for initial enrollment, but organizations may take a FUD apprehensive approach, when they should instead give users options.</p>
+<p>To some, this may feel strange, as we’ve been wrongfully engrained by past actions in believing that users should not have choice, but be forced into a certain model – which ultimately leads users into inventing patterns of negative behavior to circumvent doing something they would rather not. For these organizations, they need to stop viewing end users as the opposition, but instead as their customers, even in the terms of workforce identity.</p>
+<p>Of course, counter to this point, there are organizations who are deterministic in saying that they require one solution to cover all solutions. While there are initiatives underway, such as passkey, and FIDO2 support is becoming broadly adopted by operating systems, the ecosystem is vastly different than 15 years ago when the single solution mindset worked. Where we only had to previously solve for a small and fixed set of criteria, with cloud sprawl and users wanting to access everything from everywhere all the time, we have to tackle this challenge with a growth mindset. And in this case that includes solving the problem with solutions that best fit the platforms.</p>
+<p>Customers will ask things like <em>why doesn’t Microsoft make Windows Hello for Business for iOS</em>, even though Microsoft does not own the operating system. Focus instead should be made on the rich ecosystem on iOS and Android devices to support brokered authentication with the Authenticator App or Company Portal. When these are combined with Authenticator App passwordless sign in, users can have a simple passwordless experience on those devices with ease. For the many organizations that encounter end users wanting to access things like email from personal Windows computers, it’s counterintuitive to security to not provide users with a FIDO2 security key and the ability to use such, so that their password is not exposed on devices or in environments with a low level of assurance.</p>
+<h2 id="an-agile-refresh-to-the-passwordless-strategy">An agile refresh to the passwordless strategy</h2>
+<p>Our problems are defined. But what does the solution look like?</p>
+<p><img alt="Figure 2" src="/images/2022/08/09/img2.png" /></p>
+<p>Within this strategy, nothing that Microsoft already recommends is gone, but we emphasize the application side of the equation, and we shift the focus to an iterative methodology that naturally lends to a more agile approach for deployments.</p>
+<p>Note that this can be considered an addendum to the existing strategy, and is not written to fully replace the existing recommendations. Therefore, it’s still worth reading the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Password-less strategy – Windows security | Microsoft Docs</a>.</p>
+<h3 id="passwordless-steps-reduced-to-three">Passwordless steps reduced to three</h3>
+<p>During my time at Microsoft, one of the most confusing bits to customers was Step 4, Eliminate passwords from the identity directory.</p>
+<p>The confusion comes out of the mixed messaging and likely reality that passwords will continue to exist, in some form, for a long while to continue.</p>
+<p>Active Directory has finished baking, and the closest mechanism to having no password is <strong>Smart Card Required for Interactive Logon</strong>, or SCRIL, where Active Directory effectively manages the users password in a way that renders the password useless and unknown to the end user. When SCRIL is enabled, users are rendered passwordless because:</p>
+<ul>
+<li>Their password is managed by Active Directory and they do not know it</li>
+<li>The user is no longer asked by Windows to change their password</li>
+<li>Domain Controllers disallow passwords for interactive authentication</li>
+<li>The password is set to a 128 random bit of data and can include non-typable characters</li>
+</ul>
+<p>SCRIL, then, is the ultimate goal for our Active Directory based user accounts. Additional benefits of SCRIL include:</p>
+<ul>
+<li>Hybrid users are supported, and users become passwordless in Azure AD</li>
+<li>Users, still having a password, are able to still comply with corporate password policies that may be required by cybersecurity companies or industry regulations</li>
+<li>The technology is not new, SCRIL has existed in Active Directory at least since Windows Server 2003, to support organizations previously deploying traditional smartcards within their environments.</li>
+</ul>
+<p>For a deeper dive into SCRIL, hybrid users, and password policy enforcement, take a look at this article, <a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a>.</p>
+<h3 id="circular-design-to-indicate-an-iterative-approach">Circular design to indicate an iterative approach</h3>
+<p>In case it isn’t apparent at this point, I’ll say it again. We want to work these efforts for passwordless in ways that allow for agile deployment, adopting in a way that best suits the organization and allows for passwordless progress.</p>
+<p>Whether you call them waves, rings, phases, or something else, it’s important that organizations identify user personas to target and deploy in a way that provides the path of least resistance and builds inertia for progress. For many organizations this should look like dogfooding passwordless, with infrastructure and security teams deploying the mechanisms to themselves first, along with their Service Desk personnel. This is the reminder that organizations always find more success with technology changes when they involve their Service Desk early in the process. Organizations should also look for champions, perhaps providing opportunity for users to opt in to new passwordless experiences. Many times organizations will focus cycles on the users who won’t want to move, instead of focusing on the users who have a hunger for technology and change. Those users can be key to building that organizational inertia, for finding those non-IT voices to champion progress, and building momentum to topple down those that resist change solely for the sake of such.</p>
+<p>The iterative approach can not only be used against user personas in the organization, but against the different passwordless mechanisms as well. We don’t want to lock users or the organization into a single-track mindset that only one passwordless method is suitable or feasible to use. And instances may be encountered where there is the desire to deploy multiple approaches, but one method is deployed faster than the other. An example may be deploying Windows Hello for Business first, as a means to then make bootstrapping easier for FIDO2 security keys.</p>
+<h3 id="application-authentication-modernization-is-a-parallel-but-separate-effort">Application authentication modernization is a parallel but separate effort</h3>
+<p>As most identity projects go these days, workstreams are rarely single-threaded, at least if you are looking to achieve success in a reasonable amount of time.</p>
+<p>Here we have said application authentication modernization is as important as deployment of the passwordless methods themselves. This may be different for every organization, depending on a mixture of several factors, including:</p>
+<ul>
+<li>Age of the organization – Older organizations are likely to have more legacy applications still persistent.</li>
+<li>Types of applications – Organizations with several line-of-business (LOB) applications may have a more varied array of authentication mechanisms existing, or if the organization has several applications running in on-premises deployments, vs organizations that primarily consume SaaS applications in a cloud, which likely already support modern forms of authentication.</li>
+<li>Number of applications – Again organizations can vary greatly in how many applications they have deployed. Efforts to modernize 10 applications likely will take less time than 100 applications.</li>
+<li>Application user personas and user base – Contradicting the number of applications, if an organization has 10 applications but 100,000 users per application, it may take longer to modernize authentication vs an organization with 100 applications but only 10 users accessing each application.</li>
+</ul>
+<p>Now you may read this and wonder how to prioritize applications for modernization and what the options are – a follow-up article will eventually be linked here to dive further into that.</p>
+<p>As critical as the modernization of applications, is the ability to separate out efforts to modernize those applications. Organizations may find themselves in situations where they enroll certain user personas for passwordless well before their full application catalog supports it, but organizations should also feel empowered to start modernizing applications as soon as they are identified, so that users can benefit from passwordless authentication as soon as they are enrolled.</p>
+<h3 id="start-application-authentication-modernization-first">Start application authentication modernization first</h3>
+<p>To further emphasize the importance, the arrow for application modernization actually starts a bit before passwordless deployment on purpose. While the reality is that many applications will be starting these in tandem as a passwordless initiative, it’s important to understand that support for modern authentication will benefit the application <strong>regardless</strong> of which methods of passwordless are used. There are several other benefits of application modernization, not just limited to passwordless, including:</p>
+<ul>
+<li>Ability to leverage Azure AD technologies for authentication, such as</li>
+<li>Conditional Access</li>
+<li>Device Compliance Requirements</li>
+<li>Azure AD Identity Protection</li>
+<li>Microsoft Defender for Cloud Apps</li>
+<li>Decouples application from legacy identity stores, setting it up to be closer to running in a cloud-native PaaS environment</li>
+<li>Support for Azure AD Application Proxy</li>
+</ul>
+<p>As we continue to shift towards cloud-native solutions designed to be accessed by everyone from everywhere, it is not just solving for passwordless anymore, and organizations can find themselves either ahead of or behind the ball with supporting modern forms of authentication, such as SAML or OpenID Connect (OIDC).</p>
+<h2 id="final-thoughts">Final thoughts</h2>
+<p>Passwordless deployments, for many organizations, are a litmus test for how well the organization adopts to organizational change and technology advancements. They also are a potential pain point between the C-suite and technology staff, in both directions. Organizations can suffer from technology staff not properly articulating the business value in going passwordless, and what business assets passwordless will protect – these days it’s more than just implementing “all the things” without any concern for the relative value to the business. On the other hand, passwordless is a complex topic that is tough to translate and isn’t always well received by the C-suite. Considering that some organizations still suffer from executives who don’t want MFA because it’s a burden, we have a lot of organizational change that needs to happen across the board. When organizations can implement passwordless to the further extent possible, the net effect is the organization is that much more protected than implementing nothing at all.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.path", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": {"NFC": "nfc"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

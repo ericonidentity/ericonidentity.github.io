@@ -1930,7 +1930,7 @@ distinct ServicePrincipalId
           
           <li class="md-meta__item">
             
-              9 min read
+              14 min read
             
           </li>
         
@@ -2205,6 +2205,245 @@ New-AzureADServicePrincipalPasswordCredential -ObjectId $sp.ObjectId -EndDate $n
 </code></pre></div>
 And to validate this, we can look at the associated application object in the portal:</p>
 <p><img alt="Figure 7" src="/images/2023/03/11/img7.png" /></p>
+<h4 id="application-object-app-registration-passwords"><a class="toclink" href="2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#application-object-app-registration-passwords">Application object (app registration) passwords</a></h4>
+<p>This time, let’s create another service principal but we’ll set a password in the application object:</p>
+<div class="highlight"><pre><span></span><code>$application = New-AzureADApplication -DisplayName &quot;Test App Registration with Password&quot;
+$sp=New-AzureADServicePrincipal -AppId $application.AppId -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
+New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
+</code></pre></div>
+<p>Interestingly we see that the service principal has no reference to the password:</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#servicePrincipals/$entity&quot;,
+    &quot;id&quot;: &quot;fd6543af-4432-4ab6-bcdf-9ac120b36aab&quot;,
+    &quot;deletedDateTime&quot;: null,
+    &quot;accountEnabled&quot;: true,
+    &quot;alternativeNames&quot;: [],
+    &quot;appDisplayName&quot;: &quot;Test App Registration with Password&quot;,
+    &quot;appDescription&quot;: null,
+    &quot;appId&quot;: &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;,
+    &quot;applicationTemplateId&quot;: null,
+    &quot;appOwnerOrganizationId&quot;: &quot;&quot;,
+    &quot;appRoleAssignmentRequired&quot;: false,
+    &quot;createdDateTime&quot;: &quot;2023-03-13T23:37:59Z&quot;,
+    &quot;description&quot;: null,
+    &quot;disabledByMicrosoftStatus&quot;: null,
+    &quot;displayName&quot;: &quot;Test App Registration with Password&quot;,
+    &quot;homepage&quot;: null,
+    &quot;loginUrl&quot;: null,
+    &quot;logoutUrl&quot;: null,
+    &quot;notes&quot;: null,
+    &quot;notificationEmailAddresses&quot;: [],
+    &quot;preferredSingleSignOnMode&quot;: null,
+    &quot;preferredTokenSigningKeyThumbprint&quot;: null,
+    &quot;replyUrls&quot;: [],
+    &quot;servicePrincipalNames&quot;: [
+        &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;
+    ],
+    &quot;servicePrincipalType&quot;: &quot;Application&quot;,
+    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
+    &quot;tags&quot;: [
+        &quot;WindowsAzureActiveDirectoryIntegratedApp&quot;
+    ],
+    &quot;tokenEncryptionKeyId&quot;: null,
+    &quot;samlSingleSignOnSettings&quot;: null,
+    &quot;addIns&quot;: [],
+    &quot;appRoles&quot;: [],
+    &quot;info&quot;: {
+        &quot;logoUrl&quot;: null,
+        &quot;marketingUrl&quot;: null,
+        &quot;privacyStatementUrl&quot;: null,
+        &quot;supportUrl&quot;: null,
+        &quot;termsOfServiceUrl&quot;: null
+    },
+    &quot;keyCredentials&quot;: [],
+    &quot;oauth2PermissionScopes&quot;: [
+        {
+            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on behalf of the signed-in user.&quot;,
+            &quot;adminConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
+            &quot;id&quot;: &quot;a396508a-24eb-421e-add0-e40c23995d9c&quot;,
+            &quot;isEnabled&quot;: true,
+            &quot;type&quot;: &quot;User&quot;,
+            &quot;userConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on your behalf.&quot;,
+            &quot;userConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
+            &quot;value&quot;: &quot;user_impersonation&quot;
+        }
+    ],
+    &quot;passwordCredentials&quot;: [],
+    &quot;resourceSpecificApplicationPermissions&quot;: [],
+    &quot;verifiedPublisher&quot;: {
+        &quot;displayName&quot;: null,
+        &quot;verifiedPublisherId&quot;: null,
+        &quot;addedDateTime&quot;: null
+    }
+}
+</code></pre></div>
+<p>However looking at the app registration, we can see the password reference:</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#applications/$entity&quot;,
+    &quot;id&quot;: &quot;be545f8f-9a7c-4299-9a9b-2d996fb059da&quot;,
+    &quot;deletedDateTime&quot;: null,
+    &quot;appId&quot;: &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;,
+    &quot;applicationTemplateId&quot;: null,
+    &quot;disabledByMicrosoftStatus&quot;: null,
+    &quot;createdDateTime&quot;: &quot;2023-03-13T23:37:58Z&quot;,
+    &quot;displayName&quot;: &quot;Test App Registration with Password&quot;,
+    &quot;description&quot;: null,
+    &quot;groupMembershipClaims&quot;: null,
+    &quot;identifierUris&quot;: [],
+    &quot;isDeviceOnlyAuthSupported&quot;: null,
+    &quot;isFallbackPublicClient&quot;: null,
+    &quot;notes&quot;: null,
+    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
+    &quot;serviceManagementReference&quot;: null,
+    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
+    &quot;tags&quot;: [],
+    &quot;tokenEncryptionKeyId&quot;: null,
+    &quot;samlMetadataUrl&quot;: null,
+    &quot;defaultRedirectUri&quot;: null,
+    &quot;certification&quot;: null,
+    &quot;optionalClaims&quot;: null,
+    &quot;servicePrincipalLockConfiguration&quot;: null,
+    &quot;requestSignatureVerification&quot;: null,
+    &quot;addIns&quot;: [],
+    &quot;api&quot;: {
+        &quot;acceptMappedClaims&quot;: null,
+        &quot;knownClientApplications&quot;: [],
+        &quot;requestedAccessTokenVersion&quot;: null,
+        &quot;oauth2PermissionScopes&quot;: [
+            {
+                &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on behalf of the signed-in user.&quot;,
+                &quot;adminConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
+                &quot;id&quot;: &quot;a396508a-24eb-421e-add0-e40c23995d9c&quot;,
+                &quot;isEnabled&quot;: true,
+                &quot;type&quot;: &quot;User&quot;,
+                &quot;userConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on your behalf.&quot;,
+                &quot;userConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
+                &quot;value&quot;: &quot;user_impersonation&quot;
+            }
+        ],
+        &quot;preAuthorizedApplications&quot;: []
+    },
+    &quot;appRoles&quot;: [],
+    &quot;info&quot;: {
+        &quot;logoUrl&quot;: null,
+        &quot;marketingUrl&quot;: null,
+        &quot;privacyStatementUrl&quot;: null,
+        &quot;supportUrl&quot;: null,
+        &quot;termsOfServiceUrl&quot;: null
+    },
+    &quot;keyCredentials&quot;: [],
+    &quot;parentalControlSettings&quot;: {
+        &quot;countriesBlockedForMinors&quot;: [],
+        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
+    },
+    &quot;passwordCredentials&quot;: [
+        {
+            &quot;customKeyIdentifier&quot;: null,
+            &quot;displayName&quot;: null,
+            &quot;endDateTime&quot;: &quot;2024-03-13T23:37:59.1883406Z&quot;,
+            &quot;hint&quot;: &quot;3nS&quot;,
+            &quot;keyId&quot;: &quot;45aee527-4b1e-427d-8d0f-b7aab037f087&quot;,
+            &quot;secretText&quot;: null,
+            &quot;startDateTime&quot;: &quot;2023-03-13T23:37:59.1883406Z&quot;
+        }
+    ],
+    &quot;publicClient&quot;: {
+        &quot;redirectUris&quot;: []
+    },
+    &quot;requiredResourceAccess&quot;: [],
+    &quot;verifiedPublisher&quot;: {
+        &quot;displayName&quot;: null,
+        &quot;verifiedPublisherId&quot;: null,
+        &quot;addedDateTime&quot;: null
+    },
+    &quot;web&quot;: {
+        &quot;homePageUrl&quot;: null,
+        &quot;logoutUrl&quot;: null,
+        &quot;redirectUris&quot;: [],
+        &quot;implicitGrantSettings&quot;: {
+            &quot;enableAccessTokenIssuance&quot;: false,
+            &quot;enableIdTokenIssuance&quot;: true
+        },
+        &quot;redirectUriSettings&quot;: []
+    },
+    &quot;spa&quot;: {
+        &quot;redirectUris&quot;: []
+    }
+}
+</code></pre></div>
+<p>If we look at the associated application object, we can see this password:</p>
+<p><img alt="Figure 8" src="/images/2023/03/11/img8.png" /></p>
+<p>Since there is no place in the Entra admin center that exposes service principal passwords, there is nothing to compare to there.</p>
+<h4 id="so-which-passwords-where"><a class="toclink" href="2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#so-which-passwords-where">So which passwords where?</a></h4>
+<p>If we can register a password on either the service principal or application object, how do we decide which to use and where?</p>
+<p>In a test, I’ve assigned both the service principal and application object with a password set to an Azure subscription, and you can authenticate using either type of password credential.</p>
+<p>Service Principal password:</p>
+<div class="highlight"><pre><span></span><code>c:\&gt;az login --service-principal -u 1820efb7-fc82-46f6-90c8-bcfd5ca256d5 -p &quot;e/ZtjS1f/ZIQhGEBOV1slzjhYI03OrMkysPcPh7uykU=&quot; --tenant 11ae06df-10e8-4b9e-bf66-2a91f4955339
+[
+  {
+    &quot;cloudName&quot;: &quot;AzureCloud&quot;,
+    &quot;homeTenantId&quot;: &quot;&quot;,
+    &quot;id&quot;: &quot;50d2637c-63fc-47e1-b9b1-114c5a08c7f5&quot;,
+    &quot;isDefault&quot;: true,
+    &quot;managedByTenants&quot;: [],
+    &quot;name&quot;: &quot;MSDN Platforms&quot;,
+    &quot;state&quot;: &quot;Enabled&quot;,
+    &quot;tenantId&quot;: &quot;&quot;,
+    &quot;user&quot;: {
+      &quot;name&quot;: &quot;1820efb7-fc82-46f6-90c8-bcfd5ca256d5&quot;,
+      &quot;type&quot;: &quot;servicePrincipal&quot;
+    }
+  }
+]
+</code></pre></div>
+<p>Application Object password:</p>
+<div class="highlight"><pre><span></span><code>c:\&gt;az login --service-principal -u dfc6c44a-562a-4914-9f88-3fae17098fbc -p &quot;3nSvCR0zCTG8z0rew0jy23gmhh2fXkLsx7x3+hmaGhI=&quot; --tenant 11ae06df-10e8-4b9e-bf66-2a91f4955339
+[
+  {
+    &quot;cloudName&quot;: &quot;AzureCloud&quot;,
+    &quot;homeTenantId&quot;: &quot;&quot;,
+    &quot;id&quot;: &quot;50d2637c-63fc-47e1-b9b1-114c5a08c7f5&quot;,
+    &quot;isDefault&quot;: true,
+    &quot;managedByTenants&quot;: [],
+    &quot;name&quot;: &quot;MSDN Platforms&quot;,
+    &quot;state&quot;: &quot;Enabled&quot;,
+    &quot;tenantId&quot;: &quot;&quot;,
+    &quot;user&quot;: {
+      &quot;name&quot;: &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;,
+      &quot;type&quot;: &quot;servicePrincipal&quot;
+    }
+  }
+]
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice the service principal and application object relationship again. While both are a type of service principal shown in the connection, we had to use the client ID as the user ID. The client ID is a value that only exists within the application object.</p>
+</div>
+<p>Most documentation from Microsoft indicates that if you are using service principals for integrations into Azure for things like subscription management, to use service principal passwords. I don’t see any downside to this, with the exception that the secrets cannot be managed within the Azure portal.</p>
+<p>From a security boundary perspective, some folks will mention that not showing secrets within the Azure portal helps create a security boundary, however, many tenant-wide RBAC roles in Entra ID that permit secret management, such as adding/replacing/removing secrets, would have that capability on both service principals and application objects.</p>
+<p>If you are developing or deploying a multitenant application you will need to use a client secret (password) within an application object (or preferably a certificate). This is because only the credentials in an application can be used across tenants.</p>
+<p>This is where an understanding of OAuth 2.0 comes into play. There are several different ways in which OAuth 2.0 flows work, and you can also add OpenID Connect on top of things there as well. Keeping things a bit simplified, we’ll look at two common examples:</p>
+<ul>
+<li>Delegated permissions<ol>
+<li>When you attempt to access the application, you will be sent to the Entra ID OAuth 2.0 authorization endpoint.</li>
+<li>If you are not signed in you will be asked to do so.</li>
+<li>If you have not previously consented to the application, you will be prompted to. Alternatively, your organization may have already performed a tenant-wide consent.</li>
+<li>The app registration defines a redirect URI, which you will pass an authorization code you receive from Entra ID back to.</li>
+<li>The application will then take the authorization code and pass it to Entra ID, and in return obtain an access and refresh token.</li>
+<li>The access token can then be used for access to Microsoft Graph API, as an example, in which the permissions you consented to, the application will have access to on your behalf.</li>
+</ol>
+</li>
+<li>Application permissions<ol>
+<li>When onboarding an application with application permissions, the application permissions must be granted with admin consent.</li>
+<li>If you are not signed in you will be asked to do so.</li>
+<li>Upon authentication and consent, you will provide a response to the application with your tenant ID.</li>
+<li>The application takes the secret and provides it to Entra ID, along with your tenant ID, to request an access token for the consented permissions.</li>
+<li>Entra ID provides the access token, and the application can then use that for access to the Microsoft Graph API, leveraging the permissions you granted.</li>
+</ol>
+</li>
+</ul>
+<p>It’s important to understand that in the world of Entra ID, there is a <strong>common</strong> OAuth 2.0 endpoint. While every tenant has a security boundary, Entra ID itself is a single identity platform, and this is what allows authorization codes and secrets to be leveraged across tenants by the application developer. This is a good thing, as it removes any need for a developer to get into the sticky business of having to manage and coordinate secrets with customers.</p>
+<p>If you are using a multitenant application, you can see these results yourself if you look at your Entra Sign-in logs for service principals:</p>
     
   </div>
 </article>

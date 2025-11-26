@@ -1,0 +1,799 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">
+      
+      
+        <link rel="prev" href="../../../06/16/azure-ad-which-sso-is-the-right-sso/">
+      
+      
+        <link rel="next" href="../../../12/02/field-notes-migration-from-federation-to-cloud-authentication/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>VM Contributor To Domain Admin In 60 Seconds - Eric on Identity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--nfc{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23.958%201.98C23.895%201%2023.143.256%2022.145.197c-1.102-.066-4.668-.12-5.693-.12%201.832%201.264%202.082%203.644%202.255%208.066.101%202.62.01%2011.799.002%2012.188l-.049%202.504-9.628-9.63v-3.014l7.656%207.658c.02-1.516.04-3.492.04-5.299%200-1.76-.026-3.354-.076-4.193-.288-4.819-.737-7.077-3.253-7.962-.77-.27-1.487-.335-2.683-.351C9.728.032%202.848.037%201.854.091.8.147.09.914.042%201.9c-.048.977-.064%2019.174%200%2020.165.062.98.815%201.724%201.812%201.782%201.102.067%204.668.075%205.694.075-1.832-1.264-2.083-3.643-2.255-8.066-.1-2.62-.009-11.8%200-12.188l.047-2.504%209.629%209.63v3.013L7.312%206.152c-.02%201.514-.04%203.49-.04%205.298%200%201.76.026%203.354.077%204.192.288%204.82.736%207.077%203.252%207.962.77.271%201.487.337%202.683.352.987.012%207.868.006%208.861-.047%201.056-.056%201.765-.822%201.813-1.811.048-.976.064-19.127%200-20.118%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vm-contributor-to-domain-admin-in-60-seconds" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Eric on Identity" class="md-header__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eric on Identity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VM Contributor To Domain Admin In 60 Seconds
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Eric on Identity" class="md-nav__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    Eric on Identity
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2023
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2022
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2021
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-permissions-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      When permissions go wrong
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracking-run-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tracking run command
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#its-not-just-the-azure-portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      It's not just the Azure portal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigation-monitoring-and-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigation, monitoring and recommendations
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://www.ericonidentity.com">Eric Woodruff</a>
+                        
+                      </strong>
+                      <br>
+                      Identity Nerd
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2022-10-12 00:00:00+00:00" class="md-ellipsis">October 12, 2022</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              8 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="vm-contributor-to-domain-admin-in-60-seconds">VM Contributor To Domain Admin In 60 Seconds</h1>
+<p>When Microsoft revamped the privileged access model in the late fall of 2020, it was received with mixed results. To some, it felt as if it was overcomplicating the simple three-tier model that had been the gold standard for protecting Active Directory and other critical business assets for about a decade.</p>
+<p>However, the shift was necessary, as it was acknowledging that business critical assets are not just the identity provider. The revamp changed how we look at things, with the proliferation of virtualization and cloud providers, and pointing out the management and control plane as critical privileged points of access.</p>
+<p><img alt="Figure 1" src="/images/2022/10/12/img1.png" /></p>
+<p><em>The modern Enterprise access model, courtesy Microsoft</em></p>
+<p>It’s quite a common pattern to extend Active Directory to Azure as the initial standup of infrastructure out there, to support all the other “things” dependent on it.</p>
+<p>But as it goes with the cloud, there are new vectors to be on the watch for, and in this case, it’s ensuring that your RBAC permissions over Tier 0 assets in Azure are properly defined.</p>
+<p>Even with a lot of strong guidance from Microsoft on the Cloud Adoption Framework (CAF) and Landing Zones, as well as adhering to the Well Architected Framework, it’s not always clearly defined as to how the Enterprise access model ties into things.</p>
+<p><img alt="Figure 2" src="/images/2022/10/12/img2.png" /></p>
+<p><em>Sample landing zone model, Identity subscription highlighted, courtesy Microsoft</em></p>
+<p>In the model depicted above, we see that Active Directory is living in its own subscription, but even when we drill into the details of that piece of the puzzle, there isn’t direct guidance as far as what the RBAC model should look like over that subscription, beyond a bunch of circular references to products or how to achieve certain compliance levels. And while all this stuff is good, this is an area where sometimes it needs to be clearly spelled out.</p>
+<h2 id="when-permissions-go-wrong">When permissions go wrong</h2>
+<p>When we examine the roles assigned to that identity subscription, it’s important to realize that <strong>if you have certain levels of unassuming access</strong> over Domain Controller VMs it <strong>effectively provides means to gaining privileged access in Active Directory</strong>.</p>
+<p>If this isn’t news to you, that’s good. If you are still unsure what this means, or want a refresher, read on.</p>
+<p>Many organizations, especially those that have been in Azure a good long while before all the WAF and CAF, can range anywhere from 30 Global Administrators that are also Owners on all subscriptions (witnessed firsthand) to a NOC that has Virtual Machine Contributor to accounts separated and dedicated to the management of the Domain Controller VM’s… and everything in between.</p>
+<p>If you’re somewhere between too many Global Admins and to delegating out the Virtual Machine Contributor role, that is where you are leaving yourself exposed.</p>
+<p>Let’s look at an example here with Isaiah Langer and the rights he has on the Domain Controller nwind-dc1:</p>
+<p><img alt="Figure 3" src="/images/2022/10/12/img3.png" /></p>
+<p>Virtual Machine Contributor currently has 327 actions that compose the role, and a description</p>
+<p><em>Lets you manage the virtual machines, but not access to them, and not the virtual network or storage account they’re connected to</em></p>
+<p>On the surface that sounds fine – we can’t change the network configuration of the VM, and if we attempt to export the disk we are met with an error:</p>
+<p><img alt="Figure 4" src="/images/2022/10/12/img4.png" /></p>
+<p>However, Isaiah does have the ability to use the <strong>Run command</strong> operation.</p>
+<p>Run Command leverages the VM agent installed on the machine when it’s created; this requires no additional extension deployed. The VM agent runs in the SYSTEM context. And this all makes sense, needing certain privileges on the VM to be able to manage it.</p>
+<p>Before looking at what we can do with this Run command, we’ll just look at a Domain Admin in AD. Note PasswordLastSet:</p>
+<p><img alt="Figure 5" src="/images/2022/10/12/img5.png" /></p>
+<p>Back to Isaiah in the run command portal, let’s try something simple:</p>
+<div class="highlight"><pre><span></span><code>net user da-eric P0wned1234! /domain
+</code></pre></div>
+<p><img alt="Figure 6" src="/images/2022/10/12/img6.png" /></p>
+<p>And we hit <strong>Run</strong>.</p>
+<p>Twenty seconds or so later:</p>
+<p><img alt="Figure 7" src="/images/2022/10/12/img7.png" /></p>
+<p>Back on the Domain Controller:</p>
+<p><img alt="Figure 8" src="/images/2022/10/12/img8.png" /></p>
+<p>And we now successfully have changed the password for the Domain Admin da-eric. Considering how easy it is to glean this sort of knowledge from Active Directory, it’s trivial to figure out who we want to target.</p>
+<p>Of course, if we would rather not disturb an existing Domain Admin, we can just create a new one:</p>
+<p><div class="highlight"><pre><span></span><code>net user da-isaiah P0wned1234! /add /logonpasswordchg:no /domain
+</code></pre></div>
+And then add the user to the Administrator group:</p>
+<div class="highlight"><pre><span></span><code>net localgroup Administrators da-isaiah /add
+</code></pre></div>
+<p>Back on the Domain Controller:</p>
+<p><img alt="Figure 9" src="/images/2022/10/12/img9.png" /></p>
+<p>These are just some examples. While a threat actor may not be so obvious, it’s also important to point out that once a VM contributor account is breached, the attack itself does not need to be overengineered or complicated. Whatever you can do within the SYSTEM context, you can pull off through Azure Run command with these rights.</p>
+<h2 id="tracking-run-command">Tracking run command</h2>
+<p>If we look at the Azure activity logs, the Run command logs do not provide any insight into the command that ran. Look at the log below, from the last command Isaiah ran:</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;authorization&quot;: {
+        &quot;action&quot;: &quot;Microsoft.Compute/virtualMachines/runCommand/action&quot;,
+        &quot;scope&quot;: &quot;/subscriptions/6010f303-6259-4f47-bb99-9d461d36c1e4/resourceGroups/rg-lab/providers/Microsoft.Compute/virtualMachines/nwind-dc1&quot;
+    },
+    &quot;caller&quot;: &quot;isaiah.langer@fabrikam.cloud&quot;,
+    &quot;channels&quot;: &quot;Operation&quot;,
+    &quot;claims&quot;: {
+        &quot;aud&quot;: &quot;https://management.core.windows.net/&quot;,
+        &quot;iss&quot;: &quot;https://sts.windows.net/11ae06df-10e8-4b9e-bf66-2a91f4955339/&quot;,
+        &quot;iat&quot;: &quot;1665576850&quot;,
+        &quot;nbf&quot;: &quot;1665576850&quot;,
+        &quot;exp&quot;: &quot;1665581298&quot;,
+        &quot;http://schemas.microsoft.com/claims/authnclassreference&quot;: &quot;1&quot;,
+        &quot;aio&quot;: &quot;ATQAy/8TAAAA2Vzb2bVgvWc1B1/qZsCPq9nblD/9RdvCXf0Y87EX8swm9HGyVQXobsMvpWY7uuBp&quot;,
+        &quot;http://schemas.microsoft.com/claims/authnmethodsreferences&quot;: &quot;pwd&quot;,
+        &quot;appid&quot;: &quot;c44b4083-3bb0-49c1-b47d-974e53cbdf3c&quot;,
+        &quot;appidacr&quot;: &quot;2&quot;,
+        &quot;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname&quot;: &quot;Langer&quot;,
+        &quot;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname&quot;: &quot;Isaiah&quot;,
+        &quot;groups&quot;: &quot;310c96cf-5606-4d8d-ae59-cb698bc9fa5b,00242a6d-86d2-4351-9303-9bcf1bfb077a,c336cee6-a292-46a8-abb2-5faeb16d66d0,b04f480e-9056-45f4-be59-0ef1e2136fac,b492badd-d952-40fc-b1e8-32279fc8635e,dc61c347-aca1-4f92-bbf4-1389af8ea099,3e56b395-18bc-4305-9f6a-ac67612c912b&quot;,
+        &quot;ipaddr&quot;: &quot;&quot;,
+        &quot;name&quot;: &quot;Isaiah Langer&quot;,
+        &quot;http://schemas.microsoft.com/identity/claims/objectidentifier&quot;: &quot;5d2a4414-5fac-46ec-85d0-4ad537d75c77&quot;,
+        &quot;onprem_sid&quot;: &quot;S-1-5-21-131657314-4052732218-1597742569-2110&quot;,
+        &quot;puid&quot;: &quot;10032001710A0360&quot;,
+        &quot;rh&quot;: &quot;0.AVAA3wauEegQnku_ZiqR9JVTOUZIf3kAutdPukPawfj2MBNQAA0.&quot;,
+        &quot;http://schemas.microsoft.com/identity/claims/scope&quot;: &quot;user_impersonation&quot;,
+        &quot;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier&quot;: &quot;hf0X9izWHDY50kvXgOssXWjwzaMxLB9hLuSHj1aXPsA&quot;,
+        &quot;http://schemas.microsoft.com/identity/claims/tenantid&quot;: &quot;11ae06df-10e8-4b9e-bf66-2a91f4955339&quot;,
+        &quot;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name&quot;: &quot;isaiah.langer@fabrikam.cloud&quot;,
+        &quot;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn&quot;: &quot;isaiah.langer@fabrikam.cloud&quot;,
+        &quot;uti&quot;: &quot;gE43gRPnTU2aC5p7UGEwAA&quot;,
+        &quot;ver&quot;: &quot;1.0&quot;,
+        &quot;xms_tcdt&quot;: &quot;1629656520&quot;
+    },
+    &quot;correlationId&quot;: &quot;cdd385b0-5df8-44f1-8d63-2036772306ba&quot;,
+    &quot;description&quot;: &quot;&quot;,
+    &quot;eventDataId&quot;: &quot;42f9771e-342b-4278-b78a-ca77184504ee&quot;,
+    &quot;eventName&quot;: {
+        &quot;value&quot;: &quot;EndRequest&quot;,
+        &quot;localizedValue&quot;: &quot;End request&quot;
+    },
+    &quot;category&quot;: {
+        &quot;value&quot;: &quot;Administrative&quot;,
+        &quot;localizedValue&quot;: &quot;Administrative&quot;
+    },
+    &quot;eventTimestamp&quot;: &quot;2022-10-12T13:00:11.66499Z&quot;,
+    &quot;id&quot;: &quot;/subscriptions/6010f303-6259-4f47-bb99-9d461d36c1e4/resourceGroups/rg-lab/providers/Microsoft.Compute/virtualMachines/nwind-dc1/events/42f9771e-342b-4278-b78a-ca77184504ee/ticks/638011764116649900&quot;,
+    &quot;level&quot;: &quot;Informational&quot;,
+    &quot;operationId&quot;: &quot;23192952-b8ef-4671-813e-36262ee112c3&quot;,
+    &quot;operationName&quot;: {
+        &quot;value&quot;: &quot;Microsoft.Compute/virtualMachines/runCommand/action&quot;,
+        &quot;localizedValue&quot;: &quot;Run Command on Virtual Machine&quot;
+    },
+    &quot;resourceGroupName&quot;: &quot;rg-lab&quot;,
+    &quot;resourceProviderName&quot;: {
+        &quot;value&quot;: &quot;Microsoft.Compute&quot;,
+        &quot;localizedValue&quot;: &quot;Microsoft.Compute&quot;
+    },
+    &quot;resourceType&quot;: {
+        &quot;value&quot;: &quot;Microsoft.Compute/virtualMachines&quot;,
+        &quot;localizedValue&quot;: &quot;Microsoft.Compute/virtualMachines&quot;
+    },
+    &quot;resourceId&quot;: &quot;/subscriptions/6010f303-6259-4f47-bb99-9d461d36c1e4/resourceGroups/rg-lab/providers/Microsoft.Compute/virtualMachines/nwind-dc1&quot;,
+    &quot;status&quot;: {
+        &quot;value&quot;: &quot;Succeeded&quot;,
+        &quot;localizedValue&quot;: &quot;Succeeded&quot;
+    },
+    &quot;subStatus&quot;: {
+        &quot;value&quot;: &quot;&quot;,
+        &quot;localizedValue&quot;: &quot;&quot;
+    },
+    &quot;submissionTimestamp&quot;: &quot;2022-10-12T13:01:24.1576475Z&quot;,
+    &quot;subscriptionId&quot;: &quot;6010f303-6259-4f47-bb99-9d461d36c1e4&quot;,
+    &quot;tenantId&quot;: &quot;11ae06df-10e8-4b9e-bf66-2a91f4955339&quot;,
+    &quot;properties&quot;: {
+        &quot;eventCategory&quot;: &quot;Administrative&quot;,
+        &quot;entity&quot;: &quot;/subscriptions/6010f303-6259-4f47-bb99-9d461d36c1e4/resourceGroups/rg-lab/providers/Microsoft.Compute/virtualMachines/nwind-dc1&quot;,
+        &quot;message&quot;: &quot;Microsoft.Compute/virtualMachines/runCommand/action&quot;,
+        &quot;hierarchy&quot;: &quot;11ae06df-10e8-4b9e-bf66-2a91f4955339/6010f303-6259-4f47-bb99-9d461d36c1e4&quot;
+    },
+    &quot;relatedEvents&quot;: []
+}
+</code></pre></div>
+<p>Note the absence of the command itself. Likewise, the VM agent has local logging, C:\WindowsAzure\Logs\Plugins\Microsoft.CPlat.Core.RunCommandWindows, but the logs themselves will not contain a copy of the command run.</p>
+<h2 id="its-not-just-the-azure-portal">It's not just the Azure portal</h2>
+<p>While the examples shown here are using the Azure portal, you can perform the same commands using Azure CLI, the Azure PowerShell module <strong>Invoke-AzVMRunCommand</strong>, and the Azure Management API <strong>https://management.azure.com</strong>.</p>
+<p>An example from a run using Azure CLI:</p>
+<div class="highlight"><pre><span></span><code>isaiah@Azure:~$ az vm run-command invoke --command-id RuNPowerShellScript --name nwind-dc1 -g &quot;rg-lab&quot; --scripts &quot;net user da-eric P0wned1234! /domain&quot;
+{
+  &quot;value&quot;: [
+    {
+      &quot;code&quot;: &quot;ComponentStatus/StdOut/succeeded&quot;,
+      &quot;displayStatus&quot;: &quot;Provisioning succeeded&quot;,
+      &quot;level&quot;: &quot;Info&quot;,
+      &quot;message&quot;: &quot;The command completed successfully.\n&quot;,
+      &quot;time&quot;: null
+    },
+    {
+      &quot;code&quot;: &quot;ComponentStatus/StdErr/succeeded&quot;,
+      &quot;displayStatus&quot;: &quot;Provisioning succeeded&quot;,
+      &quot;level&quot;: &quot;Info&quot;,
+      &quot;message&quot;: &quot;&quot;,
+      &quot;time&quot;: null
+    }
+  ]
+}
+isaiah@Azure:~$
+</code></pre></div>
+<h2 id="mitigation-monitoring-and-recommendations">Mitigation, monitoring and recommendations</h2>
+<p>The easiest course of action is to review who has ownership and of the subscription(s) containing Domain Controllers, as well as Virtual Machine Contributor. If those assigned are different from the staff that manages identity in your organization, investigate if the permissions can be removed/reduced. And if your Domain Controllers do not reside in their own subscription, now is the time to start planning to move them.</p>
+<p>Some organizations may still have standard processes to allow users who do not manage Active Directory the ability to do things like start/stop Domain Controllers, create a custom RBAC role. You can copy the Virtual Machine Contributor Role, and then use the Exclude Permissions feature to restrict the ability to use Run commands:</p>
+<p><img alt="Figure 10" src="/images/2022/10/12/img10.png" /></p>
+<p>Exclude permissions is a great way to restrict certain permissions within a wildcard permission, so you don’t need to manually define <strong>all</strong> the VirtualMachine permissions permitted.</p>
+<p>After building the custom role, assign it to whomever currently has Virtual Machine Contributor over Domain Controllers. Once you do, what you’ll find is that the user will still have the visibility of Run command in the portal, but Azure will blackhole the process if a user attempts to use it.</p>
+<p>For management of critical Tier 0 VM’s like Domain Controllers, PIM should be used for role elevation, even if it’s to a role that has the Run command permissions removed. Remember, you can mix and match licenses – go buy some AAD P2 licenses for your organization to cover management of Tier 0 assets if P2 across the organization is not something on the financial forecast.</p>
+<p>Organizationally some may accept the risk here, which you shouldn’t, as Mandiant indicates they have seen this actively exploited in incident response cases.</p>
+<p>Last thing, whether you mitigate or don’t, a takeaway here is why it’s critical to have robust monitoring of critical groups and users in Active Directory, and even better have an Identity Threat Detection and Response (ITDR) platform in place.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.path", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": {"NFC": "nfc"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

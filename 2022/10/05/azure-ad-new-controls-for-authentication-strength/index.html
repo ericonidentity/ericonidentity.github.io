@@ -1,0 +1,757 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://new.ericonidentity.com/2022/10/05/azure-ad-new-controls-for-authentication-strength/">
+      
+      
+        <link rel="prev" href="../../../08/09/an-agile-refresh-of-the-passwordless-strategy/">
+      
+      
+        <link rel="next" href="../../12/vm-contributor-to-domain-admin-in-60-seconds/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Azure AD: New Controls For Authentication Strength - Eric on Identity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--nfc{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23.958%201.98C23.895%201%2023.143.256%2022.145.197c-1.102-.066-4.668-.12-5.693-.12%201.832%201.264%202.082%203.644%202.255%208.066.101%202.62.01%2011.799.002%2012.188l-.049%202.504-9.628-9.63v-3.014l7.656%207.658c.02-1.516.04-3.492.04-5.299%200-1.76-.026-3.354-.076-4.193-.288-4.819-.737-7.077-3.253-7.962-.77-.27-1.487-.335-2.683-.351C9.728.032%202.848.037%201.854.091.8.147.09.914.042%201.9c-.048.977-.064%2019.174%200%2020.165.062.98.815%201.724%201.812%201.782%201.102.067%204.668.075%205.694.075-1.832-1.264-2.083-3.643-2.255-8.066-.1-2.62-.009-11.8%200-12.188l.047-2.504%209.629%209.63v3.013L7.312%206.152c-.02%201.514-.04%203.49-.04%205.298%200%201.76.026%203.354.077%204.192.288%204.82.736%207.077%203.252%207.962.77.271%201.487.337%202.683.352.987.012%207.868.006%208.861-.047%201.056-.056%201.765-.822%201.813-1.811.048-.976.064-19.127%200-20.118%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#azure-ad-new-controls-for-authentication-strength" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Eric on Identity" class="md-header__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eric on Identity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Azure AD: New Controls For Authentication Strength
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Eric on Identity" class="md-nav__button md-logo" aria-label="Eric on Identity" data-md-component="logo">
+      
+  <img src="../../../../images/eidlogo.svg" alt="logo">
+
+    </a>
+    Eric on Identity
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2023
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2022
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2021
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-prior-state-of-azure-ad-mfa" class="md-nav__link">
+    <span class="md-ellipsis">
+      The prior state of Azure AD MFA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#require-authentication-strength" class="md-nav__link">
+    <span class="md-ellipsis">
+      Require authentication strength
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Require authentication strength">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifactor-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multifactor authentication
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passwordless-multifactor-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passwordless multifactor authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phishing-resistant-multifactor-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phishing-resistant multifactor authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-odd-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some odd behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-thoughts-and-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final thoughts and notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://www.ericonidentity.com">Eric Woodruff</a>
+                        
+                      </strong>
+                      <br>
+                      Identity Nerd
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2022-10-05 00:00:00+00:00" class="md-ellipsis">October 5, 2022</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              8 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="azure-ad-new-controls-for-authentication-strength">Azure AD: New Controls For Authentication Strength</h1>
+<p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
+<p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
+<h2 id="the-prior-state-of-azure-ad-mfa">The prior state of Azure AD MFA</h2>
+<p>Within the Grant Control section of a Conditional Access policy, we’ve always had the <strong>Require multifactor authentication</strong> control, which enforced MFA. But up until now, we never had the ability to specify what that level could be – if a user in a tenant has a FIDO2 security key, but also is registered for SMS text, they could use either that security key or their password and SMS text for MFA. In many tenants it’s always practical to try and restrict users from using weaker forms of MFA, especially at times when they may need to use that to bootstrap themselves into stronger authentication methods such as passwordless. And since this is a tenant-wide setting, we have had the historical issue where we couldn’t say enforce stronger forms of authentication for privileged accounts, such as Global Admins.</p>
+<h2 id="require-authentication-strength">Require authentication strength</h2>
+<p>Within Grant Controls, we now have a new option, <strong>Require authentication strength</strong>. When we select this dropdown, we see that we have the following options available:</p>
+<ul>
+<li>Multifactor authentication – Combinations of methods that satisfy strong authentication such as Password + SMS</li>
+<li>Passwordless multifactor authentication – Passwordless methods that satisfy strong authentication, such as Microsoft Authenticator</li>
+<li>Phishing-resistant multifactor authentication – Phishing-resistant Passwordless methods for the strongest authentication, such as FIDO2 Security Key</li>
+</ul>
+<p><img alt="Figure 1" src="/images/2022/10/05/img1.png" /></p>
+<p>We also have the ability to define custom authentications strengths in Azure AD, which we can find under Security -&gt; Authentication Methods -&gt; Authentication Strengths (Preview).</p>
+<p><img alt="Figure 2" src="/images/2022/10/05/img2.png" /></p>
+<p>And if we look at the details, this opens up a whole world of options for us:</p>
+<p><img alt="Figure 3" src="/images/2022/10/05/img3.png" /></p>
+<p>First, let us examine the out-of-the-box options.</p>
+<h3 id="multifactor-authentication">Multifactor authentication</h3>
+<p>The lowest denominator for MFA, this setting should be parity to the <strong>Require multifactor authentication</strong> setting that we’ve had available for as long as Conditional Access has existed.</p>
+<p>We can examine this by changing an existing policy from Require multifactor authentication to Require authentication strength and selecting Multifactor authentication.</p>
+<p>As a baseline, lets first look at what our Azure AD logs show us in the current state, with Require multifactor authentication enabled:</p>
+<p><img alt="Figure 4" src="/images/2022/10/05/img4.png" /></p>
+<p>And if we look at the Conditional Access Policy details:</p>
+<p><img alt="Figure 5" src="/images/2022/10/05/img5.png" /></p>
+<p>Now let’s change our policy to use the <strong>require authentication strength</strong> setting with <strong>multifactor authentication</strong> selected:</p>
+<p><img alt="Figure 6" src="/images/2022/10/05/img6.png" /></p>
+<p><em>Switching to the new MFA setting</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Require multifactor authentication and Require authentication strength are mutually exclusive, as they both enforce multifactor. Enabling one will disable the ability to use the other within the same Conditional Access Policy.</p>
+</div>
+<p>After we authenticate, the sign-in log looks the same:</p>
+<p><img alt="Figure 7" src="/images/2022/10/05/img7.png" /></p>
+<p>However, if we examine the Conditional Access Policy details, we will see that we are satisfying for the new authentication strength grant control:</p>
+<p><img alt="Figure 8" src="/images/2022/10/05/img8.png" /></p>
+<h2 id="passwordless-multifactor-authentication">Passwordless multifactor authentication</h2>
+<p>Let’s kick the strength of the Conditional Access policy up:</p>
+<p><img alt="Figure 9" src="/images/2022/10/05/img9.png" /></p>
+<p>With things turned up, let’s first look at the behavior if we attempt to authenticate with a password anyway.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that Conditional Access evaluates <strong>after</strong> primary authentication, so our policies will not prevent a user from still attempting to perform password authentication.</p>
+</div>
+<p><img alt="Figure 10" src="/images/2022/10/05/img10.png" /></p>
+<p>We are then presented with another dialog, telling us that our organization requires additional sign in methods to access this resource:</p>
+<p><img alt="Figure 11" src="/images/2022/10/05/img11.png" /></p>
+<p>Now if we take a look at our Sign-in logs, we’ll see that the initial username/password auth occurs, as well as passwordless to satisfy MFA requirements:</p>
+<p><img alt="Figure 12" src="/images/2022/10/05/img12.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Microsoft Authenticator passwordless (phone sign-in) <strong>is not phishing-resistant</strong>. Because of this, the Passwordless MFA setting really does not have any advantage over push notifications for MFA with number matching enabled.</p>
+</div>
+<p>Now if we repeat this process, and instead use something like Microsoft Authenticator for passwordless (phone sign-in), we will go right into our application:</p>
+<p><img alt="Figure 13" src="/images/2022/10/05/img13.png" /></p>
+<p>And what happens if our user does not have a FIDO2 security key, is not on a machine with Windows Hello for Business, and does not have Microsoft Authenticator passwordless (phone sign-in) enabled?</p>
+<p>If the authentication strength policy is applied to all resources, the user will get stuck in an endless loop of trying to enroll a stronger form of authentication:</p>
+<p><img alt="Figure 14" src="/images/2022/10/05/img14.png" /></p>
+<p>Now this behavior, from a security standpoint, is not necessarily bad. However, from an end-user perspective it’s something to watch out for.</p>
+<p>If you’re using a Temporary Access Pass (TAP) and accessing https://aka.ms/mysecurityinfo to enroll in strong authentication, that does satisfy the policy.</p>
+<h2 id="phishing-resistant-multifactor-authentication">Phishing-resistant multifactor authentication</h2>
+<p>Finally, we’ll turn the dial all the way up, to phishing-resistant MFA:</p>
+<p><img alt="Figure 15" src="/images/2022/10/05/img15.png" /></p>
+<p>Using our FIDO2 security key, we are able to access our resources without issue:</p>
+<p><img alt="Figure 16" src="/images/2022/10/05/img16.png" /></p>
+<p>And if we attempt to use our password:</p>
+<p><img alt="Figure 17" src="/images/2022/10/05/img17.png" /></p>
+<p>We are prompted to use a security key:</p>
+<p><img alt="Figure 18" src="/images/2022/10/05/img18.png" /></p>
+<p>Now if our user doesn’t have a FIDO2 security key enrolled or is not accessing the resource from a device using Windows Hello for Business, they again will get stuck in an endless enrollment loop if the policy is applied to all resources.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Windows Hello for Business, FIDO2 security keys, and certificate-based authentication are the only mechanisms considered phishing-resistant within Azure AD.</p>
+</div>
+<h2 id="some-odd-behavior">Some odd behavior</h2>
+<p>In my testing, I happened upon that require authentication strength does not seem to play well with other grant controls. My test policy had been configured previously to Require one of the selected controls, effectively an OR situation, between Require multifactor authentication or Require device to be marked as compliant:</p>
+<p><img alt="Figure 19" src="/images/2022/10/05/img19.png" /></p>
+<p>When testing, and switching to use this new setting, I found that the policy effectively turned into a device compliance required policy – before even being able to attempt MFA, I was presented with an error due to lack of device compliance:</p>
+<p><img alt="Figure 20" src="/images/2022/10/05/img20.png" /></p>
+<p>I’ve reached out to Microsoft about this behavior, but it just leaves a bit of a cautionary tale to ensure that you selectively test who you are applying these policy changes to. When I find out more information, I’ll update this article. While this one specific case could be worked around by excluding compliant devices as a condition instead of a control, many organizations may still be using device compliance grant controls due to the feature having existed longer.</p>
+<h2 id="final-thoughts-and-notes">Final thoughts and notes</h2>
+<p>With this new setting for granular control of authentication strength, we can finally do things in our tenant such as (only a few initial thoughts):</p>
+<ul>
+<li>Require privileged users to have to use a phishing-resistant form of MFA</li>
+<li>In organizations such as higher-ed, restrict faculty and staff to stronger authentication while allowing students to continue to use weaker forms of MFA (as it required many times)</li>
+<li>Potentially have other avenues to restrict the ability to enroll other forms of MFA only from strong forms of MFA</li>
+</ul>
+<p>Because this is only limiting the options used during authentication, this will not prevent a privileged user from enrolling in a weaker form of MFA, such as SMS. They’ll just never necessarily be permitted to leverage that.</p>
+<p>Also, as I’ve found in testing, you’ll want to test these new settings thoroughly, to ensure that you aren’t creating scenarios for your end users where they can’t enroll in stronger authentication, and subsequently get stuck in a proof-up loop. Applying this new grant control across all users, for all applications, is likely too broad of a policy for the majority of organizations, unless you are certain about your existing passwordless usage. There’s nothing like a few hiccups with an authentication change in an organization to completely stall any progress.</p>
+<p>I still have more testing I want to do – exploring what this looks like with external users and cross-tenant access settings. And there is the ability to create custom authentication strengths as well, which is ripe with granularity for all sorts of custom authentication strength. In all the testing of the different permutations, and a few setbacks from unexpected behavior, this article took longer than initially thought to craft.</p>
+<p>End of the day, this is still a great step forward to ensuring that strong authentication is used when it matters within tenants. Can’t wait to see Global Admins voluntarily applying these policies to themselves. Just don’t forget to exclude those break-glass accounts.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.path", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": {"NFC": "nfc"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

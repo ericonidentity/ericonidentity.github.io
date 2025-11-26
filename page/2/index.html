@@ -1115,6 +1115,130 @@ isaiah@Azure:~$
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-10-05 00:00:00+00:00">October 5, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-new-controls-for-authentication-strength"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/">Azure AD: New Controls For Authentication Strength</a></h2>
+<p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
+<p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
+<h3 id="the-prior-state-of-azure-ad-mfa"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#the-prior-state-of-azure-ad-mfa">The prior state of Azure AD MFA</a></h3>
+<p>Within the Grant Control section of a Conditional Access policy, we’ve always had the <strong>Require multifactor authentication</strong> control, which enforced MFA. But up until now, we never had the ability to specify what that level could be – if a user in a tenant has a FIDO2 security key, but also is registered for SMS text, they could use either that security key or their password and SMS text for MFA. In many tenants it’s always practical to try and restrict users from using weaker forms of MFA, especially at times when they may need to use that to bootstrap themselves into stronger authentication methods such as passwordless. And since this is a tenant-wide setting, we have had the historical issue where we couldn’t say enforce stronger forms of authentication for privileged accounts, such as Global Admins.</p>
+<h3 id="require-authentication-strength"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#require-authentication-strength">Require authentication strength</a></h3>
+<p>Within Grant Controls, we now have a new option, <strong>Require authentication strength</strong>. When we select this dropdown, we see that we have the following options available:</p>
+<ul>
+<li>Multifactor authentication – Combinations of methods that satisfy strong authentication such as Password + SMS</li>
+<li>Passwordless multifactor authentication – Passwordless methods that satisfy strong authentication, such as Microsoft Authenticator</li>
+<li>Phishing-resistant multifactor authentication – Phishing-resistant Passwordless methods for the strongest authentication, such as FIDO2 Security Key</li>
+</ul>
+<p><img alt="Figure 1" src="/images/2022/10/05/img1.png" /></p>
+<p>We also have the ability to define custom authentications strengths in Azure AD, which we can find under Security -&gt; Authentication Methods -&gt; Authentication Strengths (Preview).</p>
+<p><img alt="Figure 2" src="/images/2022/10/05/img2.png" /></p>
+<p>And if we look at the details, this opens up a whole world of options for us:</p>
+<p><img alt="Figure 3" src="/images/2022/10/05/img3.png" /></p>
+<p>First, let us examine the out-of-the-box options.</p>
+<h4 id="multifactor-authentication"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#multifactor-authentication">Multifactor authentication</a></h4>
+<p>The lowest denominator for MFA, this setting should be parity to the <strong>Require multifactor authentication</strong> setting that we’ve had available for as long as Conditional Access has existed.</p>
+<p>We can examine this by changing an existing policy from Require multifactor authentication to Require authentication strength and selecting Multifactor authentication.</p>
+<p>As a baseline, lets first look at what our Azure AD logs show us in the current state, with Require multifactor authentication enabled:</p>
+<p><img alt="Figure 4" src="/images/2022/10/05/img4.png" /></p>
+<p>And if we look at the Conditional Access Policy details:</p>
+<p><img alt="Figure 5" src="/images/2022/10/05/img5.png" /></p>
+<p>Now let’s change our policy to use the <strong>require authentication strength</strong> setting with <strong>multifactor authentication</strong> selected:</p>
+<p><img alt="Figure 6" src="/images/2022/10/05/img6.png" /></p>
+<p><em>Switching to the new MFA setting</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Require multifactor authentication and Require authentication strength are mutually exclusive, as they both enforce multifactor. Enabling one will disable the ability to use the other within the same Conditional Access Policy.</p>
+</div>
+<p>After we authenticate, the sign-in log looks the same:</p>
+<p><img alt="Figure 7" src="/images/2022/10/05/img7.png" /></p>
+<p>However, if we examine the Conditional Access Policy details, we will see that we are satisfying for the new authentication strength grant control:</p>
+<p><img alt="Figure 8" src="/images/2022/10/05/img8.png" /></p>
+<h3 id="passwordless-multifactor-authentication"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#passwordless-multifactor-authentication">Passwordless multifactor authentication</a></h3>
+<p>Let’s kick the strength of the Conditional Access policy up:</p>
+<p><img alt="Figure 9" src="/images/2022/10/05/img9.png" /></p>
+<p>With things turned up, let’s first look at the behavior if we attempt to authenticate with a password anyway.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that Conditional Access evaluates <strong>after</strong> primary authentication, so our policies will not prevent a user from still attempting to perform password authentication.</p>
+</div>
+<p><img alt="Figure 10" src="/images/2022/10/05/img10.png" /></p>
+<p>We are then presented with another dialog, telling us that our organization requires additional sign in methods to access this resource:</p>
+<p><img alt="Figure 11" src="/images/2022/10/05/img11.png" /></p>
+<p>Now if we take a look at our Sign-in logs, we’ll see that the initial username/password auth occurs, as well as passwordless to satisfy MFA requirements:</p>
+<p><img alt="Figure 12" src="/images/2022/10/05/img12.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Microsoft Authenticator passwordless (phone sign-in) <strong>is not phishing-resistant</strong>. Because of this, the Passwordless MFA setting really does not have any advantage over push notifications for MFA with number matching enabled.</p>
+</div>
+<p>Now if we repeat this process, and instead use something like Microsoft Authenticator for passwordless (phone sign-in), we will go right into our application:</p>
+<p><img alt="Figure 13" src="/images/2022/10/05/img13.png" /></p>
+<p>And what happens if our user does not have a FIDO2 security key, is not on a machine with Windows Hello for Business, and does not have Microsoft Authenticator passwordless (phone sign-in) enabled?</p>
+<p>If the authentication strength policy is applied to all resources, the user will get stuck in an endless loop of trying to enroll a stronger form of authentication:</p>
+<p><img alt="Figure 14" src="/images/2022/10/05/img14.png" /></p>
+<p>Now this behavior, from a security standpoint, is not necessarily bad. However, from an end-user perspective it’s something to watch out for.</p>
+<p>If you’re using a Temporary Access Pass (TAP) and accessing https://aka.ms/mysecurityinfo to enroll in strong authentication, that does satisfy the policy.</p>
+<h3 id="phishing-resistant-multifactor-authentication"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#phishing-resistant-multifactor-authentication">Phishing-resistant multifactor authentication</a></h3>
+<p>Finally, we’ll turn the dial all the way up, to phishing-resistant MFA:</p>
+<p><img alt="Figure 15" src="/images/2022/10/05/img15.png" /></p>
+<p>Using our FIDO2 security key, we are able to access our resources without issue:</p>
+<p><img alt="Figure 16" src="/images/2022/10/05/img16.png" /></p>
+<p>And if we attempt to use our password:</p>
+<p><img alt="Figure 17" src="/images/2022/10/05/img17.png" /></p>
+<p>We are prompted to use a security key:</p>
+<p><img alt="Figure 18" src="/images/2022/10/05/img18.png" /></p>
+<p>Now if our user doesn’t have a FIDO2 security key enrolled or is not accessing the resource from a device using Windows Hello for Business, they again will get stuck in an endless enrollment loop if the policy is applied to all resources.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Windows Hello for Business, FIDO2 security keys, and certificate-based authentication are the only mechanisms considered phishing-resistant within Azure AD.</p>
+</div>
+<h3 id="some-odd-behavior"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#some-odd-behavior">Some odd behavior</a></h3>
+<p>In my testing, I happened upon that require authentication strength does not seem to play well with other grant controls. My test policy had been configured previously to Require one of the selected controls, effectively an OR situation, between Require multifactor authentication or Require device to be marked as compliant:</p>
+<p><img alt="Figure 19" src="/images/2022/10/05/img19.png" /></p>
+<p>When testing, and switching to use this new setting, I found that the policy effectively turned into a device compliance required policy – before even being able to attempt MFA, I was presented with an error due to lack of device compliance:</p>
+<p><img alt="Figure 20" src="/images/2022/10/05/img20.png" /></p>
+<p>I’ve reached out to Microsoft about this behavior, but it just leaves a bit of a cautionary tale to ensure that you selectively test who you are applying these policy changes to. When I find out more information, I’ll update this article. While this one specific case could be worked around by excluding compliant devices as a condition instead of a control, many organizations may still be using device compliance grant controls due to the feature having existed longer.</p>
+<h3 id="final-thoughts-and-notes"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/#final-thoughts-and-notes">Final thoughts and notes</a></h3>
+<p>With this new setting for granular control of authentication strength, we can finally do things in our tenant such as (only a few initial thoughts):</p>
+<ul>
+<li>Require privileged users to have to use a phishing-resistant form of MFA</li>
+<li>In organizations such as higher-ed, restrict faculty and staff to stronger authentication while allowing students to continue to use weaker forms of MFA (as it required many times)</li>
+<li>Potentially have other avenues to restrict the ability to enroll other forms of MFA only from strong forms of MFA</li>
+</ul>
+<p>Because this is only limiting the options used during authentication, this will not prevent a privileged user from enrolling in a weaker form of MFA, such as SMS. They’ll just never necessarily be permitted to leverage that.</p>
+<p>Also, as I’ve found in testing, you’ll want to test these new settings thoroughly, to ensure that you aren’t creating scenarios for your end users where they can’t enroll in stronger authentication, and subsequently get stuck in a proof-up loop. Applying this new grant control across all users, for all applications, is likely too broad of a policy for the majority of organizations, unless you are certain about your existing passwordless usage. There’s nothing like a few hiccups with an authentication change in an organization to completely stall any progress.</p>
+<p>I still have more testing I want to do – exploring what this looks like with external users and cross-tenant access settings. And there is the ability to create custom authentication strengths as well, which is ripe with granularity for all sorts of custom authentication strength. In all the testing of the different permutations, and a few setbacks from unexpected behavior, this article took longer than initially thought to craft.</p>
+<p>End of the day, this is still a great step forward to ensuring that strong authentication is used when it matters within tenants. Can’t wait to see Global Admins voluntarily applying these policies to themselves. Just don’t forget to exclude those break-glass accounts.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-08-09 00:00:00+00:00">August 9, 2022</time></li>
         
         
@@ -1470,126 +1594,6 @@ isaiah@Azure:~$
 <p>The MS Docs articles indicate that Seamless SSO is not supported with federated identity, and I’ve never tried to see what happens if you force it via PowerShell module – but would presume you run into conflicts with overlap in how Azure AD handles hints for bypassing username entry for Seamless SSO and how Azure AD handles hints for bypassing username entry for federated auth.</p>
 <h4 id="what-about-azure-ad-join"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#what-about-azure-ad-join">What about Azure AD join?</a></h4>
 <p>Azure AD Join (AADJ) should be the long-term goal for organizations, going cloud native and removing their clients dependency on Active Directory. Under the hood, the mechanics of authentication for AADJ are <strong>just</strong> the bits that give you that Azure AD PRT, and Azure AD is now the authoritative identity provider for those clients. For many organizations, it tends to be client management and group policies that lend the most complexity in going cloud native, even though it is the future, so now is as good as ever to start a pilot down that road while you continue to support existing clients with Hybrid Azure AD Join.</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-05-04 00:00:00+00:00">May 4, 2022</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              7 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="world-password-day"><a class="toclink" href="../../2022/05/04/world-password-day/">World Password Day</a></h2>
-<p>Forget passwords. Passwords are garbage. To celebrate World Password Day, I’m curating blog articles that can help organizations on their passwordless journey.</p>
-<p>While much of the Microsoft documentation on passwordless is quite good, it can tend to be overwhelming at times; the hope is to give you some great leads on some clear, step-by-step instructions on how to get you from a password-filled to a passwordless world in Active Directory and Azure AD.</p>
-<p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as AD FS and using smartcards, or has DC’s older than 2016, you have a bunch of Macs in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
-<p>If you want to dive further into why this is so important, I’ll refer you to these two blog articles from Alex Weinert [<a href="https://twitter.com/Alex_T_Weinert">@Alex_T_Weinert</a>], the Director of Identity Security at Microsoft.</p>
-<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/your-pa-word-doesn-t-matter/ba-p/731984">Your Pa$$word doesn’t matter – Microsoft Tech Community</a> – Alex discusses why MFA is so important.</p>
-<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/all-your-creds-are-belong-to-us/ba-p/855124">All your creds are belong to us! – Microsoft Tech Community</a> – Alex discusses why passwordless strong authentication is important and shows why more common forms of MFA are still phishable.</p>
-<p>See something missing? Still have questions? Not sure how the underlying technology works? Reach out to me.</p>
-<p>And if you are a fellow Microsoft blogger who thinks their article would be a good fit, but it’s not on here? Reach out and I’ll update accordingly.</p>
-<h3 id="but-i-havent-started-the-passwordless-journey-yet"><a class="toclink" href="../../2022/05/04/world-password-day/#but-i-havent-started-the-passwordless-journey-yet">But I haven't started the passwordless journey yet</a></h3>
-<p>You aren’t alone. Many organizations find it difficult to fit yet another new project onto the docket.</p>
-<p>The thing about passwordless – while it may be a journey, it’s also one of the easiest journeys to start. All major mechanisms of passwordless – Windows Hello for Business (WHfB), FIDO2 security keys, Authenticator App for primary authentication, and smartcards – they all can be implemented in a wave/phase/ring (pick your favorite descriptor) approach. And the underlying directory &amp; infrastructure changes (if any) can be implemented in a non-disruptive manner.</p>
-<p>Can’t get the whole organization onboard? That’s ok, x% is better than 0%.</p>
-<p>Don’t have biometrics on all your devices? WHfB has PIN support.</p>
-<p>End-users not wanting to MDM enroll their devices? Authenticator App only requires Device Registration.</p>
-<p>FIDO2 feel odd or uncomfortable? It’s essentially modern smartcards.</p>
-<p>Have some applications that still use legacy means of authentication? Most organizations do, but we can minimize the need to use passwords beyond them.</p>
-<p>Concerned users may still use their password because you can’t fully get rid of it? When we give users an easier passwordless experience, they will not opt for something more complex. Users love easy things.</p>
-<p>When talking about the security of identity, the <strong>most important thing</strong> we can all do is <strong>change our mindset</strong>. Instead of focusing on the possibility that a single solution may not cover 100% of user personas, we need to focus on whatever percentage we <strong>can</strong> cover, which will <strong>reduce</strong> the <strong>password attack surface</strong> immensely for those users, and our organization.</p>
-<h3 id="authenticator-app-for-primary-authentication"><a class="toclink" href="../../2022/05/04/world-password-day/#authenticator-app-for-primary-authentication">Authenticator App for primary authentication</a></h3>
-<p><strong>Infrastructure effort: 5-10 minutes</strong>
-<strong>End user enrollment effort: 5-10 minutes</strong>
-<strong>Can be rolled out selectively: Yes</strong>
-<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
-<p>Lots of folks might be familiar with the Microsoft Authenticator App, but did you know you can use it for passwordless authentication? You can. It’s great for when users need to be passwordless when accessing company resources from a mobile device, or when they are on the go and need to auth through a web browser.</p>
-<p>Jason Samuel [<a href="https://twitter.com/_JasonSamuel">@_JasonSamuel</a>] has a good write-up here covering enablement. He also gets into Citrix Workspace stuff, but even if you don’t have Citrix in your environment, the other parts are written straightforward:</p>
-<p><a href="https://www.jasonsamuel.com/2019/03/04/how-to-setup-password-less-phone-sign-in-authentication-with-microsoft-authenticator-azure-ad-and-citrix-workspace/">How to setup password-less phone sign-in authentication with Microsoft Authenticator, Azure AD, and Citrix Workspace – JasonSamuel.com</a></p>
-<p>Microsoft Docs article for reference can be found here:</p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone">Passwordless sign-in with the Microsoft Authenticator app – Azure Active Directory | Microsoft Docs</a></p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>If you are also using the number matching preview for Authenticator App push notifications, the passwordless configuration is covered under the same settings in Azure AD. If you are using groups to selectively roll out these settings, I cover targeting groups here:</p>
-<p><a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a></p>
-</div>
-<h3 id="fido2-security-keys"><a class="toclink" href="../../2022/05/04/world-password-day/#fido2-security-keys">FIDO2 Security Keys</a></h3>
-<p><strong>Infrastructure effort: 20 minutes for AADJ devices. 40 minutes for HAADJ devices.</strong>
-<strong>End user enrollment effort: 5-10 minutes</strong>
-<strong>Can be rolled out selectively: Yes</strong>
-<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
-<p>FIDO2 security keys are the latest and greatest thing – it’s based on asymmetric cryptography – what we generally refer to as certificates (even though a key is a piece within a certificate).</p>
-<p>Many organizations that have never operated in a highly secure environment where smartcards are prevalent may find the idea of a device containing a certificate for authentication seeming a bit odd. But we should look at FIDO2 security keys as smartcard 2.0 – it’s all the great security features of smartcards, but packed and managed in a way that makes it easier to manage from both the IT and end-user side.</p>
-<p>For a great deep dive on how FIDO2 works, look at this article by Dominik Hoefling [<a href="https://twitter.com/DominikHoefling">@DominikHoefling</a>]:</p>
-<p><a href="https://practical365.com/understanding-how-fido-makes-passwordless-authentication-possible/">Understanding How FIDO Makes Passwordless Authentication Possible (practical365.com)</a></p>
-<p>To see how to configure your environment to support FIDO2 for Azure AD Joined devices, Peter Klapwijk [<a href="https://twitter.com/inthecloud_247">@inthecloud_247</a>] has us covered. He uses Feitian keys but any supported FIDO2 key will work:</p>
-<p><a href="https://www.inthecloud247.com/enable-passwordless-authentication-to-windows-10-with-feitian-security-keys/">Enable passwordless authentication to Windows 10 with Feitian security keys | (inthecloud247.com)</a></p>
-<p>Peter also has a great article covering the same, but for Hybrid Azure AD Join:</p>
-<p><a href="https://www.inthecloud247.com/enable-passwordless-security-key-sign-in-in-hybrid-azure-active-directory-environments/">Enable passwordless security key sign-in in Hybrid Azure Active Directory environments | (inthecloud247.com)</a></p>
-<p>Microsoft Docs articles for reference can be found here:</p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key">Passwordless security key sign-in – Azure Active Directory | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-windows">Passwordless security key sign-in Windows – Azure Active Directory | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a></p>
-<h3 id="windows-hello-for-business"><a class="toclink" href="../../2022/05/04/world-password-day/#windows-hello-for-business">Windows Hello for Business</a></h3>
-<p><strong>Infrastructure effort: 20 minutes [Azure AD Join Cloud Trust], 1-2 hours [Hybrid Cloud Trust], 2 hours-3 days [Hybrid Key Trust]</strong>
-<strong>End user enrollment effort: 2-5 minutes (plus 30-60 usability delay for Hybrid Key Trust)</strong>
-<strong>Can be rolled out selectively: Yes</strong>
-<strong>Can be enabled on an end user without forcing them to enroll: No</strong>
-<em>There are mechanisms that can delay end-user enrollment, but the complexity usually is not worth the effort</em></p>
-<p>Windows Hello for Business. It’s like Face ID, for Windows. Or is Face ID like Windows Hello for Business, but for iOS??</p>
-<p>If you don’t have a fancy camera, it also works with your fingerprint. And if you have no fancy biometric thingies, you can use it with just a PIN. But wait, isn’t a PIN the same as a password? <strong>NO</strong>. The PIN is entropy to unlock the key/certificate that is stored on the TPM chipset on your device. It’s never emitted beyond the device. And yes, you always must create a PIN – the same way you always must create a PIN for mobile devices as backup for biometric… just in case.</p>
-<p>Also – if you are rolling out Hybrid Key Trust, you <strong>do not, I repeat, do not, need any premium licenses</strong>. The issue many organizations have theoretically faced is that to enroll in WHfB, you hit the part where you need to perform MFA, and organizations that do not have P1+/EMS E3+/M365 E3+ (and the variants) believe that they cannot use MFA. That is not the case. You need premium licensing when certain things are calling for MFA – such as per-user enablement (which is an O365 license thing), or more commonly thought of, conditional access. When Azure AD calls for MFA for WHfB enrollment, that MFA call is <strong>free</strong>. Considering that security defaults, which are also free, call for MFA potentially, this should be less of a concern. But it’s always been a huge point of confusion. I learned about this in excruciating detail when I worked at Microsoft, rolling out WHfB with customers. Based on what I can gather regarding Hybrid Cloud Trust, I would say the case is the same. /endrant</p>
-<p>If you have Azure AD Joined devices and are looking to go cloud-only, Janusz Gal [<a href="https://twitter.com/JanuszGal">@JanuszGal</a>] has you covered with his article here:</p>
-<p><a href="https://deviceadvice.io/2020/06/22/how-to-set-up-windows-hello-for-business-for-cloud-only-devices/">How to set up Windows Hello for Business for cloud-only devices – Device Advice</a></p>
-<p>If you want to ensure that those devices can still reach Active Directory based resources, look no further than this article by Ben Whitmore [<a href="https://twitter.com/byteben">@byteben</a>] and Michael Mardahl [<a href="https://twitter.com/michael_mardahl?lang=en">@michael_mardahl</a>]:</p>
-<p><a href="https://msendpointmgr.com/2021/08/15/sso-to-domain-resources-from-azure-ad-joined-devices-the-mega-series/">SSO to domain resources from Azure AD Joined Devices – The MEGA Series – Part 1 – Overview – MSEndpointMgr</a></p>
-<p>For rolling out what previously was (and technically still is, because Cloud Trust is in Public Preview) the recommended path for hybrid devices, Hybrid Key Trust, check out this article by Brooks Peppin [<a href="https://twitter.com/brookspeppin">@brookspeppin</a>]:</p>
-<p><a href="https://www.brookspeppin.com/2021/08/13/how-to-setup-windows-hello-for-business-key-trust-method/">How to Setup Windows Hello for Business (Key-Trust Method!) – Brooks Peppin’s Blog</a></p>
-<p>For what will eventually become the recommended path for hybrid devices, Hybrid Cloud Trust, see this article by Pim Jacobs [<a href="https://twitter.com/pimjacobs89">@pimjacobs89</a>]:</p>
-<p><a href="https://identity-man.eu/2022/02/17/improving-your-windows-hello-for-business-hybrid-password-less-setup-by-using-cloud-trust/">Improving your Windows Hello for Business Hybrid Password less setup by using Cloud Trust – Identity Man (identity-man.eu)</a></p>
-<p>If you are curious what it looks like to convert from Hybrid Key Trust to Hybrid Cloud Trust, check out my article:</p>
-<p><a href="https://ericonidentity.com/2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">Windows Hello for Business: Hybrid Cloud Trust – Eric on Identity</a></p>
-<p>And if you are far enough down the passwordless road that you want to take them away from end users, then check out this article I wrote:</p>
-<p><a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a></p>
-<p>Microsoft Docs articles for reference can be found here:</p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-aad-join-cloud-only-deploy">Azure Active Directory join cloud only deployment – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-trust">Hybrid Cloud Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-key-trust">Hybrid Key Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cert-trust">Hybrid Certificate Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-aadj-sso">Azure AD Join Single Sign-on Deployment – Windows security | Microsoft Docs</a></p>
-<h3 id="some-great-additional-resources"><a class="toclink" href="../../2022/05/04/world-password-day/#some-great-additional-resources">Some great additional resources</a></h3>
-<p>Fabian Bader [<a href="https://twitter.com/fabian_bader">@fabian_bader</a>] has a long series on passwordless:</p>
-<p><a href="https://cloudbrothers.info/en/categories/passwordless/">Passwordless – Category – Cloudbrothers</a></p>
-<p>Jan Bakker [<a href="https://twitter.com/janbakker_">@janbakker_</a>] has some quality articles covering FIDO2:</p>
-<p><a href="https://janbakker.tech/?s=fido">FIDO – JanBakker.tech</a></p>
-<p>Harri Jaakkonen[<a href="https://twitter.com/HarriJaakkonen">@HarriJaakkonen</a>] is constantly putting out new articles, and lots that cover passwordless:</p>
-<p><a href="https://www.cloudpartner.fi/?s=passwordless">Set-AzWebApp -name “Anything Microsoft and other stuff on the side” (cloudpartner.fi)</a></p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/05/04/world-password-day/#final-notes">Final notes</a></h3>
-<p>Passwords will eventually have an expiration date. It’s better to start the journey away from them now, than get caught behind the ball down the road.</p>
     
   </div>
 </article>

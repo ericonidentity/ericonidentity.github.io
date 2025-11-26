@@ -457,6 +457,126 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-05-04 00:00:00+00:00">May 4, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="world-password-day"><a class="toclink" href="../../2022/05/04/world-password-day/">World Password Day</a></h2>
+<p>Forget passwords. Passwords are garbage. To celebrate World Password Day, I’m curating blog articles that can help organizations on their passwordless journey.</p>
+<p>While much of the Microsoft documentation on passwordless is quite good, it can tend to be overwhelming at times; the hope is to give you some great leads on some clear, step-by-step instructions on how to get you from a password-filled to a passwordless world in Active Directory and Azure AD.</p>
+<p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as AD FS and using smartcards, or has DC’s older than 2016, you have a bunch of Macs in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
+<p>If you want to dive further into why this is so important, I’ll refer you to these two blog articles from Alex Weinert [<a href="https://twitter.com/Alex_T_Weinert">@Alex_T_Weinert</a>], the Director of Identity Security at Microsoft.</p>
+<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/your-pa-word-doesn-t-matter/ba-p/731984">Your Pa$$word doesn’t matter – Microsoft Tech Community</a> – Alex discusses why MFA is so important.</p>
+<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/all-your-creds-are-belong-to-us/ba-p/855124">All your creds are belong to us! – Microsoft Tech Community</a> – Alex discusses why passwordless strong authentication is important and shows why more common forms of MFA are still phishable.</p>
+<p>See something missing? Still have questions? Not sure how the underlying technology works? Reach out to me.</p>
+<p>And if you are a fellow Microsoft blogger who thinks their article would be a good fit, but it’s not on here? Reach out and I’ll update accordingly.</p>
+<h3 id="but-i-havent-started-the-passwordless-journey-yet"><a class="toclink" href="../../2022/05/04/world-password-day/#but-i-havent-started-the-passwordless-journey-yet">But I haven't started the passwordless journey yet</a></h3>
+<p>You aren’t alone. Many organizations find it difficult to fit yet another new project onto the docket.</p>
+<p>The thing about passwordless – while it may be a journey, it’s also one of the easiest journeys to start. All major mechanisms of passwordless – Windows Hello for Business (WHfB), FIDO2 security keys, Authenticator App for primary authentication, and smartcards – they all can be implemented in a wave/phase/ring (pick your favorite descriptor) approach. And the underlying directory &amp; infrastructure changes (if any) can be implemented in a non-disruptive manner.</p>
+<p>Can’t get the whole organization onboard? That’s ok, x% is better than 0%.</p>
+<p>Don’t have biometrics on all your devices? WHfB has PIN support.</p>
+<p>End-users not wanting to MDM enroll their devices? Authenticator App only requires Device Registration.</p>
+<p>FIDO2 feel odd or uncomfortable? It’s essentially modern smartcards.</p>
+<p>Have some applications that still use legacy means of authentication? Most organizations do, but we can minimize the need to use passwords beyond them.</p>
+<p>Concerned users may still use their password because you can’t fully get rid of it? When we give users an easier passwordless experience, they will not opt for something more complex. Users love easy things.</p>
+<p>When talking about the security of identity, the <strong>most important thing</strong> we can all do is <strong>change our mindset</strong>. Instead of focusing on the possibility that a single solution may not cover 100% of user personas, we need to focus on whatever percentage we <strong>can</strong> cover, which will <strong>reduce</strong> the <strong>password attack surface</strong> immensely for those users, and our organization.</p>
+<h3 id="authenticator-app-for-primary-authentication"><a class="toclink" href="../../2022/05/04/world-password-day/#authenticator-app-for-primary-authentication">Authenticator App for primary authentication</a></h3>
+<p><strong>Infrastructure effort: 5-10 minutes</strong>
+<strong>End user enrollment effort: 5-10 minutes</strong>
+<strong>Can be rolled out selectively: Yes</strong>
+<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
+<p>Lots of folks might be familiar with the Microsoft Authenticator App, but did you know you can use it for passwordless authentication? You can. It’s great for when users need to be passwordless when accessing company resources from a mobile device, or when they are on the go and need to auth through a web browser.</p>
+<p>Jason Samuel [<a href="https://twitter.com/_JasonSamuel">@_JasonSamuel</a>] has a good write-up here covering enablement. He also gets into Citrix Workspace stuff, but even if you don’t have Citrix in your environment, the other parts are written straightforward:</p>
+<p><a href="https://www.jasonsamuel.com/2019/03/04/how-to-setup-password-less-phone-sign-in-authentication-with-microsoft-authenticator-azure-ad-and-citrix-workspace/">How to setup password-less phone sign-in authentication with Microsoft Authenticator, Azure AD, and Citrix Workspace – JasonSamuel.com</a></p>
+<p>Microsoft Docs article for reference can be found here:</p>
+<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone">Passwordless sign-in with the Microsoft Authenticator app – Azure Active Directory | Microsoft Docs</a></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If you are also using the number matching preview for Authenticator App push notifications, the passwordless configuration is covered under the same settings in Azure AD. If you are using groups to selectively roll out these settings, I cover targeting groups here:</p>
+<p><a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a></p>
+</div>
+<h3 id="fido2-security-keys"><a class="toclink" href="../../2022/05/04/world-password-day/#fido2-security-keys">FIDO2 Security Keys</a></h3>
+<p><strong>Infrastructure effort: 20 minutes for AADJ devices. 40 minutes for HAADJ devices.</strong>
+<strong>End user enrollment effort: 5-10 minutes</strong>
+<strong>Can be rolled out selectively: Yes</strong>
+<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
+<p>FIDO2 security keys are the latest and greatest thing – it’s based on asymmetric cryptography – what we generally refer to as certificates (even though a key is a piece within a certificate).</p>
+<p>Many organizations that have never operated in a highly secure environment where smartcards are prevalent may find the idea of a device containing a certificate for authentication seeming a bit odd. But we should look at FIDO2 security keys as smartcard 2.0 – it’s all the great security features of smartcards, but packed and managed in a way that makes it easier to manage from both the IT and end-user side.</p>
+<p>For a great deep dive on how FIDO2 works, look at this article by Dominik Hoefling [<a href="https://twitter.com/DominikHoefling">@DominikHoefling</a>]:</p>
+<p><a href="https://practical365.com/understanding-how-fido-makes-passwordless-authentication-possible/">Understanding How FIDO Makes Passwordless Authentication Possible (practical365.com)</a></p>
+<p>To see how to configure your environment to support FIDO2 for Azure AD Joined devices, Peter Klapwijk [<a href="https://twitter.com/inthecloud_247">@inthecloud_247</a>] has us covered. He uses Feitian keys but any supported FIDO2 key will work:</p>
+<p><a href="https://www.inthecloud247.com/enable-passwordless-authentication-to-windows-10-with-feitian-security-keys/">Enable passwordless authentication to Windows 10 with Feitian security keys | (inthecloud247.com)</a></p>
+<p>Peter also has a great article covering the same, but for Hybrid Azure AD Join:</p>
+<p><a href="https://www.inthecloud247.com/enable-passwordless-security-key-sign-in-in-hybrid-azure-active-directory-environments/">Enable passwordless security key sign-in in Hybrid Azure Active Directory environments | (inthecloud247.com)</a></p>
+<p>Microsoft Docs articles for reference can be found here:</p>
+<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key">Passwordless security key sign-in – Azure Active Directory | Microsoft Docs</a></p>
+<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-windows">Passwordless security key sign-in Windows – Azure Active Directory | Microsoft Docs</a></p>
+<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a></p>
+<h3 id="windows-hello-for-business"><a class="toclink" href="../../2022/05/04/world-password-day/#windows-hello-for-business">Windows Hello for Business</a></h3>
+<p><strong>Infrastructure effort: 20 minutes [Azure AD Join Cloud Trust], 1-2 hours [Hybrid Cloud Trust], 2 hours-3 days [Hybrid Key Trust]</strong>
+<strong>End user enrollment effort: 2-5 minutes (plus 30-60 usability delay for Hybrid Key Trust)</strong>
+<strong>Can be rolled out selectively: Yes</strong>
+<strong>Can be enabled on an end user without forcing them to enroll: No</strong>
+<em>There are mechanisms that can delay end-user enrollment, but the complexity usually is not worth the effort</em></p>
+<p>Windows Hello for Business. It’s like Face ID, for Windows. Or is Face ID like Windows Hello for Business, but for iOS??</p>
+<p>If you don’t have a fancy camera, it also works with your fingerprint. And if you have no fancy biometric thingies, you can use it with just a PIN. But wait, isn’t a PIN the same as a password? <strong>NO</strong>. The PIN is entropy to unlock the key/certificate that is stored on the TPM chipset on your device. It’s never emitted beyond the device. And yes, you always must create a PIN – the same way you always must create a PIN for mobile devices as backup for biometric… just in case.</p>
+<p>Also – if you are rolling out Hybrid Key Trust, you <strong>do not, I repeat, do not, need any premium licenses</strong>. The issue many organizations have theoretically faced is that to enroll in WHfB, you hit the part where you need to perform MFA, and organizations that do not have P1+/EMS E3+/M365 E3+ (and the variants) believe that they cannot use MFA. That is not the case. You need premium licensing when certain things are calling for MFA – such as per-user enablement (which is an O365 license thing), or more commonly thought of, conditional access. When Azure AD calls for MFA for WHfB enrollment, that MFA call is <strong>free</strong>. Considering that security defaults, which are also free, call for MFA potentially, this should be less of a concern. But it’s always been a huge point of confusion. I learned about this in excruciating detail when I worked at Microsoft, rolling out WHfB with customers. Based on what I can gather regarding Hybrid Cloud Trust, I would say the case is the same. /endrant</p>
+<p>If you have Azure AD Joined devices and are looking to go cloud-only, Janusz Gal [<a href="https://twitter.com/JanuszGal">@JanuszGal</a>] has you covered with his article here:</p>
+<p><a href="https://deviceadvice.io/2020/06/22/how-to-set-up-windows-hello-for-business-for-cloud-only-devices/">How to set up Windows Hello for Business for cloud-only devices – Device Advice</a></p>
+<p>If you want to ensure that those devices can still reach Active Directory based resources, look no further than this article by Ben Whitmore [<a href="https://twitter.com/byteben">@byteben</a>] and Michael Mardahl [<a href="https://twitter.com/michael_mardahl?lang=en">@michael_mardahl</a>]:</p>
+<p><a href="https://msendpointmgr.com/2021/08/15/sso-to-domain-resources-from-azure-ad-joined-devices-the-mega-series/">SSO to domain resources from Azure AD Joined Devices – The MEGA Series – Part 1 – Overview – MSEndpointMgr</a></p>
+<p>For rolling out what previously was (and technically still is, because Cloud Trust is in Public Preview) the recommended path for hybrid devices, Hybrid Key Trust, check out this article by Brooks Peppin [<a href="https://twitter.com/brookspeppin">@brookspeppin</a>]:</p>
+<p><a href="https://www.brookspeppin.com/2021/08/13/how-to-setup-windows-hello-for-business-key-trust-method/">How to Setup Windows Hello for Business (Key-Trust Method!) – Brooks Peppin’s Blog</a></p>
+<p>For what will eventually become the recommended path for hybrid devices, Hybrid Cloud Trust, see this article by Pim Jacobs [<a href="https://twitter.com/pimjacobs89">@pimjacobs89</a>]:</p>
+<p><a href="https://identity-man.eu/2022/02/17/improving-your-windows-hello-for-business-hybrid-password-less-setup-by-using-cloud-trust/">Improving your Windows Hello for Business Hybrid Password less setup by using Cloud Trust – Identity Man (identity-man.eu)</a></p>
+<p>If you are curious what it looks like to convert from Hybrid Key Trust to Hybrid Cloud Trust, check out my article:</p>
+<p><a href="https://ericonidentity.com/2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">Windows Hello for Business: Hybrid Cloud Trust – Eric on Identity</a></p>
+<p>And if you are far enough down the passwordless road that you want to take them away from end users, then check out this article I wrote:</p>
+<p><a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a></p>
+<p>Microsoft Docs articles for reference can be found here:</p>
+<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-aad-join-cloud-only-deploy">Azure Active Directory join cloud only deployment – Windows security | Microsoft Docs</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-trust">Hybrid Cloud Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-key-trust">Hybrid Key Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cert-trust">Hybrid Certificate Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-aadj-sso">Azure AD Join Single Sign-on Deployment – Windows security | Microsoft Docs</a></p>
+<h3 id="some-great-additional-resources"><a class="toclink" href="../../2022/05/04/world-password-day/#some-great-additional-resources">Some great additional resources</a></h3>
+<p>Fabian Bader [<a href="https://twitter.com/fabian_bader">@fabian_bader</a>] has a long series on passwordless:</p>
+<p><a href="https://cloudbrothers.info/en/categories/passwordless/">Passwordless – Category – Cloudbrothers</a></p>
+<p>Jan Bakker [<a href="https://twitter.com/janbakker_">@janbakker_</a>] has some quality articles covering FIDO2:</p>
+<p><a href="https://janbakker.tech/?s=fido">FIDO – JanBakker.tech</a></p>
+<p>Harri Jaakkonen[<a href="https://twitter.com/HarriJaakkonen">@HarriJaakkonen</a>] is constantly putting out new articles, and lots that cover passwordless:</p>
+<p><a href="https://www.cloudpartner.fi/?s=passwordless">Set-AzWebApp -name “Anything Microsoft and other stuff on the side” (cloudpartner.fi)</a></p>
+<h3 id="final-notes"><a class="toclink" href="../../2022/05/04/world-password-day/#final-notes">Final notes</a></h3>
+<p>Passwords will eventually have an expiration date. It’s better to start the journey away from them now, than get caught behind the ball down the road.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-04-26 00:00:00+00:00">April 26, 2022</time></li>
         
         

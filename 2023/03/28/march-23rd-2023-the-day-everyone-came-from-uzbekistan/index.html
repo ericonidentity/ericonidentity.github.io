@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://new.ericonidentity.com/2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
+        <link rel="canonical" href="https://new.ericonidentity.com/2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">
       
       
-        <link rel="prev" href="../../06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
+        <link rel="prev" href="../../../02/13/the-importance-of-identity-in-microsoft-certifications/">
       
       
-        <link rel="next" href="../../../03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">
+        <link rel="next" href="../../../06/20/identiverse-2023-recap-and-highlights/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>The Importance Of Identity In Microsoft Certifications - Eric on Identity</title>
+        <title>March 23rd, 2023: The Day Everyone Came From Uzbekistan - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-importance-of-identity-in-microsoft-certifications" class="md-skip">
+        <a href="#march-23rd-2023-the-day-everyone-came-from-uzbekistan" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The Importance Of Identity In Microsoft Certifications
+              March 23rd, 2023: The Day Everyone Came From Uzbekistan
             
           </span>
         </div>
@@ -435,9 +435,96 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#analysis-details" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      Analysis details
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breaking-it-all-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breaking it all down
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Breaking it all down">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conditional-access-named-locations-and-countries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional access, named locations, and countries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-to-azure-ad" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication to Azure AD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#but-how-does-azure-ad-correlate-ip-addresses-to-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      But how does Azure AD correlate IP addresses to locations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-how-did-the-dataset-get-messed-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      So how did the dataset get messed up?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-much-more-common-example-of-geolocation-data-gone-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      A much more common example of Geolocation data gone wrong
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-updates-in-rings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying updates in rings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speaking-of-traffic-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speaking of traffic routing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-move-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to move forward
     </span>
   </a>
   
@@ -499,7 +586,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2023-02-13 00:00:00+00:00" class="md-ellipsis">February 13, 2023</time>
+                        <time datetime="2023-03-28 00:00:00+00:00" class="md-ellipsis">March 28, 2023</time>
                       </div>
                     </li>
                     
@@ -511,7 +598,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              7 min read
                             
                           </span>
                         </div>
@@ -535,46 +622,76 @@
 
 
 
-<h1 id="the-importance-of-identity-in-microsoft-certifications">The Importance Of Identity In Microsoft Certifications</h1>
-<p>As I’ve taken Microsoft certification exams, or the exam renewals, I’ve noticed that Azure AD and identity topics are a theme throughout. Now, focusing on the security space, it may seem like somewhat of a given.</p>
-<p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
-<p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
-<p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
-<p>With this data, I came up with the following infographic:</p>
-<p><img alt="Figure 1" src="/images/2023/02/13/img1.png" /></p>
-<p>The graphic above can be saved, and you can also download it as a PDF:</p>
-<p><a href="/images/2023/02/13/the-Importance-of-Identity-in-Microsoft-Certifications.pdf">the-Importance-of-Identity-in-Microsoft-Certifications</a></p>
-<h2 id="analysis-details">Analysis details</h2>
-<p>As mentioned, I looked at the content of <strong>every single</strong> current Microsoft examination study guides. The exception are the Microsoft Office exams, the Dynamics exams, and the outliers, like the Technology Literacy for Educators exam.</p>
-<p>The exam study guides contain a section <strong>Skills measured</strong>, and it breaks down the skills by a general category.</p>
-<p>For example, this is the skills measure section for AZ-500, Microsoft Azure Security Technologies:</p>
-<ul>
-<li>Manage identity and access (25-30%)</li>
-<li>Secure networking (25-30%)</li>
-<li>Secure compute, storage, and databases (20-25%)</li>
-<li>Manage security operations (25-30%)</li>
-</ul>
-<p>I would look at this and, in this instance, indicate that the AZ-500 has an identity component of 30%, as you can see within the infographic.</p>
-<p>For exams that are more unassuming, such as the MS-700, Managing Microsoft Teams, I would dive deeper into the skills that compose the category.</p>
-<p>If we look at this exam, we would see the following categories:</p>
-<ul>
-<li>Plan and manage a Microsoft Teams environment (40-45%)</li>
-<li>Manage chat, teams, channels, and apps (25-30%)</li>
-<li>Manage calling and meetings (15-20%)</li>
-<li>Monitor, report, and troubleshoot a Microsoft Teams environment (10-15%)</li>
-</ul>
-<p>Identity doesn’t seem to be present on this exam from the categories. But if we look at the subcategories of skills for <strong>Plan and Manage a Microsoft Teams environment</strong>:</p>
-<ul>
-<li>Plan and configure network settings for Microsoft Teams</li>
-<li>Identify licensing requirements for Microsoft Teams</li>
-<li>Manage security and compliance settings for Microsoft Teams</li>
-<li><strong>Plan and implement governance and lifecycle management</strong></li>
-<li><strong>Configure and manage external collaboration</strong></li>
-<li>Deploy and manage Microsoft Teams endpoints</li>
-</ul>
-<p>There are two, as highlighted, that have multiple Azure AD/Entra components to them, such as external collaboration settings, and using access reviews.</p>
-<p>In a case like this, since there are six subcategories, the best effort is estimating each has the same weight, so each having a weight of 7.5% in this example. However, because Azure AD does not fully compose each of these categories, I gave a weight based on the relative percentage. In this example, each of those had a rough weight of 5% of the 7.5% potential total, which is how I gave MS-700 a 10% total weight.</p>
-<p>Note that the math, especially on some of the exams with a lower portion of identity, will have a bit of fuzz to it. Microsoft indicates a 5% variation (range) that any skill category may make up an Individual exam. As such, you may see a few more, or less, identity-related questions on any given exam.</p>
+<h1 id="march-23rd-2023-the-day-everyone-came-from-uzbekistan">March 23rd, 2023: The Day Everyone Came From Uzbekistan</h1>
+<p>According to Wikipedia, Toshkent (or Tashkent) is the largest city in, as well as the capital of, Uzbekistan, a country located in Central Asia. The city sports a population of 2.9 million people.</p>
+<p>Except for March 23rd, 2023. The day that everyone came from Toshkent City, UZ, at least according to Azure Active Directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not necessarily everyone may have been indicated as coming from Toshkent City, but incident MO531859 was globally impacting users.</p>
+</div>
+<p><img alt="Figure 1" src="/images/2023/03/28/img1.png" /></p>
+<p><em>#WeAreAllUzbekistan</em></p>
+<h2 id="background">Background</h2>
+<p>Per the Incident Report for incident MO531859, the incident started on March 23rd, 2023, at 3:30 AM UTC. As the day continued on for some folks, and the morning started for others, there was an increasing number of organizations noticing that Azure AD was indicating their users were coming from Toshkent City, UZ.</p>
+<p>If the organization was using Named Locations in Conditional Access, allowing access to resources only from certain geographic locations (countries), legitimate users would start being denied access by the CA policies.</p>
+<h2 id="breaking-it-all-down">Breaking it all down</h2>
+<h3 id="conditional-access-named-locations-and-countries">Conditional access, named locations, and countries</h3>
+<p>Many organizations may implement geographic-based policies to reduce some identity surface area. Having worked with many US based organizations, they may implement a CA policy that contains an allowed location of the United States, and then in turn if that location condition is not met, access will be blocked.</p>
+<p>Even organizations that are global in workforce may implement regional or department specific policies. One manufacturing organization I worked with that was primarily based in the US, but had some salespeople that had to travel globally, chose to only allow access outside of the US for their sales department.</p>
+<p>For further details on Named Locations, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/location-condition?WT.mc_id=SEC-MVP-5005105">Using networks and countries in Azure Active Directory – Microsoft Entra | Microsoft Learn</a>.</p>
+<h3 id="authentication-to-azure-ad">Authentication to Azure AD</h3>
+<p>When you authenticate to Azure AD, your egress, or public, IP address, is logged by Azure AD within your sign-in logs.</p>
+<p>If you are coming from your home internet, it’s whatever public IP address your ISP is routing your traffic through. Some ISP’s NAT network traffic, so that nodes (your home) may only have a private IP address, but at some point the traffic must route publicly. That’s the IP address Azure AD sees.</p>
+<p>If you use a VPN, or Tor, or some other obfuscation thing, whatever that public IP address is, again, is what Azure AD sees.</p>
+<p>If you are coming from work, it’s however work plumbs up to the internet, and whatever your work egress IP addresses are. Even if you have ExpressRoute, Azure AD still is connected to over a public network at some point, and that’s the address that appears in your Azure AD sign-in logs. If your organization uses something like ZScaler, your traffic may appear to be coming from whatever their public IP addresses are.</p>
+<p><img alt="Figure 2" src="/images/2023/03/28/img2.png" /></p>
+<p><em>Hello from Schenectady, New York</em></p>
+<h3 id="but-how-does-azure-ad-correlate-ip-addresses-to-locations">But how does Azure AD correlate IP addresses to locations</h3>
+<p>Per the incident report:</p>
+<p><em>…Microsoft received an update in one of its Threat Intelligence data feeds from a third-party vendor that contained incorrect entries about the country in which certain IP addresses are located.</em></p>
+<p>That’s a fancy way of saying that Microsoft subscribes to an external service that provides a database of IP address netblocks and the associated geographic location. Note that Microsoft does not indicate the company or companies that they use for this service, which it’s understandable wanting to keep some secrecy around a security data provider. I have no idea what services Microsoft consumes, but an example of a provider is <strong>IP2Location</strong>.</p>
+<p>While there is the ability to use device-based GPS coordinates within Named Locations and Conditional Access, <strong>many</strong> organizations choose to use IP address-based location data. When organizations choose to use this data, they are leveraging this data provided to Microsoft.</p>
+<h3 id="so-how-did-the-dataset-get-messed-up">So how did the dataset get messed up?</h3>
+<p>I don’t have insight into what exactly happened at the provider for an issue of this scale, but to simplify the incident – Microsoft received an incorrect copy of this data, and updated it in Azure AD.</p>
+<p>While you could blame Microsoft for not catching this mistake, consider the fact that on a smaller scaler this change is constant among the vast landscape of the internet. With a possible 4.3 billion IPv4 addresses carved up into all sorts of chunks, it’s a lot of data for the companies that aggregate this data to manage. And Microsoft can’t invest time in sorting out all the nuances of the data – you have to trust your data suppliers.</p>
+<h3 id="a-much-more-common-example-of-geolocation-data-gone-wrong">A much more common example of Geolocation data gone wrong</h3>
+<p>If you perform a quick google search, you’ll find that the various services that offer this data aggregate it through several means. One of them is ISP’s providing anonymized data to said services.</p>
+<p>When I’ve worked with organizations over the years, occasionally you would encounter a situation on a microscale – a set of users coming from a certain cellular provider, all of a sudden are showing up as coming from some location far away. In the US it wouldn’t usually manifest as a Conditional Access problem, as whether I’m coming from Schenectady, NY or Sacramento, CA, it’s all US traffic. However, organizations that have Azure AD Identity Protection deployed may have some sudden impossible travel or unfamiliar location stuff going on.</p>
+<p>Considering that the employees didn’t move across the country, the common cause was said cellular provider made a network change – the netblock that had been servicing New York is now shifted to California. It’s their IP address ranges; they can do whatever they want with them.</p>
+<p>In cases like these, the hope is that the geographic location data provider would have been notified, but again, mistakes happen. The course of action for the affected customer would be to open a support case with Microsoft. Microsoft then informs their data provider of the issue, and the provider does whatever magic it works to rectify the problem.</p>
+<p>When the dataset is corrected, it can be presumed that Microsoft then receives an updated copy of this data, because about a week later, the organization stops having the problem.</p>
+<h3 id="deploying-updates-in-rings">Deploying updates in rings</h3>
+<p>Without getting into the weeds, from the larger Azure AD outages over the past few years, Microsoft has indicated that they deploy changes to Azure AD in rings. You can call them waves or phases, but it’s all the same. Azure AD is a globally distributed and deployed cloud identity provider, but there are still locations acting as the nodes that compose it, and a bunch of global traffic routing fanciness to ensure you land at the most relevant Azure AD endpoint.</p>
+<p>One could presume from the incident report that, as it would go with a ringed update of this nature, that initially user impact would be small, and as Microsoft increasingly pushed the changes out broader, the surface area of impact increased in step.</p>
+<p>And, in their efforts to ensure that they don’t break things to reverse changes, one could presume that they have to follow similar deployment processes when undoing a change.</p>
+<h3 id="speaking-of-traffic-routing">Speaking of traffic routing</h3>
+<p>While Microsoft does not reveal how similar Azure AD and Azure AD B2C are as far as their geographical and back-end composition, working on an Azure AD B2C project of global scale really highlights the traffic routing wizardry going on the front end that users hit.</p>
+<p>For any Azure AD B2C system you encounter, you can determine the associated Microsoft datacenter by looking at the HTML comment tag found in the page source:</p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;!-- Build: 1.0.2873.0 --&gt;
+&lt;!-- StateVersion: 2.1.1 --&gt;
+&lt;!-- DeploymentMode: Production --&gt;
+&lt;!-- CorrelationId: xxx --&gt;
+&lt;!-- DataCenter: BL2 --&gt;
+&lt;!-- Slice: 001-000 --&gt;
+</code></pre></div>
+<p>And interestingly, you can also append a parameter to the request, &amp;DC=, which will allow you to specify a specific Microsoft datacenter if you know it. If I append &amp;DC=PNQ, which represents a Microsoft datacenter in India, and submit the request, the page source will now show:</p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;!-- Build: 1.0.2873.0 --&gt;
+&lt;!-- StateVersion: 2.1.1 --&gt;
+&lt;!-- DeploymentMode: Production --&gt;
+&lt;!-- CorrelationId: xxx --&gt;
+&lt;!-- DataCenter: PNQ --&gt;
+&lt;!-- Slice: 001-000 --&gt;
+</code></pre></div>
+<p>Non-B2C Azure AD tenants do not reveal this information within the source, and from some cursory testing, appending &amp;DC=<em>location</em> to the request does nothing. However, this circles back to highlighting that Microsoft performs traffic routing on the front end.</p>
+<p>During incident MO531859, when Microsoft indicates that they were:</p>
+<p><em>…continually performed traffic rerouting and load balancing into healthy regions…</em></p>
+<p>This does not mean that the incident had any correlation to an actual network traffic routing issue. What Microsoft is indicating, when we look back at the ring deployment model, is as datacenters with Azure AD endpoints were corrected with the prior IP geolocation data, Microsoft was adjusting their user traffic routing on a global scale. If I’m in Europe, and the North Europe location has not updated, but the West Europe location has, Microsoft can easily send all traffic to West Europe, to help accelerate resolution for organizations while the things on the back end are rectified.</p>
+<h2 id="how-to-move-forward">How to move forward</h2>
+<p>Some organizations may look at this incident as a moment to change course in how they manage their Conditional Access policies. During the incident, it was left up to organizations to determine the risk in adjusting or disabling their impacted Conditional Access policies.</p>
+<p>There is not a one-size-fits-all answer to this. It is still best practice, if using geographic Named Locations, to build CA policies in an “allowed” countries model, vs a “disallowed” countries model (essentially an inverse policy). Some organizations may have already determined that a disallowed countries model works for them, however, there is a wider possibility of coverage gaps within this.</p>
+<p>Corporations that have used network location-based policies, whether IP ranges or country, may want to evaluate whether they need those policies at all, especially on devices that may be MDM managed and covered by something like M365 Defender. Or, with the beauty of Conditional Access, further refine and define user personas, to limit the need to rely on what, end of the day, are very implicit identity security choices.</p>
 
 
 

@@ -527,6 +527,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#when-application-permissions-can-become-tricky" class="md-nav__link">
+    <span class="md-ellipsis">
+      When application permissions can become tricky
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-can-fill-the-application-permission-granularity-gap-somewhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles can fill the application permission granularity gap - somewhat
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-into-the-thick-of-permissions-and-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting into the thick of permissions and roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#take-the-time-to-understand-and-test-permissions-and-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Take the time to understand, and test, permissions and roles
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -595,7 +631,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              8 min read
+                              12 min read
                             
                           </span>
                         </div>
@@ -715,6 +751,63 @@
 <p>Looking at the output, we can see that we are connected as the application, and under scopes, we see the application permission assigned.</p>
 <p>Let’s create a group.</p>
 <p><img alt="Figure 9" src="/images/2024/03/26/img9.png" /></p>
+<p>We can check our audit logs and indeed see that the group was created by the Cloud Application</p>
+<p><img alt="Figure 10" src="/images/2024/03/26/img10.png" /></p>
+<p><img alt="Figure 11" src="/images/2024/03/26/img11.png" /></p>
+<p>As we only have the <strong>Group.Create</strong> permission, while we can go on a spree creating hundreds of groups, we can’t update or delete them.</p>
+<p><img alt="Figure 12" src="/images/2024/03/26/img12.png" /></p>
+<h2 id="when-application-permissions-can-become-tricky">When application permissions can become tricky</h2>
+<p>We want our application to have the ability to delete groups.</p>
+<p>When we go into the permissions for Graph, what we’ll find is that some of the precision we desire, and perhaps expect coming from the world of Active Directory, does not exist. We had a specific Group.Create permissions, so one might expect Group.Update, Group.Delete, and so on… unfortunately expectations will not be met here.</p>
+<p><img alt="Figure 13" src="/images/2024/03/26/img13.png" /></p>
+<p>We can see that of the available application permissions for group, the only other options are Group.Read.All, and Group.ReadWrite.All. <strong>Group.ReadWrite.All</strong> provides us the ability to delete groups, but this ability extends across all groups in the Entra tenant.</p>
+<p><img alt="Figure 14" src="/images/2024/03/26/img14.png" /></p>
+<p><em>Application permissions to create, manage, and delete groups</em></p>
+<p>We add our new permission, disconnect, and then reconnect to Graph. We can see our new permission is available under scopes.</p>
+<p><img alt="Figure 15" src="/images/2024/03/26/img15.png" /></p>
+<p>With a simple one-liner, we can delete the group we had previously created, this time with no error.</p>
+<p><img alt="Figure 16" src="/images/2024/03/26/img16.png" /></p>
+<p>We can now also add users to the group.</p>
+<p><img alt="Figure 17" src="/images/2024/03/26/img17.png" /></p>
+<p>What if we want to allow the same permissions but only on certain groups? That’s where application permissions start to fall short, and roles might become part of the solution.</p>
+<h2 id="roles-can-fill-the-application-permission-granularity-gap-somewhat">Roles can fill the application permission granularity gap - somewhat</h2>
+<p>The problem we are facing is we want a scenario that looks like the following: the ability to only manage certain groups.</p>
+<p><img alt="Figure 18" src="/images/2024/03/26/img18.png" /></p>
+<p><em>Our desired scenario</em></p>
+<p>With Active Directory, we could just move the groups into a sub OU and set the permissions, or if necessary, directly on the groups we wanted to allow the granular permissions for.</p>
+<p>With Entra ID, we can use Administrative Units similarly, but we’ll find out that there are lots of caveats.</p>
+<p>Let’s explore managing groups in an administrative unit. First, we remove all of our Graph API permissions.</p>
+<p><img alt="Figure 19" src="/images/2024/03/26/img19.png" /></p>
+<p>Then we grant the <strong>Group Administrator</strong> role to Cloud Application, but we scope it to a target administrative unit.</p>
+<p><img alt="Figure 20" src="/images/2024/03/26/img20.png" /></p>
+<p>We connect to Graph and run <strong>Get-MGContext</strong> to verify that we have no scopes (permissions). We can’t see from Get-MGContext that we have the role assignment, but it’s there.</p>
+<p><img alt="Figure 21" src="/images/2024/03/26/img21.png" /></p>
+<p><em>Note the lack of scopes (permissions)</em></p>
+<p>We can verify that we don’t have permissions across the directory by attempting to add a user to a group that exists outside the scope of our administrative unit.</p>
+<p><img alt="Figure 22" src="/images/2024/03/26/img22.png" /></p>
+<p>Now let’s try adding a user to a group that we have scoped to an administrative unit.</p>
+<p><img alt="Figure 23" src="/images/2024/03/26/img23.png" /></p>
+<p>Great! So now we have the granular ability to update this group, and our combination of permissions and roles looks like this.</p>
+<p><img alt="Figure 24" src="/images/2024/03/26/img24.png" /></p>
+<p><em>Role and permissions necessary to update a group in an administrative unit</em></p>
+<p>But the model we are operating with is inherently quite restrictive. In the example we know the Object ID of the group we want to modify. But what if we don’t know what groups we have permissions to manage? We could enumerate the groups in the administrative unit.</p>
+<p>Except, we can’t, at least not with the permissions and roles in scope.</p>
+<p><img alt="Figure 25" src="/images/2024/03/26/img25.png" /></p>
+<h2 id="getting-into-the-thick-of-permissions-and-roles">Getting into the thick of permissions and roles</h2>
+<p>We are starting to see that to perform actions as an application, it must either have associated permissions or roles assigned that grant the necessary actions.</p>
+<p>We add permissions for <strong>AdministrativeUnit.Read.All</strong> to our application.</p>
+<p><img alt="Figure 26" src="/images/2024/03/26/img26.png" /></p>
+<p>And now we can enumerate the objects in our administrative unit.</p>
+<p><img alt="Figure 27" src="/images/2024/03/26/img27.png" /></p>
+<p>But what if we want to enumerate users to determine who to place in the group? Again, it’s another permission.</p>
+<p><img alt="Figure 28" src="/images/2024/03/26/img28.png" /></p>
+<p>And if we want a way to determine if a group already exists before creating it? Yup, another permission.</p>
+<p><img alt="Figure 29" src="/images/2024/03/26/img29.png" /></p>
+<p>For the handful of operations here, we now have the following permission and role model.</p>
+<p><img alt="Figure 30" src="/images/2024/03/26/img30.png" /></p>
+<p>Whether it’s a homegrown set of internal processes managing user or group lifecycles in Entra ID, or a software solution from an ISV, either deployed on-prem or consumed as a SaaS application, the permissions necessary can rapidly expand depending on the type of service being offered, especially if the software is providing broad management or tooling for Entra ID, or likely any M365 service.</p>
+<h2 id="take-the-time-to-understand-and-test-permissions-and-roles">Take the time to understand, and test, permissions and roles</h2>
+<p>While the landscape of permissions and roles might be something less ventured, building an understanding of how they work, their strengths, their weaknesses, and the reality of how they work within Graph and Entra ID is critical to protecting our resources and enterprises. While it may be a little work upfront, refining your applications, scripts, and processes to only use the necessary permissions can go a long way in ensuring that it’s not the next point of lateral movement or privilege escalation.</p>
 
 
 

@@ -457,6 +457,202 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-increasing-security-within-the-mfa-experience"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security Within The MFA Experience</a></h2>
+<p>MFA push notifications – one of the more polarizing MFA options available within Azure AD. From a usability perspective, the perception is that it’s less interruptive and less complex for end users. From a security perspective, it’s a low barrier of entry for a malicious actor; especially when targeting a user who may approve push notifications for MFA without much thought.</p>
+<p>We have seen Microsoft implement various methods of interaction into push notifications to try and combat users just hitting Approve without a second thought. The Authenticator App for passwordless, sometimes referred to as phone sign-in, already has number matching implemented. But this never made it into our more common corporate MFA scenarios – until recently when additional options for the Authenticator App showed up in Public Preview.</p>
+<p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
+<p><img alt="Figure 1" src="/images/2022/02/22/img1.png" /> <img alt="Figure 2" src="/images/2022/02/22/img2.png" /></p>
+<p><em>Before and after</em></p>
+<h3 id="number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#number-matching">Number matching</a></h3>
+<p>Number matching is the component that creates a stronger second factor for our end users, because they will no longer be able to just hit Approve to that push notification. According to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-number-match">Microsoft Docs article</a>, once number matching goes GA, it will be enabled within all tenants a few months after. It’s tough to tell at this point whether customers will then have the option to retroactively disable number matching, but the interface makes it seem like it could be possible – not that it would be recommended.</p>
+<p><img alt="Figure 3" src="/images/2022/02/22/img3.png" /></p>
+<p><em>Number matching dialogue after primary authentication</em></p>
+<p>Per Microsoft number matching will support the following scenarios:</p>
+<ul>
+<li>Multi-factor</li>
+<li>Self-service password reset</li>
+<li>Combined SSPR and MFA registration</li>
+<li>AD FS adapter</li>
+<li>NPS extension</li>
+</ul>
+<p>Probably should place an asterisk on the NPS extension, because unless you are using PAP as your RADIUS protocol, push notifications will “downgrade” to an Approve/Deny without number matching (there is no ability to interact with EAP/MS-CHAPv2).</p>
+<h4 id="enabling-number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-number-matching">Enabling number matching</a></h4>
+<p>Again, will speculate that the long term goal is that number matching will be enabled by default in all tenants, and it’s going to become the new normal for our end users. But with this in Public Preview at the moment, it’s something we have to opt into.</p>
+<p>Also, we have the choice of either enabling number matching for the entire organization or for a group of users; the latter allowing for more finesse in testing, piloting, staged rollouts, and the such.</p>
+<p>Referencing the docs article linked above, it’s a relatively straightforward process. The article itself actually comes across at first as if you <strong>have</strong> to use Graph for updating/creating the policy; when you scroll down within it, you’ll see that it can also be performed through the portal. We’ll run through here looking at the options through Graph and seeing how they impact what the portal looks like.</p>
+<p>Before jumping into things, I will note that the changes were relatively quick to notice within my test tenant – within a few minutes the changes were apparent to my test users. Likewise with testing of disabling the settings.</p>
+<h5 id="gathering-the-current-state"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#gathering-the-current-state">Gathering the current state</a></h5>
+<p>Before making any changes, let’s check out the current state of our policy.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to perform the actions within Graph Explorer, you will want to sign-in, and make sure that you consent to <strong>Policy.Read.All</strong> and <strong>Policy.ReadWrite.AuthenticationMethod</strong> permissions.</p>
+</div>
+<p>We can do this by running the following query in Graph Explorer:</p>
+<div class="highlight"><pre><span></span><code>GET https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
+</code></pre></div>
+<p>Which in our current tenant returns the following:</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
+    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
+    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
+    &quot;state&quot;: &quot;enabled&quot;,
+    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
+    &quot;includeTargets&quot;: [
+        {
+            &quot;targetType&quot;: &quot;group&quot;,
+            &quot;id&quot;: &quot;all_users&quot;,
+            &quot;isRegistrationRequired&quot;: false,
+            &quot;authenticationMode&quot;: &quot;any&quot;,
+            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
+            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
+            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
+        }
+    ]
+}
+</code></pre></div>
+<p>When we look in the portal we see the following:</p>
+<p><img alt="Figure 4" src="/images/2022/02/22/img4.png" /></p>
+<p>It’s important to note that <strong>default = Microsoft managed</strong>. And you may be asking what exactly is Microsoft managed? Microsoft managed effectively is the setting that allows Microsoft to make a decision whether these settings should be enabled in your tenant. Back to the thought earlier, eventually Microsoft managed will likely be the way in which Microsoft makes the decision to enable things in your tenant once it’s GA.</p>
+<h5 id="enabling-for-a-group"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-a-group">Enabling for a group</a></h5>
+<p>If you are looking to enable this for a single group, it’s just a matter of updating the returned content from our Graph query, and running a PATCH. We simply will replace the <strong>all_users</strong> portion of the policy with the Azure AD groups ObjectID, and update <strong>numberMatchingRequiredState</strong> with <strong>enabled</strong>.</p>
+<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
+
+{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
+    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
+    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
+    &quot;state&quot;: &quot;enabled&quot;,
+    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
+    &quot;includeTargets&quot;: [
+        {
+            &quot;targetType&quot;: &quot;group&quot;,
+            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
+            &quot;isRegistrationRequired&quot;: false,
+            &quot;authenticationMode&quot;: &quot;any&quot;,
+            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
+            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
+            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
+        }
+    ]
+}
+</code></pre></div>
+<p>As long as we get a 204 response, everything was successful. Looking in the portal again, after a refresh we will see:</p>
+<p><img alt="Figure 5" src="/images/2022/02/22/img5.png" /></p>
+<p>If you’re using the Authenticator App for passwordless (phone sign-in), this is where it can become confusing. If you had previously targeted all users for allowing passwordless through the Authenticator App, and now you’ve added this group, you’ll notice the targeting has changed. Subsequently, if you have users go to enroll for passwordless through the Authenticator App, they will see:</p>
+<p><img alt="Figure 6" src="/images/2022/02/22/img6.png" /></p>
+<p>We will want to make sure that we are now targeting two groups – a group that will allow for passwordless through Authenticator App, and the second being used for number matching. In our tenant this looks like:</p>
+<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
+
+{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
+    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
+    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
+    &quot;state&quot;: &quot;enabled&quot;,
+    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
+    &quot;includeTargets&quot;: [
+        {
+            &quot;targetType&quot;: &quot;group&quot;,
+            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
+            &quot;isRegistrationRequired&quot;: false,
+            &quot;authenticationMode&quot;: &quot;any&quot;,
+            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
+            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
+            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
+        },
+        {
+            &quot;targetType&quot;: &quot;group&quot;,
+            &quot;id&quot;: &quot;44a9449d-ae6e-4d0b-bd40-c599dcb07441&quot;,
+            &quot;isRegistrationRequired&quot;: false,
+            &quot;authenticationMode&quot;: &quot;any&quot;,
+            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
+            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
+            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
+        }
+    ]
+}
+</code></pre></div>
+<p>And if we look in the portal we will see:</p>
+<p><img alt="Figure 7" src="/images/2022/02/22/img7.png" /></p>
+<p>In this instance, <strong>Security Ring 0</strong> is the group with number matching <strong>enabled</strong>, and <strong>Security Ring 1</strong> is the group with number matching left to <strong>default (Microsoft managed)</strong>.</p>
+<p>A few items to note:</p>
+<ul>
+<li>You cannot enable number matching on more than one group, if you attempt to do so through Graph you’ll receive a 400 error, and within the portal the option is grayed out.</li>
+<li>You cannot enable number matching on a group and also reference the all_users context. One may wish that you could target all users and then just selectively enable number matching on the group, however, if you attempt to reference all_users and a group within the policy, you’ll receive a 400 error.</li>
+</ul>
+<h5 id="enabling-for-all-users"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-all-users">Enabling for all users</a></h5>
+<p>The enablement for all users is even simpler. Same PATCH process, but instead we just leave the group set to <strong>all_users</strong>, and change <strong>numberMatchingRequiredState</strong> to <strong>enabled</strong>.</p>
+<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
+
+{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
+    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
+    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
+    &quot;state&quot;: &quot;enabled&quot;,
+    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
+    &quot;includeTargets&quot;: [
+        {
+            &quot;targetType&quot;: &quot;group&quot;,
+            &quot;id&quot;: &quot;all_users&quot;,
+            &quot;isRegistrationRequired&quot;: false,
+            &quot;authenticationMode&quot;: &quot;any&quot;,
+            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
+            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
+            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
+        }
+    ]
+}
+</code></pre></div>
+<p>Now when we go look in the portal:</p>
+<p><img alt="Figure 8" src="/images/2022/02/22/img8.png" /></p>
+<h4 id="disabling-number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#disabling-number-matching">Disabling Number Matching</a></h4>
+<p>Ideally you will not be in a position to need to disable number matching, but in the case that you need to, it’s just a matter of setting <strong>numberMatchingRequiredState</strong> to <strong>default</strong>. Again, if you set this to <strong>disabled</strong>, there may be a chance that you will be in a state where your tenant will miss when this rolls out across all tenants.</p>
+<h3 id="additional-context"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#additional-context">Additional context</a></h3>
+<p>Along with number matching, we can enable additional contextual information about where the user is coming from with a map showing the rough geographic area, as well as what application is requesting the approval. Details of this process come from the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-additional-context">Microsoft Docs article</a>.</p>
+<p><img alt="Figure 9" src="/images/2022/02/22/img9.png" /> <img alt="Figure 10" src="/images/2022/02/22/img10.png" /></p>
+<p>While both mechanisms provide some additional security mechanisms to our end users, additional context alone is not going to prevent an unengaged user from selecting Approve, which is why additional context in itself should be considered a passive security mechanism. Number matching, to contrast, is active, because the user will not be able to perform MFA without interaction.</p>
+<h4 id="enabling-additional-context"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-additional-context">Enabling additional context</a></h4>
+<p>To enable additional context, whether for all users, or for a group, follows the same processes as enabling number matching. The only difference is we are focusing on the property <strong>displayAppInformationRequiredState</strong>.</p>
+<p>Out of the box, this property will be set to <strong>default</strong> when observing its value through Graph, or <strong>Microsoft managed</strong> in the portal. We can toggle this to <strong>enabled</strong> or <strong>disabled</strong>.</p>
+<p>A few items to note specific to additional context:</p>
+<ul>
+<li>When enabling additional context and using the Authenticator App for passwordless (phone sign-in), the app only receives policy information every 7 days. Because of this, users may not see a behavioral change for up to 7 days after.</li>
+<li>The NPS extension does not support providing additional context. Being that the NPS extension is simply signaling for MFA to be called, and primary authentication is happening against Active Directory, it makes sense that user location context is not available.</li>
+</ul>
+<h3 id="final-notes"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#final-notes">Final notes</a></h3>
+<p>As with all things that impact and change the way our users interact with our systems, while this may be an easier win from a security perspective, organizations will want to make sure that they communicate this change properly to end users. A rushed rollout or lack of communication is an almost certain way of creating friction with our end users, and potentially hurting the efforts to increase organizational security.</p>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2021-12-13 00:00:00+00:00">December 13, 2021</time></li>
         
         

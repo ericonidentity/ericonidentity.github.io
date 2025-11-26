@@ -1259,7 +1259,7 @@
           
           <li class="md-meta__item">
             
-              14 min read
+              18 min read
             
           </li>
         
@@ -1773,6 +1773,91 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
 </ul>
 <p>It’s important to understand that in the world of Entra ID, there is a <strong>common</strong> OAuth 2.0 endpoint. While every tenant has a security boundary, Entra ID itself is a single identity platform, and this is what allows authorization codes and secrets to be leveraged across tenants by the application developer. This is a good thing, as it removes any need for a developer to get into the sticky business of having to manage and coordinate secrets with customers.</p>
 <p>If you are using a multitenant application, you can see these results yourself if you look at your Entra Sign-in logs for service principals:</p>
+<p><img alt="Figure 9" src="/images/2023/03/11/img9.png" /></p>
+<p>If we look at the sign-in above, and then check our enterprise applications we’ll find the associated service principal ID (object ID):</p>
+<p><img alt="Figure 10" src="/images/2023/03/11/img10.png" /></p>
+<p>And if we look at the app registration in the other tenant:</p>
+<p><img alt="Figure 11" src="/images/2023/03/11/img11.png" /></p>
+<p>And we can even see that the certificate registered in the app registration was used for authentication, by matching the key ID. Of course, this is only to show that the secret/certificate is used cross-tenant, and we luckily have access to both tenants in our example:</p>
+<div class="highlight"><pre><span></span><code>&quot;keyCredentials&quot;: [
+        {
+            &quot;customKeyIdentifier&quot;: &quot;VGVzdDEyMw==&quot;,
+            &quot;endDate&quot;: &quot;2023-09-11T18:17:58.8837147Z&quot;,
+            &quot;keyId&quot;: &quot;dc0c5dcd-7dd3-4f05-8bf7-5edc2dc4150e&quot;,
+            &quot;startDate&quot;: &quot;2023-03-11T19:19:29.8224747Z&quot;,
+            &quot;type&quot;: &quot;AsymmetricX509Cert&quot;,
+            &quot;usage&quot;: &quot;Verify&quot;,
+</code></pre></div>
+<p>In my example I’m using a certificate, not a password, as the sample code used was out of the box designed to use a certificate (key pair).</p>
+<h3 id="questions-and-scenarios"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#questions-and-scenarios">Questions and scenarios</a></h3>
+<p>Now that we have some foundation, let’s take a look at some common questions and scenarios.</p>
+<h4 id="will-every-app-registration-have-a-corresponding-service-principal"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#will-every-app-registration-have-a-corresponding-service-principal">Will every App Registration have a corresponding service principal</a></h4>
+<p>Yes. Every app registration will have at least one service principal, which is created in the home tenant that the app registration was created in.</p>
+<p>There are some examples of PowerShell code out there that will create a service principal but are missing the <strong>WindowsAzureActiveDirectoryIntegratedApp</strong> tag, which will prevent them from showing up in enterprise applications (even with the filter removed).</p>
+<h4 id="will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration">Will every Enterprise Application/Service Principal have a corresponding App Registration?</a></h4>
+<p>Yes, but not necessarily in your tenant.</p>
+<p>To be more specific, and this is also where we need to understand that enterprise applications are <strong>more</strong> than just OAuth 2.0/OIDC applications.</p>
+<p>If the application is OpenID Connect or OAuth 2.0, as we have seen above, the resource tenant will <strong>only</strong> have a service principal in the applications home tenant.</p>
+<p>However, you may see other times that when you create an enterprise application that an associated app registration will show up in your tenant. In reality any application you add from enterprise applications – SAML, Linked, Password-based, or Entra Application Proxy, are all going to create an associated app registration. Why? Because the service principal was not designed to hold all the information that defines the app (back to our definition of an app registration).</p>
+<p>You can add a SAML application into Entra ID, and then go to its corresponding app registration and look at the manifest.</p>
+<p>Here is an example of the manifest for the SAML app of Claims X-Ray. Notice that some of the configuration settings for the application, such as the ACS URL, are stored within the manifest.</p>
+<div class="highlight"><pre><span></span><code>&quot;name&quot;: &quot;Claims X-Ray&quot;,
+    &quot;notes&quot;: null,
+    &quot;oauth2AllowIdTokenImplicitFlow&quot;: true,
+    &quot;oauth2AllowImplicitFlow&quot;: false,
+    &quot;oauth2Permissions&quot;: [
+        {
+            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Claims X-Ray on behalf of the signed-in user.&quot;,
+            &quot;adminConsentDisplayName&quot;: &quot;Access Claims X-Ray&quot;,
+            &quot;id&quot;: &quot;a25f7792-6629-4854-a533-4914cc79ce41&quot;,
+            &quot;isEnabled&quot;: true,
+            &quot;lang&quot;: null,
+            &quot;origin&quot;: &quot;Application&quot;,
+            &quot;type&quot;: &quot;User&quot;,
+            &quot;userConsentDescription&quot;: &quot;Allow the application to access Claims X-Ray on your behalf.&quot;,
+            &quot;userConsentDisplayName&quot;: &quot;Access Claims X-Ray&quot;,
+            &quot;value&quot;: &quot;user_impersonation&quot;
+        }
+    ],
+    &quot;oauth2RequirePostResponse&quot;: false,
+    &quot;optionalClaims&quot;: null,
+    &quot;orgRestrictions&quot;: [],
+    &quot;parentalControlSettings&quot;: {
+        &quot;countriesBlockedForMinors&quot;: [],
+        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
+    },
+    &quot;passwordCredentials&quot;: [],
+    &quot;preAuthorizedApplications&quot;: [],
+    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
+    &quot;replyUrlsWithType&quot;: [
+        {
+            &quot;url&quot;: &quot;https://adfshelp.microsoft.com/ClaimsXray/TokenResponse&quot;,
+            &quot;type&quot;: &quot;Web&quot;
+        }
+    ],
+</code></pre></div>
+<p>If you’ve integrated certain SAML applications and wanted to assign groups to custom roles to then emit in the SAML response, you would find yourself in the App registration to further define those.</p>
+<p>But take notice that from a permissions perspective, going back to the security principal side of things, it is the enterprise application where you configure who is allowed to access the application.</p>
+<h4 id="why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application">Why do we need to handle the secret management for our single tenant application?</a></h4>
+<p>This is something that your developers are likely used to. Going back to the beginning of this post, while you have to agree to the permissions the application developer needs, the developer is the one who would be likely handling the secrets.</p>
+<p>But if you’ve purchased a piece of software that ITPros would be the owners of – third party Exchange Online backup software, Identity Governance and Administration products, security assessment platforms – these are the things you will need to provide the secret to, in order for the applications to obtain the necessary access tokens. But, because of the way that OAuth 2.0 functions, you still need to go through that initial consent process.</p>
+<h4 id="what-about-for-certain-saas-applications-why-do-they-need-secrets"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#what-about-for-certain-saas-applications-why-do-they-need-secrets">What about for certain SaaS applications? Why do they need secrets?</a></h4>
+<p>It usually comes down to the type of SaaS application and how the applications multi-tenancy is handled.</p>
+<p>Look at Salesforce. While this is a SaaS platform, each instance of Salesforce is left up to the organization that has acquired it to manage who can authenticate to what and how. So, while Salesforce supports OpenID Connect, it’s up to the organization that manages their instance of Salesforce to configure that. In this example for every Entra ID customer out there with Salesforce and OpenID Connect, there are that many essentially “duplicate” app registrations for it in Entra ID. Also – nothing is forcing Salesforce (in this example) to register their application in Entra ID. And it could easily go down a rabbit hole quite quickly – what about needing to register with Okta? Ping? Who and what do they have potentially partner relationships with? You also have to think about things like token customization and the data that <strong>you</strong> may want to be sent to Salesforce. You need to have control over the app registration to be able to do this with OIDC.</p>
+<p>As such, it’s common for large and complex enterprise-oriented SaaS vendors to still require you to manage both ends of the OIDC/OAuth 2.0 configuration.</p>
+<h4 id="why-can-i-consent-in-either-the-enterprise-application-or-app-registration"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#why-can-i-consent-in-either-the-enterprise-application-or-app-registration">Why can I consent in either the Enterprise Application or App Registration?</a></h4>
+<p>Because the portal tries to make things magic. It’s simply an ease thing – the function behind the scenes is the same, regardless of where you consent.</p>
+<h4 id="why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view">Why do some Service Principals I've created with PowerShell not appear in the Enterprise Application view?</a></h4>
+<p>When creating a service principal, if the tag <strong>WindowsAzureActiveDirectoryIntegratedApp</strong> is not included in the definition, the service principal will not show up in Enterprise Applications. Microsoft is not completely clear as to why this tag is optional, as the application will still be available in the Conditional Access and Azure RBAC pick lists. One could presume you would not necessarily concern yourself with service principals created for things like automation products. Still, if you accidently created a service principal without this, you could simply run the following command to update it:</p>
+<div class="highlight"><pre><span></span><code>Set-AzureADServicePrincipal -ObjectId &lt;objectid&gt; -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
+</code></pre></div>
+<h3 id="additional-resources"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#additional-resources">Additional resources</a></h3>
+<p>Authenticating to Entra ID with PowerShell using a service principal, <a href="https://learn.microsoft.com/en-us/powershell/azure/active-directory/signing-in-service-principal?WT.mc_id=SEC-MVP-5005105">Using a service principal | Microsoft Learn</a>.</p>
+<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow?WT.mc_id=SEC-MVP-5005105">OAuth 2.0 client credentials flow on the Microsoft identity platform – Microsoft Entra | Microsoft Learn</a></p>
+<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow?WT.mc_id=SEC-MVP-5005105">Microsoft identity platform and OAuth 2.0 authorization code flow – Microsoft Entra | Microsoft Learn</a></p>
+<p>Some great explanations from Frontegg on OAuth 2.0 grant types, <a href="https://frontegg.com/blog/oauth-grant-types">OAuth Grant Types: Explained | Frontegg</a></p>
+<p>Additional explanations from Frontegg on OAuth 2.0 flows, <a href="https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc">Demystifying OAuth Flows | Frontegg</a></p>
+<p>Okta guide to OpenID Connect and OAuth 2.0, <a href="https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc">An Illustrated Guide to OAuth and OpenID Connect | Okta Developer</a></p>
     
   </div>
 </article>

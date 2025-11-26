@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -751,6 +876,16 @@
                     </li>
                     
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/entra_id/">Entra ID</a></span>
+                        </div>
+                      </li>
+                    
                     
                       
                       <li class="md-nav__item">
@@ -790,6 +925,8 @@
 <p>As John points out in his video, the understanding of App Registrations and Enterprise Apps can further be enhanced by understanding OpenID Connect and OAuth 2.0 flows. This is especially important for identity professionals and ITPros who may come from a sysadmin background. Modern authentication flows and concepts may feel foreign to folks who built their career on identity platforms such as Active Directory.</p>
 <p>For those that find it easiest to learn by doing, if you want to play around with App Registrations, Enterprise Apps and Service Principals, but don’t want to mess with your prod environment, sign up for an M365 Developer account, to have your own free tenant to work with here, <a href="https://developer.microsoft.com/en-us/microsoft-365/dev-program?WT.mc_id=SEC-MVP-5005105">Developer Program | Microsoft 365 Dev Center</a>.</p>
 <p>We’ll start with some definitions, and then try to walk through various scenarios that you may encounter. If you don’t see your question answered within the definitions, keep reading… we’ll try to hit on all the areas here.</p>
+<!-- more -->
+
 <h2 id="app-registrations">App Registrations</h2>
 <p>An <strong>application registration</strong> (app registration) is the definition of the application, as an <strong>application object</strong>, in Entra ID. It “explains” to Entra ID what the application wants, such as permissions for certain APIs, as well as where and how the application resides, with information such as the Redirect URI.</p>
 <p>For a line-of-business (LOB) it would usually be your developers specifying the contents within an application object. Where identity professionals usually get involved:</p>

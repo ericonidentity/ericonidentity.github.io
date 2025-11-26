@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -645,6 +770,8 @@
 <p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
 <p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
 <p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
+<!-- more -->
+
 <h2 id="the-real-flaw-starts-with-the-security-industry-letting-its-people-down">The real flaw starts with the security industry letting its people down</h2>
 <p>So how exactly can we move from a technical problem to blaming the security industry as a whole? Microsoft speaks to the real flaw in their blog article – too many developers using antipatterns in software development for authentication and authorization. We can’t truly blame the developers, as we shouldn’t expect every developer to just magically be an expert at modern authentication. It’s difficult to even get identity practitioners to accurately describe the flows many times, so how can we point the finger at others.</p>
 <h2 id="education-is-the-enemy-of-antipatterns-but-who-has-time-for-that">Education is the enemy of antipatterns, but who has time for that</h2>

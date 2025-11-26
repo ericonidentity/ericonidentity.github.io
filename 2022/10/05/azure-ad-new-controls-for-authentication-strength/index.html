@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -631,6 +756,16 @@
                     </li>
                     
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/mfa/">MFA</a></span>
+                        </div>
+                      </li>
+                    
                     
                       
                       <li class="md-nav__item">
@@ -665,6 +800,8 @@
 <h1 id="azure-ad-new-controls-for-authentication-strength">Azure AD: New Controls For Authentication Strength</h1>
 <p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
 <p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
+<!-- more -->
+
 <h2 id="the-prior-state-of-azure-ad-mfa">The prior state of Azure AD MFA</h2>
 <p>Within the Grant Control section of a Conditional Access policy, we’ve always had the <strong>Require multifactor authentication</strong> control, which enforced MFA. But up until now, we never had the ability to specify what that level could be – if a user in a tenant has a FIDO2 security key, but also is registered for SMS text, they could use either that security key or their password and SMS text for MFA. In many tenants it’s always practical to try and restrict users from using weaker forms of MFA, especially at times when they may need to use that to bootstrap themselves into stronger authentication methods such as passwordless. And since this is a tenant-wide setting, we have had the historical issue where we couldn’t say enforce stronger forms of authentication for privileged accounts, such as Global Admins.</p>
 <h2 id="require-authentication-strength">Require authentication strength</h2>

@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -756,6 +881,8 @@
 <p>During my stint at Microsoft, I spent a good deal of time with Windows Hello for Business (WHfB), and subsequently would be involved in prerequisite work to set the stage. For the enablement of WHfB, one of these items is device join, and it usually would be Hybrid Azure AD Join (HAADJ) for existing devices already within Active Directory. Device join can be a bit of a rabbit hole if the organization has federated authentication with AD FS in place, as there are different ways you can configure the device join process.</p>
 <p>One customer I was working with decided that they wanted to use their WHfB prerequisite work as the same point to switch from federated to cloud authentication with PHS; they were already sending their passwords to Azure AD for use with Azure AD Identity Protection. I discussed high-level what was required to switch but figured the conversation would continue after lunch. Instead, the customer decided to implement the switch during lunch, and their thousand or so users were moved to cloud authentication, with relatively little planning.</p>
 <p>Luckily their environment was relatively straightforward from an identity architecture perspective; I wouldn’t recommend going into the switch without more thorough planning. But the point being made here is that the actual period of cutover has a much lower actual risk than perceived risk.</p>
+<!-- more -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Managed authentication and managed domain can be used interchangeably with cloud authentication. In most documentation Microsoft has started to prefer using cloud authentication for the umbrella term for Password Hash Sync (PHS) and Pass-through Authentication (PTA)</p>

@@ -12,7 +12,7 @@
       
       
       
-        <link rel="next" href="../../category/entra_id/">
+        <link rel="next" href="../../category/azure/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -454,12 +454,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -526,6 +651,12 @@
         <li class="md-meta__item">
           <time datetime="2022-07-14 00:00:00+00:00">July 14, 2022</time></li>
         
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/mfa/" class="md-meta__link">MFA</a>, 
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
         
           
           <li class="md-meta__item">
@@ -543,38 +674,13 @@
 <p>For anyone who lives in a world of multiple Azure AD accounts and the Authenticator App, you can finally rejoice over not having to make the difficult decision over which account is the one you enable for passwordless… or potentially not having to carry multiple devices.</p>
 <p>To date, you could enroll one Azure AD account and one personal Microsoft Account (MSA) for passwordless in the Authenticator App. Even with multiple Azure AD accounts in the same tenant, only one could go passwordless.</p>
 <p>With this update, not only can you go passwordless for multiple accounts in the same Azure AD tenant, but across multiple tenants as well.</p>
-<h3 id="enabling-the-preview"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#enabling-the-preview">Enabling the preview</a></h3>
-<p>First you’ll want to make sure you have the latest version of the MS Authenticator App from the Apple App Store, which you can check here, <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">Microsoft Authenticator on the App Store (apple.com)</a>.</p>
-<p>Per Microsoft, you’ll also need to enable a usage data setting within the Settings of the Authenticator App. You can do this by opening the hamburger menu in the upper left, and select <strong>Settings</strong>.</p>
-<p>Within settings, you’ll want to enable <strong>Usage Data</strong> (the screenshot shows it disabled, but you need to enable it). The associated MS Docs article is here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone#multiple-accounts-on-ios-preview">Passwordless sign-in with Microsoft Authenticator – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In my testing I found you need to force quit the Authenticator App after enabling Usage Data to allow for multiple account enrollment.</p>
-</div>
-<p><img alt="Figure 1" src="/images/2022/07/14/img1.png" /></p>
-<h3 id="multiple-passwordless-accounts-in-the-same-azure-ad-tenant"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#multiple-passwordless-accounts-in-the-same-azure-ad-tenant">Multiple passwordless accounts in the same Azure AD tenant</a></h3>
-<p>On each additional account you want to go passwordless, select the account in the Authenticator App, and choose <strong>Enable phone sign-in</strong>. This is the same as the experience to enable for the first account, with an exception that you do not need to register the device again.</p>
-<p><img alt="Figure 2" src="/images/2022/07/14/img2.png" /></p>
-<p>You’ll see that the device indicates it is already registered, just select Continue.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>You will be prompted to perform MFA if you have not recently authenticated on the device.</p>
-</div>
-<h3 id="multiple-passwordless-accounts-in-different-azure-ad-tenants"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#multiple-passwordless-accounts-in-different-azure-ad-tenants">Multiple passwordless accounts in different Azure AD tenants</a></h3>
-<p>If your accounts exist across multiple Azure AD tenants, you can still initiate it through the same process as above, select the additional account, and select <strong>Enable phone sign-in</strong>. During this process, the device will just require you to register it within that second Azure AD tenant.</p>
-<p>After device registration is completed, passwordless will be enabled for both accounts in both tenants.</p>
-<p>We can examine this within the Authenticator App, by browsing to <strong>Settings</strong>, <strong>Device Registration</strong>, where we see the tenants the device is registered with.</p>
-<p><img alt="Figure 3" src="/images/2022/07/14/img3.png" /></p>
-<p>You can drill further into each tenant within the settings, see the Device ID, and optionally unregister the device from said tenant.</p>
-<p>If the device is unregistered from an Azure AD tenant, the associated accounts will automatically be disabled for passwordless on it.</p>
-<p>Note that the Device ID is unique per Azure AD tenant.</p>
-<p><img alt="Figure 4" src="/images/2022/07/14/img4.png" /></p>
-<h3 id="the-experience"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#the-experience">The experience</a></h3>
-<p>I’ve been testing this experience in a private preview for a while now, and I’ll say it’s been as smooth as one could want. Naturally, as the private preview recommends not using preview software for production use, I immediately installed it on my primary iPhone and enabled all of my Azure AD accounts for passwordless. I currently have multiple accounts enabled for passwordless across three Azure AD tenants, to which I’ve authenticated multiple times a week, and an issue has not arisen.</p>
-<h3 id="final-thoughts"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/#final-thoughts">Final thoughts</a></h3>
-<p>This is a simple yet fantastic step forward in the passwordless journey by Microsoft; while not everyone out there has multiple Azure AD accounts, for those of us that do, we finally don’t have to make choices anymore.</p>
-<p>For organizations out there who have not gone passwordless, because of concerns about push notification fatigue, now is the time to enable push notifications and allow for passwordless authentication for our end users. With the addition of number matching and additional context, we can protect our organizations from accidental notification approval, which I cover here, <a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a>.</p>
-<p>To provide a great user experience, we need to not lock our users into a singular means of strong authentication, and allowing users to choose the <strong>strong</strong> authentication experience that works best for them promotes better end user habits and better organizational security.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -595,6 +701,11 @@
         <li class="md-meta__item">
           <time datetime="2022-06-16 00:00:00+00:00">June 16, 2022</time></li>
         
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
         
           
           <li class="md-meta__item">
@@ -613,157 +724,13 @@
 <p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
 <p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
 <p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
-<h3 id="sso-mechanics"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-mechanics">SSO mechanics</a></h3>
-<p>Before getting into the compare and contrast, it’s important to understand the fundamental reason as to why SSO works differently depending on the method implemented.</p>
-<h4 id="azure-ad-hybrid-join"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-hybrid-join">Azure AD Hybrid Join</a></h4>
-<p>When you think of Azure AD Hybrid Join (HAADJ), it helps to think of the Windows device having a duality of identity for the signed-in user.</p>
-<p><img alt="Figure 1" src="/images/2022/06/16/img1.png" /></p>
-<p>When a user signs in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
-<p>And this PRT piece is key – while the technology behind it is quite different, it’s logically the Azure AD version of the TGT, which allows your device to speak modern authentication natively with Azure AD.</p>
-<p>For an extremely in-depth look at all the mechanics at play for authentication on a hybrid joined device, and how obtaining a PRT flows, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#detailed-flows">Primary Refresh Token (PRT) and Azure AD – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
-<h4 id="azure-ad-seamless-sso"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-seamless-sso">Azure AD Seamless SSO</a></h4>
-<p>Unlike Hybrid Join, Azure AD Seamless SSO flips things around, and essentially provides the ability for Azure AD to participate in Active Directory, not from an authentication provider perspective, but as a member computer object.</p>
-<p><img alt="Figure 2" src="/images/2022/06/16/img2.png" /></p>
-<p><em>Courtesy Microsoft Learn</em></p>
-<p>From the diagram, we see that Azure AD has a computer account representation in Active Directory, with the computer object <strong>AZUREADSSO</strong> being the representation in AD. Azure AD holds the Kerberos decryption key for this computer object, which is what allows Azure AD to handle the TGT being passed to it.</p>
-<p>The most critical piece within this model for SSO, is that line-of-sight of Active Directory is <strong>required</strong> for SSO to function.</p>
-<h3 id="sso-breakdown"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#sso-breakdown">SSO Breakdown</a></h3>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Azure AD Hybrid Join</th>
-<th>Azure AD Seamless SSO</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Configured with Azure AD Connect</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Requires AD line-of-sight for configuration</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No group policy needed for core config</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>No computer object sync to Azure AD</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No browser plugin needed for Edge</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No browser plugin needed for Chrome</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>No browser plugin needed for Firefox</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Deployment is non-disruptive to users</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Supports Windows 8.1</td>
-<td>⚠️</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Supports Windows 10</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Supports Windows 11</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Uses Active Directory for Authentication</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Uses Azure AD for Authentication</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Works without AD line-of-sight</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>No Kerberos decryption key to rollover</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Is completely Seamless SSO</td>
-<td>✅</td>
-<td>⚠️</td>
-</tr>
-</tbody>
-</table>
-<h4 id="configuration"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#configuration">Configuration</a></h4>
-<p>Whether it’s Hybrid Azure AD Join, or Azure AD Seamless SSO, both are first enabled primarily using Azure AD Connect.</p>
-<p>For details on enablement of Hybrid Azure AD Join, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/howto-hybrid-azure-ad-join">Configure hybrid Azure Active Directory join – Microsoft Entra | Microsoft Docs</a>.</p>
-<p>For details on enablement of Azure AD Seamless SSO, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-quick-start">Azure AD Connect: Seamless Single Sign-On – quickstart – Microsoft Entra | Microsoft Docs</a>.</p>
-<h4 id="active-directory-line-of-sight-for-client-enablement"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#active-directory-line-of-sight-for-client-enablement">Active Directory line-of-sight for client enablement</a></h4>
-<p>When deploying Azure AD Hybrid Join, it is required that computers have line-of-sight of Active Directory in a PHS or PTA scenario (and usually for ease in a federated scenario). The reason is that Azure AD Connect is the means for Windows to bootstrap its trust relationship with Azure AD – when you enable hybrid join, you’ll note that the computer object in scope has the <strong>userCertificate</strong> attribute in Active Directory populated. This is the public half of a key-pair generated by the Windows device, which makes it way up to Azure AD, via Azure AD Connect, and is tied to the created device object in Azure AD. When you see a device with a Registered date/time of <strong>Pending</strong>, it means the device has been created in Azure AD, but the Windows client itself hasn’t finished the hybrid join process. Now that we have the means for a trust relationship to be established, the Windows client uses this key-pair to connect to Azure Active Directory Device Registration Service (AAD DRS); the key-pair used is replaced with a permanent key-pair, and hybrid join is complete. <strong>Afterward</strong>, line-of-sight of Active Directory is not required for authentication to Azure AD, even though you still will want to keep your hybrid joined devices in scope for Azure AD Connect, so that device disable and device delete actions will flow up to Azure AD.</p>
-<p>For Azure AD Seamless SSO, you’ll always need AD line-of-sight for this to function, and many orgs tend to use group policy to roll out the configuration, which also would need that same line-of-sight.</p>
-<h4 id="group-policy-for-client-configuration"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#group-policy-for-client-configuration">Group policy for client configuration</a></h4>
-<p>For rollout of Azure AD Hybrid Join across an organization, there is no need to configure anything additional through group policy. This is because, by default, configuration of HAADJ leverages a Service Connection Point (SCP) in Active Directory. Because the SCP is stored in the Configuration partition in AD, this is the reason configuration of Hybrid Join requires Enterprise Administrator. And while your Azure AD Connect server <strong>should</strong> be treated as Tier 0, if you have concern using an Enterprise Admin account on the Azure AD Connect server, a script can be downloaded to configure and run this from another system. The exception to no group policy is for organizations which are performing a targeted rollout of HAADJ, even though you can also control rollout by excluding devices from synchronization in Azure AD Connect.</p>
-<p>For Azure AD Seamless SSO, there are group policy settings that are inevitably needed regardless of the rollout plan. By default, browsers will not send Kerberos tickets to an internet endpoint, so configuration on the client is required to set an Azure AD URL to Intranet zone. And yes, you may be able to use alternatives such as Intune to push these settings to clients, but it still comes down to needing to push a configuration change to clients.</p>
-<h4 id="azure-ad-computer-object-sync"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#azure-ad-computer-object-sync">Azure AD computer object sync</a></h4>
-<p>Now, some may consider this an advantage, not having to synchronize their computer objects to Azure AD for Azure AD Seamless SSO.</p>
-<p>Many organizations, however, going down the modern device management route, or wanting to strengthen their security posture in conditional access with policies based on compliance or hybrid join, will need to sync their computer objects, as part of the requirement for hybrid join (excluding organizations with AD FS in place). And if you’re looking to go passwordless with Windows Hello for Business on these devices, hybrid join is also a prerequisite.</p>
-<p>And considering what a non-event it is to enable hybrid join, it’s hard to argue against it.</p>
-<h4 id="browser-support"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#browser-support">Browser Support</a></h4>
-<h5 id="edge"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#edge">Edge</a></h5>
-<p>Neither method of SSO requires anything additional in Edge.</p>
-<h5 id="chrome"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#chrome">Chrome</a></h5>
-<p>For Chrome to be able to take advantage of the PRT with hybrid join (or Azure AD Join), and subsequently perform SSO using the PRT, you’ll want to install the Windows Accounts extension in Chrome, <a href="https://chrome.google.com/webstore/detail/windows-accounts/ppnbnpeolgkicgegkbkbjmhlideopiji/related?hl=en-US">Windows Accounts – Chrome Web Store (google.com)</a>.</p>
-<p>Azure AD Seamless SSO does not require this browser extension, as Chrome has long supported integrated authentication.</p>
-<h5 id="firefox"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#firefox">Firefox</a></h5>
-<p>Mozilla, likely in a move to keep Firefox competitive, released an update starting with version 91 to support PRT authentication natively within the browser, <a href="https://support.mozilla.org/en-US/kb/windows-sso">Windows SSO | Firefox Help (mozilla.org)</a>.</p>
-<p>Like Chrome, Firefox has long had support for integrated authentication, so it’s able to handle Azure AD Seamless SSO without a plugin.</p>
-<h4 id="os-support"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#os-support">OS Support</a></h4>
-<h5 id="windows-1011"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#windows-1011">Windows 10/11</a></h5>
-<p>As noted in the article highlighted earlier, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, recommendation for these modern versions of Windows is to use hybrid join and subsequently a PRT for SSO.</p>
-<h5 id="windows-81"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#windows-81">Windows 8.1</a></h5>
-<p>If, for some unfortunate reason, you still have Windows 8.1 (or no longer supported Windows 7 or 8) in your environment, and still want all the snazziness of letting decrepit operating systems enjoy the cloud, Azure AD Seamless SSO is going to be the easier bet. Hybrid Join for downlevel devices requires installation of the Workplace Join agent and some additional configuration to support hybrid join.</p>
-<h4 id="end-user-experience"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#end-user-experience">End-user experience</a></h4>
-<p>From the end user experience, hybrid join is going to give our users what is Azure AD native SSO. The user signs in to Windows, and they receive or refresh their Azure AD PRT, and off they go. When browsing, the user won’t be prompted to enter their username or password, and will just be right into their applications.</p>
-<p>Azure AD Seamless SSO, on the other hand, has a few specifics about what SSO looks like. When a user goes to access an application the first time, they will be prompted to enter their username, but shouldn’t be asked for their password. There are ways to work around this with altering the URL to contain a login hint, but it generally would not be intuitive for a user. Also, if a user chooses to sign out from an application tied to Azure AD, upon sign-in, they are required to enter their password – this is considered by design. But even if we look past these, when our user is away from the corporate network, they will be asked to enter their password. And asking our users to have to enter their password when we can provide the means not to, isn’t the best for our user experience, and isn’t the best for security.</p>
-<h4 id="maintenance"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#maintenance">Maintenance</a></h4>
-<p>For hybrid join, there is potential maintenance in needing to restructure how OU’s are synchronized with Azure AD Connect, though generally many organizations find ways to make this a bit of a one and done scenario.</p>
-<p>For Azure AD Seamless SSO, it is recommended that organizations rollover the Kerberos decryption key stored in Azure AD for the <strong>AZUREADSSO</strong> computer object every 30 days. This has to be performed manually, or automated through a process that though subsequently requires providing some task Domain Administrator credentials. Less than ideal, but because Azure AD isn’t able to directly perform this process against AD, we are left with no other choice.</p>
-<h3 id="so-which-sso-is-the-right-sso"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#so-which-sso-is-the-right-sso">So which SSO is the right SSO?</a></h3>
-<p>If your organization is primarily Windows 10/11 devices that are AD domain joined, <strong>Azure AD Hybrid Join</strong> is the route to go. To be clear, <strong>you do not</strong> need to deploy Azure AD Seamless SSO along with hybrid join; your clients <strong>will not</strong> use Azure AD Seamless SSO if the device has a PRT.</p>
-<p>If you have to support downlevel installs of Windows 8.1, Seamless SSO may be an easier route than hybrid join, and you can enable seamless SSO and just target those devices for configuration.</p>
-<p>Likewise, if you are supporting MacOS in your environment, enabling Azure AD Seamless SSO can provide a better authentication experience if those Macs are Active Directory domain joined. Even though at this point you may want to look at the Enterprise SSO plugin for MacOS, <a href="https://docs.microsoft.com/en-us/mem/intune/configuration/use-enterprise-sso-plug-in-ios-ipados-macos">Microsoft Enterprise SSO plug-in in Microsoft Intune | Microsoft Docs</a>.</p>
-<p>There’s no harm in having both methods configured, but if the mechanism for Seamless SSO isn’t actually being leveraged in your environment, and if you have hybrid joined Windows 10/11 devices <strong>it’s not</strong>, it’s just an extra bit of configuration to manage and maintain with no benefit.</p>
-<h4 id="what-about-federated-identity"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#what-about-federated-identity">What about federated identity?</a></h4>
-<p>If an organization has AD FS or a supported 3rd party IdP in the mix, such as PingFederate or Okta, the proper route to go, from an Azure AD perspective, is still hybrid join.</p>
-<p>Hybrid join is still going to provide you SSO with your PRT for applications leveraging Azure AD as their identity provider – when you authenticate interactively with the Windows client at sign-on, WS-Trust is the means to authenticate you to your federated identity provider behind the scenes, and in return allowing Azure AD to give you a fresh PRT.</p>
-<p>The MS Docs articles indicate that Seamless SSO is not supported with federated identity, and I’ve never tried to see what happens if you force it via PowerShell module – but would presume you run into conflicts with overlap in how Azure AD handles hints for bypassing username entry for Seamless SSO and how Azure AD handles hints for bypassing username entry for federated auth.</p>
-<h4 id="what-about-azure-ad-join"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/#what-about-azure-ad-join">What about Azure AD join?</a></h4>
-<p>Azure AD Join (AADJ) should be the long-term goal for organizations, going cloud native and removing their clients dependency on Active Directory. Under the hood, the mechanics of authentication for AADJ are <strong>just</strong> the bits that give you that Azure AD PRT, and Azure AD is now the authoritative identity provider for those clients. For many organizations, it tends to be client management and group policies that lend the most complexity in going cloud native, even though it is the future, so now is as good as ever to start a pilot down that road while you continue to support existing clients with Hybrid Azure AD Join.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -783,6 +750,12 @@
       <ul class="md-meta__list">
         <li class="md-meta__item">
           <time datetime="2022-05-18 00:00:00+00:00">May 18, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/fido2/" class="md-meta__link">FIDO2</a>, 
+              <a href="../../category/passwordless/" class="md-meta__link">Passwordless</a></li>
         
         
           
@@ -839,89 +812,13 @@
 <p>Forget passwords. Passwords are garbage. To celebrate World Password Day, I’m curating blog articles that can help organizations on their passwordless journey.</p>
 <p>While much of the Microsoft documentation on passwordless is quite good, it can tend to be overwhelming at times; the hope is to give you some great leads on some clear, step-by-step instructions on how to get you from a password-filled to a passwordless world in Active Directory and Azure AD.</p>
 <p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as AD FS and using smartcards, or has DC’s older than 2016, you have a bunch of Macs in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
-<p>If you want to dive further into why this is so important, I’ll refer you to these two blog articles from Alex Weinert [<a href="https://twitter.com/Alex_T_Weinert">@Alex_T_Weinert</a>], the Director of Identity Security at Microsoft.</p>
-<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/your-pa-word-doesn-t-matter/ba-p/731984">Your Pa$$word doesn’t matter – Microsoft Tech Community</a> – Alex discusses why MFA is so important.</p>
-<p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/all-your-creds-are-belong-to-us/ba-p/855124">All your creds are belong to us! – Microsoft Tech Community</a> – Alex discusses why passwordless strong authentication is important and shows why more common forms of MFA are still phishable.</p>
-<p>See something missing? Still have questions? Not sure how the underlying technology works? Reach out to me.</p>
-<p>And if you are a fellow Microsoft blogger who thinks their article would be a good fit, but it’s not on here? Reach out and I’ll update accordingly.</p>
-<h3 id="but-i-havent-started-the-passwordless-journey-yet"><a class="toclink" href="../../2022/05/04/world-password-day/#but-i-havent-started-the-passwordless-journey-yet">But I haven't started the passwordless journey yet</a></h3>
-<p>You aren’t alone. Many organizations find it difficult to fit yet another new project onto the docket.</p>
-<p>The thing about passwordless – while it may be a journey, it’s also one of the easiest journeys to start. All major mechanisms of passwordless – Windows Hello for Business (WHfB), FIDO2 security keys, Authenticator App for primary authentication, and smartcards – they all can be implemented in a wave/phase/ring (pick your favorite descriptor) approach. And the underlying directory &amp; infrastructure changes (if any) can be implemented in a non-disruptive manner.</p>
-<p>Can’t get the whole organization onboard? That’s ok, x% is better than 0%.</p>
-<p>Don’t have biometrics on all your devices? WHfB has PIN support.</p>
-<p>End-users not wanting to MDM enroll their devices? Authenticator App only requires Device Registration.</p>
-<p>FIDO2 feel odd or uncomfortable? It’s essentially modern smartcards.</p>
-<p>Have some applications that still use legacy means of authentication? Most organizations do, but we can minimize the need to use passwords beyond them.</p>
-<p>Concerned users may still use their password because you can’t fully get rid of it? When we give users an easier passwordless experience, they will not opt for something more complex. Users love easy things.</p>
-<p>When talking about the security of identity, the <strong>most important thing</strong> we can all do is <strong>change our mindset</strong>. Instead of focusing on the possibility that a single solution may not cover 100% of user personas, we need to focus on whatever percentage we <strong>can</strong> cover, which will <strong>reduce</strong> the <strong>password attack surface</strong> immensely for those users, and our organization.</p>
-<h3 id="authenticator-app-for-primary-authentication"><a class="toclink" href="../../2022/05/04/world-password-day/#authenticator-app-for-primary-authentication">Authenticator App for primary authentication</a></h3>
-<p><strong>Infrastructure effort: 5-10 minutes</strong>
-<strong>End user enrollment effort: 5-10 minutes</strong>
-<strong>Can be rolled out selectively: Yes</strong>
-<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
-<p>Lots of folks might be familiar with the Microsoft Authenticator App, but did you know you can use it for passwordless authentication? You can. It’s great for when users need to be passwordless when accessing company resources from a mobile device, or when they are on the go and need to auth through a web browser.</p>
-<p>Jason Samuel [<a href="https://twitter.com/_JasonSamuel">@_JasonSamuel</a>] has a good write-up here covering enablement. He also gets into Citrix Workspace stuff, but even if you don’t have Citrix in your environment, the other parts are written straightforward:</p>
-<p><a href="https://www.jasonsamuel.com/2019/03/04/how-to-setup-password-less-phone-sign-in-authentication-with-microsoft-authenticator-azure-ad-and-citrix-workspace/">How to setup password-less phone sign-in authentication with Microsoft Authenticator, Azure AD, and Citrix Workspace – JasonSamuel.com</a></p>
-<p>Microsoft Docs article for reference can be found here:</p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone">Passwordless sign-in with the Microsoft Authenticator app – Azure Active Directory | Microsoft Docs</a></p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>If you are also using the number matching preview for Authenticator App push notifications, the passwordless configuration is covered under the same settings in Azure AD. If you are using groups to selectively roll out these settings, I cover targeting groups here:</p>
-<p><a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a></p>
-</div>
-<h3 id="fido2-security-keys"><a class="toclink" href="../../2022/05/04/world-password-day/#fido2-security-keys">FIDO2 Security Keys</a></h3>
-<p><strong>Infrastructure effort: 20 minutes for AADJ devices. 40 minutes for HAADJ devices.</strong>
-<strong>End user enrollment effort: 5-10 minutes</strong>
-<strong>Can be rolled out selectively: Yes</strong>
-<strong>Can be enabled on an end user without forcing them to enroll: Yes</strong></p>
-<p>FIDO2 security keys are the latest and greatest thing – it’s based on asymmetric cryptography – what we generally refer to as certificates (even though a key is a piece within a certificate).</p>
-<p>Many organizations that have never operated in a highly secure environment where smartcards are prevalent may find the idea of a device containing a certificate for authentication seeming a bit odd. But we should look at FIDO2 security keys as smartcard 2.0 – it’s all the great security features of smartcards, but packed and managed in a way that makes it easier to manage from both the IT and end-user side.</p>
-<p>For a great deep dive on how FIDO2 works, look at this article by Dominik Hoefling [<a href="https://twitter.com/DominikHoefling">@DominikHoefling</a>]:</p>
-<p><a href="https://practical365.com/understanding-how-fido-makes-passwordless-authentication-possible/">Understanding How FIDO Makes Passwordless Authentication Possible (practical365.com)</a></p>
-<p>To see how to configure your environment to support FIDO2 for Azure AD Joined devices, Peter Klapwijk [<a href="https://twitter.com/inthecloud_247">@inthecloud_247</a>] has us covered. He uses Feitian keys but any supported FIDO2 key will work:</p>
-<p><a href="https://www.inthecloud247.com/enable-passwordless-authentication-to-windows-10-with-feitian-security-keys/">Enable passwordless authentication to Windows 10 with Feitian security keys | (inthecloud247.com)</a></p>
-<p>Peter also has a great article covering the same, but for Hybrid Azure AD Join:</p>
-<p><a href="https://www.inthecloud247.com/enable-passwordless-security-key-sign-in-in-hybrid-azure-active-directory-environments/">Enable passwordless security key sign-in in Hybrid Azure Active Directory environments | (inthecloud247.com)</a></p>
-<p>Microsoft Docs articles for reference can be found here:</p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key">Passwordless security key sign-in – Azure Active Directory | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-windows">Passwordless security key sign-in Windows – Azure Active Directory | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a></p>
-<h3 id="windows-hello-for-business"><a class="toclink" href="../../2022/05/04/world-password-day/#windows-hello-for-business">Windows Hello for Business</a></h3>
-<p><strong>Infrastructure effort: 20 minutes [Azure AD Join Cloud Trust], 1-2 hours [Hybrid Cloud Trust], 2 hours-3 days [Hybrid Key Trust]</strong>
-<strong>End user enrollment effort: 2-5 minutes (plus 30-60 usability delay for Hybrid Key Trust)</strong>
-<strong>Can be rolled out selectively: Yes</strong>
-<strong>Can be enabled on an end user without forcing them to enroll: No</strong>
-<em>There are mechanisms that can delay end-user enrollment, but the complexity usually is not worth the effort</em></p>
-<p>Windows Hello for Business. It’s like Face ID, for Windows. Or is Face ID like Windows Hello for Business, but for iOS??</p>
-<p>If you don’t have a fancy camera, it also works with your fingerprint. And if you have no fancy biometric thingies, you can use it with just a PIN. But wait, isn’t a PIN the same as a password? <strong>NO</strong>. The PIN is entropy to unlock the key/certificate that is stored on the TPM chipset on your device. It’s never emitted beyond the device. And yes, you always must create a PIN – the same way you always must create a PIN for mobile devices as backup for biometric… just in case.</p>
-<p>Also – if you are rolling out Hybrid Key Trust, you <strong>do not, I repeat, do not, need any premium licenses</strong>. The issue many organizations have theoretically faced is that to enroll in WHfB, you hit the part where you need to perform MFA, and organizations that do not have P1+/EMS E3+/M365 E3+ (and the variants) believe that they cannot use MFA. That is not the case. You need premium licensing when certain things are calling for MFA – such as per-user enablement (which is an O365 license thing), or more commonly thought of, conditional access. When Azure AD calls for MFA for WHfB enrollment, that MFA call is <strong>free</strong>. Considering that security defaults, which are also free, call for MFA potentially, this should be less of a concern. But it’s always been a huge point of confusion. I learned about this in excruciating detail when I worked at Microsoft, rolling out WHfB with customers. Based on what I can gather regarding Hybrid Cloud Trust, I would say the case is the same. /endrant</p>
-<p>If you have Azure AD Joined devices and are looking to go cloud-only, Janusz Gal [<a href="https://twitter.com/JanuszGal">@JanuszGal</a>] has you covered with his article here:</p>
-<p><a href="https://deviceadvice.io/2020/06/22/how-to-set-up-windows-hello-for-business-for-cloud-only-devices/">How to set up Windows Hello for Business for cloud-only devices – Device Advice</a></p>
-<p>If you want to ensure that those devices can still reach Active Directory based resources, look no further than this article by Ben Whitmore [<a href="https://twitter.com/byteben">@byteben</a>] and Michael Mardahl [<a href="https://twitter.com/michael_mardahl?lang=en">@michael_mardahl</a>]:</p>
-<p><a href="https://msendpointmgr.com/2021/08/15/sso-to-domain-resources-from-azure-ad-joined-devices-the-mega-series/">SSO to domain resources from Azure AD Joined Devices – The MEGA Series – Part 1 – Overview – MSEndpointMgr</a></p>
-<p>For rolling out what previously was (and technically still is, because Cloud Trust is in Public Preview) the recommended path for hybrid devices, Hybrid Key Trust, check out this article by Brooks Peppin [<a href="https://twitter.com/brookspeppin">@brookspeppin</a>]:</p>
-<p><a href="https://www.brookspeppin.com/2021/08/13/how-to-setup-windows-hello-for-business-key-trust-method/">How to Setup Windows Hello for Business (Key-Trust Method!) – Brooks Peppin’s Blog</a></p>
-<p>For what will eventually become the recommended path for hybrid devices, Hybrid Cloud Trust, see this article by Pim Jacobs [<a href="https://twitter.com/pimjacobs89">@pimjacobs89</a>]:</p>
-<p><a href="https://identity-man.eu/2022/02/17/improving-your-windows-hello-for-business-hybrid-password-less-setup-by-using-cloud-trust/">Improving your Windows Hello for Business Hybrid Password less setup by using Cloud Trust – Identity Man (identity-man.eu)</a></p>
-<p>If you are curious what it looks like to convert from Hybrid Key Trust to Hybrid Cloud Trust, check out my article:</p>
-<p><a href="https://ericonidentity.com/2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">Windows Hello for Business: Hybrid Cloud Trust – Eric on Identity</a></p>
-<p>And if you are far enough down the passwordless road that you want to take them away from end users, then check out this article I wrote:</p>
-<p><a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a></p>
-<p>Microsoft Docs articles for reference can be found here:</p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-aad-join-cloud-only-deploy">Azure Active Directory join cloud only deployment – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-trust">Hybrid Cloud Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-key-trust">Hybrid Key Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cert-trust">Hybrid Certificate Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-aadj-sso">Azure AD Join Single Sign-on Deployment – Windows security | Microsoft Docs</a></p>
-<h3 id="some-great-additional-resources"><a class="toclink" href="../../2022/05/04/world-password-day/#some-great-additional-resources">Some great additional resources</a></h3>
-<p>Fabian Bader [<a href="https://twitter.com/fabian_bader">@fabian_bader</a>] has a long series on passwordless:</p>
-<p><a href="https://cloudbrothers.info/en/categories/passwordless/">Passwordless – Category – Cloudbrothers</a></p>
-<p>Jan Bakker [<a href="https://twitter.com/janbakker_">@janbakker_</a>] has some quality articles covering FIDO2:</p>
-<p><a href="https://janbakker.tech/?s=fido">FIDO – JanBakker.tech</a></p>
-<p>Harri Jaakkonen[<a href="https://twitter.com/HarriJaakkonen">@HarriJaakkonen</a>] is constantly putting out new articles, and lots that cover passwordless:</p>
-<p><a href="https://www.cloudpartner.fi/?s=passwordless">Set-AzWebApp -name “Anything Microsoft and other stuff on the side” (cloudpartner.fi)</a></p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/05/04/world-password-day/#final-notes">Final notes</a></h3>
-<p>Passwords will eventually have an expiration date. It’s better to start the journey away from them now, than get caught behind the ball down the road.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/05/04/world-password-day/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -941,6 +838,11 @@
       <ul class="md-meta__list">
         <li class="md-meta__item">
           <time datetime="2022-04-26 00:00:00+00:00">April 26, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/mfa/" class="md-meta__link">MFA</a></li>
         
         
           
@@ -962,46 +864,13 @@
 <p>If we dig into the legacy multi-factor authentication service settings portal, which can be found by browsing to <strong>Azure AD -&gt; Security -&gt; MFA</strong>, and then on the <strong>right</strong>, under <strong>Configure</strong>, select <strong>Additional cloud-based MFA settings</strong>. It will bring you to the following:</p>
 <p><img alt="Figure 1" src="/images/2022/04/26/img1.png" /></p>
 <p>The setting we are focused on is at the bottom. Under <em>remember multi-factor authentication on trusted device, Allow users to remember multi-factor authentication on devices they trust.</em></p>
-<h3 id="whats-the-problem"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#whats-the-problem">What's the problem?</a></h3>
-<p>The name of the setting doesn’t really explain it well. The Microsoft Docs article that explains the details of this setting can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings#remember-multi-factor-authentication">Configure Azure AD Multi-Factor Authentication – Azure Active Directory | Microsoft Docs</a>.</p>
-<p>Even though there is an additional note provided, a lot of organizations don’t even recall this setting exists – either they have never had to come to this set of options to begin with, or it was enabled several years ago and never reviewed again. Unfortunately, this setting is not well exposed in Azure AD.</p>
-<p>When enabled in an Azure AD tenant, it allows end-users to make the decision on what a “trusted device” is. The heading for the setting, when glanced over, may make you believe it relates to trusted devices, as in compliant devices. But as we see within the details, the user is making that trust decision.</p>
-<p>And the issue with that trust decision, is that it allows the user to choose to drop an MFA persistence cookie, <strong>completely separate</strong> from the refresh token, in the browser.</p>
-<p>So even if our user chooses to <strong>sign-out</strong>, and even if they choose in the browser the option to <strong>forget</strong> their username from the sign-in menu, this cookie persists.</p>
-<p>The user experience, with this setting enabled, will show the following during sign-in:</p>
-<p><img alt="Figure 2" src="/images/2022/04/26/img2.png" /></p>
-<p>When enabled, the <strong>Don’t ask again for 90 days</strong> (or whatever interval is set in your organization) shows up and is checked by default.</p>
-<p>On subsequent user sign-in, the user <strong>will not be prompted for MFA</strong>, unless the time specified in the setting has lapsed, or the browser cookies have been cleared.</p>
-<p>You will see the following in the Sign-in details:</p>
-<p><img alt="Figure 3" src="/images/2022/04/26/img3.png" /></p>
-<p>This setting is <strong>not the same</strong> as the <strong>Keep Me Signed In (KMSI)</strong> settings in Azure AD, which allow the user to retain their refresh token in their browser when they close it. The KMSI experience invalidates the token during user sign-out, and upon sign-in provides the expected behavior of calling for both primary authentication and MFA (if there is an MFA requirement).</p>
-<h3 id="why-exactly-is-this-a-problem"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#why-exactly-is-this-a-problem">Why exactly is this a problem</a></h3>
-<p>While it may be alluded to above, this setting weakens the security posture regarding MFA. It allows users to subvert when we may be requiring Conditional Access to call for MFA. Now we are not saying our user is doing anything malicious – this is a setting we enable and it’s logical that a user would select this. Users will pick whatever options make getting the job done with the least amount of friction.</p>
-<p>If the device is or becomes compromised, the user account will become an easier target to malicious actors. Just think of any device you have the least amount of trust in, which usually is some sort of shared device outside the corporate boundaries, and then allow the user to make the trust decision. It’s not a great recipe.</p>
-<h3 id="determining-the-usage"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#determining-the-usage">Determining the usage</a></h3>
-<p>If you’ve looked at your settings, and you see that this setting is disabled, then you can just stop here.</p>
-<p>If you’ve found that this setting is enabled, you want to understand how widespread the usage is before disabling it. The fewer users leveraging it, the swifter the change process.</p>
-<p>We want to explore our Azure AD Sign-in logs, however, we cannot filter granularly within the portal.</p>
-<p>Using Log Analytics, the following query will help show who, where they are coming from, and the device information. The query is written to highlight distinct devices:</p>
-<div class="highlight"><pre><span></span><code>SigninLogs
-| where TimeGenerated &gt; ago(30d) //Set time period to within the last 30 days
-| where Status.additionalDetails == &quot;MFA requirement skipped due to remembered device&quot; //String to search for
-| project UserPrincipalName,IPAddress,OS = tostring(DeviceDetail.operatingSystem),Browser = tostring(DeviceDetail.browser),City = tostring(LocationDetails.city),State = tostring(LocationDetails.state),Country = tostring(LocationDetails.countryOrRegion) //Pull JSON data into strings
-| distinct UserPrincipalName,IPAddress,OS,Browser,City,State,Country //Filter for distinct instances
-</code></pre></div>
-<p>If you do not have access to Log Analytics, you can export your Azure AD Sign-in logs in either CSV or JSON format and parse the data out accordingly, the string you will want to search for is <strong>MFA requirement skipped due to remembered device</strong>.</p>
-<h3 id="remediation"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#remediation">Remediation</a></h3>
-<p>I’ll preface that I’ve had dozens of organizations disable this setting with little notice to end-users, and with little disruption to their lives. Many of those organizations did not even search their logs prior to disabling it.</p>
-<p>This only impacts browser sessions. Client applications will never present this prompt, regardless of whether the client application is on a mobile device or Windows.</p>
-<p>If we are using Windows Hello for Business, FIDO2 security keys, or Authenticator App for Primary Auth, all those mechanisms provide for strong-authentication within them, and are not impacted by this setting.</p>
-<p>For Azure AD Joined (AADJ) or Hybrid Azure AD Joined (HAADJ) devices, even if our users are using passwords and are requested to perform MFA, their PRT will obtain an MFA claim within it during the first run, and users will not be frequently prompted for MFA subsequently.</p>
-<p>That’s a long way of saying the impact is usually limited to web browsers on personal devices that have no relationship to the Azure AD tenant. The devices we trust the least.</p>
-<p>Once comfortable turning off this setting, it’s simply a matter of unchecking the box in the MFA service settings portal we examined above.</p>
-<h3 id="if-you-want-to-limit-mfa-lifetime"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#if-you-want-to-limit-mfa-lifetime">If you want to limit MFA lifetime</a></h3>
-<p>I’ve encountered some organizations who have this setting enabled, and the number dialed way down. When talking about corporate devices or devices we have insight into, through either MDM, MAM, hybrid trust, or such, it’s not recommended to limit MFA lifetime. We already have a level of trust established and prompting users frequently for MFA will not only create friction in the user experience, as well as sets our users up to be both more susceptible to MFA phishing (you get trained to just perform MFA without thought) and devise ways around security.</p>
-<p>If you have business scenarios that call for the desire to prompt more frequently for MFA, Conditional access offers Sign-in frequency session controls as well as Persistent browser session controls, which can be targeted to non-corporate managed devices. Authentication context also allows for scenarios where we want to call for strong authentication scenarios when users are accessing sensitive information. These settings offer a higher level of precision to target certain scenarios while not negatively impacting the broader user experience.</p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/#final-notes">Final notes</a></h3>
-<p>This setting really has been a carry-over from when we didn’t have the power available from Conditional Access, and unfortunately, it’s well hidden in that dusty MFA settings portal almost nobody ever treks into. Lucky for us, it’s a quick win in the name of security to disable.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/04/26/azure-ad-you-should-disable-this-legacy-mfa-setting/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1022,6 +891,11 @@
         <li class="md-meta__item">
           <time datetime="2022-04-21 00:00:00+00:00">April 21, 2022</time></li>
         
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
         
           
           <li class="md-meta__item">
@@ -1039,45 +913,13 @@
 <p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
 <p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
 <p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
-<h3 id="terminology"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#terminology">Terminology</a></h3>
-<p><strong>Guest</strong> – For clarity, when speaking about guest users for the context of this post, we are talking about users invited into your Azure AD tenant.</p>
-<p><strong>Resource Azure AD Tenant [Resource Tenant]</strong> – If you are inviting guests <strong>into</strong> your Azure AD tenant, <strong>your</strong> tenant is the resource tenant. It represents your organization. If you are a <strong>guest</strong>, then the resource tenant is the tenant you have been invited into.</p>
-<p><strong>Home Azure AD Tenant [Home Tenant]</strong> – This is the tenant where the user objects live. If your user object exists in your organizations Azure AD tenant, your tenant is <strong>both</strong> the home tenant and resource tenant – your users and applications all “live” in the same place. Guests into your tenant will have a <strong>different</strong> home tenant.</p>
-<h3 id="what-it-is-not"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is-not">What it is not</a></h3>
-<p>Before getting into what we can do with cross-tenant access settings, let’s cover what this is not (at least at the time of this writing).</p>
-<h4 id="parity-to-an-active-directory-trust"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#parity-to-an-active-directory-trust">Parity to an Active Directory trust</a></h4>
-<p>Cross-tenant access settings may invoke a feeling of configuring a trust in Active Directory, which many Microsoft identity practitioners may be familiar with.</p>
-<p>It is closer to the <strong>opposite</strong> of a trust, in the sense that by default Active Directory has no implicit trusts, and you must explicitly configure trusts. Azure AD historically is opposite, any organization, unless settings are adjusted, can invite users from any Azure AD tenant into the organization. These settings allow us to be more granular in how we <strong>restrict</strong> guest access inbound and outbound to our Azure AD tenant.</p>
-<p>Further, when we examine B2B Direct Connect, we realize that the only use case, currently, is Teams shared channels.</p>
-<p>When we think of an Active Directory trust, we think of the fact that user objects only exist in the source user forest. With cross-tenant access settings, and the limitations with B2B Direct Connect, we still must invite user objects into our resource tenant – all the other “things” tied to our Azure AD tenant need the objectID within our resource tenant to reference.</p>
-<h3 id="what-it-is"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#what-it-is">What it is</a></h3>
-<h4 id="a-mechanism-to-provide-granular-b2b-guest-control"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-mechanism-to-provide-granular-b2b-guest-control">A mechanism to provide granular B2B guest control</a></h4>
-<p>When speaking about B2B guests and external identities, many organizations tend to focus on the aspect of guests being invited <strong>into</strong> their tenant. There is the other side to that B2B coin, which is restricting what organizations you may want your users to have access to.</p>
-<p>Certain organizations, especially those in the regulated industries, have concern over which external tenants their users can connect to. Up until now, organizations would need to apply tenant restrictions, <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/tenant-restrictions">Use tenant restrictions to manage access to SaaS apps – Azure AD | Microsoft Docs</a>, which has a higher level of complexity to it – the implementation requires a proxy to perform traffic inspection and HTTP header insertion.</p>
-<p>Now, organizations that have strict requirements regarding outbound guest access can, by default, restrict outbound access, and then create a more granular allow list.</p>
-<p>We also now can be granular down to user/group level of who can access certain organizations. Say you want to only allow employees from payroll to be able to access the tenant the vendor uses and restrict outbound access to everyone else – now you can do that.</p>
-<p>Likewise, there is granularity on the inbound side. Say you are that vendor that processes an organizations payroll and want to ensure that only the known users for the company you serve can come into your organization. You can restrict inbound as well, limiting what guests are allowed in.</p>
-<h4 id="a-way-to-trust-external-mfa-and-device-compliance"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-way-to-trust-external-mfa-and-device-compliance">A way to trust external MFA and Device Compliance</a></h4>
-<p>Many organizations that are familiar with conditional access and guest policies have encountered the need to enroll in Azure AD MFA twice or more – once for their home tenant and once in every other resource tenant they access. This experience, from a user perspective, is less than ideal.</p>
-<p>With cross-tenant access settings, we can now choose to trust MFA from the guest users home tenant. We also can be granular – if we want to trust MFA from certain tenants, but require MFA enrollment from others, we can do that.</p>
-<p>More interestingly, we can now trust device compliance and hybrid join status, from the guest home tenant. While I still have certain reservations about the quality of relying on hybrid join alone, focusing on device compliance, it really opens a lot of cross-tenant collaboration, and brings an innovative approach to leveraging Zero Trust modeling when working with guests. While this still has the requirement that the guest home tenant must be leveraging Intune or a 3rd party MDM that can report in device compliance, it makes this a possibility.</p>
-<p>In my own testing, I was able to leverage device compliance in conditional access for a device in a guest tenant, and it worked with ease.</p>
-<h3 id="a-few-lingering-questions"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#a-few-lingering-questions">A few lingering questions</a></h3>
-<h4 id="where-is-conditional-access-processed"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-conditional-access-processed">Where is Conditional Access processed?</a></h4>
-<p>This hasn’t changed with the new cross-tenant access settings, but it’s a good time to review.</p>
-<p>Conditional access is <strong>always</strong> evaluated in the <strong>resource</strong> tenant.</p>
-<p>The resource tenant needs to ensure that their Conditional Access policies meet the needs of protecting their applications.</p>
-<p>Likewise, the home tenant <strong>cannot</strong> restrict outbound access to another tenant with Conditional Access. Because the guest is not accessing resources in their tenant, even an all applications block CA policy will not prevent the user from accessing a resource tenant as a guest – which really brings us back to what these new settings solve.</p>
-<h4 id="where-is-identity-protection-processed"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#where-is-identity-protection-processed">Where is Identity Protection processed?</a></h4>
-<p>User risk is evaluated in the <strong>home</strong> tenant, and sign-in risk is evaluated in the <strong>resource</strong> tenant for B2B users. When firing up Tor, and accessing O365 with a guest, my test user was blocked by Identity Protection in the home tenant because it was flagged as a high user risk. So depending on the sort of threat detected by Identity Protection, you may find users being restricted by both the home and resource tenant when Identity Protection is in play.</p>
-<p>The details on this are further elaborated on in the Microsoft Docs article, <a href="https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-b2b#how-does-identity-protection-work-for-b2b-users">Identity Protection and B2B users – Azure Active Directory | Microsoft Docs</a>.</p>
-<h3 id="one-new-trick-out-of-a-possible-many"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#one-new-trick-out-of-a-possible-many">One new trick - out of a possible many</a></h3>
-<h4 id="pim-in-the-home-tenant-for-outbound-guest-access"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#pim-in-the-home-tenant-for-outbound-guest-access">PIM in the home tenant for outbound guest access</a></h4>
-<p>The ability to apply PIM to guest user accounts is not new. But if we combine the preview feature of PIM for group membership, and apply outbound restrictions to a certain group, the <strong>home</strong> tenant can build a request process for outbound access.</p>
-<p>In that this is quite restrictive, I would see a narrow range of use cases, as it really hampers collaboration between tenants. For those organizations who previously completely turned off the ability to collaborate with other organizations due to things like data sensitivity, the door might now be opened a bit.</p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/#final-notes">Final notes</a></h3>
-<p>External Identities and B2B are continually evolving. While there is still a large gap to bridge for many situations, this definitely is bringing us one step closer. B2B Direct Access in particular will be interesting to see how Microsoft evolves it – will it come closer to how an AD trust operates, or will there be improvements on how guests are invited into tenants.</p>
-<p>As usual, any questions/concerns/comments please reach out to me, and if you find any new unique use cases for cross-tenant access settings, would love to hear them.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1098,6 +940,11 @@
         <li class="md-meta__item">
           <time datetime="2022-03-29 00:00:00+00:00">March 29, 2022</time></li>
         
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
         
           
           <li class="md-meta__item">
@@ -1116,76 +963,13 @@
 <p>Organizations initially struggled with the limited ability to delegate granular RBAC roles in Azure AD, with the directories flat structure; especially for all of us coming from an Active Directory background. When administrative units were introduced, they started to open up the door for organizations that needed to delegate access to a subset of users in an Azure AD tenant.</p>
 <p>The one catch with AU’s that <strong>was</strong> a non-starter for many organizations – they weren’t dynamic. And while OU’s are not dynamic in Active Directory, it’s a different take when the tenant is usually secondary to AD being authoritative. Move a user in AD, one would hope that the location in Azure AD would follow. While there are some PowerShell scripts out there that feel very akin to those used for AD shadow groups, overall maintenance of AU’s could prove cumbersome in dynamic organizations.</p>
 <p>The struggle, however, is no more – administrative units now support <strong>dynamic</strong> user and device membership!</p>
-<h3 id="administrative-unite-use-cases"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#administrative-unite-use-cases">Administrative Unite use cases</a></h3>
-<p>Before exploring dynamic membership, I just wanted to touch on some of the use cases that have already existed, and many that can greatly improve with dynamic membership. This is just a mere tip of the iceberg for use cases – if you see ones that I’ve missed let me know, and I’ll gladly add it.</p>
-<p>While they feel similar to OU’s, the fact that AU’s are virtual units of structure, they provide much greater flexibility than OU’s. A user can belong to several AUs, and you don’t have to worry about users being linked as child objects that are deleted if an AU is removed – everyone remembers that time that their AD backups were tested with an accidental OU deletion.</p>
-<h4 id="regional-it-delegation"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#regional-it-delegation">Regional IT delegation</a></h4>
-<p>Many global organizations that operate out of a single Azure AD tenant still have localized and regional support desks. With AU’s, you can create multiple layers of support structure to provide for things like password reset and user object management, without needing to deal with the complications of trying to fit complex delegations of ACL’s onto objects the same way we would have to with Active Directory.</p>
-<h4 id="state-and-local-government-agency-delegation"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#state-and-local-government-agency-delegation">State and local government agency delegation</a></h4>
-<p>Many organizations in the public sector operate out of the same Azure AD tenant to support a single O365 environment. However, many agencies still want to retain levels of autonomy over managing their user objects. Administrative units can provide for that granular level of RBAC control.</p>
-<h4 id="my-staff-management"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#my-staff-management">My Staff management</a></h4>
-<p>My Staff came out to primarily help assist with managers performing basic tasks for front line workers. The goal is to bring the power to non-IT employees the ability to do things like reset passwords or manage phone numbers for MFA. My Staff is driven by administrative units, with AU’s that are built to replicate an organizational staffing structure. For more information on My Staff, take a look at the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/my-staff-configure">Use My Staff to delegate user management – Azure AD | Microsoft Docs</a>.</p>
-<p>It takes a bit of work in Azure AD Connect, because the manager attribute is a reference attribute in Active Directory, to synchronize the manager UPN as a custom attribute (even though manager is synchronized by Azure AD Connect, it is not exposed as a dynamic attribute option). But one could configure a system where managers have control over their employees objects, and with dynamic membership, their manager changes in AD can easily follow them in My Staff.</p>
-<h3 id="exploring-administrative-unit-dynamic-membership"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#exploring-administrative-unit-dynamic-membership">Exploring Administrative Unit dynamic membership</a></h3>
-<p>If you’ve used dynamic membership for groups, the logic and expressions for dynamic administrative units is the same. I won’t deep dive into all the rules available, but the options for evaluation are both flexible and immensely powerful. For more details on the rules, take a look at this Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-dynamic-membership">Rules for dynamically populated groups membership – Azure AD | Microsoft Docs</a>.</p>
-<h4 id="licensing"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#licensing">Licensing</a></h4>
-<p>As with dynamic group membership, current documentation indicates that any user who is a member of an AU that is dynamically populates requires an Azure AD P1 or P2 license assigned to them. This contrasts static membership, where only those managing the AU’s require a P1 or P2 license; users can be members of the AU’s with an Azure AD free license. Dynamic device membership does not require any special license for AU’s. For more information, see the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic#prerequisites">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
-<h4 id="configuring-administrative-unit-dynamic-membership"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#configuring-administrative-unit-dynamic-membership">Configuring Administrative Unit dynamic membership</a></h4>
-<p>While the expression set is the same as dynamic groups, currently you have to adjust the administrative unit to be dynamic post-creation. Also, as we go through this, I’ll be referencing the current Microsoft documentation on dynamic membership for administrative units, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
-<p>First we create a new administrative unit:</p>
-<p><img alt="Figure 1" src="/images/2022/03/29/img1.png" /></p>
-<p>And after creation of the AU, we can go look at the Properties for it. Within here we will find <strong>Membership type</strong>, which we can drop down and select <strong>Dynamic User</strong>:</p>
-<p><img alt="Figure 2" src="/images/2022/03/29/img2.png" /></p>
-<p>After setting the <strong>Membership type</strong> to <strong>Dynamic User</strong>, we will need to <strong>Add dynamic query</strong> before we can save the changes. The dynamic query is the secret sauce to what makes the dynamic AU, dynamic. Note that until we set this query, we cannot save these changes; the save is grayed out.</p>
-<p><img alt="Figure 3" src="/images/2022/03/29/img3.png" /></p>
-<p>In our example here, we are going to use a rule for physicalDeliveryOfficeName equals Schenectady:</p>
-<p><img alt="Figure 4" src="/images/2022/03/29/img4.png" /></p>
-<p>We save the rule, and now the Save button will be available on the administrative unit properties. Before saving, we will be presented with a warning:</p>
-<p><em>After changing the administrative unit type, the existing membership may change based on the dynamic membership rules you provide. Click Yes to continue.</em></p>
-<p><img alt="Figure 5" src="/images/2022/03/29/img5.png" /></p>
-<p>The warning here will show up, regardless of whether it’s a new, unpopulated AU, or if it’s an existing AU with thousands of users within it.</p>
-<p>After a few minutes of churning, the AU will be populated:</p>
-<p><img alt="Figure 6" src="/images/2022/03/29/img6.png" /></p>
-<h4 id="converting-an-administrative-unit-to-dynamic"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#converting-an-administrative-unit-to-dynamic">Converting an Administrative Unit to dynamic</a></h4>
-<p>During testing of conversion of an assigned AU to dynamic, I was curious to see how it operated. Does it wipe out all membership and start from scratch, or does Azure AD evaluate the users within the AU to determine who still belongs? Luckily, it appears to be the latter.</p>
-<p>Checking my Azure AD Audit logs, we can see users who no longer belong in a specific administrative unit being removed:</p>
-<p><img alt="Figure 7" src="/images/2022/03/29/img7.png" /></p>
-<p>Note that if you are going the other direction, from dynamic membership to assigned, Azure AD will indicate that the existing users in the AU will be retained, but will not be dynamically processed anymore.</p>
-<h4 id="exploring-with-powershell"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#exploring-with-powershell">Exploring with PowerShell</a></h4>
-<p>As with most things Azure AD, anything that can be done in the portal can be done with PowerShell (which really is just indirect Graph) and Graph.</p>
-<p>I’ve been making a concerted effort to use the Microsoft Graph PowerShell SDK, <a href="https://docs.microsoft.com/en-us/graph/powershell/installation">Install the Microsoft Graph PowerShell SDK – Microsoft Graph | Microsoft Docs</a>, over the Azure Active Directory PowerShell for Graph modules. Why? The PowerShell SDK supports PowerShell 7, is cross-platform, and provides access to all of Graph, not just Azure AD.</p>
-<p>That being said, I’ve found the PowerShell SDK modules for dynamic administrative units to be, well, rather lacking. While there are indirect parameters to provide dynamic information, I haven’t spent the cycles yet figuring things out. The docs/get-help provide almost no information on commands like <strong>New-MGAdministrativeUnit</strong></p>
-<p><img alt="Figure 8" src="/images/2022/03/29/img8.png" /></p>
-<p><em>The (lacking) documentation</em></p>
-<p>As such, for the purpose of getting this post published, I’ll be using the Azure AD PowerShell modules.</p>
-<p>First, let’s take a look at the administrative unit named ATZ:</p>
-<div class="highlight"><pre><span></span><code>Get-AzureADMSAdministrativeUnit -Filter &quot;DisplayName eq &#39;ATZ&#39;&quot; | fl
-</code></pre></div>
-<p><img alt="Figure 9" src="/images/2022/03/29/img9.png" /></p>
-<p>We can see that the membership type is dynamic, and also see the membership rule. In this case, we are using the in rule to allow for matching the country attribute against a defined list.</p>
-<p>And if we then enumerate the membership of the AU, we can see that the logic works:</p>
-<div class="highlight"><pre><span></span><code>Get-AzureADAdministrativeUnitMember -ObjectId a5175ada-f6f1-4c72-a986-65c65f662bde `
-| Get-AzureADUser | ft ObjectId,UserPrincipalName,Country
-</code></pre></div>
-<p><img alt="Figure 10" src="/images/2022/03/29/img10.png" /></p>
-<p>We can also create an administrative unit rather easily with PowerShell, which has an advantage, at least currently over the portal, in that we can define the dynamic rules upon creation.</p>
-<div class="highlight"><pre><span></span><code>New-AzureADMSAdministrativeUnit -DisplayName &quot;US&quot; -Description &quot;US Employees&quot; `
--MembershipType &quot;Dynamic&quot; -MembershipRuleProcessingState &quot;On&quot; -MembershipRule `
-&#39;(user.country -eq &quot;United States&quot;)&#39;
-</code></pre></div>
-<p><img alt="Figure 11" src="/images/2022/03/29/img11.png" /></p>
-<h3 id="faq"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#faq">FAQ</a></h3>
-<h4 id="limitations"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#limitations">Limitations</a></h4>
-<p>Microsoft does not publish a size limitation for administrative units, but the standard limitations for administrative units still exist with resources being members of no more than 30 administrative units, and an organization can have a maximum of 5,000 dynamic groups and dynamic administrative units combined. The latter bit is an interesting item to note, as it would seem the evaluation engine is then shared in a tenant between dynamic groups and administrative units (which makes sense really).</p>
-<p>I would also then speculate, while I cannot find it published yet, that administrative units may fall into the same rule evaluation service level, which is up to 24 hours, per this document, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-troubleshooting#troubleshooting-dynamic-memberships-for-groups">Fix problems with dynamic group memberships – Azure AD | Microsoft Docs</a>.</p>
-<h4 id="how-can-i-test-preview-a-dynamic-membership-rule"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#how-can-i-test-preview-a-dynamic-membership-rule">How can I test / preview a dynamic membership rule?</a></h4>
-<p>Currently, the dynamic membership rule settings in an administrative unit does not have a rule validation option available. However, we can simply create a test dynamic group in Azure AD for evaluating the rule, and can also use the Validate Rules option to get a more instant verification of whether our rule works.</p>
-<p><img alt="Figure 12" src="/images/2022/03/29/img12.png" /></p>
-<p><em>An example of rule validation in dynamic groups</em></p>
-<h4 id="can-i-combine-different-object-types-in-a-dynamic-administrative-unit"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#can-i-combine-different-object-types-in-a-dynamic-administrative-unit">Can I combine different object types in a dynamic Administrative Unit?</a></h4>
-<p>Unfortunately this is one trade-off between statically assigned groups and dynamic ones. Whereas in static groups we can assign users, groups and devices to the same AU, for dynamic membership you are limited to the type of dynamic object assignment you are looking to use – either user or device. Also, groups are not an option for dynamic administrative unit rules, and can belong to neither dynamic user or dynamic device AU’s.</p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/#final-notes">Final notes</a></h3>
-<p>Dynamic groups are already such a powerful option for organizations, it’s great to see that same logic added into administrative units, an area where it fits so well. If I had the time I would reach out to all those customers who had the “this is great, but it’s too inflexible” mindset upon seeing administrative units. I’m curious to see what new doors this opens for organizations; if you have some interesting use cases, give me a shout.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1223,77 +1007,13 @@
 <p>When we talk about Windows Hello for Business (WHfB) rollout scenarios, the one that has consistently been the preferred path is Hybrid Key Trust. It is the lowest weight scenario for deployment requirements, and if you already had Active Directory Certificate Services (AD CS), it was only a matter of a few hours to configure your directory to be ready to start a rollout.</p>
 <p>While there are some smaller niche limitations, the most common limitation that <strong>every</strong> organization will encounter with Hybrid Key Trust, is that initial Windows of needing to wait for Azure AD Connect to synchronize the <strong>msDS-KeyCredentialLink</strong> attribute from Azure AD to the user object in Active Directory.</p>
 <p>This process is what informs Active Directory of the public side of the users WHfB key pair, and is what enables the user for certificate-based authentication, through WHfB, to AD. Historically this leaves many organizations needing to communicate to users that it will “take some time” between when they enroll and when they can first start using WHfB – not the greatest way to introduce users into a passwordless experience.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>I’ve received feedback from readers who have gone through this post, and following up with me that for their users who were already enrolled in Windows Hello for Business with Hybrid Key Trust are having issues with authentication when switching to Hybrid Cloud Trust.</p>
-<p>From my own conversations with folks at Microsoft, the path explained in this document is how an organization would go about switching existing Hybrid Key Trust users to Hybrid Cloud Trust.</p>
-</div>
-<h3 id="enter-hybrid-cloud-trust"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#enter-hybrid-cloud-trust">Enter Hybrid Cloud Trust</a></h3>
-<p>The technology behind WHfB Hybrid Cloud Trust has existed for a while; it’s the same mechanism that has been used to support hybrid FIDO2 Security Key authentication.</p>
-<p>Microsoft already has some very good documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#use-sso-to-sign-in-to-on-premises-resources-by-using-fido2-keys">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>, that explains how the whole process works, so I won’t dive deep into paraphrasing things. But essentially we now are able to obtain a partial TGT from Azure AD, and subsequently exchange that for a full TGT in AD. Because of this key piece, we <strong>no longer</strong> need to wait for Azure AD Connect to inform AD of our users public key.</p>
-<h3 id="why-should-i-convert"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#why-should-i-convert">Why should I convert?</a></h3>
-<p>If you’re asking yourself why you would want to convert from a Hybrid Key Trust to a Hybrid Cloud Trust, there are several benefits:</p>
-<h4 id="goodbye-pki"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#goodbye-pki">Goodbye PKI</a></h4>
-<p>In reality, if you have a PKI in your environment, you likely are using it for several things. However, you will no longer need to maintain certificates on your Domain Controllers to be used for certificate-based authentication. That partial TGT is all you’ll need to obtain a full Kerberos TGT from Active Directory.</p>
-<h4 id="no-more-enrollment-delays"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#no-more-enrollment-delays">No more enrollment delays</a></h4>
-<p>Not having to wait for the sync back to AD of msDS-KeyCredentialLink, users will be able to use their WHfB credentials <strong>immediately</strong> after enrollment.</p>
-<h4 id="sets-the-stage-for-fido2-security-keys"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#sets-the-stage-for-fido2-security-keys">Sets the stage for FIDO2 security keys</a></h4>
-<p>The mechanisms to configure Hybrid Cloud Trust is the same leveraged for FIDO2 Security Key authentication in a hybrid scenario. This puts your environment in a great position to start exploring FIDO2 if you have not already.</p>
-<h3 id="convert-to-hybrid-cloud-trust"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#convert-to-hybrid-cloud-trust">Convert to Hybrid Cloud Trust</a></h3>
-<h4 id="prerequisites"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#prerequisites">Prerequisites</a></h4>
-<p>You’ll need to first configure your tenant to support the ability for Azure AD to issue a Kerberos TGT for your Active Directory domain. I won’t run through the process here, but it’s straightforward, and the instructions can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises#install-the-azure-ad-kerberos-powershell-module">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a>.</p>
-<h4 id="method-for-conversion"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#method-for-conversion">Method for conversion</a></h4>
-<p>Microsoft has documented both the mechanisms for enabling Hybrid Cloud Trust through both Intune and Group Policy; here we will be examining the GPO route. The Microsoft documentation regarding the enablement of <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-trust#configure-windows-hello-for-business-policy">Hybrid Cloud Trust can be found here, Hybrid Cloud Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a>.</p>
-<p>Let’s take a look at our existing GPO settings, which can be found under <strong>Computer Configuration, Windows Components, Windows Hello for Business</strong>:</p>
-<p><img alt="Figure 1" src="/images/2022/03/23/img1.png" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>While we can enable WHfB either as a Computer or User Configuration, the ability to modify the trust model only exists under the Computer Group Policy.</p>
-</div>
-<p>The setting we want to toggle is <strong>Use cloud trust for on-premises authentication</strong>:</p>
-<p><img alt="Figure 2" src="/images/2022/03/23/img2.png" /></p>
-<p>We just need to select OK to save our policy change, and let (or force) our clients pick up the changed GPO.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If you do not find the option for Use cloud trust for on-premises authentication within your GPO, you likely need to update your ADMX templates to a newer version.</p>
-</div>
-<p>And <strong>that's it</strong>. The devices scoped to this group policy will be configured for Hybrid Cloud Trust.</p>
-<h3 id="verification-transition-and-cleanup"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#verification-transition-and-cleanup">Verification, transition, and cleanup</a></h3>
-<h4 id="verification"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#verification">Verification</a></h4>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Please note that the process explained below for verification is not a required process. This verification piece is provided to explain the steps that would invalidate any local certificates in Active Directory, to ultimately prove that Hybrid Cloud Trust is working. For migration purposes, you only need to perform the group policy change indicated above.</p>
-</div>
-<p>So we have our GPO updated and refreshed on our client. How can we tell that the device is in fact using Hybrid Cloud Trust and not Hybrid Key Trust?</p>
-<p>After the configuration change, we can look at some Event Viewer logs. If we expand Applications and Services Logs, Microsoft, Windows, Hello for Business, Operational, we can see the following Event that shows the device configured and having obtained a Cloud TGT:</p>
-<p><img alt="Figure 3" src="/images/2022/03/23/img3.png" /></p>
-<p>We can further test things by deleting the msDS-KeyCredentialLink contents on the user object within Active Directory.</p>
-<p>If we look at Lee Gu, we can see there is a public key on his account in AD:</p>
-<p><img alt="Figure 4" src="/images/2022/03/23/img4.png" /></p>
-<p>We can easily clear this, and then verify the attribute is empty:</p>
-<p><img alt="Figure 5" src="/images/2022/03/23/img5.png" /></p>
-<p>After another sign-on with WHfB, we can go look at our Security logs in Active Directory, and find a successful 4624:</p>
-<p><img alt="Figure 6" src="/images/2022/03/23/img6.png" /></p>
-<h4 id="transition"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#transition">Transition</a></h4>
-<p>Even though the transition has no visible impact on our end users, many organizations may still want to take a staged approach to transition to a Hybrid Cloud Trust. To that point, because we are altering the mechanism for authentication on a per-device level, there is <strong>nothing</strong> stopping an organization from moving to a Hybrid Cloud Trust in a staged approach.</p>
-<p>Long-term, from a troubleshooting perspective, it would behoove most organizations to not draw out the transition. Conversely, if an organization has edge use cases that are only supported by a Hybrid Key Trust, those users and their devices should still be able to continue to use Hybrid Key Trust while the rest of the organization operates with Hybrid Cloud Trust.</p>
-<h4 id="cleanup"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#cleanup">Cleanup</a></h4>
-<p>While in the demonstration above, we see that authentication happens without the need for the msDS-KeyCredentialLink to be populated in Active Directory, the behavior of Azure AD Connect is to still synchronize that value back ton AD, even for a Hybrid Cloud Trust. Remember – we are still performing asymmetric key-based authentication to Azure AD, so there is still a keypair that exists. The behavior change is on the client; the public key in the way it is written to Azure AD appears to have no mechanism to differentiate the type of authentication the client intends with it. Due to this, downstream, Azure AD Connect is still going to synchronize back to Active Directory the public key. I would be curious if Microsoft has intentions to modify this behavior down the road, but for the meantime, we can just ignore those attributes in AD.</p>
-<p>At this point, we can also evaluate whether to roll back the certificate policies issuing certs to our DC’s for certificate-based authentication. If configured properly, this process should be no-maintenance, so it’s not a critical item, but likely should be removed to clear up any confusion down the road. Would also caution though to ensure that you do not negatively impact anything else that might be leveraging AD for certificate-based auth before backing that out of Active Directory.</p>
-<h3 id="faq"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#faq">FAQ</a></h3>
-<h4 id="do-i-still-need-line-of-sight-of-active-directory-for-enrollment"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#do-i-still-need-line-of-sight-of-active-directory-for-enrollment">Do I still need line-of-sight of Active Directory for enrollment?</a></h4>
-<p>Yes. For the underlying mechanisms that configure Windows for a cached sign-on experience, line-of-sight is required for Active Directory during the first use of the WHfB credentials that were configured.</p>
-<h4 id="what-identity-provider-is-authoritative-for-the-client"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#what-identity-provider-is-authoritative-for-the-client">What Identity Provider is Authoritative for the client?</a></h4>
-<p>One of the topics that almost always comes up when talking about a Hybrid device, is what Identity Provider (IdP) is authoritative for user authentication – Azure AD or Active Directory. This question arises because there is this <strong>duality</strong> of identity on the device; our user object is tied to two different identity providers. However, one of the identity providers is still considered the <strong>authoritative</strong> identity provider. The authoritative identity provider is the one that would handle things like providing account lockout for a disabled user account.</p>
-<p>For Hybrid Key Trust, Active Directory was authoritative, and Azure AD was secondary – you would receive/refresh your PRT after successful authentication to AD.</p>
-<p><img alt="Figure 7" src="/images/2022/03/23/img7.png" /></p>
-<p>With Hybrid Cloud Trust, the model is now flipped, and Azure AD is authoritative, with AD as secondary.</p>
-<p><img alt="Figure 8" src="/images/2022/03/23/img8.png" /></p>
-<p>We can observe this behavior in the security events on the device. When you first sign in to the device, you will receive a 4624 user logon event with a logon type of 11, which is cached interactive. This is observed even with line-of-sight of Active Directory. Very soon after, if you have line-of-sight of Active Directory, you will see another 4624 user logon event with a type of 7, which normally indicates workstation unlock.</p>
-<p>Now, during testing, you will notice that even if the user account is disabled in Azure AD and Active Directory, even with line-of-sight of both AAD and AD, local logon will still occur. However, when the user attempts to access cloud-based resources, they will receive an error in thick-client applications like Teams indicating they need to sign in (which will fail), and through the web, they will be informed their account is locked out. For AD resources, access will also be denied, and in the security event log, we will find a failed sign-on event, with a failure indicating the account is currently disabled.</p>
-<h3 id="final-notes"><a class="toclink" href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/#final-notes">Final notes</a></h3>
-<p>If you’ve happened to read this whole post and your organization is not using WHfB yet, now is a great time to strengthen the security posture of your organization, and to start examining what it takes to go passwordless.</p>
-<p>If you’ve rolled out Windows Hello for Business, and want to take a look at what the next steps are to eliminating the use of passwords for those passwordless people, take a look at my post on SCRIL, <a href="https://ericonidentity.com/2021/12/13/living-in-a-passwordless-world-hybrid-identity-and-password-management/">Living in a Passwordless World: Password Management – Eric on Identity</a>.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/03/23/windows-hello-for-business-hybrid-cloud-trust/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1314,6 +1034,12 @@
         <li class="md-meta__item">
           <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
         
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a>, 
+              <a href="../../category/mfa/" class="md-meta__link">MFA</a></li>
+        
         
           
           <li class="md-meta__item">
@@ -1333,163 +1059,13 @@
 <p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
 <p><img alt="Figure 1" src="/images/2022/02/22/img1.png" /> <img alt="Figure 2" src="/images/2022/02/22/img2.png" /></p>
 <p><em>Before and after</em></p>
-<h3 id="number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#number-matching">Number matching</a></h3>
-<p>Number matching is the component that creates a stronger second factor for our end users, because they will no longer be able to just hit Approve to that push notification. According to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-number-match">Microsoft Docs article</a>, once number matching goes GA, it will be enabled within all tenants a few months after. It’s tough to tell at this point whether customers will then have the option to retroactively disable number matching, but the interface makes it seem like it could be possible – not that it would be recommended.</p>
-<p><img alt="Figure 3" src="/images/2022/02/22/img3.png" /></p>
-<p><em>Number matching dialogue after primary authentication</em></p>
-<p>Per Microsoft number matching will support the following scenarios:</p>
-<ul>
-<li>Multi-factor</li>
-<li>Self-service password reset</li>
-<li>Combined SSPR and MFA registration</li>
-<li>AD FS adapter</li>
-<li>NPS extension</li>
-</ul>
-<p>Probably should place an asterisk on the NPS extension, because unless you are using PAP as your RADIUS protocol, push notifications will “downgrade” to an Approve/Deny without number matching (there is no ability to interact with EAP/MS-CHAPv2).</p>
-<h4 id="enabling-number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-number-matching">Enabling number matching</a></h4>
-<p>Again, will speculate that the long term goal is that number matching will be enabled by default in all tenants, and it’s going to become the new normal for our end users. But with this in Public Preview at the moment, it’s something we have to opt into.</p>
-<p>Also, we have the choice of either enabling number matching for the entire organization or for a group of users; the latter allowing for more finesse in testing, piloting, staged rollouts, and the such.</p>
-<p>Referencing the docs article linked above, it’s a relatively straightforward process. The article itself actually comes across at first as if you <strong>have</strong> to use Graph for updating/creating the policy; when you scroll down within it, you’ll see that it can also be performed through the portal. We’ll run through here looking at the options through Graph and seeing how they impact what the portal looks like.</p>
-<p>Before jumping into things, I will note that the changes were relatively quick to notice within my test tenant – within a few minutes the changes were apparent to my test users. Likewise with testing of disabling the settings.</p>
-<h5 id="gathering-the-current-state"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#gathering-the-current-state">Gathering the current state</a></h5>
-<p>Before making any changes, let’s check out the current state of our policy.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In order to perform the actions within Graph Explorer, you will want to sign-in, and make sure that you consent to <strong>Policy.Read.All</strong> and <strong>Policy.ReadWrite.AuthenticationMethod</strong> permissions.</p>
-</div>
-<p>We can do this by running the following query in Graph Explorer:</p>
-<div class="highlight"><pre><span></span><code>GET https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-</code></pre></div>
-<p>Which in our current tenant returns the following:</p>
-<div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;all_users&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>When we look in the portal we see the following:</p>
-<p><img alt="Figure 4" src="/images/2022/02/22/img4.png" /></p>
-<p>It’s important to note that <strong>default = Microsoft managed</strong>. And you may be asking what exactly is Microsoft managed? Microsoft managed effectively is the setting that allows Microsoft to make a decision whether these settings should be enabled in your tenant. Back to the thought earlier, eventually Microsoft managed will likely be the way in which Microsoft makes the decision to enable things in your tenant once it’s GA.</p>
-<h5 id="enabling-for-a-group"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-a-group">Enabling for a group</a></h5>
-<p>If you are looking to enable this for a single group, it’s just a matter of updating the returned content from our Graph query, and running a PATCH. We simply will replace the <strong>all_users</strong> portion of the policy with the Azure AD groups ObjectID, and update <strong>numberMatchingRequiredState</strong> with <strong>enabled</strong>.</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
 
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>As long as we get a 204 response, everything was successful. Looking in the portal again, after a refresh we will see:</p>
-<p><img alt="Figure 5" src="/images/2022/02/22/img5.png" /></p>
-<p>If you’re using the Authenticator App for passwordless (phone sign-in), this is where it can become confusing. If you had previously targeted all users for allowing passwordless through the Authenticator App, and now you’ve added this group, you’ll notice the targeting has changed. Subsequently, if you have users go to enroll for passwordless through the Authenticator App, they will see:</p>
-<p><img alt="Figure 6" src="/images/2022/02/22/img6.png" /></p>
-<p>We will want to make sure that we are now targeting two groups – a group that will allow for passwordless through Authenticator App, and the second being used for number matching. In our tenant this looks like:</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;e39dfee7-4551-4836-adbb-859953e2cba6&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        },
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;44a9449d-ae6e-4d0b-bd40-c599dcb07441&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;default&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>And if we look in the portal we will see:</p>
-<p><img alt="Figure 7" src="/images/2022/02/22/img7.png" /></p>
-<p>In this instance, <strong>Security Ring 0</strong> is the group with number matching <strong>enabled</strong>, and <strong>Security Ring 1</strong> is the group with number matching left to <strong>default (Microsoft managed)</strong>.</p>
-<p>A few items to note:</p>
-<ul>
-<li>You cannot enable number matching on more than one group, if you attempt to do so through Graph you’ll receive a 400 error, and within the portal the option is grayed out.</li>
-<li>You cannot enable number matching on a group and also reference the all_users context. One may wish that you could target all users and then just selectively enable number matching on the group, however, if you attempt to reference all_users and a group within the policy, you’ll receive a 400 error.</li>
-</ul>
-<h5 id="enabling-for-all-users"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-for-all-users">Enabling for all users</a></h5>
-<p>The enablement for all users is even simpler. Same PATCH process, but instead we just leave the group set to <strong>all_users</strong>, and change <strong>numberMatchingRequiredState</strong> to <strong>enabled</strong>.</p>
-<div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
-
-{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodConfigurations/$entity&quot;,
-    &quot;@odata.type&quot;: &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration&quot;,
-    &quot;id&quot;: &quot;MicrosoftAuthenticator&quot;,
-    &quot;state&quot;: &quot;enabled&quot;,
-    &quot;includeTargets@odata.context&quot;: &quot;https://graph.microsoft.com/beta/$metadata#authenticationMethodsPolicy/authenticationMethodConfigurations(&#39;MicrosoftAuthenticator&#39;)/microsoft.graph.microsoftAuthenticatorAuthenticationMethodConfiguration/includeTargets&quot;,
-    &quot;includeTargets&quot;: [
-        {
-            &quot;targetType&quot;: &quot;group&quot;,
-            &quot;id&quot;: &quot;all_users&quot;,
-            &quot;isRegistrationRequired&quot;: false,
-            &quot;authenticationMode&quot;: &quot;any&quot;,
-            &quot;outlookMobileAllowedState&quot;: &quot;default&quot;,
-            &quot;displayAppInformationRequiredState&quot;: &quot;default&quot;,
-            &quot;numberMatchingRequiredState&quot;: &quot;enabled&quot;
-        }
-    ]
-}
-</code></pre></div>
-<p>Now when we go look in the portal:</p>
-<p><img alt="Figure 8" src="/images/2022/02/22/img8.png" /></p>
-<h4 id="disabling-number-matching"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#disabling-number-matching">Disabling Number Matching</a></h4>
-<p>Ideally you will not be in a position to need to disable number matching, but in the case that you need to, it’s just a matter of setting <strong>numberMatchingRequiredState</strong> to <strong>default</strong>. Again, if you set this to <strong>disabled</strong>, there may be a chance that you will be in a state where your tenant will miss when this rolls out across all tenants.</p>
-<h3 id="additional-context"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#additional-context">Additional context</a></h3>
-<p>Along with number matching, we can enable additional contextual information about where the user is coming from with a map showing the rough geographic area, as well as what application is requesting the approval. Details of this process come from the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-additional-context">Microsoft Docs article</a>.</p>
-<p><img alt="Figure 9" src="/images/2022/02/22/img9.png" /> <img alt="Figure 10" src="/images/2022/02/22/img10.png" /></p>
-<p>While both mechanisms provide some additional security mechanisms to our end users, additional context alone is not going to prevent an unengaged user from selecting Approve, which is why additional context in itself should be considered a passive security mechanism. Number matching, to contrast, is active, because the user will not be able to perform MFA without interaction.</p>
-<h4 id="enabling-additional-context"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#enabling-additional-context">Enabling additional context</a></h4>
-<p>To enable additional context, whether for all users, or for a group, follows the same processes as enabling number matching. The only difference is we are focusing on the property <strong>displayAppInformationRequiredState</strong>.</p>
-<p>Out of the box, this property will be set to <strong>default</strong> when observing its value through Graph, or <strong>Microsoft managed</strong> in the portal. We can toggle this to <strong>enabled</strong> or <strong>disabled</strong>.</p>
-<p>A few items to note specific to additional context:</p>
-<ul>
-<li>When enabling additional context and using the Authenticator App for passwordless (phone sign-in), the app only receives policy information every 7 days. Because of this, users may not see a behavioral change for up to 7 days after.</li>
-<li>The NPS extension does not support providing additional context. Being that the NPS extension is simply signaling for MFA to be called, and primary authentication is happening against Active Directory, it makes sense that user location context is not available.</li>
-</ul>
-<h3 id="final-notes"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/#final-notes">Final notes</a></h3>
-<p>As with all things that impact and change the way our users interact with our systems, while this may be an easier win from a security perspective, organizations will want to make sure that they communicate this change properly to end users. A rushed rollout or lack of communication is an almost certain way of creating friction with our end users, and potentially hurting the efforts to increase organizational security.</p>
+    
+      <nav class="md-post__action">
+        <a href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1528,83 +1104,13 @@
 <p>While attending an October 13th Microsoft passwordless event, highlighting the future for the corporate world, I noticed a trend – organizations asking how to deal with password management and compliance policies they must adhere to. As Microsoft calls out, the long-term goal is for organizations to forget that passwords are even a thing.</p>
 <p>However, being that directory services will still contain a password attribute, even if we aren’t using it, how do we keep it compliant with password policies. And how do we prevent end users opting to attempt to use their password. In this series we will dive into what the answer to these questions looks like.</p>
 <p>One thing that is important to iterate in every conversation – the world is moving passwordless, and it’s not just Microsoft who is heading in this direction. If organizations do not want to (and should not be) trailing from a security perspective, you should start investigating what passwordless looks like for you now – as with most things these days it is a journey, albeit easier than many organizations may realize.</p>
-<h3 id="killing-hybrid-identity-passwords-with-scril"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#killing-hybrid-identity-passwords-with-scril">Killing hybrid identity passwords with SCRIL</a></h3>
-<p>SCRIL, the acronym for <em>Smart Card is Required for Interactive Logon</em>, is a userAccountControl property flag in Active Directory, which any organization that is heavily invested in smart cards may be familiar with. For the rest of the world, this flag goes unnoticed, beyond being a checkbox you scroll past in ADUC.</p>
-<p>In the Microsoft documentation on their Passwordless Strategy, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Passwordless Strategy – Windows security | Microsoft Docs</a>, they do a decent job covering what removing the ability to use passwords looks like in an organization, but they don’t really cover specifics on what the behavior looks like.</p>
-<p>This is an area you’ll want to explore in parallel with modernizing your applications – for most organizations, the biggest hurdle with cloud and passwordless are with applications that don’t support modern authentication – I’m looking at you LDAP and RADIUS. For most customers in the passwordless journey, SCRIL is something you would be working towards, and there are steps for many organizations that need to happen prior to this point – if you haven’t read the strategy linked above, you should do so.</p>
-<h4 id="diving-into-scril"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#diving-into-scril">Diving into SCRIL</a></h4>
-<p>SCRIL, when enabled, directs Active Directory that the user account must use a form of asymmetric key-based (certificate) authentication in Active Directory. Because Windows Hello for Business (WHfB) is also certificate-based authentication, we can leverage the same flag.</p>
-<p>When you enable SCRIL on a user account in Active Directory, the following happens for the user account:</p>
-<ul>
-<li>The users password is set to 128 bits of random data and next logon, and per Microsoft is likely to include non-typable characters</li>
-<li>The user is not asked to change their password anymore within Active Directory and Windows clients, even if it is expired</li>
-<li>Domain Controllers do not allow passwords for that user for interactive authentication</li>
-<li>The user has now lost knowledge of what their password is</li>
-</ul>
-<h4 id="enabling-scril-and-its-results"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#enabling-scril-and-its-results">Enabling SCRIL and its results</a></h4>
-<p>Before we enable SCRIL, let’s examine a user account in AD. While SCRIL is a property flag on the userAccountControl attribute, it’s exposed to us in a much more accessible manner in Active Directory; it appears as a checkbox on user accounts in ADUC and ADAC, but for this article we will be looking at the account through the AD PowerShell module.</p>
-<p>Let’s look at the user lee.gu in AD:</p>
-<div class="highlight"><pre><span></span><code>Get-Aduser -Identity &lt;username&gt; -Properties `
-SmartcardLogonRequired,PasswordLastSet | `
-select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
-</code></pre></div>
-<p><img alt="Figure 1" src="/images/2021/12/13/img1.png" /></p>
-<p>To enable SCRIL, we toggle on SmartCardLogonRequired, which adjusts the userAccountControl attribute for us:</p>
-<div class="highlight"><pre><span></span><code>Set-Aduser -Identity &lt;username&gt; -SmartcardLogonRequired $true
-</code></pre></div>
-<p><img alt="Figure 2" src="/images/2021/12/13/img2.png" /></p>
-<p>SCRIL is now enabled on the user account; one thing that might seem surprising is that the password on the user is not actually changed when enabled on the account, so let’s look at how this behaves.</p>
-<h4 id="the-user-experience-and-ad-password-change"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#the-user-experience-and-ad-password-change">The user experience and AD password change</a></h4>
-<p>Now we have Lee attempt to log into his Windows 11 device with a password:</p>
-<p><img alt="Figure 3" src="/images/2021/12/13/img3.png" /></p>
-<p>When attempting to sign-in, we are presented with the following message:</p>
-<p><img alt="Figure 4" src="/images/2021/12/13/img4.png" /></p>
-<p>Let’s look at the account again in AD:</p>
-<p><img alt="Figure 5" src="/images/2021/12/13/img5.png" /></p>
-<p>And we see that the time Lee attempted logon, his password was changed in AD.</p>
-<p><strong>Takeaway #1</strong></p>
-<p>Until the user attempts authentication against Active Directory, their password will not be changed within AD.</p>
-<p><strong>Takeaway #2</strong></p>
-<p>In our demonstration we show what happens if the user attempts to use their password. But if they are already enrolled in WHfB, it’s likely that they wouldn’t be trying to use their password for authentication.</p>
-<p>Thankfully, it does not matter what method the user leverages for authentication – if Lee authenticated for that first time with WHfB after SCRIL was enabled on the account, the password would be updated in Active Directory regardless.</p>
-<h3 id="dealing-with-password-policies"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#dealing-with-password-policies">Dealing with password policies</a></h3>
-<p>Up to this point we have enabled the ability to have Active Directory manage the users' password, but what about password policies? Complexity and history may be inherently covered, but what about if your organization is required to rotate passwords.</p>
-<p>If your organization does not require password rotation, or if the rotation period is an extended length of time, you <strong>should enable</strong> a password expiration policy on your SCRIL users. Why? Because a password still exists for our users, and in non-interactive scenarios, if the password becomes known through some malicious vector, it’s leaving that account exposed. When we look at computer accounts and Group Managed Service Accounts (gMSA), those passwords are rotated behind the scenes by Active Directory; we need to think of our passwordless users as similar when SCRIL is enabled.</p>
-<p>For organizations that are at an AD Domain Functional Level of Server 2016 or higher, there is an easy button for allowing AD to manage rolling of secrets for users.</p>
-<p>If you are not at DFL 2016, this may be a point to prioritize upgrading so that you have this feature available to your organization, or else implement a scripted process to help roll them. Choosing not to roll your NTLM secrets is leaving the door open for lateral movement.</p>
-<p>If we launch ADAC, which is the path of least resistance for this setting, we want to right-click on the root of the domain in the left pane and select Properties. We will be presented with the following view, and want to check the box for <strong>Enable rolling of expiring NTLM secrets during sign on, for users who are required to use Microsoft Passport or smart card for interactive sign on</strong>.</p>
-<p><img alt="Figure 6" src="/images/2023/12/13/img6.png" /></p>
-<p>Select OK, and now whenever the users password is going to expire, based on the policy applied to them, a new random 128 bit password will be assigned to the users account.</p>
-<p>As an example, let’s look at a FGPP in AD applied to this user account, with a maximum password age of 1 day:</p>
-<p><img alt="Figure 7" src="/images/2021/12/13/img7.png" /></p>
-<p>And the results from a few days of user authentication:</p>
-<p><img alt="Figure 8" src="/images/2021/12/13/img8.png" /></p>
-<p><strong>Takeaway #3</strong></p>
-<p>Within Active Directory, we can apply password policies to our passwordless users, and be able to maintain compliance with rotation policies, all while still having a great user experience.</p>
-<h4 id="the-entra-id-side-of-the-story"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#the-entra-id-side-of-the-story">The Entra ID side of the story</a></h4>
-<p>Now that we have our user operating in a truly passwordless world in Active Directory, let’s turn our eyes to the other half of the equation – Azure AD.</p>
-<p>Even though AD is managing the password, it’s still an attribute that is synchronized to Azure AD. Recall that Azure AD synchronizes passwords in a channel that is separate from the rest of the synchronization process, so password changes show up in Azure AD shortly after changing them in AD.</p>
-<p>Let’s look at our test user:</p>
-<p><img alt="Figure 9" src="/images/2021/12/13/img9.png" /></p>
-<p>Shortly after updating the users' password in AD, the password change has synchronized to Azure AD.</p>
-<h4 id="entra-id-password-change-mechanisms"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#entra-id-password-change-mechanisms">Entra ID password change mechanisms</a></h4>
-<p>If we have password writeback enabled in Azure AD Connect, there are methods still available for our users to change their password – falling into two scenarios:</p>
-<ul>
-<li>Password change when the user knows their existing password</li>
-<li>Password change when the user has forgotten their password</li>
-</ul>
-<h5 id="password-change-with-existing-password"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#password-change-with-existing-password">Password change with existing password</a></h5>
-<p>Many times, when enabling password writeback, the focus is on enablement of Azure AD SSPR. However, under the MyAccount portal, users are also able to change their password if they know their existing password. This is already solved for us, as the user won’t know their password any longer, and therefore this option is already unusable.</p>
-<h5 id="password-change-without-existing-password-sspr"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#password-change-without-existing-password-sspr">Password change without existing password (SSPR)</a></h5>
-<p>This is the one area where we need to potentially adjust our Azure AD tenant settings. While many organizations may have moved towards enabling SSPR for all users in the tenant, we now have a need to disallow SSPR for users who have SCRIL enabled.</p>
-<p>In <strong>Entra ID, Password reset, Properties</strong>, we can adjust the toggle to specify only users in a selected group are allowed to use SSPR; we would be disallowing SSPR for SCRIL users and wanting to ensure they are out of the scope for the group selected.</p>
-<p><img alt="Figure 10" src="/images/2021/12/13/img10.png" /></p>
-<p><strong>Takeaway #4</strong></p>
-<p>With a little bit of work on the SSPR side of things, we can easily accommodate SCRIL within Azure AD, without worry that users can subvert our efforts.</p>
-<h3 id="final-notes"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/#final-notes">Final notes</a></h3>
-<p>As with all things there are some caveats to going passwordless to this level for our end users. The most prominent is that our user has no way of falling back to a password. This is where this rolls into the bigger picture – allowing users to use the Authenticator App for passwordless, and allowing for FIDO2 security keys within the organization.</p>
-<p>TAP, or Temporary Access Pass also can fill in some instances if a user has lost all passwordless methods to bootstrap themselves back into the world, but unfortunately it cannot be used currently for enrollment in Windows Hello for Business.</p>
-<p>Lastly, to get to this point, you may need to start your journey of application modernization. Microsoft has some great documentation to get you started on the road to authentication migration with <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/migrate-application-authentication-to-azure-active-directory">Migrate application authentication to Azure Active Directory</a>.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2021/12/13/living-in-a-passwordless-world-password-management/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1643,13 +1149,13 @@ select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
         
         
           
-          <a href="../../category/entra_id/" class="md-footer__link md-footer__link--next" aria-label="Next: Entra ID">
+          <a href="../../category/azure/" class="md-footer__link md-footer__link--next" aria-label="Next: Azure">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Entra ID
+                Azure
               </div>
             </div>
             <div class="md-footer__button md-icon">

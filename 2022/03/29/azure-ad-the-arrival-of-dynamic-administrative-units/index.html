@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -706,6 +831,16 @@
                     </li>
                     
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/entra_id/">Entra ID</a></span>
+                        </div>
+                      </li>
+                    
                     
                       
                       <li class="md-nav__item">
@@ -742,6 +877,8 @@
 <p>Organizations initially struggled with the limited ability to delegate granular RBAC roles in Azure AD, with the directories flat structure; especially for all of us coming from an Active Directory background. When administrative units were introduced, they started to open up the door for organizations that needed to delegate access to a subset of users in an Azure AD tenant.</p>
 <p>The one catch with AU’s that <strong>was</strong> a non-starter for many organizations – they weren’t dynamic. And while OU’s are not dynamic in Active Directory, it’s a different take when the tenant is usually secondary to AD being authoritative. Move a user in AD, one would hope that the location in Azure AD would follow. While there are some PowerShell scripts out there that feel very akin to those used for AD shadow groups, overall maintenance of AU’s could prove cumbersome in dynamic organizations.</p>
 <p>The struggle, however, is no more – administrative units now support <strong>dynamic</strong> user and device membership!</p>
+<!-- more -->
+
 <h2 id="administrative-unite-use-cases">Administrative Unite use cases</h2>
 <p>Before exploring dynamic membership, I just wanted to touch on some of the use cases that have already existed, and many that can greatly improve with dynamic membership. This is just a mere tip of the iceberg for use cases – if you see ones that I’ve missed let me know, and I’ll gladly add it.</p>
 <p>While they feel similar to OU’s, the fact that AU’s are virtual units of structure, they provide much greater flexibility than OU’s. A user can belong to several AUs, and you don’t have to worry about users being linked as child objects that are deleted if an AU is removed – everyone remembers that time that their AD backups were tested with an accidental OU deletion.</p>

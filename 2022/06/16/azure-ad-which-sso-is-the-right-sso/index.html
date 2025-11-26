@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -772,6 +897,16 @@
                     </li>
                     
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/entra_id/">Entra ID</a></span>
+                        </div>
+                      </li>
+                    
                     
                       
                       <li class="md-nav__item">
@@ -808,6 +943,8 @@
 <p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
 <p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
 <p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
+<!-- more -->
+
 <h2 id="sso-mechanics">SSO mechanics</h2>
 <p>Before getting into the compare and contrast, it’s important to understand the fundamental reason as to why SSO works differently depending on the method implemented.</p>
 <h3 id="azure-ad-hybrid-join">Azure AD Hybrid Join</h3>

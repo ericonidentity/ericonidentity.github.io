@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -625,6 +750,16 @@
                     </li>
                     
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/mfa/">MFA</a></span>
+                        </div>
+                      </li>
+                    
                     
                       
                       <li class="md-nav__item">
@@ -663,6 +798,8 @@
 <p>If we dig into the legacy multi-factor authentication service settings portal, which can be found by browsing to <strong>Azure AD -&gt; Security -&gt; MFA</strong>, and then on the <strong>right</strong>, under <strong>Configure</strong>, select <strong>Additional cloud-based MFA settings</strong>. It will bring you to the following:</p>
 <p><img alt="Figure 1" src="/images/2022/04/26/img1.png" /></p>
 <p>The setting we are focused on is at the bottom. Under <em>remember multi-factor authentication on trusted device, Allow users to remember multi-factor authentication on devices they trust.</em></p>
+<!-- more -->
+
 <h2 id="whats-the-problem">What's the problem?</h2>
 <p>The name of the setting doesn’t really explain it well. The Microsoft Docs article that explains the details of this setting can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings#remember-multi-factor-authentication">Configure Azure AD Multi-Factor Authentication – Azure Active Directory | Microsoft Docs</a>.</p>
 <p>Even though there is an additional note provided, a lot of organizations don’t even recall this setting exists – either they have never had to come to this set of options to begin with, or it was enabled several years ago and never reviewed again. Unfortunately, this setting is not well exposed in Azure AD.</p>

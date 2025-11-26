@@ -448,12 +448,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -625,6 +750,8 @@
 <p>Authentication methods activity reporting to the rescue – right? Not so much.</p>
 <p>In digging into the report, whether it’s through the <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsActivity/menuId/AuthMethodsActivity">Entra admin center</a> or through Microsoft Graph PowerShell SDK, the data reported through this is just astoundingly awful if you want to try and build some basic measurements around who is actually registered for passkeys (FIDO2); I haven’t looked to see if it’s as awful with other methods.</p>
 <p>Luckily in the tenant I’m examining, there are only a few hundred user objects, so it’s also feasible to enumerate each user the long way, which I’ll cover below as the workaround. I’ve posed a complaint to Microsoft in some channels and have yet to hear anything back, other than similar experiences from a few others.</p>
+<!-- more -->
+
 <h2 id="the-problem">The Problem</h2>
 <p>I’m focused on finding users registered for passkeys in Entra, and by passkeys I mean using the Microsoft Authenticator App on either Android or iOS devices.</p>
 <p>The behavior I’m seeing has been problematic over the last month, but I suspect the report has been broken for quite some time.</p>

@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -765,6 +890,8 @@
 <p>When we talk about Windows Hello for Business (WHfB) rollout scenarios, the one that has consistently been the preferred path is Hybrid Key Trust. It is the lowest weight scenario for deployment requirements, and if you already had Active Directory Certificate Services (AD CS), it was only a matter of a few hours to configure your directory to be ready to start a rollout.</p>
 <p>While there are some smaller niche limitations, the most common limitation that <strong>every</strong> organization will encounter with Hybrid Key Trust, is that initial Windows of needing to wait for Azure AD Connect to synchronize the <strong>msDS-KeyCredentialLink</strong> attribute from Azure AD to the user object in Active Directory.</p>
 <p>This process is what informs Active Directory of the public side of the users WHfB key pair, and is what enables the user for certificate-based authentication, through WHfB, to AD. Historically this leaves many organizations needing to communicate to users that it will “take some time” between when they enroll and when they can first start using WHfB – not the greatest way to introduce users into a passwordless experience.</p>
+<!-- more -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>I’ve received feedback from readers who have gone through this post, and following up with me that for their users who were already enrolled in Windows Hello for Business with Hybrid Key Trust are having issues with authentication when switching to Hybrid Cloud Trust.</p>

@@ -460,12 +460,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -609,68 +734,13 @@
 </ul>
 <p>And these all really relate to each other – if you don’t understand what a PAW is, you can easily believe other solutions such as PIM or PAM will sufficiently fill the gap. Likewise, if you don’t understand how to articulate the value and principles behind PAW, it’s difficult to run it up the chain to ensure that it has priority. Even in those instances where you may have a decent understanding of PAW, but as an admin don’t want to change your working behavior – it’s understandable, it’s human to not want to change without knowing why.</p>
 <p>Awareness is the first principle of ADKAR (<a href="https://www.prosci.com/resources/articles/why-the-adkar-model-works">The Prosci ADKAR Model: Why it Works</a>). May this article build that awareness, so you’ll come out of it with the second principle, desire.</p>
-<h3 id="keeping-it-clean"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#keeping-it-clean">Keeping it clean</a></h3>
-<p>One of the foundational components of privileged access is the clean source principle, which per Microsoft states:</p>
-<p><em>The clean source principle requires all security dependencies to be as trustworthy as the object being secured.</em></p>
-<p><em>Microsoft Learn, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-success-criteria?WT.mc_id=SEC-MVP-5005105#clean-source-principle">Success criteria for privileged access strategy | Microsoft Learn</a></em></p>
-<p>To phrase this another way, all components related to privileged access – the user accounts, the devices, the first- and third-party tools, all need to exist and be managed fully within the same security tier. Since the primary focus of PAW is for privileged access, that means everything related to PAW needs to be encompassed within the same tier as privileged access.</p>
-<p>Microsoft documents this in their privileged access implementation documentation, and diagrams this out as follows:</p>
-<p><img alt="Figure 1" src="/images/2023/07/17/img1.png" /></p>
-<p><em>Note Privileged Security highlighted in the red box. Image courtesy Microsoft.</em></p>
-<p>Those that are seasoned with Active Directory security may be more familiar with the Tiered access model, composed of Tier 0, Tier 1, and Tier 2, as diagrammed below:</p>
-<p><img alt="Figure 2" src="/images/2023/07/17/img2.png" /></p>
-<p><em>The Active Directory oriented privileged access model.</em></p>
-<p>What is important to understand is that in the new model of privileged security, Tier 0 does not go away. There are subsets of privileged security – Tier 0 effectively becomes the control plane, encompassing all existing Tier 0 assets, such as Active Directory and related systems such as Azure AD Connect and AD FS. Tier 0 now includes the <strong>Control Plane</strong>, which is highly privileged access that provides control over all resources. The credentials associated with the control plane are<strong> Global Administrator</strong>, and users that hold roles which can <strong>directly</strong> or <strong>indirectly obtain control</strong> over a Global Administrator. It has become important to include these accounts in that realm of Tier 0 access, as we tend to only focus on Global Administrator. As an example, Privileged Authentication Administrator roles can be used to reset authentication information on all accounts in a tenant. Intune Administrators, in a cloud-managed PAW deployment, become encompassed in Tier 0, as they can manipulate and manage PAW devices. Tier 1 becomes the Management and Data and Workload planes and still includes the Server Admin role; still privileged, but importantly still separated from the control plan and Tier 0. While the focus on the part of Microsoft is very cloud-oriented, privilege separation and the delineation are still critical for Active Directory, as well as using PAW for Active Directory management – majority of enterprises will still be leaning on Active Directory for a good while. And speaking of Active Directory, for the organizations that have hybrid identity, where Active Directory and Azure AD are connected, organizations need to understand the paths of lateral movement and privilege escalation between the two identity providers; there are known attack paths where Active Directory can be leveraged to takeover Azure AD, as well as the opposite flow. These are just some examples, and role delineation and definition can be an article on its own – let me know if that would interest you. In the meantime, you can read about this evolution and how Microsoft defines it here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-access-model?WT.mc_id=SEC-MVP-5005105#evolution-from-the-legacy-ad-tier-model">Securing privileged access Enterprise access model | Microsoft Learn</a>.</p>
-<p>Both models are still widely used and the principles behind them are valid. What is critical is that both models indicate that the <strong>device</strong> should be a PAW. Specifically, a <strong>physical device initiating session</strong>. The phrase clean keyboard may be thrown around at times as a bit of shorthand for the clean source principle.</p>
-<h3 id="what-a-paw-is-not"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#what-a-paw-is-not">What a PAW is not</a></h3>
-<p>Organizations may take shortcuts to PAW, either by implementing something “PAW like”, such as jump boxes or bastion hosts, or virtualizing their PAW. The term “cloud PAW” floats around out there, which assumptions made that it equates to deploying PAW as virtual desktops.</p>
-<p>In all these scenarios you either run into:</p>
-<ul>
-<li>The chicken-and-egg problem</li>
-<li>A tiering breach</li>
-</ul>
-<h4 id="bastion-hosts-jump-boxes-and-cloud-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#bastion-hosts-jump-boxes-and-cloud-paw">Bastion hosts, jump boxes and cloud PAW</a></h4>
-<p>Both bastion hosts and jump boxes can serve their purpose for managing resources, but they are not replacement for PAW. To adhere to the clean source principle, any remote access to a bastion host or jump box would need to be initiated from a device that already exists within the privileged security tier, otherwise you’ll encounter an upward tiering breach.</p>
-<p><img alt="Figure 3" src="/images/2023/07/17/img3.png" /></p>
-<p><em>Breaching tiers with a cloud-based solution such as bastion hosts or jump boxes</em></p>
-<p>Even in the case where you may be used advanced technologies such as passwordless for authentication, some component of the authentication process will be local to the enterprise device, putting the privileged user account at risk of exposure on a lower tier.</p>
-<p>And what about cloud PAW? This is a place of much confusion, as it’s a term thrown about that is derived from the Microsoft model of using <strong>cloud managed PAW</strong>. That managed word being the key piece – Microsoft documents how organizations can build and deploy PAW that are managed by Intune and joined to Azure AD. You can find that documentation here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-deployment?WT.mc_id=SEC-MVP-5005105">Deploying a privileged access solution | Microsoft Learn</a>. As it goes with terminology, cloud managed PAW may sometimes be shortened to cloud PAW, and when people see cloud PAW, they presume that it means a PAW that exists within the cloud.</p>
-<p>You’ll still find several articles and models out there where people attempt to build out a cloud-native PAW system, using things like Azure Virtual Desktop or Windows 365. And some of them <strong>might</strong> have an acceptable level of risk built into their design where there is enough monitoring and other compensating controls to minimize potential privileged access damage. Considering that ransomware can cost organizations millions of dollars in losses due to the inability to function, or even put them out of business, that’s the risk that needs to be factored in with something like a cloud PAW design. I’ve yet to see one that adheres to the clean source principle.</p>
-<h4 id="virtualized-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#virtualized-paw">Virtualized PAW</a></h4>
-<p>Virtualizing your PAW results in the same series of issues as jump boxes and bastion hosts. Unless your virtualization environment is composed of resources that exist on and are managed in Tier 0, your Tier 1 administrators will be indirect administrators of those vPAW, and in turn access to other critical Tier 0 resources.</p>
-<p><img alt="Figure 4" src="/images/2023/07/17/img4.png" /></p>
-<p><em>Tier 1 admins can become Tier 0 admins through the management plane</em></p>
-<p>It’s also important to consider the implications of not managing business critical Tier 1 resources from a PAW. We can expand our breach model out another layer and see that we are putting all resources at risk when we don’t use a physical PAW.</p>
-<p><img alt="Figure 5" src="/images/2023/07/17/img5.png" /></p>
-<p><em>The cascading tier breach with virtualized PAW</em></p>
-<p>Some organizations may choose to run localized instances of virtualization software on their Enterprise devices, such as enabling Hyper-V within Windows 11. In these cases, the same problems apply: the enterprise user will still be authenticating with some mechanism local to the device with privileged credentials. The virtualized PAW will be susceptible to the same management plane attacks that would occur in an enterprise virtualization scenario.</p>
-<p><img alt="Figure 6" src="/images/2023/07/17/img6.png" /></p>
-<p><em>Localized virtualization of a vPAW breaching tiers</em></p>
-<h3 id="why-pim-and-pam-compliment-but-do-not-replace-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#why-pim-and-pam-compliment-but-do-not-replace-paw">Why PIM and PAM compliment, but do not replace, PAW</a></h3>
-<p>PIM and PAM solutions are great mechanisms from a defense-in-depth perspective, but they do little to protect credentials once the credential is resident on the device in question.</p>
-<p>A primary component of PAM solutions is password vaulting, which is great for granular control and auditing of who has access to secrets. Once that secret becomes resident on the device, however, it is as vulnerable as all the other credentials on the device. With more advanced and modern PAM solutions, there are mechanisms that provide a bastion host/jump box, to ensure that the vaulted credentials are not resident to the local device. However, you still will run into the same issues with bastion hosts and jump boxes – you still need to connect into the components providing this solution, which includes authenticating and creating a session. If you want to protect the session end-to-end, the source device still needs to adhere to the clean source principle, which in this case would be from a PAW.</p>
-<p>PIM also compliments PAW but is not a replacement on its own. While PIM is great for providing the least standing privilege and enabling the use of just-in-time (JIT) privileges, once privileges are elevated in a system, any threat actor obtains your credentials, or a representation of them (such as tokens) will be able to act as you, with those elevated privileges.</p>
-<h3 id="paw-greatly-reduces-the-surface-area-on-privileged-accounts"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#paw-greatly-reduces-the-surface-area-on-privileged-accounts">PAW greatly reduces the surface area on privileged accounts</a></h3>
-<p>The purpose of a defense-in-depth model is to ensure that if one component fails, there are other components that will ensure that data, the core of every modern business, is not exposed to those who should not have access to that data.</p>
-<p><img alt="Figure 7" src="/images/2023/07/17/img7.png" /></p>
-<p><em>Defense-in-depth model</em></p>
-<p>If we drill down into this model further, we will see that each layer is composed of several different technologies – especially when we are talking about privileged access to that data.</p>
-<p>If we broke down the Identity &amp; Access layer of the model, we might see something like this:</p>
-<p><img alt="Figure 8" src="/images/2023/07/17/img8.png" /></p>
-<p><em>A breakdown of the Identity &amp; Access Management Layer concerning privileged credentials</em></p>
-<p>PAW is foundational to the design theory of several other components – filling in the gaps PIM and PAM/secret vaulting present, but also building the strong foundation for which robust conditional access policies can be applied, device security policies can be pushed down from Intune, and account separation can be used to its fullest potential, ensuring that a mistake made with enterprise level credentials do not expose privileged creds.</p>
-<h3 id="paw-doesnt-have-to-be-complex-to-deploy"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#paw-doesnt-have-to-be-complex-to-deploy">PAW doesn’t have to be complex to deploy</a></h3>
-<p>As it goes with much of the privileged access documentation out there, there is the perception that everything is extremely time-consuming and overly complex. Organizations and security practitioners need to reshape their thinking relative to security privileged access, including the deployment of PAW.</p>
-<p>Yes, depending on how your organization is structured, cloud managed PAW will require knocking down some silos between the teams that manage identity and devices within the organization; that’s work that should be happening anyway. Afterall, identity and device management practitioners are both security practitioners in modern environments.</p>
-<p>As with most guidance though, starting somewhere is better than nowhere. Having an incremental approach and open mindset is a stronger security posture than saying if we can’t achieve 100% in x time, then it’s not worth doing at all.</p>
-<p>If nothing else, justify the expense to procure some modern laptops to be used as the privileged devices for those Tier 0 Global Administrators and Domain Administrators, preferably one that is a secured-core device. You can find currently available ones here, <a href="https://www.microsoft.com/en-us/windows/business/windows-11-secured-core-computers?WT.mc_id=SEC-MVP-5005105">Windows 11 Secured-Core PCs | Microsoft</a>. The few thousand-dollar proactive expense is cheaper than the loss of business <strong>when</strong> your organization is breached. You can go one step further and configure some strong conditional access policies restricting what devices the privileged accounts can be used from. For details, see Filter for devices as a condition in <a href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/concept-condition-filters-for-devices?WT.mc_id=SEC-MVP-5005105#create-a-conditional-access-policy">Conditional Access policy – Microsoft Entra | Microsoft Learn</a>.</p>
-<p>Eventually though make sure you take the time to go through the entire process, found here, <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-deployment?WT.mc_id=SEC-MVP-5005105">Deploying a privileged access solution | Microsoft Learn</a>.</p>
-<h3 id="the-operational-change-shouldnt-be-a-showstopper"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#the-operational-change-shouldnt-be-a-showstopper">The Operational change shouldn’t be a showstopper</a></h3>
-<p>Once deployed, and enforced, the biggest change in organizations is the operational impact on the privileged administrators. Yes, you may not be able to copypasta that PowerShell snippet you found on Stack Overflow as easily, but in our modern landscape we all must adapt to new ways of working. We made it through the drastic changes with remote work, and transitioning to PAW is much less impactful on the overall organization than that was – even if it doesn’t feel that way to your privileged admins.</p>
-<p>Organizations need to make sure that they support the change, as there will be needed ramp up time, and it’s a suitable time to perform some incident handling testing to make sure administrators can perform all that they need to perform from their PAW. Organizations can be most vulnerable during an incident, whether it’s cyber, operational, or natural forces, and the mode of operation can’t be to just throw the PAW aside to fix things. Make sure that your IR, BC, and DR scenarios are reviewed and revised to support the use of PAW, as necessary.</p>
-<h3 id="last-thoughts"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/#last-thoughts">Last thoughts</a></h3>
-<p>One of my favorite tag lines is from Johnathan Fox, a Sr. Security Consultant from Microsoft. The tag is “be a good admin and protect your privilege!”. Such a simple north star that we all should follow.</p>
-<p>And if you’re an organization supporting your admins, make sure that you be a good organization and support your admins protecting their privilege. With the continually evolving landscape of threat actors, that protection is more critical than ever to ensuring that business doesn’t stop.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/07/17/protect-your-privilege-with-paw/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -711,19 +781,13 @@
 <p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
 <p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
 <p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
-<h3 id="the-real-flaw-starts-with-the-security-industry-letting-its-people-down"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#the-real-flaw-starts-with-the-security-industry-letting-its-people-down">The real flaw starts with the security industry letting its people down</a></h3>
-<p>So how exactly can we move from a technical problem to blaming the security industry as a whole? Microsoft speaks to the real flaw in their blog article – too many developers using antipatterns in software development for authentication and authorization. We can’t truly blame the developers, as we shouldn’t expect every developer to just magically be an expert at modern authentication. It’s difficult to even get identity practitioners to accurately describe the flows many times, so how can we point the finger at others.</p>
-<h3 id="education-is-the-enemy-of-antipatterns-but-who-has-time-for-that"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#education-is-the-enemy-of-antipatterns-but-who-has-time-for-that">Education is the enemy of antipatterns, but who has time for that</a></h3>
-<p>The antipattern word is key here. Antipatterns are patterns that are common enough to become known, yet go against effective design. In this case, the antipattern is developers using the email claim within an ID token to make a “good enough” assessment of whom the user is.</p>
-<p>Antipatterns develop when there is a lack of education, which both the security and software development industry are ripe with. We need every application to do more things faster and quicker and always operating in some perpetual state of beta to ship things quicker to beat the competition. And no, we don’t have time to slow down to understand what we are doing. Ship it now, fix it later, which is exactly what has happened in this case.</p>
-<h3 id="the-silos-of-security-infrastructure-and-development-hinder-progress"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#the-silos-of-security-infrastructure-and-development-hinder-progress">The silos of security, infrastructure, and development hinder progress</a></h3>
-<p>The fact that most organizations still operate with varying degrees of silos is the secret everyone knows about but in most cases chooses to ignore.</p>
-<p>For proper modern authentication development, we need developers that cross the boundaries between identity practitioner and coder. While logically most organizations can’t operate in a flat structure, we need to better adapt to remove these silos and let key players straddle the line. These key players need to be architects and engineers and developers who are allowed to cross-collaborate and want to cross-collaborate. If we enter a realm where identity security is dictated instead of collaborated, things rapidly break down.</p>
-<p>This collaborative team should be proportionately sized to the organization, but whether you are an identity software vendor (ISV) or an enterprise that develops line-of-business (LOB) applications, you will still greatly benefit from the collaboration around identity implementations within your software.</p>
-<h3 id="ignoring-the-need-for-change-continues-to-accrue-risk"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#ignoring-the-need-for-change-continues-to-accrue-risk">Ignoring the need for change continues to accrue risk</a></h3>
-<p>In the nOAuth case, the organizations selling SaaS applications were not named, and the problem was mitigated behind the scenes. But it’s a case of luck in that the “good team” was first to find the rampant use of these antipatterns. If things turned out worse, and account takeover has happened, it can become a very fast trip to the loss of consumer confidence and depending on your industry or geopolitical region regulator fines and other penalties, from data exfiltration and exposure. It also instills the fear, uncertainty, and doubt, in the industry, almost as a self-fulfilling prophecy that inhibits the industry to move forward. Imagine if your bank account could simply be taken over by someone spoofing your email address in a claim – it’s a fast route to never modernizing identity and leaving us in our current state of too many accounts, too many passwords, too many ways to authenticate, failing our end users.</p>
-<h3 id="final-thoughts"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/#final-thoughts">Final Thoughts</a></h3>
-<p>Start collaborating on identity within your organization across all the silos it touches. Prioritize education, for real this time. Your consumers will thank you for it, even if they don’t know they need to.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -762,48 +826,13 @@
 <p>While I take in security content, and sometimes speak at regional events, as an identity practitioner there was no greater clarity provided on some hot topic items than at Identiverse this year. And despite working and living primarily in the Microsoft ecosystem of identity, a few of the most poignant sessions were from those who are not within that ecosystem at all; looking at identity from the angle of a pure practitioner is something that is a growth mindset activity.</p>
 <p><img alt="Figure 1" src="/images/2023/06/20/img1.jpeg" /></p>
 <p><em>With my new friend and Entra identity wiz, Chris Brumm (<a href="https://twitter.com/cbrhh">@cbrhh</a>)</em></p>
-<h3 id="top-six-takeaways"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#top-six-takeaways">Top six takeaways</a></h3>
-<h4 id="can-authorization-be-centralized"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#can-authorization-be-centralized">Can authorization be centralized?</a></h4>
-<p>While practitioners currently in the field implementing the things may disagree, from a moving forward perspective, the industry has come a long way with centralizing authentication. So what’s next? Authorization. Several vendors have built their own authorization policy engines and languages – AWS has recently released <a href="https://aws.amazon.com/about-aws/whats-new/2023/05/cedar-open-source-language-access-control/">Cedar</a>, Strata has <a href="https://www.strata.io/resources/blog/policy-orchestration/idql-hexa-new-identity-standard-policy-orchestration/">IDQL</a>, there are projects like <a href="https://www.opal.ac/">OPAL</a>. This list is neither extensive nor am I an expert in any existing centralized authorization platform.</p>
-<p>But the question at hand is – how can we centrally manage, and centrally audit, authorization within applications. Having worked on some broad IGA projects, it gets really sticky once you are trying to control authorization within those applications. We can easily say Tom gets access to Salesforce, while Fred does not. But how do we define what Tom can do within Salesforce? Currently, it’s a lot of one-off integrations specific to the application at hand. We have similar issues within Cloud platforms on the management, data and workload planes, which CIEM solutions are trying to solve, but again are very vendor-specific. Rights and roles in AWS do not directly translate to rights and roles in Azure or GCP. So can this all be centrally managed with the rules being written in a vendor-agnostic language?</p>
-<p>During his keynote, Alex Simons hinted at that maybe we don’t need to unify the languages across platforms, but it’s a place where AI can be trained to translate between different platforms… cue the Security Copilot pitch. To be fair vendors are already working on policy orchestration across multi-cloud, multi-app scenarios, but it makes sense though that Microsoft, who generally embraces multi-cloud, attempt to take a swing at bringing their hand into the mix, without trying to muddy the water with their own new policy language. Where my curiosity leads though, will we just end up with orchestration and abstraction, or will there be an authorization policy adoption in the likes of the way the industry has adopted modern authentication.</p>
-<h4 id="ai-is-messing-things-up"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#ai-is-messing-things-up">AI is messing things up</a></h4>
-<p>In a flashy opening keynote, Andre Durand sat silent for a few minutes while an AI generated audio clip played in the background. The clip was him calling into a colleague that knows him, acting as the executive in a time crunch, requesting that his password be reset. It’s like the next generation of those texts people get from their “CEO” asking them to go buy a bunch of iTunes gift cards for them while they are in a meeting.</p>
-<p>As the keynote continued, Andre noted that he believes that in the realm of AI for bad vs AI for good, in the realm of identity security, AI for bad is going to be a great challenge, not just in combating it with AI for good, but how are we as identity practitioners going to deal with the rapid pace of change caused by AI.</p>
-<h4 id="identity-security-is-still-in-its-infancy"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#identity-security-is-still-in-its-infancy">Identity security is still in its infancy</a></h4>
-<p>There were <strong>several</strong> sessions related to securing Active Directory and hybrid identity, yet despite the quantity and quality of the sessions, the attendance was lower than one might expect. While conference attendees of Identiverse are split between identity practitioners working on the things of tomorrow and identity practitioners trying to wrangle with the present day, I wondered if this is also due to the echo-chamber effect of an identity conference – most practitioners here already knowing about and understanding the attack vectors relative to Active Directory, or if it’s a question of whether identity security is still not taken seriously enough within the industry. I tend to lean somewhat towards the latter.</p>
-<p>During a fantastic keynote session from Ken Munro (<a href="https://twitter.com/TheKenMunroShow">@TheKenMunroShow</a>) of Pen Test Partners, Ken discussed how he was able to obtain Domain Admin via a cars Telematics Control Unite (TCU) 👀. You can read the story here, <a href="https://www.pentestpartners.com/security-blog/from-a-tcu-to-corporate-domain-admin/">From a TCU to Corporate Domain Admin | Pen Test Partners</a>.</p>
-<p><img alt="Figure 2" src="/images/2023/06/20/img2.jpg" /></p>
-<p><em>Guido Grillenmeier (<a href="https://twitter.com/GGrillen">@GGrillen</a>) speaking about recovering Active Directory during an active attack</em></p>
-<h4 id="everyone-is-all-in-on-passkeys"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#everyone-is-all-in-on-passkeys">Everyone is all in on passkeys</a></h4>
-<p>The passkey theme ran throughout the conference. The FIDO Alliance (<a href="https://twitter.com/FIDOAlliance">@FIDOAlliance</a>) Executive Director Andrew Shikiar (<a href="https://twitter.com/andrewshikiar">@andrewshikiar</a>) gave a keynote on advancements in passkey UX, and there were several sessions geared towards developers as well as practitioners on the uptake of passkeys in both commercial and consumer scenarios.</p>
-<p>One interesting highlight to come from the few passkey sessions I sat in on, is that the industry may be flipping the story a bit towards end users as far as how we “sell” the passkey story to them. As we can tend to see across the industry, consumer uptake of strong authentication is relatively low, and most consumers do not tend to bother or care about securing their identity. The emphasis is changing to point out the ease of use and convenience of passkeys instead of their security origin for consumers. I’m curious to see how this goes – the FIDO Alliance has put a lot of work into building out development guidelines around the user experience to ensure that it’s quality, but as with most things time will tell if the use and convenience of passkeys is really something that consumers latch onto.</p>
-<p>In a bit of a chicken-and-egg problem, more services need to start supporting passkeys, but some organizations seem to hesitate in investing effort into them until there is a proven return on supporting passkeys.</p>
-<p>On the enterprise side of passkeys, a session from Dean Saxe of AWS gave a clear and concise deep-dive into the differences behind device-bound passkeys and synced (multi-device) passkeys. That session alone is worth a deeper recap in itself.</p>
-<p><img alt="Figure 3" src="/images/2023/06/20/img3.jpg" /></p>
-<p><em>From Dean's session on passkeys</em></p>
-<h4 id="decentralized-identity-suffers-from-marketing-speak"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#decentralized-identity-suffers-from-marketing-speak">Decentralized identity suffers from marketing speak</a></h4>
-<p>One of the other sessions that drove lot of clarity for myself, and seemingly the quite packed room, was Vittorio Bertoccio (<a href="https://twitter.com/vibronet">@vibronet</a>) of Okta speaking about Verifiable Credentials for the Identity Practitioner.</p>
-<p>The session really helped build a strong understanding of what verifiable credentials and decentralized identity <strong>is</strong>, as well as what it <strong>is not</strong>, despite how companies and marketing may try to sell it.</p>
-<p><img alt="Figure 4" src="/images/2023/06/20/img4.jpg" /></p>
-<p><em>Vittorio stressing that it can be difficult with many cooks in the kitchen</em></p>
-<p>The key takeaway is that while decentralized identity and verifiable credentials may put the holder (yourself) in control over who you provide identity data to, and that you can restrict what data you give out, that centralized identity repositories will still not go away, either on the issuers side (IdP) or the verifiers side (the application, relying party).</p>
-<p>The issuers are still ultimately the final source of truth, and therefore need to continue to retain the information that is given to the holder for their wallet. In the cases that the data is lost, for example, you need a way to retrieve an authentic copy. And likewise most verifiers will have a strong reason to also need to retain the data you’ve presented to them.</p>
-<p>A paraphrased example that Vittorio gave – if a university issues you a digital credential representing your diploma, and your diploma is a requirement as part of your work visa program – neither the university is going to remove the original record showing that you received that diploma, nor would that employer not retain the diploma information in the case that they need to attest to that information. In the case of the university, you certainly want them to retain the records that you graduated. From the employer side, in most cases a metadata bit of information that represented that they checked for your diploma likely won’t hold water; the employer is going to want to retain the information you provided, not an abstraction of it. Of course, where you have control is that you, as the holder of the digital credential for this, can only give your employer the information that you hold the degree – perhaps you don’t need to provide your grade point average and other details about attending.</p>
-<h4 id="identity-needs-better-representation-in-the-organization-at-all-levels"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#identity-needs-better-representation-in-the-organization-at-all-levels">Identity needs better representation in the organization at all levels</a></h4>
-<p>In the series of Thursday morning keynotes, one that was particularly fascinating to myself was the panel discussion “Identity in the C-Suite? The role of the Chief Identity Officer”. It’s continually apparent that in many organizations, identity is underserved on all levels, from where and how individual contributors sit in the organization, to where and how identity rolls up. I’ve for a long time believed that many CISO are not adequately adjusted to own an identity program, and yet the infrastructure roots that identity has in many organizations is no longer the place it should be retained. This keynote was taking things one step further, and really driven by the fact that while identity is as the center of security, security <strong>is not</strong> the only center of identity. When we start to explore all the other facets of identity that have varying degrees of how adjacent they are to security, it becomes clear that it may hinder usability, as an example. So the question arises, does identity receive its own seat at the table?</p>
-<p>When we turn to look at the IC, the strong focus of identity as a security function also falls short there. Lance Peterman (<a href="https://twitter.com/LancePeterman">@LancePeterman</a>) and Arynn Crow (<a href="https://twitter.com/arynncrow">@arynncrow</a>) both gave strong sessions on generating new identity talent, and how the industry as a large is failing to really provide security professionals a strong identity foundation. Both were quite invigorating and for all identity practitioners it’s a call to help us build up the surrounding community.</p>
-<p>The threads running through this felt close to my session from BSides Salt Lake City this past December, “Identity and Security: It’s time for a hug”.</p>
-<p>I have more thoughts on both of these topics, but those are for another time and another post.</p>
-<h3 id="other-takeaways"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#other-takeaways">Other takeaways</a></h3>
-<h4 id="favorite-identity-adjacent-session"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#favorite-identity-adjacent-session">Favorite identity adjacent session</a></h4>
-<p>I’ve always been a huge proponent of change management, and while my Prosci is a bit rusty these days, I loved seeing Sarah Villarmarzo speak on this topic. I’ve seen so many organizations dismiss the benefits of change management, only to then wonder why there is so much friction in the security changes they are implementing. A little bit of awareness and desire can go a long way for your employees.</p>
-<p><img alt="Figure 5" src="/images/2023/06/20/img5.jpg" /></p>
-<h4 id="too-many-sessions"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#too-many-sessions">Too many sessions</a></h4>
-<p>There were just too many sessions to really be able to take all the knowledge in that you’d like, and even though for attendees there is access to recordings. we all know how it goes when recordings are available… they just never really get the mental attention they deserve.</p>
-<p>I missed the majority of David Lees (<a href="https://twitter.com/iamhdavidlee">@iamhdavidlee</a>) keynote unfortunately, and really wanted to attend more of the passkey and verifiable credential sessions. At certain points I had four sessions I bookmarked as attending that all ran at the same time, and would be back and forth in my head about which to attend. Trying to mix in some hallways conversations, forcing my introverted self to be more outgoing… it can be a lot.</p>
-<h3 id="it-is-absolutely-worth-attending-if-you-can"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/#it-is-absolutely-worth-attending-if-you-can">It is absolutely worth attending if you can</a></h3>
-<p>I’m looking forward to 2024, and hope to see other folks there. The amount of thoughts and ideas that I took away for my career, for the industry, for myself, for the community – it was all so much that I really needed the bit of downtime following the conference. If your employer doesn't pay your way… save up those points and miles, at least to make the journey one time.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/06/20/identiverse-2023-recap-and-highlights/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -846,67 +875,13 @@
 </div>
 <p><img alt="Figure 1" src="/images/2023/03/28/img1.png" /></p>
 <p><em>#WeAreAllUzbekistan</em></p>
-<h3 id="background"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#background">Background</a></h3>
-<p>Per the Incident Report for incident MO531859, the incident started on March 23rd, 2023, at 3:30 AM UTC. As the day continued on for some folks, and the morning started for others, there was an increasing number of organizations noticing that Azure AD was indicating their users were coming from Toshkent City, UZ.</p>
-<p>If the organization was using Named Locations in Conditional Access, allowing access to resources only from certain geographic locations (countries), legitimate users would start being denied access by the CA policies.</p>
-<h3 id="breaking-it-all-down"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#breaking-it-all-down">Breaking it all down</a></h3>
-<h4 id="conditional-access-named-locations-and-countries"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#conditional-access-named-locations-and-countries">Conditional access, named locations, and countries</a></h4>
-<p>Many organizations may implement geographic-based policies to reduce some identity surface area. Having worked with many US based organizations, they may implement a CA policy that contains an allowed location of the United States, and then in turn if that location condition is not met, access will be blocked.</p>
-<p>Even organizations that are global in workforce may implement regional or department specific policies. One manufacturing organization I worked with that was primarily based in the US, but had some salespeople that had to travel globally, chose to only allow access outside of the US for their sales department.</p>
-<p>For further details on Named Locations, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/location-condition?WT.mc_id=SEC-MVP-5005105">Using networks and countries in Azure Active Directory – Microsoft Entra | Microsoft Learn</a>.</p>
-<h4 id="authentication-to-azure-ad"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#authentication-to-azure-ad">Authentication to Azure AD</a></h4>
-<p>When you authenticate to Azure AD, your egress, or public, IP address, is logged by Azure AD within your sign-in logs.</p>
-<p>If you are coming from your home internet, it’s whatever public IP address your ISP is routing your traffic through. Some ISP’s NAT network traffic, so that nodes (your home) may only have a private IP address, but at some point the traffic must route publicly. That’s the IP address Azure AD sees.</p>
-<p>If you use a VPN, or Tor, or some other obfuscation thing, whatever that public IP address is, again, is what Azure AD sees.</p>
-<p>If you are coming from work, it’s however work plumbs up to the internet, and whatever your work egress IP addresses are. Even if you have ExpressRoute, Azure AD still is connected to over a public network at some point, and that’s the address that appears in your Azure AD sign-in logs. If your organization uses something like ZScaler, your traffic may appear to be coming from whatever their public IP addresses are.</p>
-<p><img alt="Figure 2" src="/images/2023/03/28/img2.png" /></p>
-<p><em>Hello from Schenectady, New York</em></p>
-<h4 id="but-how-does-azure-ad-correlate-ip-addresses-to-locations"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#but-how-does-azure-ad-correlate-ip-addresses-to-locations">But how does Azure AD correlate IP addresses to locations</a></h4>
-<p>Per the incident report:</p>
-<p><em>…Microsoft received an update in one of its Threat Intelligence data feeds from a third-party vendor that contained incorrect entries about the country in which certain IP addresses are located.</em></p>
-<p>That’s a fancy way of saying that Microsoft subscribes to an external service that provides a database of IP address netblocks and the associated geographic location. Note that Microsoft does not indicate the company or companies that they use for this service, which it’s understandable wanting to keep some secrecy around a security data provider. I have no idea what services Microsoft consumes, but an example of a provider is <strong>IP2Location</strong>.</p>
-<p>While there is the ability to use device-based GPS coordinates within Named Locations and Conditional Access, <strong>many</strong> organizations choose to use IP address-based location data. When organizations choose to use this data, they are leveraging this data provided to Microsoft.</p>
-<h4 id="so-how-did-the-dataset-get-messed-up"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#so-how-did-the-dataset-get-messed-up">So how did the dataset get messed up?</a></h4>
-<p>I don’t have insight into what exactly happened at the provider for an issue of this scale, but to simplify the incident – Microsoft received an incorrect copy of this data, and updated it in Azure AD.</p>
-<p>While you could blame Microsoft for not catching this mistake, consider the fact that on a smaller scaler this change is constant among the vast landscape of the internet. With a possible 4.3 billion IPv4 addresses carved up into all sorts of chunks, it’s a lot of data for the companies that aggregate this data to manage. And Microsoft can’t invest time in sorting out all the nuances of the data – you have to trust your data suppliers.</p>
-<h4 id="a-much-more-common-example-of-geolocation-data-gone-wrong"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#a-much-more-common-example-of-geolocation-data-gone-wrong">A much more common example of Geolocation data gone wrong</a></h4>
-<p>If you perform a quick google search, you’ll find that the various services that offer this data aggregate it through several means. One of them is ISP’s providing anonymized data to said services.</p>
-<p>When I’ve worked with organizations over the years, occasionally you would encounter a situation on a microscale – a set of users coming from a certain cellular provider, all of a sudden are showing up as coming from some location far away. In the US it wouldn’t usually manifest as a Conditional Access problem, as whether I’m coming from Schenectady, NY or Sacramento, CA, it’s all US traffic. However, organizations that have Azure AD Identity Protection deployed may have some sudden impossible travel or unfamiliar location stuff going on.</p>
-<p>Considering that the employees didn’t move across the country, the common cause was said cellular provider made a network change – the netblock that had been servicing New York is now shifted to California. It’s their IP address ranges; they can do whatever they want with them.</p>
-<p>In cases like these, the hope is that the geographic location data provider would have been notified, but again, mistakes happen. The course of action for the affected customer would be to open a support case with Microsoft. Microsoft then informs their data provider of the issue, and the provider does whatever magic it works to rectify the problem.</p>
-<p>When the dataset is corrected, it can be presumed that Microsoft then receives an updated copy of this data, because about a week later, the organization stops having the problem.</p>
-<h4 id="deploying-updates-in-rings"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#deploying-updates-in-rings">Deploying updates in rings</a></h4>
-<p>Without getting into the weeds, from the larger Azure AD outages over the past few years, Microsoft has indicated that they deploy changes to Azure AD in rings. You can call them waves or phases, but it’s all the same. Azure AD is a globally distributed and deployed cloud identity provider, but there are still locations acting as the nodes that compose it, and a bunch of global traffic routing fanciness to ensure you land at the most relevant Azure AD endpoint.</p>
-<p>One could presume from the incident report that, as it would go with a ringed update of this nature, that initially user impact would be small, and as Microsoft increasingly pushed the changes out broader, the surface area of impact increased in step.</p>
-<p>And, in their efforts to ensure that they don’t break things to reverse changes, one could presume that they have to follow similar deployment processes when undoing a change.</p>
-<h4 id="speaking-of-traffic-routing"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#speaking-of-traffic-routing">Speaking of traffic routing</a></h4>
-<p>While Microsoft does not reveal how similar Azure AD and Azure AD B2C are as far as their geographical and back-end composition, working on an Azure AD B2C project of global scale really highlights the traffic routing wizardry going on the front end that users hit.</p>
-<p>For any Azure AD B2C system you encounter, you can determine the associated Microsoft datacenter by looking at the HTML comment tag found in the page source:</p>
-<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
-&lt;!-- Build: 1.0.2873.0 --&gt;
-&lt;!-- StateVersion: 2.1.1 --&gt;
-&lt;!-- DeploymentMode: Production --&gt;
-&lt;!-- CorrelationId: xxx --&gt;
-&lt;!-- DataCenter: BL2 --&gt;
-&lt;!-- Slice: 001-000 --&gt;
-</code></pre></div>
-<p>And interestingly, you can also append a parameter to the request, &amp;DC=, which will allow you to specify a specific Microsoft datacenter if you know it. If I append &amp;DC=PNQ, which represents a Microsoft datacenter in India, and submit the request, the page source will now show:</p>
-<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
-&lt;!-- Build: 1.0.2873.0 --&gt;
-&lt;!-- StateVersion: 2.1.1 --&gt;
-&lt;!-- DeploymentMode: Production --&gt;
-&lt;!-- CorrelationId: xxx --&gt;
-&lt;!-- DataCenter: PNQ --&gt;
-&lt;!-- Slice: 001-000 --&gt;
-</code></pre></div>
-<p>Non-B2C Azure AD tenants do not reveal this information within the source, and from some cursory testing, appending &amp;DC=<em>location</em> to the request does nothing. However, this circles back to highlighting that Microsoft performs traffic routing on the front end.</p>
-<p>During incident MO531859, when Microsoft indicates that they were:</p>
-<p><em>…continually performed traffic rerouting and load balancing into healthy regions…</em></p>
-<p>This does not mean that the incident had any correlation to an actual network traffic routing issue. What Microsoft is indicating, when we look back at the ring deployment model, is as datacenters with Azure AD endpoints were corrected with the prior IP geolocation data, Microsoft was adjusting their user traffic routing on a global scale. If I’m in Europe, and the North Europe location has not updated, but the West Europe location has, Microsoft can easily send all traffic to West Europe, to help accelerate resolution for organizations while the things on the back end are rectified.</p>
-<h3 id="how-to-move-forward"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/#how-to-move-forward">How to move forward</a></h3>
-<p>Some organizations may look at this incident as a moment to change course in how they manage their Conditional Access policies. During the incident, it was left up to organizations to determine the risk in adjusting or disabling their impacted Conditional Access policies.</p>
-<p>There is not a one-size-fits-all answer to this. It is still best practice, if using geographic Named Locations, to build CA policies in an “allowed” countries model, vs a “disallowed” countries model (essentially an inverse policy). Some organizations may have already determined that a disallowed countries model works for them, however, there is a wider possibility of coverage gaps within this.</p>
-<p>Corporations that have used network location-based policies, whether IP ranges or country, may want to evaluate whether they need those policies at all, especially on devices that may be MDM managed and covered by something like M365 Defender. Or, with the beauty of Conditional Access, further refine and define user personas, to limit the need to rely on what, end of the day, are very implicit identity security choices.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -926,6 +901,11 @@
       <ul class="md-meta__list">
         <li class="md-meta__item">
           <time datetime="2023-03-11 00:00:00+00:00">March 11, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
         
         
           
@@ -948,588 +928,13 @@
 <p>As John points out in his video, the understanding of App Registrations and Enterprise Apps can further be enhanced by understanding OpenID Connect and OAuth 2.0 flows. This is especially important for identity professionals and ITPros who may come from a sysadmin background. Modern authentication flows and concepts may feel foreign to folks who built their career on identity platforms such as Active Directory.</p>
 <p>For those that find it easiest to learn by doing, if you want to play around with App Registrations, Enterprise Apps and Service Principals, but don’t want to mess with your prod environment, sign up for an M365 Developer account, to have your own free tenant to work with here, <a href="https://developer.microsoft.com/en-us/microsoft-365/dev-program?WT.mc_id=SEC-MVP-5005105">Developer Program | Microsoft 365 Dev Center</a>.</p>
 <p>We’ll start with some definitions, and then try to walk through various scenarios that you may encounter. If you don’t see your question answered within the definitions, keep reading… we’ll try to hit on all the areas here.</p>
-<h3 id="app-registrations"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#app-registrations">App Registrations</a></h3>
-<p>An <strong>application registration</strong> (app registration) is the definition of the application, as an <strong>application object</strong>, in Entra ID. It “explains” to Entra ID what the application wants, such as permissions for certain APIs, as well as where and how the application resides, with information such as the Redirect URI.</p>
-<p>For a line-of-business (LOB) it would usually be your developers specifying the contents within an application object. Where identity professionals usually get involved:</p>
-<ul>
-<li>The Entra tenant is locked down, and developers do not have permissions to create App Registrations. Someone with permissions in the tenant will create the app registration and assign ownership to the developer, or potentially work with the developer to configure it.</li>
-<li>The organization has procured an application that they need to integrate into Entra ID. The application may be either a SaaS application or a piece of software run in an IaaS or PaaS environment, or on-prem.</li>
-</ul>
-<p>An application definition, at its core, is the application manifest. Except for the value of a secret, any configuration you make within the app registration portal will be reflected in the application manifest.</p>
-<p>If we look at My Test Application in the Entra portal:</p>
-<p><img alt="Figure 1" src="/images/2023/03/11/img1.png" /></p>
-<p>We can then select Manifest from application configuration blade, and see these represented within the manifest:</p>
-<div class="highlight"><pre><span></span><code>&quot;requiredResourceAccess&quot;: [
-        {
-            &quot;resourceAppId&quot;: &quot;00000003-0000-0000-c000-000000000000&quot;,
-            &quot;resourceAccess&quot;: [
-                {
-                    &quot;id&quot;: &quot;14dad69e-099b-42c9-810b-d002981feec1&quot;,
-                    &quot;type&quot;: &quot;Scope&quot;
-                },
-                {
-                    &quot;id&quot;: &quot;7427e0e9-2fba-42fe-b0c0-848c9e6a8182&quot;,
-                    &quot;type&quot;: &quot;Scope&quot;
-                },
-                {
-                    &quot;id&quot;: &quot;37f7f235-527c-4136-accd-4a02d197296e&quot;,
-                    &quot;type&quot;: &quot;Scope&quot;
-                },
-                {
-                    &quot;id&quot;: &quot;64a6cdd6-aab1-4aaf-94b8-3cc8405e90d0&quot;,
-                    &quot;type&quot;: &quot;Scope&quot;
-                }
-            ]
-        }
-    ]
-</code></pre></div>
-<p>In this specific example they are represented as their actually Microsoft Graph API resource identifier; the term scope comes from OAuth 2.0. The portal does a lot of work “translating” the manifest into something easier for those less familiar with the underlying terminology to understand.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In OAuth 2.0 scope effectively equates to permissions, and the majority of what many ITPros may be concerned with as far as integrations go would be Microsoft Graph API permissions. Note that several different APIs can be scoped within an application, not just Graph permissions.</p>
-</div>
-<p>For more details on the application manifest, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest?WT.mc_id=SEC-MVP-5005105">Understanding the Azure Active Directory app manifest – Microsoft Entra | Microsoft Learn</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Editing the application manifest directly without thoroughly understanding of the changes you are making may break your application.</p>
-</div>
-<p>App registrations are considered a <strong>globally unique definition</strong> of the application across <strong>all</strong> Entra tenants, even if it’s an application that is only to be used by your tenant.</p>
-<p>Entra ID, as a global Identity-as-a-service (IDaaS) platform, has shared backend components, and for the purposes of a multitenant application it’s important to ensure that the application is globally unique from a security and functionality perspective. Since organizations can choose to change a single-tenant application to a multitenant application, the ID needs to remain unique.</p>
-<h3 id="service-principals"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#service-principals">Service Principals</a></h3>
-<p>Service principals are a <strong>security principal</strong> that define the <strong>allowed</strong> permissions for the application in Entra ID and give the application representation within the directory. Users are another type of security principal – we assign permissions and roles to users within Entra ID, as well as other associated resources.</p>
-<p>I highlight allowed permissions because while the App registration defines what permissions the app developer needs for the application to function, it’s the service principal that actually defines what is allowed in the tenant. The service principal is also the object that will appear in various Azure “pick lists”, if you are applying something like a Conditional Access policy, or assigning the service principal rights in an Azure subscription.</p>
-<p>There are three types of service principals in Entra ID:</p>
-<ul>
-<li>Enterprise applications</li>
-<li>Managed identities</li>
-<li>Legacy</li>
-</ul>
-<p>Since legacy service principals are something that organizations shouldn’t be using these days, we really just have two types that we’ll focus on.</p>
-<h3 id="enterprise-applications"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#enterprise-applications">Enterprise Applications</a></h3>
-<p>Enterprise applications, as a type of service principal, could effectively be thought of as a child if you were diagram a hierarchy. Now if service principals are the parent to enterprise applications, why is the blade in Entra admin center titled Enterprise applications? It’s because that’s primarily what we are concerned with when working within that blade. If you’ve used PowerShell or the Graph API for enumerating and working with enterprise applications, it’s why you use commands like get-azureadserviceprincipal or /servicePrincipals in Graph for accessing these.</p>
-<p>If you browse to Enterprise applications, you’ll notice that the view is actually pre-scoped to <strong>Application type == Enterprise Applications</strong></p>
-<p><img alt="Figure 2" src="/images/2023/03/11/img2.png" /></p>
-<p>We can actually clear the filter, and we’ll end up being able to view not just our enterprise applications, but also our service principals, and Microsoft applications.</p>
-<p><img alt="Figure 3" src="/images/2023/03/11/img3.png" /></p>
-<p>Microsoft applications are still service principals in our Entra tenant, but they generally relate to more tightly integrated services. For the purposes of our exploration, we won’t dive into these, but will note that they should primarily be left unaltered.</p>
-<p>Every time you see the term enterprise application, just remember it’s a type of service principal.</p>
-<h3 id="gluing-the-two-together"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#gluing-the-two-together">Gluing the two together</a></h3>
-<p>It’s important to come back to the understanding that there is a direct link between an app registration and a service principal.</p>
-<h4 id="single-tenant-application"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#single-tenant-application">Single tenant application</a></h4>
-<p>For a single tenant application, we’ll have the app registration along with the corresponding service principal. If the app registration occurs in the tenant, there will always be a corresponding service principal created.</p>
-<p><img alt="Figure 4" src="/images/2023/03/11/img4.png" /></p>
-<h4 id="multitenant-application"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#multitenant-application">Multitenant application</a></h4>
-<p>For a multitenant application, we’ll have the app registration along with the corresponding service principal in all tenants that the application has been granted consent to.</p>
-<p><img alt="Figure 5" src="/images/2023/03/11/img5.png" /></p>
-<h4 id="consent-grant"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#consent-grant">Consent grant</a></h4>
-<p>This is probably a good place to bring up that the application consent grant process is what permits the service principal creation with the associated API permissions. This is when you receive a popup such as the following:</p>
-<p><img alt="Figure 6" src="/images/2023/03/11/img6.png" /></p>
-<p><em>Image courtesy Microsoft Learn</em></p>
-<p>At the time of providing the consent grant, a service principal is created in your Entra tenant indicating the permissions that were consented to.</p>
-<h3 id="what-about-passwords"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#what-about-passwords">What about passwords</a></h3>
-<p>This is where it gets a bit complex, and existing documentation tends to really pass over what passwords live where and when to use what.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For purposes of this document I’ll use the term password to represent a shared secret. I mention this because while the Entra admin center places these under the term <strong>Client secrets</strong>, in the application manifest and service principal definition, <strong><em>passwordCredentials</em></strong> is what holds the data on the secret. For simplicity we’ll be looking at shared secrets, but you can, and should whenever possible, use <strong>Certificates</strong>, also referred to as <strong>keyCredentials</strong>.</p>
-</div>
-<p>Most documentation would lead you to believe that you create a password in the application object, and then this is referenced by the service principal. However, you also can create and associate a password with the service principal itself.</p>
-<h4 id="service-principal-passwords"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#service-principal-passwords">Service principal passwords</a></h4>
-<p>We can test creation of a service principal and assign a password directly to it with the following bit of PowerShell:</p>
-<div class="highlight"><pre><span></span><code>$notAfter = (Get-Date).AddMonths(6) # Valid for 6 months
-$application = New-AzureADApplication -DisplayName &quot;Test Service Principal with Password&quot;
-$sp=New-AzureADServicePrincipal -AppId $application.AppId -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
-New-AzureADServicePrincipalPasswordCredential -ObjectId $sp.ObjectId -EndDate $notAfter
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Reinforcing the relationship between a service principal and an application object (application registration), notice that we must reference an application ID when creating a service principal. This means we always have to create an application object before being able to create a service principal.</p>
-</div>
-<p>This should give us output with a password. If we query Graph for the details of the service principal, we can see the following:</p>
-<div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#servicePrincipals/$entity&quot;,
-    &quot;id&quot;: &quot;c5f53a03-3928-4608-a4ba-3286a2d84f60&quot;,
-    &quot;deletedDateTime&quot;: null,
-    &quot;accountEnabled&quot;: true,
-    &quot;alternativeNames&quot;: [],
-    &quot;appDisplayName&quot;: &quot;Test Service Principal with Password&quot;,
-    &quot;appDescription&quot;: null,
-    &quot;appId&quot;: &quot;8c31d7fe-57b9-4d65-8905-2b2c03c09dd6&quot;,
-    &quot;applicationTemplateId&quot;: null,
-    &quot;appOwnerOrganizationId&quot;: &quot;&quot;,
-    &quot;appRoleAssignmentRequired&quot;: false,
-    &quot;createdDateTime&quot;: &quot;2023-03-13T23:27:20Z&quot;,
-    &quot;description&quot;: null,
-    &quot;disabledByMicrosoftStatus&quot;: null,
-    &quot;displayName&quot;: &quot;Test Service Principal with Password&quot;,
-    &quot;homepage&quot;: null,
-    &quot;loginUrl&quot;: null,
-    &quot;logoutUrl&quot;: null,
-    &quot;notes&quot;: null,
-    &quot;notificationEmailAddresses&quot;: [],
-    &quot;preferredSingleSignOnMode&quot;: null,
-    &quot;preferredTokenSigningKeyThumbprint&quot;: null,
-    &quot;replyUrls&quot;: [],
-    &quot;servicePrincipalNames&quot;: [
-        &quot;8c31d7fe-57b9-4d65-8905-2b2c03c09dd6&quot;
-    ],
-    &quot;servicePrincipalType&quot;: &quot;Application&quot;,
-    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
-    &quot;tags&quot;: [
-        &quot;WindowsAzureActiveDirectoryIntegratedApp&quot;
-    ],
-    &quot;tokenEncryptionKeyId&quot;: null,
-    &quot;samlSingleSignOnSettings&quot;: null,
-    &quot;addIns&quot;: [],
-    &quot;appRoles&quot;: [],
-    &quot;info&quot;: {
-        &quot;logoUrl&quot;: null,
-        &quot;marketingUrl&quot;: null,
-        &quot;privacyStatementUrl&quot;: null,
-        &quot;supportUrl&quot;: null,
-        &quot;termsOfServiceUrl&quot;: null
-    },
-    &quot;keyCredentials&quot;: [],
-    &quot;oauth2PermissionScopes&quot;: [
-        {
-            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on behalf of the signed-in user.&quot;,
-            &quot;adminConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
-            &quot;id&quot;: &quot;2420f00e-c0a0-4a83-b318-e5fbca42de2f&quot;,
-            &quot;isEnabled&quot;: true,
-            &quot;type&quot;: &quot;User&quot;,
-            &quot;userConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on your behalf.&quot;,
-            &quot;userConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
-            &quot;value&quot;: &quot;user_impersonation&quot;
-        }
-    ],
-    &quot;passwordCredentials&quot;: [
-        {
-            &quot;customKeyIdentifier&quot;: null,
-            &quot;displayName&quot;: null,
-            &quot;endDateTime&quot;: &quot;2023-08-13T23:27:19.4255334Z&quot;,
-            &quot;hint&quot;: &quot;Vdh&quot;,
-            &quot;keyId&quot;: &quot;746ca1b3-927b-431f-980d-4b7b8048a0d6&quot;,
-            &quot;secretText&quot;: null,
-            &quot;startDateTime&quot;: &quot;2023-03-13T23:27:20.8660257Z&quot;
-        }
-    ],
-    &quot;resourceSpecificApplicationPermissions&quot;: [],
-    &quot;verifiedPublisher&quot;: {
-        &quot;displayName&quot;: null,
-        &quot;verifiedPublisherId&quot;: null,
-        &quot;addedDateTime&quot;: null
-    }
-}
-</code></pre></div>
-<p>Now, if we look at the app registration for this service principal, note that the passwordCredentials is empty:</p>
-<p><div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#applications/$entity&quot;,
-    &quot;id&quot;: &quot;e3af89d1-585a-472c-9b46-b110bf1969ce&quot;,
-    &quot;deletedDateTime&quot;: null,
-    &quot;appId&quot;: &quot;8c31d7fe-57b9-4d65-8905-2b2c03c09dd6&quot;,
-    &quot;applicationTemplateId&quot;: null,
-    &quot;disabledByMicrosoftStatus&quot;: null,
-    &quot;createdDateTime&quot;: &quot;2023-03-13T23:27:20Z&quot;,
-    &quot;displayName&quot;: &quot;Test Service Principal with Password&quot;,
-    &quot;description&quot;: null,
-    &quot;groupMembershipClaims&quot;: null,
-    &quot;identifierUris&quot;: [],
-    &quot;isDeviceOnlyAuthSupported&quot;: null,
-    &quot;isFallbackPublicClient&quot;: null,
-    &quot;notes&quot;: null,
-    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
-    &quot;serviceManagementReference&quot;: null,
-    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
-    &quot;tags&quot;: [],
-    &quot;tokenEncryptionKeyId&quot;: null,
-    &quot;samlMetadataUrl&quot;: null,
-    &quot;defaultRedirectUri&quot;: null,
-    &quot;certification&quot;: null,
-    &quot;optionalClaims&quot;: null,
-    &quot;servicePrincipalLockConfiguration&quot;: null,
-    &quot;requestSignatureVerification&quot;: null,
-    &quot;addIns&quot;: [],
-    &quot;api&quot;: {
-        &quot;acceptMappedClaims&quot;: null,
-        &quot;knownClientApplications&quot;: [],
-        &quot;requestedAccessTokenVersion&quot;: null,
-        &quot;oauth2PermissionScopes&quot;: [
-            {
-                &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on behalf of the signed-in user.&quot;,
-                &quot;adminConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
-                &quot;id&quot;: &quot;2420f00e-c0a0-4a83-b318-e5fbca42de2f&quot;,
-                &quot;isEnabled&quot;: true,
-                &quot;type&quot;: &quot;User&quot;,
-                &quot;userConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on your behalf.&quot;,
-                &quot;userConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
-                &quot;value&quot;: &quot;user_impersonation&quot;
-            }
-        ],
-        &quot;preAuthorizedApplications&quot;: []
-    },
-    &quot;appRoles&quot;: [],
-    &quot;info&quot;: {
-        &quot;logoUrl&quot;: null,
-        &quot;marketingUrl&quot;: null,
-        &quot;privacyStatementUrl&quot;: null,
-        &quot;supportUrl&quot;: null,
-        &quot;termsOfServiceUrl&quot;: null
-    },
-    &quot;keyCredentials&quot;: [],
-    &quot;parentalControlSettings&quot;: {
-        &quot;countriesBlockedForMinors&quot;: [],
-        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
-    },
-    &quot;passwordCredentials&quot;: [],
-    &quot;publicClient&quot;: {
-        &quot;redirectUris&quot;: []
-    },
-    &quot;requiredResourceAccess&quot;: [],
-    &quot;verifiedPublisher&quot;: {
-        &quot;displayName&quot;: null,
-        &quot;verifiedPublisherId&quot;: null,
-        &quot;addedDateTime&quot;: null
-    },
-    &quot;web&quot;: {
-        &quot;homePageUrl&quot;: null,
-        &quot;logoutUrl&quot;: null,
-        &quot;redirectUris&quot;: [],
-        &quot;implicitGrantSettings&quot;: {
-            &quot;enableAccessTokenIssuance&quot;: false,
-            &quot;enableIdTokenIssuance&quot;: true
-        },
-        &quot;redirectUriSettings&quot;: []
-    },
-    &quot;spa&quot;: {
-        &quot;redirectUris&quot;: []
-    }
-}
-</code></pre></div>
-And to validate this, we can look at the associated application object in the portal:</p>
-<p><img alt="Figure 7" src="/images/2023/03/11/img7.png" /></p>
-<h4 id="application-object-app-registration-passwords"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#application-object-app-registration-passwords">Application object (app registration) passwords</a></h4>
-<p>This time, let’s create another service principal but we’ll set a password in the application object:</p>
-<div class="highlight"><pre><span></span><code>$application = New-AzureADApplication -DisplayName &quot;Test App Registration with Password&quot;
-$sp=New-AzureADServicePrincipal -AppId $application.AppId -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
-New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
-</code></pre></div>
-<p>Interestingly we see that the service principal has no reference to the password:</p>
-<div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#servicePrincipals/$entity&quot;,
-    &quot;id&quot;: &quot;fd6543af-4432-4ab6-bcdf-9ac120b36aab&quot;,
-    &quot;deletedDateTime&quot;: null,
-    &quot;accountEnabled&quot;: true,
-    &quot;alternativeNames&quot;: [],
-    &quot;appDisplayName&quot;: &quot;Test App Registration with Password&quot;,
-    &quot;appDescription&quot;: null,
-    &quot;appId&quot;: &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;,
-    &quot;applicationTemplateId&quot;: null,
-    &quot;appOwnerOrganizationId&quot;: &quot;&quot;,
-    &quot;appRoleAssignmentRequired&quot;: false,
-    &quot;createdDateTime&quot;: &quot;2023-03-13T23:37:59Z&quot;,
-    &quot;description&quot;: null,
-    &quot;disabledByMicrosoftStatus&quot;: null,
-    &quot;displayName&quot;: &quot;Test App Registration with Password&quot;,
-    &quot;homepage&quot;: null,
-    &quot;loginUrl&quot;: null,
-    &quot;logoutUrl&quot;: null,
-    &quot;notes&quot;: null,
-    &quot;notificationEmailAddresses&quot;: [],
-    &quot;preferredSingleSignOnMode&quot;: null,
-    &quot;preferredTokenSigningKeyThumbprint&quot;: null,
-    &quot;replyUrls&quot;: [],
-    &quot;servicePrincipalNames&quot;: [
-        &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;
-    ],
-    &quot;servicePrincipalType&quot;: &quot;Application&quot;,
-    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
-    &quot;tags&quot;: [
-        &quot;WindowsAzureActiveDirectoryIntegratedApp&quot;
-    ],
-    &quot;tokenEncryptionKeyId&quot;: null,
-    &quot;samlSingleSignOnSettings&quot;: null,
-    &quot;addIns&quot;: [],
-    &quot;appRoles&quot;: [],
-    &quot;info&quot;: {
-        &quot;logoUrl&quot;: null,
-        &quot;marketingUrl&quot;: null,
-        &quot;privacyStatementUrl&quot;: null,
-        &quot;supportUrl&quot;: null,
-        &quot;termsOfServiceUrl&quot;: null
-    },
-    &quot;keyCredentials&quot;: [],
-    &quot;oauth2PermissionScopes&quot;: [
-        {
-            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on behalf of the signed-in user.&quot;,
-            &quot;adminConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
-            &quot;id&quot;: &quot;a396508a-24eb-421e-add0-e40c23995d9c&quot;,
-            &quot;isEnabled&quot;: true,
-            &quot;type&quot;: &quot;User&quot;,
-            &quot;userConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on your behalf.&quot;,
-            &quot;userConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
-            &quot;value&quot;: &quot;user_impersonation&quot;
-        }
-    ],
-    &quot;passwordCredentials&quot;: [],
-    &quot;resourceSpecificApplicationPermissions&quot;: [],
-    &quot;verifiedPublisher&quot;: {
-        &quot;displayName&quot;: null,
-        &quot;verifiedPublisherId&quot;: null,
-        &quot;addedDateTime&quot;: null
-    }
-}
-</code></pre></div>
-<p>However looking at the app registration, we can see the password reference:</p>
-<div class="highlight"><pre><span></span><code>{
-    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#applications/$entity&quot;,
-    &quot;id&quot;: &quot;be545f8f-9a7c-4299-9a9b-2d996fb059da&quot;,
-    &quot;deletedDateTime&quot;: null,
-    &quot;appId&quot;: &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;,
-    &quot;applicationTemplateId&quot;: null,
-    &quot;disabledByMicrosoftStatus&quot;: null,
-    &quot;createdDateTime&quot;: &quot;2023-03-13T23:37:58Z&quot;,
-    &quot;displayName&quot;: &quot;Test App Registration with Password&quot;,
-    &quot;description&quot;: null,
-    &quot;groupMembershipClaims&quot;: null,
-    &quot;identifierUris&quot;: [],
-    &quot;isDeviceOnlyAuthSupported&quot;: null,
-    &quot;isFallbackPublicClient&quot;: null,
-    &quot;notes&quot;: null,
-    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
-    &quot;serviceManagementReference&quot;: null,
-    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
-    &quot;tags&quot;: [],
-    &quot;tokenEncryptionKeyId&quot;: null,
-    &quot;samlMetadataUrl&quot;: null,
-    &quot;defaultRedirectUri&quot;: null,
-    &quot;certification&quot;: null,
-    &quot;optionalClaims&quot;: null,
-    &quot;servicePrincipalLockConfiguration&quot;: null,
-    &quot;requestSignatureVerification&quot;: null,
-    &quot;addIns&quot;: [],
-    &quot;api&quot;: {
-        &quot;acceptMappedClaims&quot;: null,
-        &quot;knownClientApplications&quot;: [],
-        &quot;requestedAccessTokenVersion&quot;: null,
-        &quot;oauth2PermissionScopes&quot;: [
-            {
-                &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on behalf of the signed-in user.&quot;,
-                &quot;adminConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
-                &quot;id&quot;: &quot;a396508a-24eb-421e-add0-e40c23995d9c&quot;,
-                &quot;isEnabled&quot;: true,
-                &quot;type&quot;: &quot;User&quot;,
-                &quot;userConsentDescription&quot;: &quot;Allow the application to access Test App Registration with Password on your behalf.&quot;,
-                &quot;userConsentDisplayName&quot;: &quot;Access Test App Registration with Password&quot;,
-                &quot;value&quot;: &quot;user_impersonation&quot;
-            }
-        ],
-        &quot;preAuthorizedApplications&quot;: []
-    },
-    &quot;appRoles&quot;: [],
-    &quot;info&quot;: {
-        &quot;logoUrl&quot;: null,
-        &quot;marketingUrl&quot;: null,
-        &quot;privacyStatementUrl&quot;: null,
-        &quot;supportUrl&quot;: null,
-        &quot;termsOfServiceUrl&quot;: null
-    },
-    &quot;keyCredentials&quot;: [],
-    &quot;parentalControlSettings&quot;: {
-        &quot;countriesBlockedForMinors&quot;: [],
-        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
-    },
-    &quot;passwordCredentials&quot;: [
-        {
-            &quot;customKeyIdentifier&quot;: null,
-            &quot;displayName&quot;: null,
-            &quot;endDateTime&quot;: &quot;2024-03-13T23:37:59.1883406Z&quot;,
-            &quot;hint&quot;: &quot;3nS&quot;,
-            &quot;keyId&quot;: &quot;45aee527-4b1e-427d-8d0f-b7aab037f087&quot;,
-            &quot;secretText&quot;: null,
-            &quot;startDateTime&quot;: &quot;2023-03-13T23:37:59.1883406Z&quot;
-        }
-    ],
-    &quot;publicClient&quot;: {
-        &quot;redirectUris&quot;: []
-    },
-    &quot;requiredResourceAccess&quot;: [],
-    &quot;verifiedPublisher&quot;: {
-        &quot;displayName&quot;: null,
-        &quot;verifiedPublisherId&quot;: null,
-        &quot;addedDateTime&quot;: null
-    },
-    &quot;web&quot;: {
-        &quot;homePageUrl&quot;: null,
-        &quot;logoutUrl&quot;: null,
-        &quot;redirectUris&quot;: [],
-        &quot;implicitGrantSettings&quot;: {
-            &quot;enableAccessTokenIssuance&quot;: false,
-            &quot;enableIdTokenIssuance&quot;: true
-        },
-        &quot;redirectUriSettings&quot;: []
-    },
-    &quot;spa&quot;: {
-        &quot;redirectUris&quot;: []
-    }
-}
-</code></pre></div>
-<p>If we look at the associated application object, we can see this password:</p>
-<p><img alt="Figure 8" src="/images/2023/03/11/img8.png" /></p>
-<p>Since there is no place in the Entra admin center that exposes service principal passwords, there is nothing to compare to there.</p>
-<h4 id="so-which-passwords-where"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#so-which-passwords-where">So which passwords where?</a></h4>
-<p>If we can register a password on either the service principal or application object, how do we decide which to use and where?</p>
-<p>In a test, I’ve assigned both the service principal and application object with a password set to an Azure subscription, and you can authenticate using either type of password credential.</p>
-<p>Service Principal password:</p>
-<div class="highlight"><pre><span></span><code>c:\&gt;az login --service-principal -u 1820efb7-fc82-46f6-90c8-bcfd5ca256d5 -p &quot;e/ZtjS1f/ZIQhGEBOV1slzjhYI03OrMkysPcPh7uykU=&quot; --tenant 11ae06df-10e8-4b9e-bf66-2a91f4955339
-[
-  {
-    &quot;cloudName&quot;: &quot;AzureCloud&quot;,
-    &quot;homeTenantId&quot;: &quot;&quot;,
-    &quot;id&quot;: &quot;50d2637c-63fc-47e1-b9b1-114c5a08c7f5&quot;,
-    &quot;isDefault&quot;: true,
-    &quot;managedByTenants&quot;: [],
-    &quot;name&quot;: &quot;MSDN Platforms&quot;,
-    &quot;state&quot;: &quot;Enabled&quot;,
-    &quot;tenantId&quot;: &quot;&quot;,
-    &quot;user&quot;: {
-      &quot;name&quot;: &quot;1820efb7-fc82-46f6-90c8-bcfd5ca256d5&quot;,
-      &quot;type&quot;: &quot;servicePrincipal&quot;
-    }
-  }
-]
-</code></pre></div>
-<p>Application Object password:</p>
-<div class="highlight"><pre><span></span><code>c:\&gt;az login --service-principal -u dfc6c44a-562a-4914-9f88-3fae17098fbc -p &quot;3nSvCR0zCTG8z0rew0jy23gmhh2fXkLsx7x3+hmaGhI=&quot; --tenant 11ae06df-10e8-4b9e-bf66-2a91f4955339
-[
-  {
-    &quot;cloudName&quot;: &quot;AzureCloud&quot;,
-    &quot;homeTenantId&quot;: &quot;&quot;,
-    &quot;id&quot;: &quot;50d2637c-63fc-47e1-b9b1-114c5a08c7f5&quot;,
-    &quot;isDefault&quot;: true,
-    &quot;managedByTenants&quot;: [],
-    &quot;name&quot;: &quot;MSDN Platforms&quot;,
-    &quot;state&quot;: &quot;Enabled&quot;,
-    &quot;tenantId&quot;: &quot;&quot;,
-    &quot;user&quot;: {
-      &quot;name&quot;: &quot;dfc6c44a-562a-4914-9f88-3fae17098fbc&quot;,
-      &quot;type&quot;: &quot;servicePrincipal&quot;
-    }
-  }
-]
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Notice the service principal and application object relationship again. While both are a type of service principal shown in the connection, we had to use the client ID as the user ID. The client ID is a value that only exists within the application object.</p>
-</div>
-<p>Most documentation from Microsoft indicates that if you are using service principals for integrations into Azure for things like subscription management, to use service principal passwords. I don’t see any downside to this, with the exception that the secrets cannot be managed within the Azure portal.</p>
-<p>From a security boundary perspective, some folks will mention that not showing secrets within the Azure portal helps create a security boundary, however, many tenant-wide RBAC roles in Entra ID that permit secret management, such as adding/replacing/removing secrets, would have that capability on both service principals and application objects.</p>
-<p>If you are developing or deploying a multitenant application you will need to use a client secret (password) within an application object (or preferably a certificate). This is because only the credentials in an application can be used across tenants.</p>
-<p>This is where an understanding of OAuth 2.0 comes into play. There are several different ways in which OAuth 2.0 flows work, and you can also add OpenID Connect on top of things there as well. Keeping things a bit simplified, we’ll look at two common examples:</p>
-<ul>
-<li>Delegated permissions<ol>
-<li>When you attempt to access the application, you will be sent to the Entra ID OAuth 2.0 authorization endpoint.</li>
-<li>If you are not signed in you will be asked to do so.</li>
-<li>If you have not previously consented to the application, you will be prompted to. Alternatively, your organization may have already performed a tenant-wide consent.</li>
-<li>The app registration defines a redirect URI, which you will pass an authorization code you receive from Entra ID back to.</li>
-<li>The application will then take the authorization code and pass it to Entra ID, and in return obtain an access and refresh token.</li>
-<li>The access token can then be used for access to Microsoft Graph API, as an example, in which the permissions you consented to, the application will have access to on your behalf.</li>
-</ol>
-</li>
-<li>Application permissions<ol>
-<li>When onboarding an application with application permissions, the application permissions must be granted with admin consent.</li>
-<li>If you are not signed in you will be asked to do so.</li>
-<li>Upon authentication and consent, you will provide a response to the application with your tenant ID.</li>
-<li>The application takes the secret and provides it to Entra ID, along with your tenant ID, to request an access token for the consented permissions.</li>
-<li>Entra ID provides the access token, and the application can then use that for access to the Microsoft Graph API, leveraging the permissions you granted.</li>
-</ol>
-</li>
-</ul>
-<p>It’s important to understand that in the world of Entra ID, there is a <strong>common</strong> OAuth 2.0 endpoint. While every tenant has a security boundary, Entra ID itself is a single identity platform, and this is what allows authorization codes and secrets to be leveraged across tenants by the application developer. This is a good thing, as it removes any need for a developer to get into the sticky business of having to manage and coordinate secrets with customers.</p>
-<p>If you are using a multitenant application, you can see these results yourself if you look at your Entra Sign-in logs for service principals:</p>
-<p><img alt="Figure 9" src="/images/2023/03/11/img9.png" /></p>
-<p>If we look at the sign-in above, and then check our enterprise applications we’ll find the associated service principal ID (object ID):</p>
-<p><img alt="Figure 10" src="/images/2023/03/11/img10.png" /></p>
-<p>And if we look at the app registration in the other tenant:</p>
-<p><img alt="Figure 11" src="/images/2023/03/11/img11.png" /></p>
-<p>And we can even see that the certificate registered in the app registration was used for authentication, by matching the key ID. Of course, this is only to show that the secret/certificate is used cross-tenant, and we luckily have access to both tenants in our example:</p>
-<div class="highlight"><pre><span></span><code>&quot;keyCredentials&quot;: [
-        {
-            &quot;customKeyIdentifier&quot;: &quot;VGVzdDEyMw==&quot;,
-            &quot;endDate&quot;: &quot;2023-09-11T18:17:58.8837147Z&quot;,
-            &quot;keyId&quot;: &quot;dc0c5dcd-7dd3-4f05-8bf7-5edc2dc4150e&quot;,
-            &quot;startDate&quot;: &quot;2023-03-11T19:19:29.8224747Z&quot;,
-            &quot;type&quot;: &quot;AsymmetricX509Cert&quot;,
-            &quot;usage&quot;: &quot;Verify&quot;,
-</code></pre></div>
-<p>In my example I’m using a certificate, not a password, as the sample code used was out of the box designed to use a certificate (key pair).</p>
-<h3 id="questions-and-scenarios"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#questions-and-scenarios">Questions and scenarios</a></h3>
-<p>Now that we have some foundation, let’s take a look at some common questions and scenarios.</p>
-<h4 id="will-every-app-registration-have-a-corresponding-service-principal"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#will-every-app-registration-have-a-corresponding-service-principal">Will every App Registration have a corresponding service principal</a></h4>
-<p>Yes. Every app registration will have at least one service principal, which is created in the home tenant that the app registration was created in.</p>
-<p>There are some examples of PowerShell code out there that will create a service principal but are missing the <strong>WindowsAzureActiveDirectoryIntegratedApp</strong> tag, which will prevent them from showing up in enterprise applications (even with the filter removed).</p>
-<h4 id="will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration">Will every Enterprise Application/Service Principal have a corresponding App Registration?</a></h4>
-<p>Yes, but not necessarily in your tenant.</p>
-<p>To be more specific, and this is also where we need to understand that enterprise applications are <strong>more</strong> than just OAuth 2.0/OIDC applications.</p>
-<p>If the application is OpenID Connect or OAuth 2.0, as we have seen above, the resource tenant will <strong>only</strong> have a service principal in the applications home tenant.</p>
-<p>However, you may see other times that when you create an enterprise application that an associated app registration will show up in your tenant. In reality any application you add from enterprise applications – SAML, Linked, Password-based, or Entra Application Proxy, are all going to create an associated app registration. Why? Because the service principal was not designed to hold all the information that defines the app (back to our definition of an app registration).</p>
-<p>You can add a SAML application into Entra ID, and then go to its corresponding app registration and look at the manifest.</p>
-<p>Here is an example of the manifest for the SAML app of Claims X-Ray. Notice that some of the configuration settings for the application, such as the ACS URL, are stored within the manifest.</p>
-<div class="highlight"><pre><span></span><code>&quot;name&quot;: &quot;Claims X-Ray&quot;,
-    &quot;notes&quot;: null,
-    &quot;oauth2AllowIdTokenImplicitFlow&quot;: true,
-    &quot;oauth2AllowImplicitFlow&quot;: false,
-    &quot;oauth2Permissions&quot;: [
-        {
-            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Claims X-Ray on behalf of the signed-in user.&quot;,
-            &quot;adminConsentDisplayName&quot;: &quot;Access Claims X-Ray&quot;,
-            &quot;id&quot;: &quot;a25f7792-6629-4854-a533-4914cc79ce41&quot;,
-            &quot;isEnabled&quot;: true,
-            &quot;lang&quot;: null,
-            &quot;origin&quot;: &quot;Application&quot;,
-            &quot;type&quot;: &quot;User&quot;,
-            &quot;userConsentDescription&quot;: &quot;Allow the application to access Claims X-Ray on your behalf.&quot;,
-            &quot;userConsentDisplayName&quot;: &quot;Access Claims X-Ray&quot;,
-            &quot;value&quot;: &quot;user_impersonation&quot;
-        }
-    ],
-    &quot;oauth2RequirePostResponse&quot;: false,
-    &quot;optionalClaims&quot;: null,
-    &quot;orgRestrictions&quot;: [],
-    &quot;parentalControlSettings&quot;: {
-        &quot;countriesBlockedForMinors&quot;: [],
-        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
-    },
-    &quot;passwordCredentials&quot;: [],
-    &quot;preAuthorizedApplications&quot;: [],
-    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
-    &quot;replyUrlsWithType&quot;: [
-        {
-            &quot;url&quot;: &quot;https://adfshelp.microsoft.com/ClaimsXray/TokenResponse&quot;,
-            &quot;type&quot;: &quot;Web&quot;
-        }
-    ],
-</code></pre></div>
-<p>If you’ve integrated certain SAML applications and wanted to assign groups to custom roles to then emit in the SAML response, you would find yourself in the App registration to further define those.</p>
-<p>But take notice that from a permissions perspective, going back to the security principal side of things, it is the enterprise application where you configure who is allowed to access the application.</p>
-<h4 id="why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application">Why do we need to handle the secret management for our single tenant application?</a></h4>
-<p>This is something that your developers are likely used to. Going back to the beginning of this post, while you have to agree to the permissions the application developer needs, the developer is the one who would be likely handling the secrets.</p>
-<p>But if you’ve purchased a piece of software that ITPros would be the owners of – third party Exchange Online backup software, Identity Governance and Administration products, security assessment platforms – these are the things you will need to provide the secret to, in order for the applications to obtain the necessary access tokens. But, because of the way that OAuth 2.0 functions, you still need to go through that initial consent process.</p>
-<h4 id="what-about-for-certain-saas-applications-why-do-they-need-secrets"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#what-about-for-certain-saas-applications-why-do-they-need-secrets">What about for certain SaaS applications? Why do they need secrets?</a></h4>
-<p>It usually comes down to the type of SaaS application and how the applications multi-tenancy is handled.</p>
-<p>Look at Salesforce. While this is a SaaS platform, each instance of Salesforce is left up to the organization that has acquired it to manage who can authenticate to what and how. So, while Salesforce supports OpenID Connect, it’s up to the organization that manages their instance of Salesforce to configure that. In this example for every Entra ID customer out there with Salesforce and OpenID Connect, there are that many essentially “duplicate” app registrations for it in Entra ID. Also – nothing is forcing Salesforce (in this example) to register their application in Entra ID. And it could easily go down a rabbit hole quite quickly – what about needing to register with Okta? Ping? Who and what do they have potentially partner relationships with? You also have to think about things like token customization and the data that <strong>you</strong> may want to be sent to Salesforce. You need to have control over the app registration to be able to do this with OIDC.</p>
-<p>As such, it’s common for large and complex enterprise-oriented SaaS vendors to still require you to manage both ends of the OIDC/OAuth 2.0 configuration.</p>
-<h4 id="why-can-i-consent-in-either-the-enterprise-application-or-app-registration"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#why-can-i-consent-in-either-the-enterprise-application-or-app-registration">Why can I consent in either the Enterprise Application or App Registration?</a></h4>
-<p>Because the portal tries to make things magic. It’s simply an ease thing – the function behind the scenes is the same, regardless of where you consent.</p>
-<h4 id="why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view">Why do some Service Principals I've created with PowerShell not appear in the Enterprise Application view?</a></h4>
-<p>When creating a service principal, if the tag <strong>WindowsAzureActiveDirectoryIntegratedApp</strong> is not included in the definition, the service principal will not show up in Enterprise Applications. Microsoft is not completely clear as to why this tag is optional, as the application will still be available in the Conditional Access and Azure RBAC pick lists. One could presume you would not necessarily concern yourself with service principals created for things like automation products. Still, if you accidently created a service principal without this, you could simply run the following command to update it:</p>
-<div class="highlight"><pre><span></span><code>Set-AzureADServicePrincipal -ObjectId &lt;objectid&gt; -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
-</code></pre></div>
-<h3 id="additional-resources"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#additional-resources">Additional resources</a></h3>
-<p>Authenticating to Entra ID with PowerShell using a service principal, <a href="https://learn.microsoft.com/en-us/powershell/azure/active-directory/signing-in-service-principal?WT.mc_id=SEC-MVP-5005105">Using a service principal | Microsoft Learn</a>.</p>
-<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow?WT.mc_id=SEC-MVP-5005105">OAuth 2.0 client credentials flow on the Microsoft identity platform – Microsoft Entra | Microsoft Learn</a></p>
-<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow?WT.mc_id=SEC-MVP-5005105">Microsoft identity platform and OAuth 2.0 authorization code flow – Microsoft Entra | Microsoft Learn</a></p>
-<p>Some great explanations from Frontegg on OAuth 2.0 grant types, <a href="https://frontegg.com/blog/oauth-grant-types">OAuth Grant Types: Explained | Frontegg</a></p>
-<p>Additional explanations from Frontegg on OAuth 2.0 flows, <a href="https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc">Demystifying OAuth Flows | Frontegg</a></p>
-<p>Okta guide to OpenID Connect and OAuth 2.0, <a href="https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc">An Illustrated Guide to OAuth and OpenID Connect | Okta Developer</a></p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1568,41 +973,13 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
 <p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
 <p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
 <p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
-<p>With this data, I came up with the following infographic:</p>
-<p><img alt="Figure 1" src="/images/2023/02/13/img1.png" /></p>
-<p>The graphic above can be saved, and you can also download it as a PDF:</p>
-<p><a href="/images/2023/02/13/the-Importance-of-Identity-in-Microsoft-Certifications.pdf">the-Importance-of-Identity-in-Microsoft-Certifications</a></p>
-<h3 id="analysis-details"><a class="toclink" href="../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/#analysis-details">Analysis details</a></h3>
-<p>As mentioned, I looked at the content of <strong>every single</strong> current Microsoft examination study guides. The exception are the Microsoft Office exams, the Dynamics exams, and the outliers, like the Technology Literacy for Educators exam.</p>
-<p>The exam study guides contain a section <strong>Skills measured</strong>, and it breaks down the skills by a general category.</p>
-<p>For example, this is the skills measure section for AZ-500, Microsoft Azure Security Technologies:</p>
-<ul>
-<li>Manage identity and access (25-30%)</li>
-<li>Secure networking (25-30%)</li>
-<li>Secure compute, storage, and databases (20-25%)</li>
-<li>Manage security operations (25-30%)</li>
-</ul>
-<p>I would look at this and, in this instance, indicate that the AZ-500 has an identity component of 30%, as you can see within the infographic.</p>
-<p>For exams that are more unassuming, such as the MS-700, Managing Microsoft Teams, I would dive deeper into the skills that compose the category.</p>
-<p>If we look at this exam, we would see the following categories:</p>
-<ul>
-<li>Plan and manage a Microsoft Teams environment (40-45%)</li>
-<li>Manage chat, teams, channels, and apps (25-30%)</li>
-<li>Manage calling and meetings (15-20%)</li>
-<li>Monitor, report, and troubleshoot a Microsoft Teams environment (10-15%)</li>
-</ul>
-<p>Identity doesn’t seem to be present on this exam from the categories. But if we look at the subcategories of skills for <strong>Plan and Manage a Microsoft Teams environment</strong>:</p>
-<ul>
-<li>Plan and configure network settings for Microsoft Teams</li>
-<li>Identify licensing requirements for Microsoft Teams</li>
-<li>Manage security and compliance settings for Microsoft Teams</li>
-<li><strong>Plan and implement governance and lifecycle management</strong></li>
-<li><strong>Configure and manage external collaboration</strong></li>
-<li>Deploy and manage Microsoft Teams endpoints</li>
-</ul>
-<p>There are two, as highlighted, that have multiple Azure AD/Entra components to them, such as external collaboration settings, and using access reviews.</p>
-<p>In a case like this, since there are six subcategories, the best effort is estimating each has the same weight, so each having a weight of 7.5% in this example. However, because Azure AD does not fully compose each of these categories, I gave a weight based on the relative percentage. In this example, each of those had a rough weight of 5% of the 7.5% potential total, which is how I gave MS-700 a 10% total weight.</p>
-<p>Note that the math, especially on some of the exams with a lower portion of identity, will have a bit of fuzz to it. Microsoft indicates a 5% variation (range) that any skill category may make up an Individual exam. As such, you may see a few more, or less, identity-related questions on any given exam.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1645,17 +1022,13 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
 <li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
 </ul>
 <p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
-<p>But say my tenant has come under some sort of cyberattack. Or more mundane You can’t guarantee that a phone call or email will still go to where you expect. And while these changes should be audited, when you’re in a state of needing to authenticate yourself from a support perspective, it’s likely you’ll still have to try and complete one of these steps, if you don’t want further delay.</p>
-<p>This leaves us with DNS. But what if that DNS is hosted in a subscription associated with the same Azure AD tenant? Things could potentially not turn out so well.</p>
-<p>Even if you have DNS management delegated out to accounts that are not a GA (which in a large-scale enterprise, GA should not own resources in subscriptions)… can you guarantee that their access would not be tampered with if a threat actor is involved?</p>
-<p>From a resilience perspective, it seems like it’s one of the times to not host DNS in Azure, or at least not in a subscription that is tied to the same tenant that uses those domains for services.</p>
-<p>You may already have a DNS architecture with secondary zones hosted outside of Azure, but those read-only copies won’t save you when you need to edit a zone.</p>
-<p>And if you host DNS with something like Amazon Route 53… do you federate authentication for your account owners and resources back to Azure AD? If your Azure tenant is breached, it’s certain a threat actor will try to follow your multi-cloud sprawl.</p>
-<h3 id="so-whats-the-resilient-path"><a class="toclink" href="../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/#so-whats-the-resilient-path">So what's the resilient path?</a></h3>
-<p>Your mind may go to contacting your domain name registrar, and updating your NS records. But, you now are adding another external dependency.</p>
-<p>This past summer I was trying to update NS records for a domain with Directnic, and ticket response time was 12-24 hours, let alone actually having the records updated. Why did I open a ticket? Updates in the portal were not reflecting days after the change.</p>
-<p>While it may seem suboptimal, the most resilient path would be hosting DNS either in another small subscription and tenant that has no association to your primary production tenant, or using another large-scale cloud provider for DNS, but not associating authentication back to Azure AD.</p>
-<p>Considering the reality that most organizations struggle to keep as many nines as cloud providers (even with their occasional outages), this wouldn’t be time for a knee-jerk reaction to bring DNS back to an on-premise data center, unless your organization is still robust enough to handle those high SLA’s.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1676,6 +1049,12 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
         <li class="md-meta__item">
           <time datetime="2023-01-29 00:00:00+00:00">January 29, 2023</time></li>
         
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a>, 
+              <a href="../../category/azure/" class="md-meta__link">Azure</a></li>
+        
         
           
           <li class="md-meta__item">
@@ -1692,63 +1071,13 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
     <h2 id="azure-ad-101-azure-subscription-relationship"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/">Azure AD 101: Azure Subscription Relationship</a></h2>
 <p>Whether you are dipping your toe or diving headfirst into Azure, one of the points of confusion is the relationship between Azure Active Directory and Azure subscriptions. Azure subscriptions may be referred to as subscriptions, or sometimes even just Azure. An Azure Active Directory tenant, which is the cloud identity provider, is usually referred to as Azure AD or AAD, or sometimes just tenant.</p>
 <p>While Microsoft has decent documentation on the relationship, I tend to find that drawing analogies along with additional visuals can help really drive the relationship home for folks. For the MS Docs article, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory?WT.mc_id=SEC-MVP-5005105">Add an existing Azure subscription to your tenant – Azure AD – Microsoft Entra | Microsoft Learn</a>.</p>
-<h3 id="a-look-at-pre-cloud-infrastructures"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/#a-look-at-pre-cloud-infrastructures">A look at pre-cloud infrastructures</a></h3>
-<p>When we take a look at very classic on-premises infrastructure, if it’s a Microsoft shop we’ll almost always have Active Directory, an identity provider, usually running on physical or virtualized servers in a high availability architecture. For purposes here, we’ll abstract it from the underlying server infrastructure:</p>
-<p><img alt="Figure 1" src="/images/2023/01/29/img1.png" /></p>
-<p><em>Our Active Directory domain</em></p>
-<p>Likewise, we have all sorts of servers running, again possibly a mix of physical servers, as well as virtualized servers (even though the hypervisor itself is running on some form of physical server). Below we have a simple example of a Windows Server that is running Hyper-V, and has four virtual machines running:</p>
-<p><img alt="Figure 2" src="/images/2023/01/29/img2.png" /></p>
-<p><em>A Hyper-V environment running on a Windows server</em></p>
-<p>When we connect these two systems, Active Directory and the Windows Server, we form a trust relationship between the two. The trust relationship is represented in Active Directory by the computer object that represents that Hyper-V server.</p>
-<p><img alt="Figure 3" src="/images/2023/01/29/img3.png" /></p>
-<p><em>The AD and Windows Server trust relationship</em></p>
-<p>To expand this out a bit further, we likely have several different servers running several different types of workloads in our environment:</p>
-<p><img alt="Figure 4" src="/images/2023/01/29/img4.png" /></p>
-<p><em>Our simple multi-server environment</em></p>
-<p>The one commonality is that regardless of the type of workload running on the server, we have that trust relationship between Active Directory and each server.</p>
-<h3 id="translating-to-the-cloud-trust-model"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/#translating-to-the-cloud-trust-model">Translating to the cloud trust model</a></h3>
-<p>With our understanding of having that trust relationship between Active Directory and each Windows Server, we can translate this to a <strong>similar</strong> trust relationship between our <strong>Azure Active Directory tenant</strong> and <strong>Azure Subscriptions</strong>.</p>
-<p>In our example below, we see that a subscription can be mostly analogous to a Windows Server. They both contain virtual machines, and both the subscription and the server have their own type of trust relationship to their relative identity provider:</p>
-<p><img alt="Figure 5" src="/images/2023/01/29/img5.png" /></p>
-<p><em>A tenant-subscription trust</em></p>
-<p>Similar to how we may run several different workloads on several different servers, we can have several different subscriptions that are managing several different workloads:</p>
-<p><img alt="Figure 6" src="/images/2023/01/29/img6.png" /></p>
-<p><em>A multi-subscription trust model</em></p>
-<p>Similar to Active Directory, where you can only join a Windows server to <strong>one</strong> domain, an Azure subscription can only have <strong>one</strong> trust relationship to an Azure AD tenant.</p>
-<p>Unlike Active Directory, where the trust relationship is observable as a computer object, the subscription won’t be something that you’ll see represented in Azure AD itself, but with the right permissions you’ll be able to observe all subscriptions associated with that tenant when you sign into the Azure portal.</p>
-<p>With Windows servers, we occasionally may run into instances where we wanted to migrate a Windows server from one Active Directory Forest to another. Similarly, we <strong>can</strong> migrate an Azure subscription relationship from one Azure AD tenant to another:</p>
-<p><img alt="Figure 7" src="/images/2023/01/29/img7.png" /></p>
-<p><em>Changing the trust relationship</em></p>
-<p>In both models, the trust relationship is changed, because we can still only have <strong>one</strong> trust relationship between a subscription and a tenant.</p>
-<p>Similar to Active Directory and changing the associated forest, depending on the types of workloads in the subscription, there may be post migration work that needs to happen. At the very least, we will need to re-assign the appropriate permissions to the subscription.</p>
-<h3 id="the-permission-confusion"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/#the-permission-confusion">The permission confusion</a></h3>
-<p>Not only is the relationship between a tenant and subscription confusing, but so is the permission model, and where things should, or should not, crossover.</p>
-<p>With Active Directory, in a properly tiered permission model, Domain Administrator should primarily be used for management of Active Directory, and nothing more. All of those servers joined to Active Directory should use a separate set of permissions, many times referred to as a Server Administrator. Domain Administrators have no business logging onto the member servers, and Server Administrators have no business managing Active Directory. This all becomes <strong>really important</strong> when you start talking about least privilege and privilege separation.</p>
-<p>You can think of the fact that each Windows server has its own set of local permissions you can delegate and control on the server. And those permissions are managed <strong>local</strong> to that server. While you may create groups of objects in Active Directory, say, Hyper-V Server Administrators, you then assign that group local on each Hyper-V server to have the necessary rights.</p>
-<p>The same goes in Azure subscriptions. Subscription Owners are effectively the Local Administrators, and the permissions themselves are assigned <strong>on the subscription</strong>. While the permissions may be abstracted in the sense that you use a single portal or command across multiple subscriptions, the permissions are still encompassed around that subscription.</p>
-<p>And just like Active Directory, you generally <strong>do not need</strong> to assign a Global Administrator any permissions into or over a subscription. While some organizations may accept the risk with a limited number of Global Administrators, the problem becomes pervasive in organizations that believe they need to continue to hand out Global Administrator roles just so that subscription ownership can happen.</p>
-<p><img alt="Figure 8" src="/images/2023/01/29/img8.png" /></p>
-<p>While it is a shift in how organizations work and operate, overly permissive models with a lack of privilege separation are a great way to help threat actors into your environment.</p>
-<h3 id="digging-deeper"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/#digging-deeper">Digging deeper</a></h3>
-<p>Our examples are simple, to help build an understanding of the relationship model. And just like we may divide server workloads up by application groups or regions, and how we likely architect web farms and Hyper-V clusters, elaborate subscription models require thoughtful architecture behind them. This is where the Microsoft Cloud Adoption Framework and Azure Landing Zones come into play.</p>
-<p>You can find more information on these here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/?WT.mc_id=SEC-MVP-5005105">Microsoft Cloud Adoption Framework for Azure – Cloud Adoption Framework | Microsoft Learn</a>, and here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/?WT.mc_id=SEC-MVP-5005105">What is an Azure landing zone? – Cloud Adoption Framework | Microsoft Learn</a>.</p>
-<p>It’s especially important from an identity and security perspective properly design the security of your subscriptions – many organizations have overly permissive architectural designs around their subscription permissions, including on items of critical infrastructure, such as Active Directory Domain Controllers running as virtual machines in Azure.</p>
-<p>For further information on securing privileges access, take a look at <a href="https://learn.microsoft.com/en-us/security/compass/overview?WT.mc_id=SEC-MVP-5005105">Securing privileged access overview | Microsoft Learn</a>.</p>
-<h3 id="one-last-point-language-matters"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/#one-last-point-language-matters">One last point - language matters</a></h3>
-<p>This is one of those areas where language matters, especially if you are an identity practitioner or working in a role where you help manage and service your customers Azure subscriptions and Azure AD tenant(s).</p>
-<p>It is not:</p>
-<ul>
-<li>Azure tenant</li>
-<li>Azure AD subscription</li>
-<li>AAD subscription</li>
-<li>Azure directory</li>
-</ul>
-<p>It is:</p>
-<ul>
-<li>Azure AD tenant</li>
-<li>Azure subscription</li>
-</ul>
-<p>While for some organizations you may be able to get away with interchanging terminology, if you were to have a project assigned to you, or scope a project for a customer, and the details were similar to “<em>perform an audit of the AAD subscription and make recommendations on a privilege model</em>”, would you be talking about auditing the permissions in Azure Active Directory? In an Azure subscription? Which Azure subscription if the organization has multiple? You can see where this is going.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -1785,31 +1114,13 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
     <h2 id="cloud-identity-is-still-the-future"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/">Cloud Identity Is Still The Future</a></h2>
 <p>In October 2022, the CTO of 37signals, David Heinemeier Hansson, published a piece on why hey.com was leaving the cloud. You can read the full article here, <a href="https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0">Why we’re leaving the cloud (hey.com)</a>; the gist of the post is that cloud is not cost-effective. More recently, InfoWorld published a piece by David Linthicum, <a href="https://www.infoworld.com/article/3684369/2023-could-be-the-year-of-public-cloud-repatriation.html">2023 could be the year of public cloud repatriation | InfoWorld</a>, hitting on why it may be more cost-effective to move back to private data centers. You see the trend – cloud may not be providing the ROI that is expected, especially if your organization has just performed a bunch of lift-and-shift without application refactoring.</p>
 <p>While the titles are attention grabbing, and the articles have valid points, they don’t really tell the full story. Folks in the industry may scan the headlines and believe that a mass cloud exodus is on the verge of happening, but we really need to look at what part of the cloud we are speaking to. We need to distinguish between IaaS, PaaS and SaaS, as well as related services and systems, such as IDaaS (identity as a service, aka Azure AD, Okta, and so on).</p>
-<h3 id="saas-is-king-for-business-productivity"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/#saas-is-king-for-business-productivity">SaaS is king for business productivity</a></h3>
-<p>37signals is a SaaS application company – with basecamp.com, a project management platform, and hey.com, a cloud email service. Neither product offers a private hosted version, so while 37signals is leaving the cloud, the services they offer you, well, are still cloud services. Sure, they may not be hosted in AWS or GCP, but the organizations that consume these platforms will be accessing and using them as cloud services.</p>
-<p>These days, nobody wants to manage a SharePoint farm, and certainly not Exchange Server. But it’s not just office suites such as Office 365 and Google Workspace (and hey.com). In recent years we have seen an explosion of growth with SaaS applications and platforms, and this is something that is continuing to trend upward.</p>
-<h3 id="vpn-is-an-antiquated-means-of-access"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/#vpn-is-an-antiquated-means-of-access">VPN is an antiquated means of access</a></h3>
-<p>Whether it’s IaaS or PaaS, hosted in private data centers or in some form of cloud, needing to access applications from everywhere and anywhere is as important as ever. With COVID-19 and the remote workforce, it strained organizations trying to find ways to allow access to applications for the workforce. While VPN may have been the path of least resistance to allowing remote access, it’s certainly not well aligned to Zero Trust. Cloud platforms provide means for modern access, and modern authentication, to applications, regardless of where they exist. Products such as Azure AD Application Proxy can be that conduit, are easy to deploy, and can be used to supplant VPN access. Sure, there may be the edge cases where VPN still provides the necessary means of access, but organizations should realize that success is much easier when we are not picking one-size-fits-all solutions.</p>
-<h3 id="cloud-native-devices-ease-administrative-burden"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/#cloud-native-devices-ease-administrative-burden">Cloud-native devices ease administrative burden</a></h3>
-<p>Closely tied to VPN access was the struggle of organizations trying to manage Windows devices that were Active Directory joined, or Hybrid Azure AD Joined. Concerns included patch management, group policy changes, and expired user passwords. The question of machine account password age and the relationship it has with Active Directory became a huge point and topic of confusion.</p>
-<p>Microsoft has used the past few years to really push Azure AD Joined devices, making device identity cloud-native. Yes, we still have the issue of remote troubleshooting, which is regardless of how they device identity exists. Yes, we still need to use something like Intune to manage the devices, and the road has been bumpy in replacing group policy. And yes the ROI is not worth it for most organizations to redeploy Windows on existing Hybrid Azure AD Joined devices until those devices are due for a hardware refresh. But we should continue to build the path towards the cloud, away from Active Directory, for client devices.</p>
-<p>For those in the Microsoft ecosystem with Active Directory and Azure AD, cloud-native devices can still access on-prem resources tied to Active Directory, either when on a corporate network or coming across the VPN (unfortunately).</p>
-<h3 id="cloud-applications-need-cloud-identity"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/#cloud-applications-need-cloud-identity">Cloud applications need cloud identity</a></h3>
-<p>The benefits should be clear for cloud identity systems. While there have been a few major outages in the past three or so years with Azure AD, the level of complexity required to maintain a 99.99% SLA for a publicly connected directory services system just cannot compare.</p>
-<p>If we look at what it takes to manage an AD FS farm with a high level of redundancy – at least three sites with Active Directory replicated across, at least one AD FS server (but likely two) in each respective location. If more than one AD FS farm server is in each location, you need location-specific load balancing. For the public edge, you need at least three disparate DMZ networks, with a minimum of one WAP server (but likely two), and then to route the traffic between locations a global traffic management solution, which usually looks like a DNS-based load balancing solution, such as Azure Traffic Manager.</p>
-<p><img alt="Figure 1" src="/images/2023/01/16/img1.png" /></p>
-<p><em>A highly redundant AD FS farm reference architecture</em></p>
-<p>Organizations still need to harden and secure this environment, patch it monthly with orchestrated patch management to ensure availability, and monitor from a security and availability perspective. At the end of it all, this still pales in comparison to Azure AD. AD FS access control policies come nowhere near conditional access. Management and writing of claims policies are still harder for the average person to understand, and Solorigate has shown us what happens when AD FS is compromised.</p>
-<p>A pretty surmised way of looking at it – cloud-native directory services are designed with identity security practitioners in mind. On-prem directory services are designed with infrastructure practitioners in mind. AD FS is still an “infrastructure” identity system.</p>
-<p>While one can argue some pros of owning your own systems, that argument falls flat when you look at the realization that any of the major identity providers platform developers are investing in cloud-native identity first.</p>
-<h3 id="what-about-those-on-prem-servers"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/#what-about-those-on-prem-servers">What about those on-prem servers</a></h3>
-<p>For as long as Windows server remains in your organization, it’s likely that Active Directory is not going anywhere. While we have had huge advancements with Windows clients and the cloud, server is another story. Sure, we have things like Azure Arc and Desired State Config (DSC), but many argue that DSC is too complex and not a replacement for group policy. It still makes sense to keep identity close to the servers, so even if you could Azure AD Join a Windows server, the majority of use cases would not be well-served.</p>
-<p>Until applications are refactored, the Windows servers they run on aren’t going anywhere. And the associated service accounts that run these services will likely still need to exist in Active Directory.</p>
-<p>But what we may continue to see is a wide array of patterns emerge. Organizations that primarily need Active Directory for compute workloads may drive end-user identity into the cloud, and AD remains as the glue for server administration only. Others that are further behind on their application modernization journey may need to persist user identities in AD.</p>
-<h3 id="the-way-forward"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/#the-way-forward">The way forward</a></h3>
-<p>One of the most important investments organizations can make with cloud identity is not just selecting the platform, but skilling the people. From experiences in performing security assessments of Azure AD, a lack of strong skilling leads to the majority of insecure and inefficient implementations of various components of cloud identity.</p>
-<p>We also need to continue to push to transform identity from an infrastructure system to a security system. And this is much more than just transferring ownership and landing a complex identity system in the laps of folks completely unfamiliar with it all. Organizations will need to take a look at what it will take to properly staff identity under the security ecosystem within. This is its own ball of yarn, which I’ll save for another time.</p>
-<p>One thing is for sure – cloud identity is here to stay.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/01/16/cloud-identity-is-still-the-future/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>

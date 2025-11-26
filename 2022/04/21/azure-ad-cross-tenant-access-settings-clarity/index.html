@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -694,6 +819,16 @@
                     </li>
                     
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/entra_id/">Entra ID</a></span>
+                        </div>
+                      </li>
+                    
                     
                       
                       <li class="md-nav__item">
@@ -729,6 +864,8 @@
 <p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
 <p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
 <p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
+<!-- more -->
+
 <h2 id="terminology">Terminology</h2>
 <p><strong>Guest</strong> – For clarity, when speaking about guest users for the context of this post, we are talking about users invited into your Azure AD tenant.</p>
 <p><strong>Resource Azure AD Tenant [Resource Tenant]</strong> – If you are inviting guests <strong>into</strong> your Azure AD tenant, <strong>your</strong> tenant is the resource tenant. It represents your organization. If you are a <strong>guest</strong>, then the resource tenant is the tenant you have been invited into.</p>

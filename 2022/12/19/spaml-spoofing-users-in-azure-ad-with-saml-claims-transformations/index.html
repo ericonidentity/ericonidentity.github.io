@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -694,6 +819,8 @@
 <p>With the ease of federated identity, not only are we tying other cloud providers to Azure AD, but we are also bringing in business critical applications. With this, we need to keep in mind that threat actors are not always targeting critical IT resources; one can do plenty damage with access to records and data stored within SaaS applications.</p>
 <p>Azure AD makes it easier than ever to spoof (impersonate) a user within a SAML response. This relatively easy technique allows us to impersonate a highly privileged user in the target application. At the same time, authentication behavior for all other users of the application, including the legitimate user being spoofed, will not change. If your organization leverages SCIM for user provisioning, which is the direction the industry is going, this lends in favor of spoofing going undetected, as optional attributes in the SAML response will go unused by the application.</p>
 <p>Within Azure AD, you do not need to be a Global Administrator to configure an Enterprise Application. Anyone with Application Administrator, Cloud Application Administrator, or assigned Owner to a specific application can manage it. From a usability perspective, Microsoft pushes delegation of ownership to the business units. The users, however, that now can manage the application, likely fall under the bar of PIM or any privilege separation. Suffice to say, this opens our potential pool of targets in an organization; needing Global Administrator for movement into target applications is not necessary, just whoever has ownership. Likewise, it’s ripe for abuse by insider threats.</p>
+<!-- more -->
+
 <h2 id="azure-ad-saml-response-primer">Azure AD SAML response primer</h2>
 <p>For a full refresh on the SAML authentication flow, I’ll refer to the IDPro Body of Knowledge Article, <a href="https://bok.idpro.org/article/id/79/">Cloud Service Authenticates Via Delegation – SAML</a>. For an understanding of the spoofing technique, the SAML response, which is passed from the Identity Provider (IdP, Azure AD) to the application (SP, Service Provider) via the user, contains both required and optional claims. One of these required claims is the <strong>name identifier</strong>, referred to in the response as the <strong>NameID</strong>.</p>
 <p>NameID is a unique attribute that represents the user within the application. It is what the application uses to lookup the user within its internal user database.</p>

@@ -450,12 +450,137 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../category/entra_id/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Entra ID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fido2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FIDO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/mfa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MFA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/microsoft_365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microsoft 365
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/passwordless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Passwordless
     
   </span>
   
@@ -611,6 +736,8 @@
 <li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
 </ul>
 <p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
+<!-- more -->
+
 <p>But say my tenant has come under some sort of cyberattack. Or more mundane You can’t guarantee that a phone call or email will still go to where you expect. And while these changes should be audited, when you’re in a state of needing to authenticate yourself from a support perspective, it’s likely you’ll still have to try and complete one of these steps, if you don’t want further delay.</p>
 <p>This leaves us with DNS. But what if that DNS is hosted in a subscription associated with the same Azure AD tenant? Things could potentially not turn out so well.</p>
 <p>Even if you have DNS management delegated out to accounts that are not a GA (which in a large-scale enterprise, GA should not own resources in subscriptions)… can you guarantee that their access would not be tampered with if a threat actor is involved?</p>

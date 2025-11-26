@@ -1259,7 +1259,7 @@
           
           <li class="md-meta__item">
             
-              3 min read
+              9 min read
             
           </li>
         
@@ -1287,6 +1287,253 @@
 <p>If we look at My Test Application in the Entra portal:</p>
 <p><img alt="Figure 1" src="/images/2023/03/11/img1.png" /></p>
 <p>We can then select Manifest from application configuration blade, and see these represented within the manifest:</p>
+<div class="highlight"><pre><span></span><code>&quot;requiredResourceAccess&quot;: [
+        {
+            &quot;resourceAppId&quot;: &quot;00000003-0000-0000-c000-000000000000&quot;,
+            &quot;resourceAccess&quot;: [
+                {
+                    &quot;id&quot;: &quot;14dad69e-099b-42c9-810b-d002981feec1&quot;,
+                    &quot;type&quot;: &quot;Scope&quot;
+                },
+                {
+                    &quot;id&quot;: &quot;7427e0e9-2fba-42fe-b0c0-848c9e6a8182&quot;,
+                    &quot;type&quot;: &quot;Scope&quot;
+                },
+                {
+                    &quot;id&quot;: &quot;37f7f235-527c-4136-accd-4a02d197296e&quot;,
+                    &quot;type&quot;: &quot;Scope&quot;
+                },
+                {
+                    &quot;id&quot;: &quot;64a6cdd6-aab1-4aaf-94b8-3cc8405e90d0&quot;,
+                    &quot;type&quot;: &quot;Scope&quot;
+                }
+            ]
+        }
+    ]
+</code></pre></div>
+<p>In this specific example they are represented as their actually Microsoft Graph API resource identifier; the term scope comes from OAuth 2.0. The portal does a lot of work “translating” the manifest into something easier for those less familiar with the underlying terminology to understand.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In OAuth 2.0 scope effectively equates to permissions, and the majority of what many ITPros may be concerned with as far as integrations go would be Microsoft Graph API permissions. Note that several different APIs can be scoped within an application, not just Graph permissions.</p>
+</div>
+<p>For more details on the application manifest, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest?WT.mc_id=SEC-MVP-5005105">Understanding the Azure Active Directory app manifest – Microsoft Entra | Microsoft Learn</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Editing the application manifest directly without thoroughly understanding of the changes you are making may break your application.</p>
+</div>
+<p>App registrations are considered a <strong>globally unique definition</strong> of the application across <strong>all</strong> Entra tenants, even if it’s an application that is only to be used by your tenant.</p>
+<p>Entra ID, as a global Identity-as-a-service (IDaaS) platform, has shared backend components, and for the purposes of a multitenant application it’s important to ensure that the application is globally unique from a security and functionality perspective. Since organizations can choose to change a single-tenant application to a multitenant application, the ID needs to remain unique.</p>
+<h3 id="service-principals"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#service-principals">Service Principals</a></h3>
+<p>Service principals are a <strong>security principal</strong> that define the <strong>allowed</strong> permissions for the application in Entra ID and give the application representation within the directory. Users are another type of security principal – we assign permissions and roles to users within Entra ID, as well as other associated resources.</p>
+<p>I highlight allowed permissions because while the App registration defines what permissions the app developer needs for the application to function, it’s the service principal that actually defines what is allowed in the tenant. The service principal is also the object that will appear in various Azure “pick lists”, if you are applying something like a Conditional Access policy, or assigning the service principal rights in an Azure subscription.</p>
+<p>There are three types of service principals in Entra ID:</p>
+<ul>
+<li>Enterprise applications</li>
+<li>Managed identities</li>
+<li>Legacy</li>
+</ul>
+<p>Since legacy service principals are something that organizations shouldn’t be using these days, we really just have two types that we’ll focus on.</p>
+<h3 id="enterprise-applications"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#enterprise-applications">Enterprise Applications</a></h3>
+<p>Enterprise applications, as a type of service principal, could effectively be thought of as a child if you were diagram a hierarchy. Now if service principals are the parent to enterprise applications, why is the blade in Entra admin center titled Enterprise applications? It’s because that’s primarily what we are concerned with when working within that blade. If you’ve used PowerShell or the Graph API for enumerating and working with enterprise applications, it’s why you use commands like get-azureadserviceprincipal or /servicePrincipals in Graph for accessing these.</p>
+<p>If you browse to Enterprise applications, you’ll notice that the view is actually pre-scoped to <strong>Application type == Enterprise Applications</strong></p>
+<p><img alt="Figure 2" src="/images/2023/03/11/img2.png" /></p>
+<p>We can actually clear the filter, and we’ll end up being able to view not just our enterprise applications, but also our service principals, and Microsoft applications.</p>
+<p><img alt="Figure 3" src="/images/2023/03/11/img3.png" /></p>
+<p>Microsoft applications are still service principals in our Entra tenant, but they generally relate to more tightly integrated services. For the purposes of our exploration, we won’t dive into these, but will note that they should primarily be left unaltered.</p>
+<p>Every time you see the term enterprise application, just remember it’s a type of service principal.</p>
+<h3 id="gluing-the-two-together"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#gluing-the-two-together">Gluing the two together</a></h3>
+<p>It’s important to come back to the understanding that there is a direct link between an app registration and a service principal.</p>
+<h4 id="single-tenant-application"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#single-tenant-application">Single tenant application</a></h4>
+<p>For a single tenant application, we’ll have the app registration along with the corresponding service principal. If the app registration occurs in the tenant, there will always be a corresponding service principal created.</p>
+<p><img alt="Figure 4" src="/images/2023/03/11/img4.png" /></p>
+<h4 id="multitenant-application"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#multitenant-application">Multitenant application</a></h4>
+<p>For a multitenant application, we’ll have the app registration along with the corresponding service principal in all tenants that the application has been granted consent to.</p>
+<p><img alt="Figure 5" src="/images/2023/03/11/img5.png" /></p>
+<h4 id="consent-grant"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#consent-grant">Consent grant</a></h4>
+<p>This is probably a good place to bring up that the application consent grant process is what permits the service principal creation with the associated API permissions. This is when you receive a popup such as the following:</p>
+<p><img alt="Figure 6" src="/images/2023/03/11/img6.png" /></p>
+<p><em>Image courtesy Microsoft Learn</em></p>
+<p>At the time of providing the consent grant, a service principal is created in your Entra tenant indicating the permissions that were consented to.</p>
+<h3 id="what-about-passwords"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#what-about-passwords">What about passwords</a></h3>
+<p>This is where it gets a bit complex, and existing documentation tends to really pass over what passwords live where and when to use what.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For purposes of this document I’ll use the term password to represent a shared secret. I mention this because while the Entra admin center places these under the term <strong>Client secrets</strong>, in the application manifest and service principal definition, <strong><em>passwordCredentials</em></strong> is what holds the data on the secret. For simplicity we’ll be looking at shared secrets, but you can, and should whenever possible, use <strong>Certificates</strong>, also referred to as <strong>keyCredentials</strong>.</p>
+</div>
+<p>Most documentation would lead you to believe that you create a password in the application object, and then this is referenced by the service principal. However, you also can create and associate a password with the service principal itself.</p>
+<h4 id="service-principal-passwords"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/#service-principal-passwords">Service principal passwords</a></h4>
+<p>We can test creation of a service principal and assign a password directly to it with the following bit of PowerShell:</p>
+<div class="highlight"><pre><span></span><code>$notAfter = (Get-Date).AddMonths(6) # Valid for 6 months
+$application = New-AzureADApplication -DisplayName &quot;Test Service Principal with Password&quot;
+$sp=New-AzureADServicePrincipal -AppId $application.AppId -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
+New-AzureADServicePrincipalPasswordCredential -ObjectId $sp.ObjectId -EndDate $notAfter
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Reinforcing the relationship between a service principal and an application object (application registration), notice that we must reference an application ID when creating a service principal. This means we always have to create an application object before being able to create a service principal.</p>
+</div>
+<p>This should give us output with a password. If we query Graph for the details of the service principal, we can see the following:</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#servicePrincipals/$entity&quot;,
+    &quot;id&quot;: &quot;c5f53a03-3928-4608-a4ba-3286a2d84f60&quot;,
+    &quot;deletedDateTime&quot;: null,
+    &quot;accountEnabled&quot;: true,
+    &quot;alternativeNames&quot;: [],
+    &quot;appDisplayName&quot;: &quot;Test Service Principal with Password&quot;,
+    &quot;appDescription&quot;: null,
+    &quot;appId&quot;: &quot;8c31d7fe-57b9-4d65-8905-2b2c03c09dd6&quot;,
+    &quot;applicationTemplateId&quot;: null,
+    &quot;appOwnerOrganizationId&quot;: &quot;&quot;,
+    &quot;appRoleAssignmentRequired&quot;: false,
+    &quot;createdDateTime&quot;: &quot;2023-03-13T23:27:20Z&quot;,
+    &quot;description&quot;: null,
+    &quot;disabledByMicrosoftStatus&quot;: null,
+    &quot;displayName&quot;: &quot;Test Service Principal with Password&quot;,
+    &quot;homepage&quot;: null,
+    &quot;loginUrl&quot;: null,
+    &quot;logoutUrl&quot;: null,
+    &quot;notes&quot;: null,
+    &quot;notificationEmailAddresses&quot;: [],
+    &quot;preferredSingleSignOnMode&quot;: null,
+    &quot;preferredTokenSigningKeyThumbprint&quot;: null,
+    &quot;replyUrls&quot;: [],
+    &quot;servicePrincipalNames&quot;: [
+        &quot;8c31d7fe-57b9-4d65-8905-2b2c03c09dd6&quot;
+    ],
+    &quot;servicePrincipalType&quot;: &quot;Application&quot;,
+    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
+    &quot;tags&quot;: [
+        &quot;WindowsAzureActiveDirectoryIntegratedApp&quot;
+    ],
+    &quot;tokenEncryptionKeyId&quot;: null,
+    &quot;samlSingleSignOnSettings&quot;: null,
+    &quot;addIns&quot;: [],
+    &quot;appRoles&quot;: [],
+    &quot;info&quot;: {
+        &quot;logoUrl&quot;: null,
+        &quot;marketingUrl&quot;: null,
+        &quot;privacyStatementUrl&quot;: null,
+        &quot;supportUrl&quot;: null,
+        &quot;termsOfServiceUrl&quot;: null
+    },
+    &quot;keyCredentials&quot;: [],
+    &quot;oauth2PermissionScopes&quot;: [
+        {
+            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on behalf of the signed-in user.&quot;,
+            &quot;adminConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
+            &quot;id&quot;: &quot;2420f00e-c0a0-4a83-b318-e5fbca42de2f&quot;,
+            &quot;isEnabled&quot;: true,
+            &quot;type&quot;: &quot;User&quot;,
+            &quot;userConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on your behalf.&quot;,
+            &quot;userConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
+            &quot;value&quot;: &quot;user_impersonation&quot;
+        }
+    ],
+    &quot;passwordCredentials&quot;: [
+        {
+            &quot;customKeyIdentifier&quot;: null,
+            &quot;displayName&quot;: null,
+            &quot;endDateTime&quot;: &quot;2023-08-13T23:27:19.4255334Z&quot;,
+            &quot;hint&quot;: &quot;Vdh&quot;,
+            &quot;keyId&quot;: &quot;746ca1b3-927b-431f-980d-4b7b8048a0d6&quot;,
+            &quot;secretText&quot;: null,
+            &quot;startDateTime&quot;: &quot;2023-03-13T23:27:20.8660257Z&quot;
+        }
+    ],
+    &quot;resourceSpecificApplicationPermissions&quot;: [],
+    &quot;verifiedPublisher&quot;: {
+        &quot;displayName&quot;: null,
+        &quot;verifiedPublisherId&quot;: null,
+        &quot;addedDateTime&quot;: null
+    }
+}
+</code></pre></div>
+<p>Now, if we look at the app registration for this service principal, note that the passwordCredentials is empty:</p>
+<p><div class="highlight"><pre><span></span><code>{
+    &quot;@odata.context&quot;: &quot;https://graph.microsoft.com/v1.0/$metadata#applications/$entity&quot;,
+    &quot;id&quot;: &quot;e3af89d1-585a-472c-9b46-b110bf1969ce&quot;,
+    &quot;deletedDateTime&quot;: null,
+    &quot;appId&quot;: &quot;8c31d7fe-57b9-4d65-8905-2b2c03c09dd6&quot;,
+    &quot;applicationTemplateId&quot;: null,
+    &quot;disabledByMicrosoftStatus&quot;: null,
+    &quot;createdDateTime&quot;: &quot;2023-03-13T23:27:20Z&quot;,
+    &quot;displayName&quot;: &quot;Test Service Principal with Password&quot;,
+    &quot;description&quot;: null,
+    &quot;groupMembershipClaims&quot;: null,
+    &quot;identifierUris&quot;: [],
+    &quot;isDeviceOnlyAuthSupported&quot;: null,
+    &quot;isFallbackPublicClient&quot;: null,
+    &quot;notes&quot;: null,
+    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
+    &quot;serviceManagementReference&quot;: null,
+    &quot;signInAudience&quot;: &quot;AzureADMyOrg&quot;,
+    &quot;tags&quot;: [],
+    &quot;tokenEncryptionKeyId&quot;: null,
+    &quot;samlMetadataUrl&quot;: null,
+    &quot;defaultRedirectUri&quot;: null,
+    &quot;certification&quot;: null,
+    &quot;optionalClaims&quot;: null,
+    &quot;servicePrincipalLockConfiguration&quot;: null,
+    &quot;requestSignatureVerification&quot;: null,
+    &quot;addIns&quot;: [],
+    &quot;api&quot;: {
+        &quot;acceptMappedClaims&quot;: null,
+        &quot;knownClientApplications&quot;: [],
+        &quot;requestedAccessTokenVersion&quot;: null,
+        &quot;oauth2PermissionScopes&quot;: [
+            {
+                &quot;adminConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on behalf of the signed-in user.&quot;,
+                &quot;adminConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
+                &quot;id&quot;: &quot;2420f00e-c0a0-4a83-b318-e5fbca42de2f&quot;,
+                &quot;isEnabled&quot;: true,
+                &quot;type&quot;: &quot;User&quot;,
+                &quot;userConsentDescription&quot;: &quot;Allow the application to access Test Service Principal with Password on your behalf.&quot;,
+                &quot;userConsentDisplayName&quot;: &quot;Access Test Service Principal with Password&quot;,
+                &quot;value&quot;: &quot;user_impersonation&quot;
+            }
+        ],
+        &quot;preAuthorizedApplications&quot;: []
+    },
+    &quot;appRoles&quot;: [],
+    &quot;info&quot;: {
+        &quot;logoUrl&quot;: null,
+        &quot;marketingUrl&quot;: null,
+        &quot;privacyStatementUrl&quot;: null,
+        &quot;supportUrl&quot;: null,
+        &quot;termsOfServiceUrl&quot;: null
+    },
+    &quot;keyCredentials&quot;: [],
+    &quot;parentalControlSettings&quot;: {
+        &quot;countriesBlockedForMinors&quot;: [],
+        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
+    },
+    &quot;passwordCredentials&quot;: [],
+    &quot;publicClient&quot;: {
+        &quot;redirectUris&quot;: []
+    },
+    &quot;requiredResourceAccess&quot;: [],
+    &quot;verifiedPublisher&quot;: {
+        &quot;displayName&quot;: null,
+        &quot;verifiedPublisherId&quot;: null,
+        &quot;addedDateTime&quot;: null
+    },
+    &quot;web&quot;: {
+        &quot;homePageUrl&quot;: null,
+        &quot;logoutUrl&quot;: null,
+        &quot;redirectUris&quot;: [],
+        &quot;implicitGrantSettings&quot;: {
+            &quot;enableAccessTokenIssuance&quot;: false,
+            &quot;enableIdTokenIssuance&quot;: true
+        },
+        &quot;redirectUriSettings&quot;: []
+    },
+    &quot;spa&quot;: {
+        &quot;redirectUris&quot;: []
+    }
+}
+</code></pre></div>
+And to validate this, we can look at the associated application object in the portal:</p>
+<p><img alt="Figure 7" src="/images/2023/03/11/img7.png" /></p>
     
   </div>
 </article>

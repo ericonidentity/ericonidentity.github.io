@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://new.ericonidentity.com/category/entra_id/">
       
       
-        <link rel="prev" href="../azure/">
+        <link rel="prev" href="../commentary/">
       
       
         <link rel="next" href="../fido2/">
@@ -250,7 +250,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../azure/" class="md-tabs__link">
+        <a href="../ad_fs/" class="md-tabs__link">
           
   
   
@@ -568,12 +568,87 @@
   
   
     <li class="md-nav__item">
+      <a href="../ad_fs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AD FS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../active_directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../azure/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Azure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../commentary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Commentary
     
   </span>
   
@@ -721,6 +796,31 @@
 
               
             
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../security_research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Research
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -775,19 +875,18 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2025-02-20 00:00:00+00:00">February 20, 2025</time></li>
+          <time datetime="2025-09-02 00:00:00+00:00">September 2, 2025</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="../microsoft_365/" class="md-meta__link">Microsoft 365</a>, 
               <a href="./" class="md-meta__link">Entra ID</a></li>
         
         
           
           <li class="md-meta__item">
             
-              5 min read
+              4 min read
             
           </li>
         
@@ -796,16 +895,120 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="an-interesting-m365-billing-scam"><a class="toclink" href="../../2025/02/20/an-interesting-m365-billing-scam/">An Interesting M365 Billing Scam</a></h2>
-<h3 id="update"><a class="toclink" href="../../2025/02/20/an-interesting-m365-billing-scam/#update">Update</a></h3>
-<p>I called the 888 number this morning and it does indeed go to a scam call center. I played along with the person on the other end, who ultimately wanted my first and last name, email address, the order number, and most importantly, my credit card number, so they “could reverse the charge” 🤣</p>
-<h3 id="the-scam"><a class="toclink" href="../../2025/02/20/an-interesting-m365-billing-scam/#the-scam">The Scam</a></h3>
-<p>This is a case where I’d actually love to see how this plays out – when you see the way that scammers try to string things together. I’ve been receiving a rash of unpaid toll bill texts, which give themselves away pretty easily based on the source number. But I’m not here to talk about that scam.</p>
-<p>Instead, I’m here to dig into this email I received last week:</p>
+    <h2 id="entra-useless-insights-report"><a class="toclink" href="../../2025/09/02/entra-useless-insights-report/">Entra Useless Insights Report</a></h2>
+<p>Yes. The name is snarky on purpose.</p>
+<p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <strong>Authentication methods</strong> activity report.</p>
+<p>Enumerating the type of authentication methods registered on a user, on a per-user basis, can be time consuming, and would become untenable in extremely large organizations.</p>
+<p>Authentication methods activity reporting to the rescue – right? Not so much.</p>
+<p>In digging into the report, whether it’s through the <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsActivity/menuId/AuthMethodsActivity">Entra admin center</a> or through Microsoft Graph PowerShell SDK, the data reported through this is just astoundingly awful if you want to try and build some basic measurements around who is actually registered for passkeys (FIDO2); I haven’t looked to see if it’s as awful with other methods.</p>
+<p>Luckily in the tenant I’m examining, there are only a few hundred user objects, so it’s also feasible to enumerate each user the long way, which I’ll cover below as the workaround. I’ve posed a complaint to Microsoft in some channels and have yet to hear anything back, other than similar experiences from a few others.</p>
 
     
       <nav class="md-post__action">
-        <a href="../../2025/02/20/an-interesting-m365-billing-scam/">
+        <a href="../../2025/09/02/entra-useless-insights-report/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-01-13 00:00:00+00:00">January 13, 2025</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="spying-on-your-isvs-credential-choices"><a class="toclink" href="../../2025/01/13/spying-on-your-isvs-credential-choices/">Spying On Your ISVs Credential Choices</a></h2>
+<p>Microsoft, and the general identity industry, has recommended that applications use certificates over secrets when it comes to credentials for things like applications. This recommendation has existed for about as long modern authentication and authorization systems have existed – over a decade now. Yet the reality is that there continues to be mystery shrouded around certificates, and sysadmins and developers still lean into using secrets.</p>
+<p>Secrets are problematic because they are nothing more than a password. Secrets are so much just a password that while Microsoft might refer to secrets as secrets in the UI for Entra, the underlying attribute name is passwordCredentials! While you can use systems like Azure Key Vault for secure management of who has access to the secrets, the reality is that secrets tend to be managed insecurely, both in transport and at rest. Identity Protection exists for workload identities, but it is not real time, and there are scenarios where it will not help you if the abuse is coming from inside the same trusted network.</p>
+<p>It’s easy for organizations to determine what they are using with single-tenant applications, or if they are a developer of a multi-tenant app. A quick Microsoft Graph API call to applications/objectid of the application (app registration), and you can examine whether the application has certificates, secrets, or both assigned as credentials. You can also store credentials on the service principal, which I cover here, <a href="https://ericonidentity.com/2023/03/11/aad-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide – Eric on Identity</a>.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2025/01/13/spying-on-your-isvs-credential-choices/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-03-26 00:00:00+00:00">March 26, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              12 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="the-intersection-of-graph-and-entra-id-application-permissions-and-roles"><a class="toclink" href="../../2024/03/26/the-intersection-of-graph-and-entra-id-application-permissions-and-roles/">The Intersection of Graph and Entra ID: Application Permissions and Roles</a></h2>
+<p>When you work someplace that develops software that interacts with Entra ID, the question of Graph permissions eventually comes up. With the recent Midnight Blizzard attack against Microsoft, where a threat actor appears to have used service principals and Graph permissions to access resources in Microsoft’s own Entra tenant, the scrutiny on permissions grows even more intense. You can read more about this with a great write-up from Andy Robbins here, <a href="https://posts.specterops.io/microsoft-breach-what-happened-what-should-azure-admins-do-da2b7e674ebc">Microsoft Breach — What Happened? What Should Azure Admins Do? | by Andy Robbins | Feb, 2024 | Posts By SpecterOps Team Members</a>.</p>
+<h3 id="primer-on-the-microsoft-graph-api"><a class="toclink" href="../../2024/03/26/the-intersection-of-graph-and-entra-id-application-permissions-and-roles/#primer-on-the-microsoft-graph-api">Primer on the Microsoft Graph API</a></h3>
+<p>Before jumping into the permission weeds, let’s review a few things to set the stage. If you already understand the Graph API basics, feel free to scroll past.</p>
+<h4 id="what-is-graph-api"><a class="toclink" href="../../2024/03/26/the-intersection-of-graph-and-entra-id-application-permissions-and-roles/#what-is-graph-api">What is Graph API</a></h4>
+<p>The Microsoft Graph API is the unified API endpoint into <strong>most</strong> Microsoft 365 services, which includes Entra ID. For purposes of this article, the terms Graph and Graph API refer to the Microsoft Graph API.</p>
+<p><img alt="Figure 1" src="/images/2024/03/26/img1.png" /></p>
+<p><em>Microsoft Graph API diagram / Courtesy Microsoft Learn</em></p>
+<p>You can read more of an overview about the Graph API here, <a href="https://learn.microsoft.com/en-us/graph/overview?WT.mc_id=SEC-MVP-5005105">Microsoft Graph overview – Microsoft Graph | Microsoft Learn</a>.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2024/03/26/the-intersection-of-graph-and-entra-id-application-permissions-and-roles/">
           Continue reading
         </a>
       </nav>
@@ -857,6 +1060,171 @@
     
       <nav class="md-post__action">
         <a href="../../2023/08/29/dude-wheres-my-audit-logs/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-07-17 00:00:00+00:00">July 17, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              11 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="protect-your-privilege-with-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/">Protect Your Privilege with PAW</a></h2>
+<p>According to the Microsoft Digital Defense Report 2022, weak identity controls are listed as a top three contributing factors found during ransomware incident response. One particularly troubling finding within identity controls is the lack of Privileged Access Workstations (PAW) found in any response engagement:</p>
+<p><em>None of the impacted organizations implemented proper administrative credential segregation and least privilege access principals via dedicated workstations during the management of their critical identity and high-value assets, such as proprietary systems and business-critical applications.</em></p>
+<p><em><a href="https://www.microsoft.com/en-us/security/business/microsoft-digital-defense-report-2022?WT.mc_id=SEC-MVP-5005105">Microsoft Digital Defense Report 2022, page 15 (Microsoft Digital Defense Report 2022 | Microsoft Security)</a></em></p>
+<p>The report does not speculate as to <strong>why</strong> the organizations were not using PAW, but for anyone seasoned out there in the world of consultancy the answers will look like:</p>
+<ul>
+<li>Lack of time/budget/resources/priority</li>
+<li>Lack of understanding and education</li>
+<li>Lack of sufficient desire to change privileged administrative behavior</li>
+<li>Belief that they have other sufficient compensating controls</li>
+</ul>
+<p>And these all really relate to each other – if you don’t understand what a PAW is, you can easily believe other solutions such as PIM or PAM will sufficiently fill the gap. Likewise, if you don’t understand how to articulate the value and principles behind PAW, it’s difficult to run it up the chain to ensure that it has priority. Even in those instances where you may have a decent understanding of PAW, but as an admin don’t want to change your working behavior – it’s understandable, it’s human to not want to change without knowing why.</p>
+<p>Awareness is the first principle of ADKAR (<a href="https://www.prosci.com/resources/articles/why-the-adkar-model-works">The Prosci ADKAR Model: Why it Works</a>). May this article build that awareness, so you’ll come out of it with the second principle, desire.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/07/17/protect-your-privilege-with-paw/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-06-21 00:00:00+00:00">June 21, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../commentary/" class="md-meta__link">Commentary</a>, 
+              <a href="./" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">The nOAuth “flaw” is a symptom of industry antipatterns</a></h2>
+<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
+<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
+<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
+<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
+<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
+<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-03-28 00:00:00+00:00">March 28, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="march-23rd-2023-the-day-everyone-came-from-uzbekistan"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">March 23rd, 2023: The Day Everyone Came From Uzbekistan</a></h2>
+<p>According to Wikipedia, Toshkent (or Tashkent) is the largest city in, as well as the capital of, Uzbekistan, a country located in Central Asia. The city sports a population of 2.9 million people.</p>
+<p>Except for March 23rd, 2023. The day that everyone came from Toshkent City, UZ, at least according to Azure Active Directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not necessarily everyone may have been indicated as coming from Toshkent City, but incident MO531859 was globally impacting users.</p>
+</div>
+<p><img alt="Figure 1" src="/images/2023/03/28/img1.png" /></p>
+<p><em>#WeAreAllUzbekistan</em></p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">
           Continue reading
         </a>
       </nav>
@@ -931,19 +1299,18 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2023-01-29 00:00:00+00:00">January 29, 2023</time></li>
+          <time datetime="2023-02-13 00:00:00+00:00">February 13, 2023</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="./" class="md-meta__link">Entra ID</a>, 
-              <a href="../azure/" class="md-meta__link">Azure</a></li>
+              <a href="./" class="md-meta__link">Entra ID</a></li>
         
         
           
           <li class="md-meta__item">
             
-              6 min read
+              3 min read
             
           </li>
         
@@ -952,13 +1319,15 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-101-azure-subscription-relationship"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/">Azure AD 101: Azure Subscription Relationship</a></h2>
-<p>Whether you are dipping your toe or diving headfirst into Azure, one of the points of confusion is the relationship between Azure Active Directory and Azure subscriptions. Azure subscriptions may be referred to as subscriptions, or sometimes even just Azure. An Azure Active Directory tenant, which is the cloud identity provider, is usually referred to as Azure AD or AAD, or sometimes just tenant.</p>
-<p>While Microsoft has decent documentation on the relationship, I tend to find that drawing analogies along with additional visuals can help really drive the relationship home for folks. For the MS Docs article, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory?WT.mc_id=SEC-MVP-5005105">Add an existing Azure subscription to your tenant – Azure AD – Microsoft Entra | Microsoft Learn</a>.</p>
+    <h2 id="the-importance-of-identity-in-microsoft-certifications"><a class="toclink" href="../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">The Importance Of Identity In Microsoft Certifications</a></h2>
+<p>As I’ve taken Microsoft certification exams, or the exam renewals, I’ve noticed that Azure AD and identity topics are a theme throughout. Now, focusing on the security space, it may seem like somewhat of a given.</p>
+<p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
+<p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
+<p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
 
     
       <nav class="md-post__action">
-        <a href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/">
+        <a href="../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
           Continue reading
         </a>
       </nav>
@@ -980,19 +1349,18 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2022-08-09 00:00:00+00:00">August 9, 2022</time></li>
+          <time datetime="2023-02-06 00:00:00+00:00">February 6, 2023</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="../passwordless/" class="md-meta__link">Passwordless</a>, 
               <a href="./" class="md-meta__link">Entra ID</a></li>
         
         
           
           <li class="md-meta__item">
             
-              10 min read
+              3 min read
             
           </li>
         
@@ -1001,274 +1369,19 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="an-agile-refresh-of-the-passwordless-strategy"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/">An Agile Refresh Of The Passwordless Strategy</a></h2>
-<h3 id="background"><a class="toclink" href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/#background">Background</a></h3>
-<p>The Microsoft passwordless strategy guidance has existed since 2018, and since then it’s continued to be a solid document. You can view the full doc here, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Password-less strategy – Windows security | Microsoft Docs</a>, but where the focus usually lands is on the four-step graph at the top of that page:</p>
-<p><img alt="Figure 1" src="/images/2022/08/09/img1.png" /></p>
-<p><em>The Microsoft passwordless strategy</em></p>
-<p>When discussing the strategy with organizations, the focus is usually on Step 1 – develop (deploy) password replacement offerings, and the technology involved, such as Windows Hello for Business, FIDO2 security keys, and MS Authenticator App passwordless sign-in. After all, the strategy is provided as a stepped approach, so you start with the first step, and then move on.</p>
-<p>There are three primary issues with the approach:</p>
+    <h2 id="dont-let-dns-be-your-azure-ad-recovery-downfall"><a class="toclink" href="../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">Don't Let DNS Be Your Azure AD Recovery Downfall</a></h2>
+<p>In September of 2022, Joey Verlinden (<a href="https://twitter.com/jvldn1">@jvldn1</a>) published an excellent article on his experience with recovering access to an Azure AD tenant that he was completely locked out of. You can, and should, read the full article here, <a href="https://www.joeyverlinden.com/what-happens-if-you-lock-out-your-azure-tenant/">What happens if you lock-out your Azure Tenant? – Joey Verlinden</a>.</p>
+<p>In this, Joey details the process for recovering access to an Azure AD tenant, which includes a detailed verification process, which is rightfully put in place to ensure that someone isn’t capable of a tenant takeover through social engineer. As part of the process, the request is verified by means of either:</p>
 <ul>
-<li>Organizations look at this as a reinforcement that passwordless must be deployed in a waterfall approach.</li>
-<li>Application authentication modernization is not emphasized strongly enough, and subsequently organizations do not right-size the efforts required.</li>
-<li>Organizations do not emphasize the pluralization on offerings, and potentially focus on the requirement of one-size-must-fit-all.</li>
+<li>Calling the phone number associated with a Tenant</li>
+<li>Emailing a Global Administrator</li>
+<li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
 </ul>
-<p>While issue three is not specific to this approach as designed, many organizations will take the waterfall approach with a single solution, and then box themselves into only deploying one solution, slowing down progress.</p>
+<p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
 
     
       <nav class="md-post__action">
-        <a href="../../2022/08/09/an-agile-refresh-of-the-passwordless-strategy/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-07-14 00:00:00+00:00">July 14, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../mfa/" class="md-meta__link">MFA</a>, 
-              <a href="./" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="authenticator-app-ios-multiple-passwordless-account-support-is-here"><a class="toclink" href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/">Authenticator App: IOS Multiple Passwordless Account Support Is Here!</a></h2>
-<p>For anyone who lives in a world of multiple Azure AD accounts and the Authenticator App, you can finally rejoice over not having to make the difficult decision over which account is the one you enable for passwordless… or potentially not having to carry multiple devices.</p>
-<p>To date, you could enroll one Azure AD account and one personal Microsoft Account (MSA) for passwordless in the Authenticator App. Even with multiple Azure AD accounts in the same tenant, only one could go passwordless.</p>
-<p>With this update, not only can you go passwordless for multiple accounts in the same Azure AD tenant, but across multiple tenants as well.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/07/14/authenticator-app-ios-multiple-passwordless-account-support-is-here/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-06-16 00:00:00+00:00">June 16, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="./" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              10 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-which-sso-is-the-right-sso"><a class="toclink" href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">Azure AD: Which SSO Is The Right SSO?</a></h2>
-<p>It’s great having choices, except when you are not sure which choice to make.</p>
-<p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
-<p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
-<p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/06/16/azure-ad-which-sso-is-the-right-sso/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-04-21 00:00:00+00:00">April 21, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="./" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              6 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-cross-tenant-access-settings-clarity"><a class="toclink" href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">Azure AD: Cross-tenant Access Settings Clarity</a></h2>
-<p>With the release of Azure AD cross-tenant access settings, I’ve noted some confusion among folks as to what it <strong>is</strong>, and as importantly, what it <strong>isn’t</strong>.</p>
-<p>I’ll also be covering B2B Direct Connect, because even though it’s a separate feature, with release coinciding at the same time as cross-tenant access settings, I see it all being lumped “into the same” set of preview features.</p>
-<p>The Microsoft Docs article on this is an excellent source of information, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview">Cross-tenant access overview – Azure AD | Microsoft Docs</a>. Along with that, we’ll dive into the background and use cases for this new suite of knobs and dials for our external identities.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/04/21/azure-ad-cross-tenant-access-settings-clarity/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-03-29 00:00:00+00:00">March 29, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="./" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              9 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-the-arrival-of-dynamic-administrative-units"><a class="toclink" href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">Azure AD: The Arrival of Dynamic Administrative Units</a></h2>
-<p>Administrative units. The Azure AD sort-of equivalent of organizational units (OU’s). For those less familiar, administrative units (AU’s) allow for granular assignment of RBAC roles in Azure AD.</p>
-<p>Organizations initially struggled with the limited ability to delegate granular RBAC roles in Azure AD, with the directories flat structure; especially for all of us coming from an Active Directory background. When administrative units were introduced, they started to open up the door for organizations that needed to delegate access to a subset of users in an Azure AD tenant.</p>
-<p>The one catch with AU’s that <strong>was</strong> a non-starter for many organizations – they weren’t dynamic. And while OU’s are not dynamic in Active Directory, it’s a different take when the tenant is usually secondary to AD being authoritative. Move a user in AD, one would hope that the location in Azure AD would follow. While there are some PowerShell scripts out there that feel very akin to those used for AD shadow groups, overall maintenance of AU’s could prove cumbersome in dynamic organizations.</p>
-<p>The struggle, however, is no more – administrative units now support <strong>dynamic</strong> user and device membership!</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/03/29/azure-ad-the-arrival-of-dynamic-administrative-units/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-02-22 00:00:00+00:00">February 22, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="./" class="md-meta__link">Entra ID</a>, 
-              <a href="../mfa/" class="md-meta__link">MFA</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              8 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-increasing-security-within-the-mfa-experience"><a class="toclink" href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security Within The MFA Experience</a></h2>
-<p>MFA push notifications – one of the more polarizing MFA options available within Azure AD. From a usability perspective, the perception is that it’s less interruptive and less complex for end users. From a security perspective, it’s a low barrier of entry for a malicious actor; especially when targeting a user who may approve push notifications for MFA without much thought.</p>
-<p>We have seen Microsoft implement various methods of interaction into push notifications to try and combat users just hitting Approve without a second thought. The Authenticator App for passwordless, sometimes referred to as phone sign-in, already has number matching implemented. But this never made it into our more common corporate MFA scenarios – until recently when additional options for the Authenticator App showed up in Public Preview.</p>
-<p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
-<p><img alt="Figure 1" src="/images/2022/02/22/img1.png" /> <img alt="Figure 2" src="/images/2022/02/22/img2.png" /></p>
-<p><em>Before and after</em></p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">
+        <a href="../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
           Continue reading
         </a>
       </nav>
@@ -1283,7 +1396,7 @@
 
 
 <nav class="md-pagination">
-  
+  <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a>
 </nav>
         
       
@@ -1309,7 +1422,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../azure/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Azure">
+          <a href="../commentary/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Commentary">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1319,7 +1432,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Azure
+                Commentary
               </div>
             </div>
           </a>
@@ -1445,7 +1558,7 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.top", "navigation.footer", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.top", "navigation.footer", "navigation.tabs", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>

@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://new.ericonidentity.com/category/azure/">
       
       
-        <link rel="prev" href="../../about/">
+        <link rel="prev" href="../active_directory/">
       
       
-        <link rel="next" href="../entra_id/">
+        <link rel="next" href="../commentary/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -250,7 +250,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../ad_fs/" class="md-tabs__link">
           
   
   
@@ -563,6 +563,56 @@
                 
   
   
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../ad_fs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AD FS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../active_directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -591,6 +641,31 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../commentary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Commentary
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -721,6 +796,31 @@
 
               
             
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../security_research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Research
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -810,6 +910,60 @@
   </div>
 </article>
       
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://new.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-10-12 00:00:00+00:00">October 12, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../entra_id/" class="md-meta__link">Entra ID</a>, 
+              <a href="./" class="md-meta__link">Azure</a>, 
+              <a href="../active_directory/" class="md-meta__link">Active Directory</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="vm-contributor-to-domain-admin-in-60-seconds"><a class="toclink" href="../../2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">VM Contributor To Domain Admin In 60 Seconds</a></h2>
+<p>When Microsoft revamped the privileged access model in the late fall of 2020, it was received with mixed results. To some, it felt as if it was overcomplicating the simple three-tier model that had been the gold standard for protecting Active Directory and other critical business assets for about a decade.</p>
+<p>However, the shift was necessary, as it was acknowledging that business critical assets are not just the identity provider. The revamp changed how we look at things, with the proliferation of virtualization and cloud providers, and pointing out the management and control plane as critical privileged points of access.</p>
+<p><img alt="Figure 1" src="/images/2022/10/12/img1.png" /></p>
+<p><em>The modern Enterprise access model, courtesy Microsoft</em></p>
+<p>It’s quite a common pattern to extend Active Directory to Azure as the initial standup of infrastructure out there, to support all the other “things” dependent on it.</p>
+<p>But as it goes with the cloud, there are new vectors to be on the watch for, and in this case, it’s ensuring that your RBAC permissions over Tier 0 assets in Azure are properly defined.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
       
         
           
@@ -843,7 +997,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: About">
+          <a href="../active_directory/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Active Directory">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -853,20 +1007,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                About
+                Active Directory
               </div>
             </div>
           </a>
         
         
           
-          <a href="../entra_id/" class="md-footer__link md-footer__link--next" aria-label="Next: Entra ID">
+          <a href="../commentary/" class="md-footer__link md-footer__link--next" aria-label="Next: Commentary">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Entra ID
+                Commentary
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -979,7 +1133,7 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.top", "navigation.footer", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.top", "navigation.footer", "navigation.tabs", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>

@@ -908,12 +908,114 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2021-12-13 00:00:00+00:00">December 13, 2021</time></li>
+          <time datetime="2022-12-02 00:00:00+00:00">December 2, 2022</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="../../category/passwordless/" class="md-meta__link">Passwordless</a></li>
+              <a href="../../category/ad_fs/" class="md-meta__link">AD FS</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              9 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="field-notes-migration-from-federation-to-cloud-authentication"><a class="toclink" href="../../2022/12/02/field-notes-migration-from-federation-to-cloud-authentication/">Field Notes: Migration From Federation To Cloud Authentication</a></h2>
+<p>During my stint at Microsoft, I spent a good deal of time with Windows Hello for Business (WHfB), and subsequently would be involved in prerequisite work to set the stage. For the enablement of WHfB, one of these items is device join, and it usually would be Hybrid Azure AD Join (HAADJ) for existing devices already within Active Directory. Device join can be a bit of a rabbit hole if the organization has federated authentication with AD FS in place, as there are different ways you can configure the device join process.</p>
+<p>One customer I was working with decided that they wanted to use their WHfB prerequisite work as the same point to switch from federated to cloud authentication with PHS; they were already sending their passwords to Azure AD for use with Azure AD Identity Protection. I discussed high-level what was required to switch but figured the conversation would continue after lunch. Instead, the customer decided to implement the switch during lunch, and their thousand or so users were moved to cloud authentication, with relatively little planning.</p>
+<p>Luckily their environment was relatively straightforward from an identity architecture perspective; I wouldn’t recommend going into the switch without more thorough planning. But the point being made here is that the actual period of cutover has a much lower actual risk than perceived risk.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/12/02/field-notes-migration-from-federation-to-cloud-authentication/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-10-16 00:00:00+00:00">October 16, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              24 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="cisa-scuba-diving-into-the-azure-ad-baseline"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">CISA SCuBA: Diving Into The Azure AD Baseline</a></h2>
+<p>CISA recently released baseline guidance for cloud application security, dubbed SCuBA, or Secure Cloud Business Applications. Within this guidance they cover the M365 and Google Workspace stacks, and they have also released the ScubaGear tool, which you can find here, <a href="https://github.com/cisagov/ScubaGear">cisagov/ScubaGear: Automation to assess the state of your M365 tenant against CISA’s baselines (github.com)</a>. The ScubaGear tool provides the ability to run an assessment against a targeted M365 environment against baselines. I’ve tested the ScubaGear tool against the Azure AD baseline, and it works well enough, but for the purposes of this post I’m targeting the baseline itself.</p>
+<p>When released, there is the natural curiosity to see where things intersect with CISA recommendations, Microsoft recommendations, and what actually works out in the real world. I saw some folks on Twitter commenting that this could be potentially a great tool for analysis for all sorts of commercial and public organizations, big and small. But do the recommendations from, and for, the Federal Government align to what most organizations really need?</p>
+<p>I’ll be taking a look at each baseline policy as defined and providing analysis on it specific to the context of its applicability outside of government scenarios. I’ll be going through in order as written, and then providing a final take. Note that for ease the header numbering aligns to the baseline.</p>
+<p>If you’re curious to obtain the baseline, CISA has it available as a PDF found here, <a href="https://www.cisa.gov/sites/default/files/publications/Microsoft%20Azure%20Active%20Directory%20M365%20Minimum%20Viable%20SCB%20Draft%20v0.1.pdf">Microsoft Azure Active Directory PDF</a>. There is also a markdown version on Github that is easier to consume, found here, <a href="https://github.com/cisagov/ScubaGear/blob/main/baselines/aad.md">ScubaGear/aad.md at main · cisagov/ScubaGear (github.com)</a>. As I’m only providing reference to the policy itself, I’ll point out that the CISA documents in either format also provide useful license requirement information and details on implementation, which are mostly links to Microsoft Docs Learn articles.</p>
+<p>Content between policy definition header and analysis is provided from CISA recommendations. Content after colored Analysis header to next recommendation is my analysis.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-10-12 00:00:00+00:00">October 12, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a>, 
+              <a href="../../category/azure/" class="md-meta__link">Azure</a>, 
+              <a href="../../category/active_directory/" class="md-meta__link">Active Directory</a></li>
         
         
           
@@ -928,15 +1030,116 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="living-in-a-passwordless-world-password-management"><a class="toclink" href="../../2021/12/13/living-in-a-passwordless-world-password-management/">Living in a Passwordless World: Password Management</a></h2>
-<p>With Microsoft touting changes to personal Microsoft (MSA) accounts, allowing customers to go completely passwordless, it has brought heightened attention again to the world of passwordless for corporate customers in the Microsoft ecosystem.</p>
-<p>While attending an October 13th Microsoft passwordless event, highlighting the future for the corporate world, I noticed a trend – organizations asking how to deal with password management and compliance policies they must adhere to. As Microsoft calls out, the long-term goal is for organizations to forget that passwords are even a thing.</p>
-<p>However, being that directory services will still contain a password attribute, even if we aren’t using it, how do we keep it compliant with password policies. And how do we prevent end users opting to attempt to use their password. In this series we will dive into what the answer to these questions looks like.</p>
-<p>One thing that is important to iterate in every conversation – the world is moving passwordless, and it’s not just Microsoft who is heading in this direction. If organizations do not want to (and should not be) trailing from a security perspective, you should start investigating what passwordless looks like for you now – as with most things these days it is a journey, albeit easier than many organizations may realize.</p>
+    <h2 id="vm-contributor-to-domain-admin-in-60-seconds"><a class="toclink" href="../../2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">VM Contributor To Domain Admin In 60 Seconds</a></h2>
+<p>When Microsoft revamped the privileged access model in the late fall of 2020, it was received with mixed results. To some, it felt as if it was overcomplicating the simple three-tier model that had been the gold standard for protecting Active Directory and other critical business assets for about a decade.</p>
+<p>However, the shift was necessary, as it was acknowledging that business critical assets are not just the identity provider. The revamp changed how we look at things, with the proliferation of virtualization and cloud providers, and pointing out the management and control plane as critical privileged points of access.</p>
+<p><img alt="Figure 1" src="/images/2022/10/12/img1.png" /></p>
+<p><em>The modern Enterprise access model, courtesy Microsoft</em></p>
+<p>It’s quite a common pattern to extend Active Directory to Azure as the initial standup of infrastructure out there, to support all the other “things” dependent on it.</p>
+<p>But as it goes with the cloud, there are new vectors to be on the watch for, and in this case, it’s ensuring that your RBAC permissions over Tier 0 assets in Azure are properly defined.</p>
 
     
       <nav class="md-post__action">
-        <a href="../../2021/12/13/living-in-a-passwordless-world-password-management/">
+        <a href="../../2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-10-05 00:00:00+00:00">October 5, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/mfa/" class="md-meta__link">MFA</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="azure-ad-new-controls-for-authentication-strength"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/">Azure AD: New Controls For Authentication Strength</a></h2>
+<p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
+<p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-09-08 00:00:00+00:00">September 8, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/fido2/" class="md-meta__link">FIDO2</a>, 
+              <a href="../../category/passwordless/" class="md-meta__link">Passwordless</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              13 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="choosing-a-fido2-security-key"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/">Choosing a FIDO2 Security Key</a></h2>
+<p>As I’ve been keeping up with my FIDO2 Security Key roundup, which you can find here, <a href="https://ericonidentity.com/2022/05/18/azure-ad-fido2-security-key-roundup-and-review/">Azure AD: FIDO2 Security Key Roundup and Review – Eric on Identity</a>, I’ve had some folks on occasion ask me what key(s) I would recommend.</p>
+<p>In the roundup, while it’s hard to not inject some subjectivity, I try to stay objective, hence my reason to not score/rank the keys. Also, that would be a lot more work.</p>
+<p>At the end of this article, I still won’t have provided a ranking of everything out there, but hope the points indicated within can help organizations make some informed decisions.</p>
+<p><em>Note that any lists included within are in brand alphabetical order and does not indicate an order of preference.</em></p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2022/09/08/choosing-a-fido2-security-key/">
           Continue reading
         </a>
       </nav>
@@ -951,7 +1154,7 @@
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../..">1</a> <a class="md-pagination__link" href="../2/">2</a> <a class="md-pagination__link" href="../3/">3</a> <span class="md-pagination__current">4</span>
+  <a class="md-pagination__link" href="../..">1</a> <a class="md-pagination__link" href="../2/">2</a> <a class="md-pagination__link" href="../3/">3</a> <span class="md-pagination__current">4</span> <a class="md-pagination__link" href="../5/">5</a> <a class="md-pagination__link" href="../6/">6</a> <a class="md-pagination__link" href="../7/">7</a>
 </nav>
         
       

@@ -908,214 +908,12 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2023-02-13 00:00:00+00:00">February 13, 2023</time></li>
+          <time datetime="2023-07-17 00:00:00+00:00">July 17, 2023</time></li>
         
           <li class="md-meta__item">
             in
             
               <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="the-importance-of-identity-in-microsoft-certifications"><a class="toclink" href="../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">The Importance Of Identity In Microsoft Certifications</a></h2>
-<p>As I’ve taken Microsoft certification exams, or the exam renewals, I’ve noticed that Azure AD and identity topics are a theme throughout. Now, focusing on the security space, it may seem like somewhat of a given.</p>
-<p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
-<p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
-<p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-02-06 00:00:00+00:00">February 6, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="dont-let-dns-be-your-azure-ad-recovery-downfall"><a class="toclink" href="../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">Don't Let DNS Be Your Azure AD Recovery Downfall</a></h2>
-<p>In September of 2022, Joey Verlinden (<a href="https://twitter.com/jvldn1">@jvldn1</a>) published an excellent article on his experience with recovering access to an Azure AD tenant that he was completely locked out of. You can, and should, read the full article here, <a href="https://www.joeyverlinden.com/what-happens-if-you-lock-out-your-azure-tenant/">What happens if you lock-out your Azure Tenant? – Joey Verlinden</a>.</p>
-<p>In this, Joey details the process for recovering access to an Azure AD tenant, which includes a detailed verification process, which is rightfully put in place to ensure that someone isn’t capable of a tenant takeover through social engineer. As part of the process, the request is verified by means of either:</p>
-<ul>
-<li>Calling the phone number associated with a Tenant</li>
-<li>Emailing a Global Administrator</li>
-<li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
-</ul>
-<p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-01-29 00:00:00+00:00">January 29, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a>, 
-              <a href="../../category/azure/" class="md-meta__link">Azure</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              6 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-101-azure-subscription-relationship"><a class="toclink" href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/">Azure AD 101: Azure Subscription Relationship</a></h2>
-<p>Whether you are dipping your toe or diving headfirst into Azure, one of the points of confusion is the relationship between Azure Active Directory and Azure subscriptions. Azure subscriptions may be referred to as subscriptions, or sometimes even just Azure. An Azure Active Directory tenant, which is the cloud identity provider, is usually referred to as Azure AD or AAD, or sometimes just tenant.</p>
-<p>While Microsoft has decent documentation on the relationship, I tend to find that drawing analogies along with additional visuals can help really drive the relationship home for folks. For the MS Docs article, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory?WT.mc_id=SEC-MVP-5005105">Add an existing Azure subscription to your tenant – Azure AD – Microsoft Entra | Microsoft Learn</a>.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2023/01/29/azure-ad-101-azure-subscription-relationship/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-01-16 00:00:00+00:00">January 16, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/commentary/" class="md-meta__link">Commentary</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              6 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="cloud-identity-is-still-the-future"><a class="toclink" href="../../2023/01/16/cloud-identity-is-still-the-future/">Cloud Identity Is Still The Future</a></h2>
-<p>In October 2022, the CTO of 37signals, David Heinemeier Hansson, published a piece on why hey.com was leaving the cloud. You can read the full article here, <a href="https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0">Why we’re leaving the cloud (hey.com)</a>; the gist of the post is that cloud is not cost-effective. More recently, InfoWorld published a piece by David Linthicum, <a href="https://www.infoworld.com/article/3684369/2023-could-be-the-year-of-public-cloud-repatriation.html">2023 could be the year of public cloud repatriation | InfoWorld</a>, hitting on why it may be more cost-effective to move back to private data centers. You see the trend – cloud may not be providing the ROI that is expected, especially if your organization has just performed a bunch of lift-and-shift without application refactoring.</p>
-<p>While the titles are attention grabbing, and the articles have valid points, they don’t really tell the full story. Folks in the industry may scan the headlines and believe that a mass cloud exodus is on the verge of happening, but we really need to look at what part of the cloud we are speaking to. We need to distinguish between IaaS, PaaS and SaaS, as well as related services and systems, such as IDaaS (identity as a service, aka Azure AD, Okta, and so on).</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2023/01/16/cloud-identity-is-still-the-future/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-12-19 00:00:00+00:00">December 19, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a>, 
-              <a href="../../category/security_research/" class="md-meta__link">Security Research</a></li>
         
         
           
@@ -1130,15 +928,23 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations"><a class="toclink" href="../../2022/12/19/spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations/">SpAML: Spoofing Users In Azure AD With SAML Claims Transformations</a></h2>
-<p>For those that believe SAML is dead, they should take a look at the Azure AD Application Gallery. While the authentication standard finished baking almost two decades ago, it’s still a staple for integration of applications with Azure AD. As of writing, the Azure AD App Gallery has 2015 applications available for SSO integration, and 1335 of them use SAML, roughly two-thirds. Beyond this, there are thousands of line-of-business (LOB) and other 3rd party applications that don’t exist in the gallery but leverage SAML. Many well-known applications and platforms are published in the gallery using SAML – Salesforce, Google Workspace/Google Cloud, AWS, SAP, Oracle Cloud, ServiceNow, Workday… the list goes on and on.</p>
-<p>With the ease of federated identity, not only are we tying other cloud providers to Azure AD, but we are also bringing in business critical applications. With this, we need to keep in mind that threat actors are not always targeting critical IT resources; one can do plenty damage with access to records and data stored within SaaS applications.</p>
-<p>Azure AD makes it easier than ever to spoof (impersonate) a user within a SAML response. This relatively easy technique allows us to impersonate a highly privileged user in the target application. At the same time, authentication behavior for all other users of the application, including the legitimate user being spoofed, will not change. If your organization leverages SCIM for user provisioning, which is the direction the industry is going, this lends in favor of spoofing going undetected, as optional attributes in the SAML response will go unused by the application.</p>
-<p>Within Azure AD, you do not need to be a Global Administrator to configure an Enterprise Application. Anyone with Application Administrator, Cloud Application Administrator, or assigned Owner to a specific application can manage it. From a usability perspective, Microsoft pushes delegation of ownership to the business units. The users, however, that now can manage the application, likely fall under the bar of PIM or any privilege separation. Suffice to say, this opens our potential pool of targets in an organization; needing Global Administrator for movement into target applications is not necessary, just whoever has ownership. Likewise, it’s ripe for abuse by insider threats.</p>
+    <h2 id="protect-your-privilege-with-paw"><a class="toclink" href="../../2023/07/17/protect-your-privilege-with-paw/">Protect Your Privilege with PAW</a></h2>
+<p>According to the Microsoft Digital Defense Report 2022, weak identity controls are listed as a top three contributing factors found during ransomware incident response. One particularly troubling finding within identity controls is the lack of Privileged Access Workstations (PAW) found in any response engagement:</p>
+<p><em>None of the impacted organizations implemented proper administrative credential segregation and least privilege access principals via dedicated workstations during the management of their critical identity and high-value assets, such as proprietary systems and business-critical applications.</em></p>
+<p><em><a href="https://www.microsoft.com/en-us/security/business/microsoft-digital-defense-report-2022?WT.mc_id=SEC-MVP-5005105">Microsoft Digital Defense Report 2022, page 15 (Microsoft Digital Defense Report 2022 | Microsoft Security)</a></em></p>
+<p>The report does not speculate as to <strong>why</strong> the organizations were not using PAW, but for anyone seasoned out there in the world of consultancy the answers will look like:</p>
+<ul>
+<li>Lack of time/budget/resources/priority</li>
+<li>Lack of understanding and education</li>
+<li>Lack of sufficient desire to change privileged administrative behavior</li>
+<li>Belief that they have other sufficient compensating controls</li>
+</ul>
+<p>And these all really relate to each other – if you don’t understand what a PAW is, you can easily believe other solutions such as PIM or PAM will sufficiently fill the gap. Likewise, if you don’t understand how to articulate the value and principles behind PAW, it’s difficult to run it up the chain to ensure that it has priority. Even in those instances where you may have a decent understanding of PAW, but as an admin don’t want to change your working behavior – it’s understandable, it’s human to not want to change without knowing why.</p>
+<p>Awareness is the first principle of ADKAR (<a href="https://www.prosci.com/resources/articles/why-the-adkar-model-works">The Prosci ADKAR Model: Why it Works</a>). May this article build that awareness, so you’ll come out of it with the second principle, desire.</p>
 
     
       <nav class="md-post__action">
-        <a href="../../2022/12/19/spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations/">
+        <a href="../../2023/07/17/protect-your-privilege-with-paw/">
           Continue reading
         </a>
       </nav>
@@ -1160,12 +966,65 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2022-12-02 00:00:00+00:00">December 2, 2022</time></li>
+          <time datetime="2023-06-21 00:00:00+00:00">June 21, 2023</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="../../category/ad_fs/" class="md-meta__link">AD FS</a></li>
+              <a href="../../category/commentary/" class="md-meta__link">Commentary</a>, 
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns"><a class="toclink" href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">The nOAuth “flaw” is a symptom of industry antipatterns</a></h2>
+<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
+<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
+<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
+<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
+<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
+<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-06-20 00:00:00+00:00">June 20, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/commentary/" class="md-meta__link">Commentary</a></li>
         
         
           
@@ -1180,14 +1039,15 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="field-notes-migration-from-federation-to-cloud-authentication"><a class="toclink" href="../../2022/12/02/field-notes-migration-from-federation-to-cloud-authentication/">Field Notes: Migration From Federation To Cloud Authentication</a></h2>
-<p>During my stint at Microsoft, I spent a good deal of time with Windows Hello for Business (WHfB), and subsequently would be involved in prerequisite work to set the stage. For the enablement of WHfB, one of these items is device join, and it usually would be Hybrid Azure AD Join (HAADJ) for existing devices already within Active Directory. Device join can be a bit of a rabbit hole if the organization has federated authentication with AD FS in place, as there are different ways you can configure the device join process.</p>
-<p>One customer I was working with decided that they wanted to use their WHfB prerequisite work as the same point to switch from federated to cloud authentication with PHS; they were already sending their passwords to Azure AD for use with Azure AD Identity Protection. I discussed high-level what was required to switch but figured the conversation would continue after lunch. Instead, the customer decided to implement the switch during lunch, and their thousand or so users were moved to cloud authentication, with relatively little planning.</p>
-<p>Luckily their environment was relatively straightforward from an identity architecture perspective; I wouldn’t recommend going into the switch without more thorough planning. But the point being made here is that the actual period of cutover has a much lower actual risk than perceived risk.</p>
+    <h2 id="identiverse-2023-recap-and-highlights"><a class="toclink" href="../../2023/06/20/identiverse-2023-recap-and-highlights/">Identiverse 2023: Recap And Highlights</a></h2>
+<p>Going to a conference like Identiverse is a privilege, even if the travel is funded by airline and hotel miles earned by the feverish pace of pre-COVID travel from my time at Microsoft. The recommendation that every identity and security practitioner should try to attend at least one Identiverse in their career comes with the understanding that the means of doing so could vary greatly. But for those that can – you should absolutely put Identiverse 2024 on your priority list of <strong>big</strong> conferences to attend, especially for those within North America.</p>
+<p>While I take in security content, and sometimes speak at regional events, as an identity practitioner there was no greater clarity provided on some hot topic items than at Identiverse this year. And despite working and living primarily in the Microsoft ecosystem of identity, a few of the most poignant sessions were from those who are not within that ecosystem at all; looking at identity from the angle of a pure practitioner is something that is a growth mindset activity.</p>
+<p><img alt="Figure 1" src="/images/2023/06/20/img1.jpeg" /></p>
+<p><em>With my new friend and Entra identity wiz, Chris Brumm (<a href="https://twitter.com/cbrhh">@cbrhh</a>)</em></p>
 
     
       <nav class="md-post__action">
-        <a href="../../2022/12/02/field-notes-migration-from-federation-to-cloud-authentication/">
+        <a href="../../2023/06/20/identiverse-2023-recap-and-highlights/">
           Continue reading
         </a>
       </nav>
@@ -1209,7 +1069,7 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2022-10-16 00:00:00+00:00">October 16, 2022</time></li>
+          <time datetime="2023-03-28 00:00:00+00:00">March 28, 2023</time></li>
         
           <li class="md-meta__item">
             in
@@ -1220,7 +1080,7 @@
           
           <li class="md-meta__item">
             
-              24 min read
+              7 min read
             
           </li>
         
@@ -1229,16 +1089,19 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="cisa-scuba-diving-into-the-azure-ad-baseline"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">CISA SCuBA: Diving Into The Azure AD Baseline</a></h2>
-<p>CISA recently released baseline guidance for cloud application security, dubbed SCuBA, or Secure Cloud Business Applications. Within this guidance they cover the M365 and Google Workspace stacks, and they have also released the ScubaGear tool, which you can find here, <a href="https://github.com/cisagov/ScubaGear">cisagov/ScubaGear: Automation to assess the state of your M365 tenant against CISA’s baselines (github.com)</a>. The ScubaGear tool provides the ability to run an assessment against a targeted M365 environment against baselines. I’ve tested the ScubaGear tool against the Azure AD baseline, and it works well enough, but for the purposes of this post I’m targeting the baseline itself.</p>
-<p>When released, there is the natural curiosity to see where things intersect with CISA recommendations, Microsoft recommendations, and what actually works out in the real world. I saw some folks on Twitter commenting that this could be potentially a great tool for analysis for all sorts of commercial and public organizations, big and small. But do the recommendations from, and for, the Federal Government align to what most organizations really need?</p>
-<p>I’ll be taking a look at each baseline policy as defined and providing analysis on it specific to the context of its applicability outside of government scenarios. I’ll be going through in order as written, and then providing a final take. Note that for ease the header numbering aligns to the baseline.</p>
-<p>If you’re curious to obtain the baseline, CISA has it available as a PDF found here, <a href="https://www.cisa.gov/sites/default/files/publications/Microsoft%20Azure%20Active%20Directory%20M365%20Minimum%20Viable%20SCB%20Draft%20v0.1.pdf">Microsoft Azure Active Directory PDF</a>. There is also a markdown version on Github that is easier to consume, found here, <a href="https://github.com/cisagov/ScubaGear/blob/main/baselines/aad.md">ScubaGear/aad.md at main · cisagov/ScubaGear (github.com)</a>. As I’m only providing reference to the policy itself, I’ll point out that the CISA documents in either format also provide useful license requirement information and details on implementation, which are mostly links to Microsoft Docs Learn articles.</p>
-<p>Content between policy definition header and analysis is provided from CISA recommendations. Content after colored Analysis header to next recommendation is my analysis.</p>
+    <h2 id="march-23rd-2023-the-day-everyone-came-from-uzbekistan"><a class="toclink" href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">March 23rd, 2023: The Day Everyone Came From Uzbekistan</a></h2>
+<p>According to Wikipedia, Toshkent (or Tashkent) is the largest city in, as well as the capital of, Uzbekistan, a country located in Central Asia. The city sports a population of 2.9 million people.</p>
+<p>Except for March 23rd, 2023. The day that everyone came from Toshkent City, UZ, at least according to Azure Active Directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not necessarily everyone may have been indicated as coming from Toshkent City, but incident MO531859 was globally impacting users.</p>
+</div>
+<p><img alt="Figure 1" src="/images/2023/03/28/img1.png" /></p>
+<p><em>#WeAreAllUzbekistan</em></p>
 
     
       <nav class="md-post__action">
-        <a href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">
+        <a href="../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">
           Continue reading
         </a>
       </nav>
@@ -1260,20 +1123,18 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2022-10-12 00:00:00+00:00">October 12, 2022</time></li>
+          <time datetime="2023-03-11 00:00:00+00:00">March 11, 2023</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a>, 
-              <a href="../../category/azure/" class="md-meta__link">Azure</a>, 
-              <a href="../../category/active_directory/" class="md-meta__link">Active Directory</a></li>
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
         
         
           
           <li class="md-meta__item">
             
-              8 min read
+              18 min read
             
           </li>
         
@@ -1282,116 +1143,18 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="vm-contributor-to-domain-admin-in-60-seconds"><a class="toclink" href="../../2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">VM Contributor To Domain Admin In 60 Seconds</a></h2>
-<p>When Microsoft revamped the privileged access model in the late fall of 2020, it was received with mixed results. To some, it felt as if it was overcomplicating the simple three-tier model that had been the gold standard for protecting Active Directory and other critical business assets for about a decade.</p>
-<p>However, the shift was necessary, as it was acknowledging that business critical assets are not just the identity provider. The revamp changed how we look at things, with the proliferation of virtualization and cloud providers, and pointing out the management and control plane as critical privileged points of access.</p>
-<p><img alt="Figure 1" src="/images/2022/10/12/img1.png" /></p>
-<p><em>The modern Enterprise access model, courtesy Microsoft</em></p>
-<p>It’s quite a common pattern to extend Active Directory to Azure as the initial standup of infrastructure out there, to support all the other “things” dependent on it.</p>
-<p>But as it goes with the cloud, there are new vectors to be on the watch for, and in this case, it’s ensuring that your RBAC permissions over Tier 0 assets in Azure are properly defined.</p>
+    <h2 id="entra-app-registrations-and-enterprise-applications-the-definitive-guide"><a class="toclink" href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide</a></h2>
+<p>For those that must manage application integrations in Entra ID, it’s an inevitable question: What is the difference between an App Registration and an Enterprise Application? Why are there two different management blades? Why do I see some applications in both places?</p>
+<p>I’ll admit that this is not the first take at answering this question, and there are already some good answers out there. Microsoft breaks things down here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=SEC-MVP-5005105">Apps &amp; service principals in Azure AD – Microsoft Entra | Microsoft Learn</a>, with a decent visual at the end.</p>
+<p>Marilee Turscak also has an excellent breakdown here, <a href="https://marileeturscak.com/posts/app-registrations-enterprise-applications-service-principals/">The Differences Between App Registrations, Enterprise Applications, and Service Principals in Azure AD | Marilee Turscak</a>.</p>
+<p>And John Savill has fantastic video published covering this as well, <a href="https://www.youtube.com/watch?v=WVNvoiA_ktw">Azure AD App Registrations, Enterprise Apps and Service Principals – YouTube</a>.</p>
+<p>As John points out in his video, the understanding of App Registrations and Enterprise Apps can further be enhanced by understanding OpenID Connect and OAuth 2.0 flows. This is especially important for identity professionals and ITPros who may come from a sysadmin background. Modern authentication flows and concepts may feel foreign to folks who built their career on identity platforms such as Active Directory.</p>
+<p>For those that find it easiest to learn by doing, if you want to play around with App Registrations, Enterprise Apps and Service Principals, but don’t want to mess with your prod environment, sign up for an M365 Developer account, to have your own free tenant to work with here, <a href="https://developer.microsoft.com/en-us/microsoft-365/dev-program?WT.mc_id=SEC-MVP-5005105">Developer Program | Microsoft 365 Dev Center</a>.</p>
+<p>We’ll start with some definitions, and then try to walk through various scenarios that you may encounter. If you don’t see your question answered within the definitions, keep reading… we’ll try to hit on all the areas here.</p>
 
     
       <nav class="md-post__action">
-        <a href="../../2022/10/12/vm-contributor-to-domain-admin-in-60-seconds/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-10-05 00:00:00+00:00">October 5, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/mfa/" class="md-meta__link">MFA</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              8 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="azure-ad-new-controls-for-authentication-strength"><a class="toclink" href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/">Azure AD: New Controls For Authentication Strength</a></h2>
-<p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
-<p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/10/05/azure-ad-new-controls-for-authentication-strength/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-09-08 00:00:00+00:00">September 8, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/fido2/" class="md-meta__link">FIDO2</a>, 
-              <a href="../../category/passwordless/" class="md-meta__link">Passwordless</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              13 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="choosing-a-fido2-security-key"><a class="toclink" href="../../2022/09/08/choosing-a-fido2-security-key/">Choosing a FIDO2 Security Key</a></h2>
-<p>As I’ve been keeping up with my FIDO2 Security Key roundup, which you can find here, <a href="https://ericonidentity.com/2022/05/18/azure-ad-fido2-security-key-roundup-and-review/">Azure AD: FIDO2 Security Key Roundup and Review – Eric on Identity</a>, I’ve had some folks on occasion ask me what key(s) I would recommend.</p>
-<p>In the roundup, while it’s hard to not inject some subjectivity, I try to stay objective, hence my reason to not score/rank the keys. Also, that would be a lot more work.</p>
-<p>At the end of this article, I still won’t have provided a ranking of everything out there, but hope the points indicated within can help organizations make some informed decisions.</p>
-<p><em>Note that any lists included within are in brand alphabetical order and does not indicate an order of preference.</em></p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/09/08/choosing-a-fido2-security-key/">
+        <a href="../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/">
           Continue reading
         </a>
       </nav>
@@ -1406,7 +1169,7 @@
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../..">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a>
+  <a class="md-pagination__link" href="../..">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../7/">7</a>
 </nav>
         
       

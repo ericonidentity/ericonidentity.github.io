@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://www.ericonidentity.com/category/entra_id/page/2/">
+        <link rel="canonical" href="https://www.ericonidentity.com/category/passwordless/page/2/">
       
       
-        <link rel="prev" href="../../../commentary/">
+        <link rel="prev" href="../../../microsoft_365/">
       
       
-        <link rel="next" href="../../../fido2/">
+        <link rel="next" href="../../../security_research/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../../feed_rss_created.xml">
@@ -25,7 +25,7 @@
     
     
       
-        <title>Entra ID - Eric on Identity</title>
+        <title>Passwordless - Eric on Identity</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#entra-id" class="md-skip">
+        <a href="#passwordless" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Entra ID
+              Passwordless
             
           </span>
         </div>
@@ -709,19 +709,10 @@
   
   
     
-      
-    
   
   
     <li class="md-nav__item">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="../../" class="md-nav__link md-nav__link--active">
+      <a href="../../../entra_id/" class="md-nav__link">
         
   
   
@@ -732,7 +723,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -819,10 +809,19 @@
   
   
     
+      
+    
   
   
     <li class="md-nav__item">
-      <a href="../../../passwordless/" class="md-nav__link">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="../../" class="md-nav__link md-nav__link--active">
         
   
   
@@ -833,6 +832,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -900,7 +900,7 @@
   <div class="md-content" data-md-component="content">
     <div class="md-content__inner">
       <header class="md-typeset">
-        <h1 id="entra-id">Entra ID</h1>
+        <h1 id="passwordless">Passwordless</h1>
       </header>
       
         <article class="md-post md-post--excerpt">
@@ -917,19 +917,18 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2023-06-21 00:00:00+00:00">June 21, 2023</time></li>
+          <time datetime="2021-12-13 00:00:00+00:00">December 13, 2021</time></li>
         
           <li class="md-meta__item">
             in
             
-              <a href="../../../commentary/" class="md-meta__link">Commentary</a>, 
-              <a href="../../" class="md-meta__link">Entra ID</a></li>
+              <a href="../../" class="md-meta__link">Passwordless</a></li>
         
         
           
           <li class="md-meta__item">
             
-              4 min read
+              8 min read
             
           </li>
         
@@ -938,228 +937,15 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="the-noauth-flaw-is-a-symptom-of-industry-antipatterns"><a class="toclink" href="../../../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">The nOAuth “flaw” is a symptom of industry antipatterns</a></h2>
-<p>If you haven’t followed the news recently, Descope released an article diving into how their security researchers were able to abuse OpenID Connect (OIDC) ID token claims to spoof the user they are authenticating as for multi-tenant SaaS applications. You can read their research article here, <a href="https://www.descope.com/blog/post/noauth">nOAuth: How Microsoft OAuth Misconfiguration Can Lead to Full Account Takeover (descope.com)</a>.</p>
-<p>In conjunction with this, Microsoft has updated developer guidance for OpenID Connect and SAML assertions, and provided a blog post covering all of this, which can be found here, <a href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/the-false-identifier-anti-pattern/ba-p/3846013">The False Identifier Anti-pattern (microsoft.com)</a>.</p>
-<p>Multi-tenant SaaS applications are those applications, such as Canva or Sessionize, which allow you to authenticate with your Microsoft or Office 365 account. Without getting off track, this is what allows SaaS application vendors to develop applications that can integrate with an organizations Azure Active Directory environment requiring no effort on the part of administrators.</p>
-<p><img alt="Figure 1" src="/images/2023/06/21/img1.png" /></p>
-<p><em>The Sessionize authentication screen allowing a user to select their identity provider.</em></p>
-<p>And as it goes whenever there is a security problem, someone must fall on the sword. In this case Microsoft is taking the hit; unfortunately most new articles are incorrectly reporting on this as an Azure AD “flaw” that Microsoft had to “fix”. Kudos to Kurt Mackie (<a href="https://twitter.com/kurmac">@kurmac</a>) at Redmond Mag for being the only article to accurately report on this problem, which you can find here, <a href="https://redmondmag.com/articles/2023/06/21/azure-active-directory-noauth-attack-route.aspx?m=1">Microsoft Advises App Developers About ‘nOAuth’ Attack Route — Redmondmag.com</a>. To be fair, Microsoft isn’t completely innocent, as it took a case like this to really have them sharpen their guidance from a bit of a softer stance, but this is not really a technical flaw. I suppose we can’t blame others for not wanting to write articles about developers using antipatterns.</p>
+    <h2 id="living-in-a-passwordless-world-password-management"><a class="toclink" href="../../../../2021/12/13/living-in-a-passwordless-world-password-management/">Living in a Passwordless World: Password Management</a></h2>
+<p>With Microsoft touting changes to personal Microsoft (MSA) accounts, allowing customers to go completely passwordless, it has brought heightened attention again to the world of passwordless for corporate customers in the Microsoft ecosystem.</p>
+<p>While attending an October 13th Microsoft passwordless event, highlighting the future for the corporate world, I noticed a trend – organizations asking how to deal with password management and compliance policies they must adhere to. As Microsoft calls out, the long-term goal is for organizations to forget that passwords are even a thing.</p>
+<p>However, being that directory services will still contain a password attribute, even if we aren’t using it, how do we keep it compliant with password policies. And how do we prevent end users opting to attempt to use their password. In this series we will dive into what the answer to these questions looks like.</p>
+<p>One thing that is important to iterate in every conversation – the world is moving passwordless, and it’s not just Microsoft who is heading in this direction. If organizations do not want to (and should not be) trailing from a security perspective, you should start investigating what passwordless looks like for you now – as with most things these days it is a journey, albeit easier than many organizations may realize.</p>
 
     
       <nav class="md-post__action">
-        <a href="../../../../2023/06/21/the-noauth-flaw-is-a-symptom-of-industry-antipatterns/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-03-28 00:00:00+00:00">March 28, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              7 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="march-23rd-2023-the-day-everyone-came-from-uzbekistan"><a class="toclink" href="../../../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">March 23rd, 2023: The Day Everyone Came From Uzbekistan</a></h2>
-<p>According to Wikipedia, Toshkent (or Tashkent) is the largest city in, as well as the capital of, Uzbekistan, a country located in Central Asia. The city sports a population of 2.9 million people.</p>
-<p>Except for March 23rd, 2023. The day that everyone came from Toshkent City, UZ, at least according to Azure Active Directory.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Not necessarily everyone may have been indicated as coming from Toshkent City, but incident MO531859 was globally impacting users.</p>
-</div>
-<p><img alt="Figure 1" src="/images/2023/03/28/img1.png" /></p>
-<p><em>#WeAreAllUzbekistan</em></p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../../../2023/03/28/march-23rd-2023-the-day-everyone-came-from-uzbekistan/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-03-11 00:00:00+00:00">March 11, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              18 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="entra-app-registrations-and-enterprise-applications-the-definitive-guide"><a class="toclink" href="../../../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide</a></h2>
-<p>For those that must manage application integrations in Entra ID, it’s an inevitable question: What is the difference between an App Registration and an Enterprise Application? Why are there two different management blades? Why do I see some applications in both places?</p>
-<p>I’ll admit that this is not the first take at answering this question, and there are already some good answers out there. Microsoft breaks things down here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=SEC-MVP-5005105">Apps &amp; service principals in Azure AD – Microsoft Entra | Microsoft Learn</a>, with a decent visual at the end.</p>
-<p>Marilee Turscak also has an excellent breakdown here, <a href="https://marileeturscak.com/posts/app-registrations-enterprise-applications-service-principals/">The Differences Between App Registrations, Enterprise Applications, and Service Principals in Azure AD | Marilee Turscak</a>.</p>
-<p>And John Savill has fantastic video published covering this as well, <a href="https://www.youtube.com/watch?v=WVNvoiA_ktw">Azure AD App Registrations, Enterprise Apps and Service Principals – YouTube</a>.</p>
-<p>As John points out in his video, the understanding of App Registrations and Enterprise Apps can further be enhanced by understanding OpenID Connect and OAuth 2.0 flows. This is especially important for identity professionals and ITPros who may come from a sysadmin background. Modern authentication flows and concepts may feel foreign to folks who built their career on identity platforms such as Active Directory.</p>
-<p>For those that find it easiest to learn by doing, if you want to play around with App Registrations, Enterprise Apps and Service Principals, but don’t want to mess with your prod environment, sign up for an M365 Developer account, to have your own free tenant to work with here, <a href="https://developer.microsoft.com/en-us/microsoft-365/dev-program?WT.mc_id=SEC-MVP-5005105">Developer Program | Microsoft 365 Dev Center</a>.</p>
-<p>We’ll start with some definitions, and then try to walk through various scenarios that you may encounter. If you don’t see your question answered within the definitions, keep reading… we’ll try to hit on all the areas here.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../../../2023/03/11/entra-app-registrations-and-enterprise-applications-the-definitive-guide/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-02-13 00:00:00+00:00">February 13, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="the-importance-of-identity-in-microsoft-certifications"><a class="toclink" href="../../../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">The Importance Of Identity In Microsoft Certifications</a></h2>
-<p>As I’ve taken Microsoft certification exams, or the exam renewals, I’ve noticed that Azure AD and identity topics are a theme throughout. Now, focusing on the security space, it may seem like somewhat of a given.</p>
-<p>But it made me curious – how many Microsoft certification exams have an identity component to them?</p>
-<p>While the <a href="https://learn.microsoft.com/en-us/certifications/browse/?WT.mc_id=SEC-MVP-5005105&amp;products=entra">Microsoft Certification browser</a> indicates 15 current exams (with four expired) that have a Microsoft Entra product component, the list has some obvious exclusions, such as AZ-900 and MS-900. Granted, those are fundamental exams, but Azure AD and Entra still come up on them in some shape or form.</p>
-<p>I decided to dig a bit deeper, and while I have not sat for the majority of exams outside the security space, the Microsoft official exam guides often give you a good breakdown of the skills and concepts within the exams. I found that 29 exams currently have an identity component to them, that would have an estimated weight of at least 5%.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../../../2023/02/13/the-importance-of-identity-in-microsoft-certifications/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-02-06 00:00:00+00:00">February 6, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../" class="md-meta__link">Entra ID</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="dont-let-dns-be-your-azure-ad-recovery-downfall"><a class="toclink" href="../../../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">Don't Let DNS Be Your Azure AD Recovery Downfall</a></h2>
-<p>In September of 2022, Joey Verlinden (<a href="https://twitter.com/jvldn1">@jvldn1</a>) published an excellent article on his experience with recovering access to an Azure AD tenant that he was completely locked out of. You can, and should, read the full article here, <a href="https://www.joeyverlinden.com/what-happens-if-you-lock-out-your-azure-tenant/">What happens if you lock-out your Azure Tenant? – Joey Verlinden</a>.</p>
-<p>In this, Joey details the process for recovering access to an Azure AD tenant, which includes a detailed verification process, which is rightfully put in place to ensure that someone isn’t capable of a tenant takeover through social engineer. As part of the process, the request is verified by means of either:</p>
-<ul>
-<li>Calling the phone number associated with a Tenant</li>
-<li>Emailing a Global Administrator</li>
-<li>Requesting that the organization creates a DNS TXT record associated with one of the verified domains</li>
-</ul>
-<p>Now, under normal “oops” scenarios, you likely could use a phone call or email to a Global Administrator. Of course, if a GA is mail-enabled, the email should be forwarded, as your Global Admins should not actually be receiving or checking email directly in that inbox (which is a different story).</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../../../2023/02/06/dont-let-dns-be-your-azure-ad-recovery-downfall/">
+        <a href="../../../../2021/12/13/living-in-a-passwordless-world-password-management/">
           Continue reading
         </a>
       </nav>
@@ -1174,7 +960,7 @@
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a>
+  <a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__current">2</span>
 </nav>
         
       
@@ -1200,7 +986,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../../commentary/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Commentary">
+          <a href="../../../microsoft_365/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Microsoft 365">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1210,20 +996,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Commentary
+                Microsoft 365
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../../fido2/" class="md-footer__link md-footer__link--next" aria-label="Next: FIDO2">
+          <a href="../../../security_research/" class="md-footer__link md-footer__link--next" aria-label="Next: Security Research">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                FIDO2
+                Security Research
               </div>
             </div>
             <div class="md-footer__button md-icon">

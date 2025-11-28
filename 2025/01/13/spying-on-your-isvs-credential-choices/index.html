@@ -888,6 +888,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#look-to-the-logs" class="md-nav__link">
     <span class="md-ellipsis">
       Look to the logs
@@ -1032,6 +1041,7 @@
 
 
 <h1 id="spying-on-your-isvs-credential-choices">Spying On Your ISVs Credential Choices<a class="headerlink" href="#spying-on-your-isvs-credential-choices" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>Microsoft, and the general identity industry, has recommended that applications use certificates over secrets when it comes to credentials for things like applications. This recommendation has existed for about as long modern authentication and authorization systems have existed – over a decade now. Yet the reality is that there continues to be mystery shrouded around certificates, and sysadmins and developers still lean into using secrets.</p>
 <p>Secrets are problematic because they are nothing more than a password. Secrets are so much just a password that while Microsoft might refer to secrets as secrets in the UI for Entra, the underlying attribute name is passwordCredentials! While you can use systems like Azure Key Vault for secure management of who has access to the secrets, the reality is that secrets tend to be managed insecurely, both in transport and at rest. Identity Protection exists for workload identities, but it is not real time, and there are scenarios where it will not help you if the abuse is coming from inside the same trusted network.</p>
 <p>It’s easy for organizations to determine what they are using with single-tenant applications, or if they are a developer of a multi-tenant app. A quick Microsoft Graph API call to applications/objectid of the application (app registration), and you can examine whether the application has certificates, secrets, or both assigned as credentials. You can also store credentials on the service principal, which I cover here, <a href="https://ericonidentity.com/2023/03/11/aad-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide – Eric on Identity</a>.</p>

@@ -940,6 +940,7 @@
   </header>
   <div class="md-post__content md-typeset">
     <h2 id="entra-useless-insights-report"><a class="toclink" href="../../2025/09/02/entra-useless-insights-report/">Entra Useless Insights Report</a></h2>
+<h3 id="overview"><a class="toclink" href="../../2025/09/02/entra-useless-insights-report/#overview">Overview</a></h3>
 <p>Yes. The name is snarky on purpose.</p>
 <p>With the drive to using phishing-resistant MFA something on the mind of many organizations, I’ve been taking a look at the Usage &amp; Insights Report features in Entra, specifically the <strong>Authentication methods</strong> activity report.</p>
 <p>Enumerating the type of authentication methods registered on a user, on a per-user basis, can be time consuming, and would become untenable in extremely large organizations.</p>
@@ -992,6 +993,7 @@
   </header>
   <div class="md-post__content md-typeset">
     <h2 id="spying-on-your-isvs-credential-choices"><a class="toclink" href="../../2025/01/13/spying-on-your-isvs-credential-choices/">Spying On Your ISVs Credential Choices</a></h2>
+<h3 id="overview"><a class="toclink" href="../../2025/01/13/spying-on-your-isvs-credential-choices/#overview">Overview</a></h3>
 <p>Microsoft, and the general identity industry, has recommended that applications use certificates over secrets when it comes to credentials for things like applications. This recommendation has existed for about as long modern authentication and authorization systems have existed – over a decade now. Yet the reality is that there continues to be mystery shrouded around certificates, and sysadmins and developers still lean into using secrets.</p>
 <p>Secrets are problematic because they are nothing more than a password. Secrets are so much just a password that while Microsoft might refer to secrets as secrets in the UI for Entra, the underlying attribute name is passwordCredentials! While you can use systems like Azure Key Vault for secure management of who has access to the secrets, the reality is that secrets tend to be managed insecurely, both in transport and at rest. Identity Protection exists for workload identities, but it is not real time, and there are scenarios where it will not help you if the abuse is coming from inside the same trusted network.</p>
 <p>It’s easy for organizations to determine what they are using with single-tenant applications, or if they are a developer of a multi-tenant app. A quick Microsoft Graph API call to applications/objectid of the application (app registration), and you can examine whether the application has certificates, secrets, or both assigned as credentials. You can also store credentials on the service principal, which I cover here, <a href="https://ericonidentity.com/2023/03/11/aad-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide – Eric on Identity</a>.</p>

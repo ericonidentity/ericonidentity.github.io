@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://www.ericonidentity.com/2022/12/02/field-notes-migration-from-federation-to-cloud-authentication/">
+        <link rel="canonical" href="https://www.ericonidentity.com/2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">
       
       
-        <link rel="prev" href="../../../10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">
+        <link rel="prev" href="../../12/vm-contributor-to-domain-admin-in-60-seconds/">
       
       
-        <link rel="next" href="../../19/spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations/">
+        <link rel="next" href="../../../12/02/field-notes-migration-from-federation-to-cloud-authentication/">
       
       
       <link rel="icon" href="../../../../images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Field Notes: Migration From Federation To Cloud Authentication - Eric on Identity</title>
+        <title>CISA SCuBA: Diving Into The Azure AD Baseline - Eric on Identity</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#field-notes-migration-from-federation-to-cloud-authentication" class="md-skip">
+        <a href="#cisa-scuba-diving-into-the-azure-ad-baseline" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Field Notes: Migration From Federation To Cloud Authentication
+              CISA SCuBA: Diving Into The Azure AD Baseline
             
           </span>
         </div>
@@ -885,136 +885,47 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ensuring-risk-is-mitigated" class="md-nav__link">
+  <a href="#terminology" class="md-nav__link">
     <span class="md-ellipsis">
-      Ensuring risk is mitigated
+      Terminology
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pre-migration-risk-mitigation" class="md-nav__link">
+  <a href="#azure-ad-baseline" class="md-nav__link">
     <span class="md-ellipsis">
-      Pre-migration risk mitigation
+      Azure AD Baseline
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Pre-migration risk mitigation">
+    <nav class="md-nav" aria-label="Azure AD Baseline">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#staged-rollout" class="md-nav__link">
+  <a href="#21-legacy-authentication-shall-be-blocked" class="md-nav__link">
     <span class="md-ellipsis">
-      Staged rollout
+      2.1 Legacy Authentication SHALL Be Blocked
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Legacy Authentication SHALL Be Blocked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 Policy
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#password-expiration-policies-if-using-phs" class="md-nav__link">
+  <a href="#21-analysis-agree" class="md-nav__link">
     <span class="md-ellipsis">
-      Password expiration policies (if using PHS)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#virtual-desktop-infrastructure-vdi" class="md-nav__link">
-    <span class="md-ellipsis">
-      Virtual Desktop Infrastructure (VDI)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ad-fs-access-control-policies" class="md-nav__link">
-    <span class="md-ellipsis">
-      AD FS Access Control policies
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ad-fs-certificate-based-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      AD FS certificate based authentication
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#azure-ad-hybrid-join-service-connection-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      Azure AD Hybrid Join service connection point
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-hello-for-business" class="md-nav__link">
-    <span class="md-ellipsis">
-      Windows Hello for Business
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sign-in-frequency-conditional-access-policies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sign-in frequency Conditional Access policies
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#continuous-access-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Continuous Access Evaluation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#federated-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Federated applications
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#domain-hint-with-staged-rollout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Domain hint with staged rollout
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#document-your-federation-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      Document your federation settings
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#azure-ad-connect-health-and-planning-the-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Azure AD Connect Health and planning the migration
+      2.1 Analysis | Agree
     </span>
   </a>
   
@@ -1024,22 +935,99 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#mitigating-risk-during-migration" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#22-high-risk-users-shall-be-blocked" class="md-nav__link">
     <span class="md-ellipsis">
-      Mitigating risk during migration
+      2.2 High Risk Users SHALL Be Blocked
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 High Risk Users SHALL Be Blocked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 Policy
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#mitigating-risk-post-migration" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#22-analysis-partially-agree-recommendation-missing-components-may-not-align-to-all-organizations" class="md-nav__link">
     <span class="md-ellipsis">
-      Mitigating risk post migration
+      2.2 Analysis | Partially Agree | Recommendation Missing Components, May Not Align To All Organizations
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-high-risk-sign-ins-shall-be-blocked" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 High Risk Sign-Ins SHALL Be Blocked
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 High Risk Sign-Ins SHALL Be Blocked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1 Policy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-analysis-agree-recommendation-missing-components-may-not-align-to-all-organizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Analysis | Agree | Recommendation Missing Components, May Not Align To All Organizations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-phishing-resistant-multifactor-authentication-shall-be-required-for-all-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Phishing-Resistant Multifactor Authentication SHALL Be Required for All Users
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Phishing-Resistant Multifactor Authentication SHALL Be Required for All Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1 Policy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1099,7 +1087,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2022-12-02 00:00:00+00:00" class="md-ellipsis">December 2, 2022</time>
+                        <time datetime="2022-10-16 00:00:00+00:00" class="md-ellipsis">October 16, 2022</time>
                       </div>
                     </li>
                     
@@ -1110,7 +1098,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../../category/ad_fs/">AD FS</a></span>
+                              <a href="../../../../category/entra_id/">Entra ID</a></span>
                         </div>
                       </li>
                     
@@ -1121,7 +1109,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              9 min read
+                              6 min read
                             
                           </span>
                         </div>
@@ -1145,73 +1133,80 @@
 
 
 
-<h1 id="field-notes-migration-from-federation-to-cloud-authentication">Field Notes: Migration From Federation To Cloud Authentication</h1>
-<p>During my stint at Microsoft, I spent a good deal of time with Windows Hello for Business (WHfB), and subsequently would be involved in prerequisite work to set the stage. For the enablement of WHfB, one of these items is device join, and it usually would be Hybrid Azure AD Join (HAADJ) for existing devices already within Active Directory. Device join can be a bit of a rabbit hole if the organization has federated authentication with AD FS in place, as there are different ways you can configure the device join process.</p>
-<p>One customer I was working with decided that they wanted to use their WHfB prerequisite work as the same point to switch from federated to cloud authentication with PHS; they were already sending their passwords to Azure AD for use with Azure AD Identity Protection. I discussed high-level what was required to switch but figured the conversation would continue after lunch. Instead, the customer decided to implement the switch during lunch, and their thousand or so users were moved to cloud authentication, with relatively little planning.</p>
-<p>Luckily their environment was relatively straightforward from an identity architecture perspective; I wouldn’t recommend going into the switch without more thorough planning. But the point being made here is that the actual period of cutover has a much lower actual risk than perceived risk.</p>
-<!-- more -->
-
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Managed authentication and managed domain can be used interchangeably with cloud authentication. In most documentation Microsoft has started to prefer using cloud authentication for the umbrella term for Password Hash Sync (PHS) and Pass-through Authentication (PTA)</p>
-</div>
-<p>Note that this article should be considered a companion to some excellent documentation Microsoft already has published, which you can find here:</p>
-<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/migrate-from-federation-to-cloud-authentication">Migrate from federation to cloud authentication in Azure Active Directory – Microsoft Entra | Microsoft Learn</a></p>
-<p><a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-staged-rollout">Azure AD Connect: Cloud authentication via Staged Rollout – Microsoft Entra | Microsoft Learn</a></p>
-<h2 id="ensuring-risk-is-mitigated">Ensuring risk is mitigated</h2>
-<p>Migration risk falls into three buckets: <em>pre-migration</em>, <em>during migration</em>, and <em>post migration</em>. As we dig into them, you’ll note that during and post migration risks are mitigated by taking proper pre-migration actions.</p>
-<h2 id="pre-migration-risk-mitigation">Pre-migration risk mitigation</h2>
-<h3 id="staged-rollout">Staged rollout</h3>
-<p>While it was in public preview for over two years, staged rollout has been a pivotal piece in allowing organizations to mitigate migration risk in a few ways.</p>
-<p>From the perspective of pre-migration, risk becomes mitigated by allowing organizations to do what everyone loves the most – test in production. Staged rollout can start with as few users as desired, to dip your toes into the waters of what cloud authentication will look like.</p>
-<p>When a user is authenticating to Azure AD, upon the initial sign-in screen where you enter your UPN, Home Realm Discovery (HRD) is performed to determine where and how to authenticate you. Essentially Azure AD analyzes the UPN entered and routes you accordingly. This is how staged rollout can make decisions on who to continue to federate for authentication, and who should be authenticated in the cloud.</p>
-<p>The other key component is that staged rollout allows for the migration to happen in waves/phases/rings – however you want to put it. It’s usually a business decision as to who gets to go when and how, and requires some planning, but with staged rollout, your users are essentially <strong>already</strong> migrated. I’ve had some organizations move their <strong>entire</strong> user base to staged rollout so that it was a non-event when the actual switch from federated auth to cloud auth happened on the tenant level.</p>
-<h3 id="password-expiration-policies-if-using-phs">Password expiration policies (if using PHS)</h3>
-<p>I’ll stand on the side of the argument that for <em>most</em> personas, there is an overall usability benefit that also fosters better user behavior relative to risk of password phishing by not requiring password expiration in Azure AD.</p>
-<p>When relying on federated authentication, whatever password policies exist in Active Directory will impact user authentication in the cloud.</p>
-<p>Now, if you are choosing to go with PTA, Active Directory is still the final say on authentication, and so password policies in Azure AD for these hybrid users is not relevant. But if you are moving to PHS, you should weigh what your current password policy looks like and whether you want to continue to with password expiration with cloud authentication. If you do, you’ll want to look here for details on how to ensure that users in the cloud continue to have their password expire, <a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#password-expiration-policy">Implement password hash synchronization with Azure AD Connect sync – Microsoft Entra | Microsoft Learn</a>.</p>
-<h3 id="virtual-desktop-infrastructure-vdi">Virtual Desktop Infrastructure (VDI)</h3>
-<p>If your organization is running a VDI infrastructure, and you’re leveraging non-persistent virtual machines, it’s important to note that there are limitations for support with cloud authentication. More details can be found here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-device-identity-virtual-desktop-infrastructure#supported-scenarios">Device identity and desktop virtualization – Azure Active Directory – Microsoft Entra | Microsoft Learn</a>.</p>
-<h3 id="ad-fs-access-control-policies">AD FS Access Control policies</h3>
-<p>While not as common due to the broad uptake of Conditional Access policies, it’s important to make sure that if you have any access control policies in AD FS 2016 or later, or any authorization rules in AD FS 2012 R2 (or earlier), that you translate those rules into CA policies.</p>
-<h3 id="ad-fs-certificate-based-authentication">AD FS certificate based authentication</h3>
-<p>While too deep to cover within here, previously the lack of CBA was one of the reasons for organizations to continue to persist with AD FS. If you have CBA in place, you’ll want to make sure you have your use cases documented and well tested in Azure AD; this is another great place for staged rollout.</p>
-<h3 id="azure-ad-hybrid-join-service-connection-point">Azure AD Hybrid Join service connection point</h3>
-<p>Organizations that have been using HAADJ for a while and have had AD FS in play, may have configured their environment to use AD FS as the authentication service in the Service Connection Point (SCP) for hybrid join.</p>
-<p>Note that the SCP is <strong>only</strong> used for provisioning of hybrid join. Once devices have their trust relationship with Azure AD, there is nothing facilitated by the SCP. Because of this, there is not an ongoing dependency on the SCP for devices already hybrid joined.</p>
-<p>Downlevel devices (Windows 7/8/8.1) have dependencies for hybrid join in federated authentication on AD FS, but again this is for joining those devices, which hopefully the occurrences are low in spinning up new Windows 7 instances.</p>
-<p>As far as timing goes, the SCP should be re-configured <strong>before</strong> the final migration from federated to managed authentication.</p>
-<h3 id="windows-hello-for-business">Windows Hello for Business</h3>
-<p>Organizations that may have been earlier adopters of WHfB and rolled out Hybrid Certificate Trust, are going to find that they need to convert to a Hybrid Key Trust, or Cloud Kerberos Trust (the new name for Hybrid Cloud Trust).</p>
-<p>If you currently are using Hybrid Key Trust, you don’t have change anything to prepare for the migration.</p>
-<p>If you are using Hybrid Certificate Trust, you’ll need to take a look at the work required for preparing users to re-enroll in Windows Hello for Business, which you can find here, <a href="https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cloud-kerberos-trust?tabs=intune#migrate-from-certificate-trust-deployment-model-to-cloud-kerberos-trust">Hybrid cloud Kerberos trust deployment (Windows Hello for Business) | Microsoft Learn</a>. Note that Microsoft never officially supported migration from Hybrid Certificate Trust to Hybrid Key Trust, but if you wanted to move to HKT, the same steps essentially can be taken, with the difference of targeting Hybrid Key Trust.</p>
-<h3 id="sign-in-frequency-conditional-access-policies">Sign-in frequency Conditional Access policies</h3>
-<p>If you have heavily restrictive sign-in frequency policies in place and are <strong>not</strong> using staged rollout on the targeted users, it is an area where the risk will be slightly higher during migration. You may want to evaluate to whom and how you have these policies applied, and potentially temporarily disable your CA policies ahead of the migration window.</p>
-<h3 id="continuous-access-evaluation">Continuous Access Evaluation</h3>
-<p>Yet another feature that can be used to minimize any risk during migration, continuous access evaluation greatly extends access token lifetimes. Having long token lifetimes will reduce the likelihood of users needing to re-authenticate during the migration window itself. Note that CAE requires the application to support this, so the focus here primarily is on Exchange Online, SharePoint Online and Teams.</p>
-<h3 id="federated-applications">Federated applications</h3>
-<p>It might be a surprise, but some organizations investigate migration to cloud authentication even when they still have applications federated to AD FS.</p>
-<p>While the thought may be that all applications <strong>must</strong> be migrated prior to cutover, that isn’t necessarily the case, as long as the organization understands the user authentication experience and flows. As the applications have no tie to Azure AD already, they will continue to operate without issue within AD FS. And beyond the fact that the organization will have to continue to maintain AD FS, the organization needs to understand that the user experience for authentication may give a fragmented perception. Users will now have three providers for authentication – Active Directory, Azure AD, and AD FS. In reality the user experience overall should be improved because authentication will be seamless to anything using Azure AD, but then when hitting an application tied to AD FS, the user may be prompted for forms authentication if they don’t have line-of-sight of Active Directory – which is likely the behavior they were already used to. I bring it up because it can become a place of optics and a lot of user subjectivity, and can make troubleshooting scenarios a bit more complex.</p>
-<h3 id="domain-hint-with-staged-rollout">Domain hint with staged rollout</h3>
-<p>Some applications may pass a domain_hint to Azure AD, which is used to bypass the Azure AD sign-on screen. This can be popular in environments with AD FS in play so that users do not need to enter their username upon the initial sign-in screen with Azure AD.</p>
-<p>Where this comes into play with staged rollout, is users could be directed to AD FS still for authentication. If your organization is already hybrid joined, and subsequently your users will have a PRT, the domain_hint piece is not even in play for authentication. If you have scenarios of users accessing Azure AD from things like personal devices with no trust relationship with Azure AD, it’s where you may want to see what the behavior for authentication looks like. You can read about domain hints here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/home-realm-discovery-policy#domain-hints">Home Realm Discovery policy – Microsoft Entra | Microsoft Learn</a>.</p>
-<h3 id="document-your-federation-settings">Document your federation settings</h3>
-<p>It may go without saying, but make sure you documented your federation settings, and understand the process to reverse things in the case that an issue arises post migration. This generally would look like using Azure AD Connect to re-configure the tenant for federated authentication unless you only need to selectively roll some of the domains back to federated authentication.</p>
-<h3 id="azure-ad-connect-health-and-planning-the-migration">Azure AD Connect Health and planning the migration</h3>
-<p>Along with all the technical checks, there is the question of when to perform the migration. Whether staged rollout is in place or not, the when is a key piece of information the business is going to want to understand (well, as noted in my intro, usually).</p>
-<p>For global organizations, the question can become an issue of “there is always someone working somewhere”. The two paths forward:</p>
+<h1 id="cisa-scuba-diving-into-the-azure-ad-baseline">CISA SCuBA: Diving Into The Azure AD Baseline</h1>
+<p>CISA recently released baseline guidance for cloud application security, dubbed SCuBA, or Secure Cloud Business Applications. Within this guidance they cover the M365 and Google Workspace stacks, and they have also released the ScubaGear tool, which you can find here, <a href="https://github.com/cisagov/ScubaGear">cisagov/ScubaGear: Automation to assess the state of your M365 tenant against CISA’s baselines (github.com)</a>. The ScubaGear tool provides the ability to run an assessment against a targeted M365 environment against baselines. I’ve tested the ScubaGear tool against the Azure AD baseline, and it works well enough, but for the purposes of this post I’m targeting the baseline itself.</p>
+<p>When released, there is the natural curiosity to see where things intersect with CISA recommendations, Microsoft recommendations, and what actually works out in the real world. I saw some folks on Twitter commenting that this could be potentially a great tool for analysis for all sorts of commercial and public organizations, big and small. But do the recommendations from, and for, the Federal Government align to what most organizations really need?</p>
+<p>I’ll be taking a look at each baseline policy as defined and providing analysis on it specific to the context of its applicability outside of government scenarios. I’ll be going through in order as written, and then providing a final take. Note that for ease the header numbering aligns to the baseline.</p>
+<p>If you’re curious to obtain the baseline, CISA has it available as a PDF found here, <a href="https://www.cisa.gov/sites/default/files/publications/Microsoft%20Azure%20Active%20Directory%20M365%20Minimum%20Viable%20SCB%20Draft%20v0.1.pdf">Microsoft Azure Active Directory PDF</a>. There is also a markdown version on Github that is easier to consume, found here, <a href="https://github.com/cisagov/ScubaGear/blob/main/baselines/aad.md">ScubaGear/aad.md at main · cisagov/ScubaGear (github.com)</a>. As I’m only providing reference to the policy itself, I’ll point out that the CISA documents in either format also provide useful license requirement information and details on implementation, which are mostly links to Microsoft Docs Learn articles.</p>
+<p>Content between policy definition header and analysis is provided from CISA recommendations. Content after colored Analysis header to next recommendation is my analysis.</p>
+<h2 id="terminology">Terminology</h2>
+<p>One component of the CISA guidance is the lack of reference to the differentiation between the terminology SHALL vs SHOULD. If aligned to NIST definitions, taken from NIST publications:</p>
+<p>SHALL – <em>indicate requirements to be followed strictly in order to conform to the publication and from which no deviation is permitted</em></p>
+<p>SHOULD – <em>indicate that among several possibilities one is recommended as particularly suitable, without mentioning or excluding others, or that a certain course of action is preferred but not necessarily required, or that (in the negative form) a certain possibility or course of action is discouraged but not prohibited</em></p>
+<h2 id="azure-ad-baseline">Azure AD Baseline</h2>
+<h3 id="21-legacy-authentication-shall-be-blocked">2.1 Legacy Authentication SHALL Be Blocked</h3>
+<p><em>Block legacy authentication protocols using a conditional access policy. Legacy authentication does not support multifactor authentication (MFA), which is required to minimize the impact of user credential theft.</em></p>
+<h4 id="211-policy">2.1.1 Policy</h4>
 <ul>
-<li>A slightly less refined approach operates under the principal that the organization already has an outage window defined for IT operations. 60 minutes fits into almost any defined outage window an organization would have, and so subsequently the work is just scheduled during that time.</li>
-<li>A more refined and risk-adverse approach leverages Azure AD Connect Health. Azure AD Connect Health can help organizations understand when authentication is happening within AD FS, and subsequently you can use the data from this to determine when AD FS is least utilized. Of course, if you have not already deployed Azure AD Connect Health, you’ll likely want to let it run for a bit to allow it to gather a proper amount of data to make an educated decision. Rolling out Azure AD Connect Health is a relatively straightforward process, which you can read about its use here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-health-adfs">Using Azure AD Connect Health with AD FS – Microsoft Entra | Microsoft Learn</a>.</li>
+<li>Legacy authentication SHALL be blocked</li>
 </ul>
-<h2 id="mitigating-risk-during-migration">Mitigating risk during migration</h2>
-<p>The level of risk used to be higher when ActiveSync was still heavily with legacy authentication, up until even a year or so ago. The reason for this is due to Exchange Online (EXO) having up to a four-hour period in which it may still attempt to authenticate to the federated identity source. Considering that Azure AD no longer has a trust relationship with AD FS, that is where things break down. Recall that with legacy authentication, the service such as EXO captures the user credentials and authentications on behalf of the user.</p>
-<p>With modern authentication you don’t have the same drawn-out risk. As long as your user has a valid refresh token (RT) for Azure AD, they will not hit AD FS upon renewal of their access token (AT). To put that another way, the user only talks to AD FS for initial authentication, and subsequent renewals of the AT only require silent interaction with Azure AD. As mentioned, if you have very restrictive sign-in frequency CA policies in place, that can impact this behavior.</p>
-<p>There still is a small window, Microsoft defines as up to 60 minutes, where the tenant is converting itself behind the scenes. But as long as you’ve checked all the pre-migration areas, the migration should generate next to no noise.</p>
-<p>If you’re curious to understand how to test the migration from the outside-in, Sander Berkouwer (<a href="https://twitter.com/SanderBerkouwer">@SanderBerkouwer</a>) has a nice way of leveraging domain_hint for that, which you can find here, <a href="https://dirteam.com/sander/2021/08/13/how-to-check-if-azure-ad-has-processed-the-hybrid-authentication-method-change/">How to check if Azure AD has processed the hybrid authentication method change – The things that are better left unspoken (dirteam.com)</a>.</p>
-<h2 id="mitigating-risk-post-migration">Mitigating risk post migration</h2>
-<p>As noted in the pre-migration tasks, documenting how federation is currently configured is what you’ll need to help rollback any changes. I have not encountered an organization that planned properly needing to roll back to federated authentication.</p>
-<p>You may want to continue to keep your AD FS farm around for a bit of time. For those that managed AD FS, it will be a joyous occasion to decommission.</p>
+<h4 id="21-analysis-agree">2.1 Analysis | Agree</h4>
+<p>A straightforward recommendation, which is much easier now that Microsoft has disabled basic authentication as of October 1st, 2022 (<a href="https://www.microsoft.com/en-us/microsoft-365/blog/2022/09/01/microsoft-retires-basic-authentication-in-exchange-online/">Microsoft retires Basic Authentication in Exchange Online | Microsoft 365 Blog</a>).</p>
+<p>The one area that tends to get sticky is in the realm of SMTP, used primarily by customers for things like multi-function devices, as well as for applications sending email. To a lesser extent, some Service Desk applications and other ITSM platforms use IMAP for receiving email inbound.</p>
+<p>While Microsoft has implemented modern authentication for POP, IMAP, and SMTP, <a href="https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth">Authenticate an IMAP, POP or SMTP connection using OAuth | Microsoft Learn</a>, most services leveraging basic authentication are likely far behind.</p>
+<p>To the recommendation from CISA, organizations can use systems like SendGrid for outbound mail.</p>
+<p>If organizations must continue to use basic authentication, I would recommend that a conditional access policy is used to block access to those accounts outside the corporate network boundaries.</p>
+<h3 id="22-high-risk-users-shall-be-blocked">2.2 High Risk Users SHALL Be Blocked</h3>
+<p><em>Azure AD Identity Protection uses various signals to detect the risk level for each user and determine if an account has likely been compromised. Users who are determined to be high risk are to be blocked from accessing the system via Conditional Access until an administrator remediates their account. Once a respective conditional access policy with a block is implemented, if a high-risk user attempts to login, the user will receive an error message with instructions to contact the administrator to re-enable their access.</em></p>
+<h4 id="221-policy">2.2.1 Policy</h4>
+<ul>
+<li>Users detected as high risk SHALL be blocked.</li>
+<li>A notification SHOULD be sent to the administrator when high-risk users are detected.</li>
+</ul>
+<h4 id="22-analysis-partially-agree-recommendation-missing-components-may-not-align-to-all-organizations">2.2 Analysis | Partially Agree | Recommendation Missing Components, May Not Align To All Organizations</h4>
+<p>The recommendation takes a harder stance than Microsoft, which by default recommends requiring a password change after sufficient proofing of the user, instead of a block.</p>
+<p>Blocking access is the more secure route, but the policy may not apply to all organizations in all situations. Additionally, if the case is likely that the user account has been breached, it limits the ability for user self-remediation. I would agree that alerts should be configured, but likely rolling up alerts through a SIEM than emails directly from Identity Protection. Of course, for the paranoid, having both configured will provide layers of notification.</p>
+<p>For organizations that do take this route, the other issue is CISA configuring the block as a conditional access policy. Conditional access policies only apply within the resource tenant, so if the user is an outbound guest accessing resources in another tenant, a CAP will not apply. It would be recommended to configure this in a multi-layered approach, with Azure AD Identity Protection also configured with a user risk policy to block authentication. Likewise, if organizations pivot from blocking to requiring a password change, the policy should still be applied as an AAD Identity Protection policy, to ensure that users are covered even when they are guests in another tenant.</p>
+<h3 id="23-high-risk-sign-ins-shall-be-blocked">2.3 High Risk Sign-Ins SHALL Be Blocked</h3>
+<p><em>Azure AD Identity Protection uses various signals to detect the risk level for each user sign-in. Sign-ins detected as high risk are to be blocked via Conditional Access.</em></p>
+<h4 id="231-policy">2.3.1 Policy</h4>
+<ul>
+<li>Sign-ins detected as high risk SHALL be blocked.</li>
+</ul>
+<h4 id="23-analysis-agree-recommendation-missing-components-may-not-align-to-all-organizations">2.3 Analysis | Agree | Recommendation Missing Components, May Not Align To All Organizations</h4>
+<p>Like user risk policy, this takes a stronger stance, but also leaves some gaps from Microsoft recommendations, which are to require MFA for all medium or higher sign-in risks, instead of a block. The thought process behind the Microsoft recommendation is that if the user is able to sufficiently proof themselves through MFA, even if Conditional Access is not requiring such, will verify the user. I would suspect the CISA stance could be based on the thought that MFA is currently highly phishable in certain forms, even though they recommend only using phishing-resistant MFA.</p>
+<p>This area tends to be something that varies among organizations depending on the type of organization and their primary user personas. The CISA recommendation does not cover medium risk sign-ins, which could have a potential malicious aspect to them as well. A strategy here may be to configure the Azure AD Identity Protection sign-in risk policy as a medium or higher to require MFA, to ensure that outbound guests access resources in another tenant are still protected. While there is some presumption that across agencies this would be less of an issue as the resource tenant would have similar CAP, in the commercial space that is likely not going to be the case. At the same time, continuing to keep the high blocking policy.</p>
+<p>For some organizations such as higher education, it is likely that even blocking instead of requiring MFA will be too disruptive to a widely dispersed and mobile user base, which has a bundle of complexities with even phishing-resistant MFA.</p>
+<h3 id="24-phishing-resistant-multifactor-authentication-shall-be-required-for-all-users">2.4 Phishing-Resistant Multifactor Authentication SHALL Be Required for All Users</h3>
+<p><em>Phishing-resistant multifactor authentication protects against sophisticated phishing attacks. Recognizing the significant risk these attack present, the Office of Management and Budget (OMB), requires federal agencies to <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">implement phishing-resistant authentication</a>.</em></p>
+<p><em>However, phishing-resistant MFA may not always be immediately available, especially on mobile devices. Where phishing-resistant MFA is not yet available, organization should adopt an MFA method from the list below. Organizations must upgrade to a phishing-resistant MFA method as soon as possible to become compliant with this policy and address the critical security threat posed by modern phishing attacks.</em></p>
+<h4 id="241-policy">2.4.1 Policy</h4>
+<ul>
+<li>MFA SHALL be required for all users.</li>
+<li>Phishing-resistant MFA SHALL be used for all users.<ul>
+<li>Phishing-resistant methods:<ul>
+<li>Federal PIV card (Azure AD Certificate-Based authentication [CBA])</li>
+<li>FIDO2 Security Key</li>
+<li>Windows Hello for Business</li>
+<li>Federal Personal Identity Verification (PIV) card (Federated from agency Active Directory or other identity provider)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If phishing-resistant MFA cannot be used, an MFA method from the list below SHALL be used in the interim:<ul>
+<li>Microsoft Authenticator (Push Notifications)</li>
+<li>Microsoft Authenticator (Phone Sign-in) (Also referred to as Passwordless Sign-in)<ul>
+<li>When using Microsoft Authenticator:</li>
+<li>Number Matching SHALL be enabled.</li>
+<li>Additional Context SHALL be enabled.</li>
+</ul>
+</li>
+<li>Software Tokens One-Time Password (OTP) – This option is commonly implemented using mobile phone authenticator apps</li>
+<li>Hardware tokens OTP</li>
+</ul>
+</li>
+<li>SMS or Voice as the MFA method SHALL NOT be used.</li>
+</ul>
 
 
 
@@ -1256,7 +1251,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../../10/16/cisa-scuba-diving-into-the-azure-ad-baseline/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CISA SCuBA: Diving Into The Azure AD Baseline">
+          <a href="../../12/vm-contributor-to-domain-admin-in-60-seconds/" class="md-footer__link md-footer__link--prev" aria-label="Previous: VM Contributor To Domain Admin In 60 Seconds">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1266,20 +1261,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CISA SCuBA: Diving Into The Azure AD Baseline
+                VM Contributor To Domain Admin In 60 Seconds
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../19/spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations/" class="md-footer__link md-footer__link--next" aria-label="Next: SpAML: Spoofing Users In Azure AD With SAML Claims Transformations">
+          <a href="../../../12/02/field-notes-migration-from-federation-to-cloud-authentication/" class="md-footer__link md-footer__link--next" aria-label="Next: Field Notes: Migration From Federation To Cloud Authentication">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                SpAML: Spoofing Users In Azure AD With SAML Claims Transformations
+                Field Notes: Migration From Federation To Cloud Authentication
               </div>
             </div>
             <div class="md-footer__button md-icon">

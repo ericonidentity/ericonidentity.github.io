@@ -1016,6 +1016,118 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2022-10-16 00:00:00+00:00">October 16, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/entra_id/" class="md-meta__link">Entra ID</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="cisa-scuba-diving-into-the-azure-ad-baseline"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/">CISA SCuBA: Diving Into The Azure AD Baseline</a></h2>
+<p>CISA recently released baseline guidance for cloud application security, dubbed SCuBA, or Secure Cloud Business Applications. Within this guidance they cover the M365 and Google Workspace stacks, and they have also released the ScubaGear tool, which you can find here, <a href="https://github.com/cisagov/ScubaGear">cisagov/ScubaGear: Automation to assess the state of your M365 tenant against CISA’s baselines (github.com)</a>. The ScubaGear tool provides the ability to run an assessment against a targeted M365 environment against baselines. I’ve tested the ScubaGear tool against the Azure AD baseline, and it works well enough, but for the purposes of this post I’m targeting the baseline itself.</p>
+<p>When released, there is the natural curiosity to see where things intersect with CISA recommendations, Microsoft recommendations, and what actually works out in the real world. I saw some folks on Twitter commenting that this could be potentially a great tool for analysis for all sorts of commercial and public organizations, big and small. But do the recommendations from, and for, the Federal Government align to what most organizations really need?</p>
+<p>I’ll be taking a look at each baseline policy as defined and providing analysis on it specific to the context of its applicability outside of government scenarios. I’ll be going through in order as written, and then providing a final take. Note that for ease the header numbering aligns to the baseline.</p>
+<p>If you’re curious to obtain the baseline, CISA has it available as a PDF found here, <a href="https://www.cisa.gov/sites/default/files/publications/Microsoft%20Azure%20Active%20Directory%20M365%20Minimum%20Viable%20SCB%20Draft%20v0.1.pdf">Microsoft Azure Active Directory PDF</a>. There is also a markdown version on Github that is easier to consume, found here, <a href="https://github.com/cisagov/ScubaGear/blob/main/baselines/aad.md">ScubaGear/aad.md at main · cisagov/ScubaGear (github.com)</a>. As I’m only providing reference to the policy itself, I’ll point out that the CISA documents in either format also provide useful license requirement information and details on implementation, which are mostly links to Microsoft Docs Learn articles.</p>
+<p>Content between policy definition header and analysis is provided from CISA recommendations. Content after colored Analysis header to next recommendation is my analysis.</p>
+<h3 id="terminology"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#terminology">Terminology</a></h3>
+<p>One component of the CISA guidance is the lack of reference to the differentiation between the terminology SHALL vs SHOULD. If aligned to NIST definitions, taken from NIST publications:</p>
+<p>SHALL – <em>indicate requirements to be followed strictly in order to conform to the publication and from which no deviation is permitted</em></p>
+<p>SHOULD – <em>indicate that among several possibilities one is recommended as particularly suitable, without mentioning or excluding others, or that a certain course of action is preferred but not necessarily required, or that (in the negative form) a certain possibility or course of action is discouraged but not prohibited</em></p>
+<h3 id="azure-ad-baseline"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#azure-ad-baseline">Azure AD Baseline</a></h3>
+<h4 id="21-legacy-authentication-shall-be-blocked"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#21-legacy-authentication-shall-be-blocked">2.1 Legacy Authentication SHALL Be Blocked</a></h4>
+<p><em>Block legacy authentication protocols using a conditional access policy. Legacy authentication does not support multifactor authentication (MFA), which is required to minimize the impact of user credential theft.</em></p>
+<h5 id="211-policy"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#211-policy">2.1.1 Policy</a></h5>
+<ul>
+<li>Legacy authentication SHALL be blocked</li>
+</ul>
+<h5 id="21-analysis-agree"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#21-analysis-agree">2.1 Analysis | Agree</a></h5>
+<p>A straightforward recommendation, which is much easier now that Microsoft has disabled basic authentication as of October 1st, 2022 (<a href="https://www.microsoft.com/en-us/microsoft-365/blog/2022/09/01/microsoft-retires-basic-authentication-in-exchange-online/">Microsoft retires Basic Authentication in Exchange Online | Microsoft 365 Blog</a>).</p>
+<p>The one area that tends to get sticky is in the realm of SMTP, used primarily by customers for things like multi-function devices, as well as for applications sending email. To a lesser extent, some Service Desk applications and other ITSM platforms use IMAP for receiving email inbound.</p>
+<p>While Microsoft has implemented modern authentication for POP, IMAP, and SMTP, <a href="https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth">Authenticate an IMAP, POP or SMTP connection using OAuth | Microsoft Learn</a>, most services leveraging basic authentication are likely far behind.</p>
+<p>To the recommendation from CISA, organizations can use systems like SendGrid for outbound mail.</p>
+<p>If organizations must continue to use basic authentication, I would recommend that a conditional access policy is used to block access to those accounts outside the corporate network boundaries.</p>
+<h4 id="22-high-risk-users-shall-be-blocked"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#22-high-risk-users-shall-be-blocked">2.2 High Risk Users SHALL Be Blocked</a></h4>
+<p><em>Azure AD Identity Protection uses various signals to detect the risk level for each user and determine if an account has likely been compromised. Users who are determined to be high risk are to be blocked from accessing the system via Conditional Access until an administrator remediates their account. Once a respective conditional access policy with a block is implemented, if a high-risk user attempts to login, the user will receive an error message with instructions to contact the administrator to re-enable their access.</em></p>
+<h5 id="221-policy"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#221-policy">2.2.1 Policy</a></h5>
+<ul>
+<li>Users detected as high risk SHALL be blocked.</li>
+<li>A notification SHOULD be sent to the administrator when high-risk users are detected.</li>
+</ul>
+<h5 id="22-analysis-partially-agree-recommendation-missing-components-may-not-align-to-all-organizations"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#22-analysis-partially-agree-recommendation-missing-components-may-not-align-to-all-organizations">2.2 Analysis | Partially Agree | Recommendation Missing Components, May Not Align To All Organizations</a></h5>
+<p>The recommendation takes a harder stance than Microsoft, which by default recommends requiring a password change after sufficient proofing of the user, instead of a block.</p>
+<p>Blocking access is the more secure route, but the policy may not apply to all organizations in all situations. Additionally, if the case is likely that the user account has been breached, it limits the ability for user self-remediation. I would agree that alerts should be configured, but likely rolling up alerts through a SIEM than emails directly from Identity Protection. Of course, for the paranoid, having both configured will provide layers of notification.</p>
+<p>For organizations that do take this route, the other issue is CISA configuring the block as a conditional access policy. Conditional access policies only apply within the resource tenant, so if the user is an outbound guest accessing resources in another tenant, a CAP will not apply. It would be recommended to configure this in a multi-layered approach, with Azure AD Identity Protection also configured with a user risk policy to block authentication. Likewise, if organizations pivot from blocking to requiring a password change, the policy should still be applied as an AAD Identity Protection policy, to ensure that users are covered even when they are guests in another tenant.</p>
+<h4 id="23-high-risk-sign-ins-shall-be-blocked"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#23-high-risk-sign-ins-shall-be-blocked">2.3 High Risk Sign-Ins SHALL Be Blocked</a></h4>
+<p><em>Azure AD Identity Protection uses various signals to detect the risk level for each user sign-in. Sign-ins detected as high risk are to be blocked via Conditional Access.</em></p>
+<h5 id="231-policy"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#231-policy">2.3.1 Policy</a></h5>
+<ul>
+<li>Sign-ins detected as high risk SHALL be blocked.</li>
+</ul>
+<h5 id="23-analysis-agree-recommendation-missing-components-may-not-align-to-all-organizations"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#23-analysis-agree-recommendation-missing-components-may-not-align-to-all-organizations">2.3 Analysis | Agree | Recommendation Missing Components, May Not Align To All Organizations</a></h5>
+<p>Like user risk policy, this takes a stronger stance, but also leaves some gaps from Microsoft recommendations, which are to require MFA for all medium or higher sign-in risks, instead of a block. The thought process behind the Microsoft recommendation is that if the user is able to sufficiently proof themselves through MFA, even if Conditional Access is not requiring such, will verify the user. I would suspect the CISA stance could be based on the thought that MFA is currently highly phishable in certain forms, even though they recommend only using phishing-resistant MFA.</p>
+<p>This area tends to be something that varies among organizations depending on the type of organization and their primary user personas. The CISA recommendation does not cover medium risk sign-ins, which could have a potential malicious aspect to them as well. A strategy here may be to configure the Azure AD Identity Protection sign-in risk policy as a medium or higher to require MFA, to ensure that outbound guests access resources in another tenant are still protected. While there is some presumption that across agencies this would be less of an issue as the resource tenant would have similar CAP, in the commercial space that is likely not going to be the case. At the same time, continuing to keep the high blocking policy.</p>
+<p>For some organizations such as higher education, it is likely that even blocking instead of requiring MFA will be too disruptive to a widely dispersed and mobile user base, which has a bundle of complexities with even phishing-resistant MFA.</p>
+<h4 id="24-phishing-resistant-multifactor-authentication-shall-be-required-for-all-users"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#24-phishing-resistant-multifactor-authentication-shall-be-required-for-all-users">2.4 Phishing-Resistant Multifactor Authentication SHALL Be Required for All Users</a></h4>
+<p><em>Phishing-resistant multifactor authentication protects against sophisticated phishing attacks. Recognizing the significant risk these attack present, the Office of Management and Budget (OMB), requires federal agencies to <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">implement phishing-resistant authentication</a>.</em></p>
+<p><em>However, phishing-resistant MFA may not always be immediately available, especially on mobile devices. Where phishing-resistant MFA is not yet available, organization should adopt an MFA method from the list below. Organizations must upgrade to a phishing-resistant MFA method as soon as possible to become compliant with this policy and address the critical security threat posed by modern phishing attacks.</em></p>
+<h5 id="241-policy"><a class="toclink" href="../../2022/10/16/cisa-scuba-diving-into-the-azure-ad-baseline/#241-policy">2.4.1 Policy</a></h5>
+<ul>
+<li>MFA SHALL be required for all users.</li>
+<li>Phishing-resistant MFA SHALL be used for all users.<ul>
+<li>Phishing-resistant methods:<ul>
+<li>Federal PIV card (Azure AD Certificate-Based authentication [CBA])</li>
+<li>FIDO2 Security Key</li>
+<li>Windows Hello for Business</li>
+<li>Federal Personal Identity Verification (PIV) card (Federated from agency Active Directory or other identity provider)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If phishing-resistant MFA cannot be used, an MFA method from the list below SHALL be used in the interim:<ul>
+<li>Microsoft Authenticator (Push Notifications)</li>
+<li>Microsoft Authenticator (Phone Sign-in) (Also referred to as Passwordless Sign-in)<ul>
+<li>When using Microsoft Authenticator:</li>
+<li>Number Matching SHALL be enabled.</li>
+<li>Additional Context SHALL be enabled.</li>
+</ul>
+</li>
+<li>Software Tokens One-Time Password (OTP) – This option is commonly implemented using mobile phone authenticator apps</li>
+<li>Hardware tokens OTP</li>
+</ul>
+</li>
+<li>SMS or Voice as the MFA method SHALL NOT be used.</li>
+</ul>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2022-10-12 00:00:00+00:00">October 12, 2022</time></li>
         
           <li class="md-meta__item">
@@ -1352,55 +1464,6 @@
 <p class="admonition-title">Note</p>
 <p>This is a stub for a post, the content has been moved to <a href="https://www.fido2reviews.com">https://www.fido2reviews.com</a></p>
 </div>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://www.ericonidentity.com/images/crazy-eric.jpg" alt="Eric Woodruff">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2022-05-04 00:00:00+00:00">May 4, 2022</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/passwordless/" class="md-meta__link">Passwordless</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              7 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="world-password-day"><a class="toclink" href="../../2022/05/04/world-password-day/">World Password Day</a></h2>
-<p>Forget passwords. Passwords are garbage. To celebrate World Password Day, I’m curating blog articles that can help organizations on their passwordless journey.</p>
-<p>While much of the Microsoft documentation on passwordless is quite good, it can tend to be overwhelming at times; the hope is to give you some great leads on some clear, step-by-step instructions on how to get you from a password-filled to a passwordless world in Active Directory and Azure AD.</p>
-<p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as AD FS and using smartcards, or has DC’s older than 2016, you have a bunch of Macs in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2022/05/04/world-password-day/">
-          Continue reading
-        </a>
-      </nav>
     
   </div>
 </article>

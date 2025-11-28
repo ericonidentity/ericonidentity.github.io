@@ -1846,14 +1846,14 @@ And to validate this, we can look at the associated application object in the po
 <p>And if we look at the app registration in the other tenant:</p>
 <p><img alt="Figure 11" src="/images/2023/03/11/img11.png" /></p>
 <p>And we can even see that the certificate registered in the app registration was used for authentication, by matching the key ID. Of course, this is only to show that the secret/certificate is used cross-tenant, and we luckily have access to both tenants in our example:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&quot;keyCredentials&quot;: [
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        {
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>            &quot;customKeyIdentifier&quot;: &quot;VGVzdDEyMw==&quot;,
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>            &quot;endDate&quot;: &quot;2023-09-11T18:17:58.8837147Z&quot;,
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>            &quot;keyId&quot;: &quot;dc0c5dcd-7dd3-4f05-8bf7-5edc2dc4150e&quot;,
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>            &quot;startDate&quot;: &quot;2023-03-11T19:19:29.8224747Z&quot;,
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            &quot;type&quot;: &quot;AsymmetricX509Cert&quot;,
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            &quot;usage&quot;: &quot;Verify&quot;,
+<div class="language-py highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s2">&quot;keyCredentials&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        <span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>            <span class="s2">&quot;customKeyIdentifier&quot;</span><span class="p">:</span> <span class="s2">&quot;VGVzdDEyMw==&quot;</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>            <span class="s2">&quot;endDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-09-11T18:17:58.8837147Z&quot;</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="hll">            <span class="s2">&quot;keyId&quot;</span><span class="p">:</span> <span class="s2">&quot;dc0c5dcd-7dd3-4f05-8bf7-5edc2dc4150e&quot;</span><span class="p">,</span>
+</span></span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>            <span class="s2">&quot;startDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-03-11T19:19:29.8224747Z&quot;</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;AsymmetricX509Cert&quot;</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            <span class="s2">&quot;usage&quot;</span><span class="p">:</span> <span class="s2">&quot;Verify&quot;</span><span class="p">,</span>
 </span></code></pre></div>
 <p>In my example I’m using a certificate, not a password, as the sample code used was out of the box designed to use a certificate (key pair).</p>
 <h2 id="questions-and-scenarios">Questions and scenarios<a class="headerlink" href="#questions-and-scenarios" title="Permanent link">&para;</a></h2>
@@ -1868,41 +1868,41 @@ And to validate this, we can look at the associated application object in the po
 <p>However, you may see other times that when you create an enterprise application that an associated app registration will show up in your tenant. In reality any application you add from enterprise applications – SAML, Linked, Password-based, or Entra Application Proxy, are all going to create an associated app registration. Why? Because the service principal was not designed to hold all the information that defines the app (back to our definition of an app registration).</p>
 <p>You can add a SAML application into Entra ID, and then go to its corresponding app registration and look at the manifest.</p>
 <p>Here is an example of the manifest for the SAML app of Claims X-Ray. Notice that some of the configuration settings for the application, such as the ACS URL, are stored within the manifest.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&quot;name&quot;: &quot;Claims X-Ray&quot;,
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    &quot;notes&quot;: null,
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    &quot;oauth2AllowIdTokenImplicitFlow&quot;: true,
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    &quot;oauth2AllowImplicitFlow&quot;: false,
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    &quot;oauth2Permissions&quot;: [
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        {
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>            &quot;adminConsentDescription&quot;: &quot;Allow the application to access Claims X-Ray on behalf of the signed-in user.&quot;,
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            &quot;adminConsentDisplayName&quot;: &quot;Access Claims X-Ray&quot;,
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>            &quot;id&quot;: &quot;a25f7792-6629-4854-a533-4914cc79ce41&quot;,
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>            &quot;isEnabled&quot;: true,
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>            &quot;lang&quot;: null,
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>            &quot;origin&quot;: &quot;Application&quot;,
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>            &quot;type&quot;: &quot;User&quot;,
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>            &quot;userConsentDescription&quot;: &quot;Allow the application to access Claims X-Ray on your behalf.&quot;,
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>            &quot;userConsentDisplayName&quot;: &quot;Access Claims X-Ray&quot;,
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>            &quot;value&quot;: &quot;user_impersonation&quot;
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        }
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    ],
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    &quot;oauth2RequirePostResponse&quot;: false,
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    &quot;optionalClaims&quot;: null,
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    &quot;orgRestrictions&quot;: [],
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>    &quot;parentalControlSettings&quot;: {
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>        &quot;countriesBlockedForMinors&quot;: [],
-</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>        &quot;legalAgeGroupRule&quot;: &quot;Allow&quot;
-</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>    },
-</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    &quot;passwordCredentials&quot;: [],
-</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>    &quot;preAuthorizedApplications&quot;: [],
-</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>    &quot;publisherDomain&quot;: &quot;fabrikam.cloud&quot;,
-</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>    &quot;replyUrlsWithType&quot;: [
-</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>        {
-</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>            &quot;url&quot;: &quot;https://adfshelp.microsoft.com/ClaimsXray/TokenResponse&quot;,
-</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>            &quot;type&quot;: &quot;Web&quot;
-</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>        }
-</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>    ],
-</span></code></pre></div>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Claims X-Ray&quot;</span><span class="p">,</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="s2">&quot;notes&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="s2">&quot;oauth2AllowIdTokenImplicitFlow&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="s2">&quot;oauth2AllowImplicitFlow&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="s2">&quot;oauth2Permissions&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="p">{</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>            <span class="s2">&quot;adminConsentDescription&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow the application to access Claims X-Ray on behalf of the signed-in user.&quot;</span><span class="p">,</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            <span class="s2">&quot;adminConsentDisplayName&quot;</span><span class="p">:</span> <span class="s2">&quot;Access Claims X-Ray&quot;</span><span class="p">,</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a25f7792-6629-4854-a533-4914cc79ce41&quot;</span><span class="p">,</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>            <span class="s2">&quot;isEnabled&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>            <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>            <span class="s2">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;Application&quot;</span><span class="p">,</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;User&quot;</span><span class="p">,</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>            <span class="s2">&quot;userConsentDescription&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow the application to access Claims X-Ray on your behalf.&quot;</span><span class="p">,</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>            <span class="s2">&quot;userConsentDisplayName&quot;</span><span class="p">:</span> <span class="s2">&quot;Access Claims X-Ray&quot;</span><span class="p">,</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;user_impersonation&quot;</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        <span class="p">}</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    <span class="p">],</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    <span class="s2">&quot;oauth2RequirePostResponse&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="s2">&quot;optionalClaims&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    <span class="s2">&quot;orgRestrictions&quot;</span><span class="p">:</span> <span class="p">[],</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>    <span class="s2">&quot;parentalControlSettings&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>        <span class="s2">&quot;countriesBlockedForMinors&quot;</span><span class="p">:</span> <span class="p">[],</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>        <span class="s2">&quot;legalAgeGroupRule&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>    <span class="p">},</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    <span class="s2">&quot;passwordCredentials&quot;</span><span class="p">:</span> <span class="p">[],</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>    <span class="s2">&quot;preAuthorizedApplications&quot;</span><span class="p">:</span> <span class="p">[],</span>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>    <span class="s2">&quot;publisherDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;fabrikam.cloud&quot;</span><span class="p">,</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a><span class="hll">    <span class="s2">&quot;replyUrlsWithType&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="hll">        <span class="p">{</span>
+</span></span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="hll">            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://adfshelp.microsoft.com/ClaimsXray/TokenResponse&quot;</span><span class="p">,</span>
+</span></span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="hll">            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Web&quot;</span>
+</span></span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="hll">        <span class="p">}</span>
+</span></span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="hll">    <span class="p">],</span>
+</span></span></code></pre></div>
 <p>If you’ve integrated certain SAML applications and wanted to assign groups to custom roles to then emit in the SAML response, you would find yourself in the App registration to further define those.</p>
 <p>But take notice that from a permissions perspective, going back to the security principal side of things, it is the enterprise application where you configure who is allowed to access the application.</p>
 <h3 id="why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application">Why do we need to handle the secret management for our single tenant application?<a class="headerlink" href="#why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application" title="Permanent link">&para;</a></h3>

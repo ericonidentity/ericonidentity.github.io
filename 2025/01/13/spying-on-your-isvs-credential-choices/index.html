@@ -1037,32 +1037,32 @@
 <p>It’s easy for organizations to determine what they are using with single-tenant applications, or if they are a developer of a multi-tenant app. A quick Microsoft Graph API call to applications/objectid of the application (app registration), and you can examine whether the application has certificates, secrets, or both assigned as credentials. You can also store credentials on the service principal, which I cover here, <a href="https://ericonidentity.com/2023/03/11/aad-app-registrations-and-enterprise-applications-the-definitive-guide/">Entra App Registrations and Enterprise Applications: The Definitive Guide – Eric on Identity</a>.</p>
 <!-- more -->
 
-<div class="highlight"><pre><span></span><code>&quot;keyCredentials&quot;: [
-    {
-        &quot;customKeyIdentifier&quot;: &quot;2335C167C72B21C4ACA7F3AA191FA95F8A39A727&quot;,
-        &quot;displayName&quot;: &quot;Test certificate&quot;,
-        &quot;endDateTime&quot;: &quot;2024-11-06T18:47:27Z&quot;,
-        &quot;key&quot;: null,
-        &quot;keyId&quot;: &quot;4ca658ff-a617-4161-93e0-465badaf7c3d&quot;,
-        &quot;startDateTime&quot;: &quot;2023-11-06T18:27:27Z&quot;,
-        &quot;type&quot;: &quot;AsymmetricX509Cert&quot;,
-        &quot;usage&quot;: &quot;Verify&quot;
-    }
-],
-Example certificate credentials
-
-&quot;passwordCredentials&quot;: [
-    {
-        &quot;customKeyIdentifier&quot;: null,
-        &quot;displayName&quot;: &quot;test secret&quot;,
-        &quot;endDateTime&quot;: &quot;2025-07-07T23:25:23.333Z&quot;,
-        &quot;hint&quot;: &quot;zoZ&quot;,
-        &quot;keyId&quot;: &quot;e5ab0baa-5eb9-4180-9ad5-b1c693b7ee08&quot;,
-        &quot;secretText&quot;: null,
-        &quot;startDateTime&quot;: &quot;2025-01-09T00:25:23.333Z&quot;
-    }
-],
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;keyCredentials&quot;: [
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    {
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        &quot;customKeyIdentifier&quot;: &quot;2335C167C72B21C4ACA7F3AA191FA95F8A39A727&quot;,
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        &quot;displayName&quot;: &quot;Test certificate&quot;,
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        &quot;endDateTime&quot;: &quot;2024-11-06T18:47:27Z&quot;,
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        &quot;key&quot;: null,
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        &quot;keyId&quot;: &quot;4ca658ff-a617-4161-93e0-465badaf7c3d&quot;,
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        &quot;startDateTime&quot;: &quot;2023-11-06T18:27:27Z&quot;,
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        &quot;type&quot;: &quot;AsymmetricX509Cert&quot;,
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        &quot;usage&quot;: &quot;Verify&quot;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    }
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>],
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Example certificate credentials
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>&quot;passwordCredentials&quot;: [
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    {
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        &quot;customKeyIdentifier&quot;: null,
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        &quot;displayName&quot;: &quot;test secret&quot;,
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        &quot;endDateTime&quot;: &quot;2025-07-07T23:25:23.333Z&quot;,
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        &quot;hint&quot;: &quot;zoZ&quot;,
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        &quot;keyId&quot;: &quot;e5ab0baa-5eb9-4180-9ad5-b1c693b7ee08&quot;,
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        &quot;secretText&quot;: null,
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        &quot;startDateTime&quot;: &quot;2025-01-09T00:25:23.333Z&quot;
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    }
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>],
+</span></code></pre></div>
 <p><em>Example secret credentials</em></p>
 <p>This is great, but this doesn’t help you understand what your software vendor is using.</p>
 <h2 id="look-to-the-logs">Look to the logs<a class="headerlink" href="#look-to-the-logs" title="Permanent link">&para;</a></h2>
@@ -1080,33 +1080,33 @@ Example certificate credentials
 <em>Example client credential type of assertion (certificate)</em></p>
 <p>The unfortunate surprise is that the data available through Graph API does not match the data available in diagnostic logging.</p>
 <p>In the portal, the backend queries for the audit logs are coming from the Graph API endpoint https://graph.microsoft.com/beta/auditLogs/signIns. We can determine the exact queries being used with <a href="https://graphxray.merill.net/">Graph X-Ray</a>, and then make the same queries to Graph, and see the raw results:</p>
-<div class="highlight"><pre><span></span><code>&quot;value&quot;: [
-    {
-        &quot;id&quot;: &quot;c7db3bec-cb55-4ee7-8022-f51aa9603100&quot;,
-        &quot;createdDateTime&quot;: &quot;2025-01-09T11:00:51Z&quot;,
-        &quot;userDisplayName&quot;: null,
-        &quot;userPrincipalName&quot;: null,
-        &quot;userId&quot;: &quot;&quot;,
-        &quot;appId&quot;: &quot;86261278-59ef-4d12-8e21-&quot;,
-        &quot;appDisplayName&quot;: &quot;xxx&quot;,
-        &quot;ipAddress&quot;: &quot;xxx&quot;,
-        &quot;ipAddressFromResourceProvider&quot;: null,
-        &quot;clientAppUsed&quot;: null,
-        &quot;userAgent&quot;: null,
-        &quot;correlationId&quot;: &quot;a22a7306-b6ae-4501-b2be-9fe5af3e327c&quot;,
-        &quot;conditionalAccessStatus&quot;: &quot;notApplied&quot;,
-        &quot;originalRequestId&quot;: &quot;&quot;,
-        &quot;isInteractive&quot;: false,
-        &quot;tokenIssuerName&quot;: null,
-        &quot;tokenIssuerType&quot;: &quot;UnknownFutureValue&quot;,
-        &quot;clientCredentialType&quot;: &quot;clientSecret&quot;,
-        &quot;processingTimeInMilliseconds&quot;: -1,
-        &quot;riskDetail&quot;: &quot;none&quot;,
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;value&quot;: [
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    {
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        &quot;id&quot;: &quot;c7db3bec-cb55-4ee7-8022-f51aa9603100&quot;,
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        &quot;createdDateTime&quot;: &quot;2025-01-09T11:00:51Z&quot;,
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        &quot;userDisplayName&quot;: null,
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        &quot;userPrincipalName&quot;: null,
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        &quot;userId&quot;: &quot;&quot;,
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        &quot;appId&quot;: &quot;86261278-59ef-4d12-8e21-&quot;,
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        &quot;appDisplayName&quot;: &quot;xxx&quot;,
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        &quot;ipAddress&quot;: &quot;xxx&quot;,
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        &quot;ipAddressFromResourceProvider&quot;: null,
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        &quot;clientAppUsed&quot;: null,
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        &quot;userAgent&quot;: null,
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        &quot;correlationId&quot;: &quot;a22a7306-b6ae-4501-b2be-9fe5af3e327c&quot;,
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        &quot;conditionalAccessStatus&quot;: &quot;notApplied&quot;,
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        &quot;originalRequestId&quot;: &quot;&quot;,
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        &quot;isInteractive&quot;: false,
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        &quot;tokenIssuerName&quot;: null,
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        &quot;tokenIssuerType&quot;: &quot;UnknownFutureValue&quot;,
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        &quot;clientCredentialType&quot;: &quot;clientSecret&quot;,
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        &quot;processingTimeInMilliseconds&quot;: -1,
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        &quot;riskDetail&quot;: &quot;none&quot;,
+</span></code></pre></div>
 <p>The unfortunate surprise is that the data available through Entra diagnostic logging is not the same dataset.</p>
 <p>Querying <strong>AADServicePrincipalSignInLogs</strong> is as simple as running the following KQL query:</p>
-<div class="highlight"><pre><span></span><code>AADServicePrincipalSignInLogs
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>AADServicePrincipalSignInLogs
+</span></code></pre></div>
 <p>We could then further filter this by the service principal, time range, and such. But the results, when we expand them, do not contain any information about the type of authentication.</p>
 <p><img alt="Figure 3" src="/images/2025/01/13/img3.png" />
 <em>Example log analytic result of a service principal sign-in</em></p>
@@ -1114,20 +1114,20 @@ Example certificate credentials
 <h3 id="graph-activity-logs">Graph Activity logs<a class="headerlink" href="#graph-activity-logs" title="Permanent link">&para;</a></h3>
 <p>Where our sign-in logs fail us, at least with our diagnostic logging, Graph activity logs have our back. Unfortunately, it’s likely that this sort of snooping alone does not make it worth it to enable Graph activity logs; organizations need to evaluate the cost that would come along with enabling these logs and the additional overhead in Log Analytics.</p>
 <p>Because Graph activity logs can be a vast sea of data, the easiest way to examine a particular application is filtering by the service principal ID with a basic KQL query:</p>
-<div class="highlight"><pre><span></span><code>MicrosoftGraphActivityLogs | where ServicePrincipalId == &quot;insert id here&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>MicrosoftGraphActivityLogs | where ServicePrincipalId == &quot;insert id here&quot;
+</span></code></pre></div>
 <p>In the results, we can look at the <strong>ClientAuthMethod</strong>. If the method is <strong>1</strong>, then a secret was used, such as below:</p>
 <p><img alt="Figure 4" src="/images/2025/01/13/img4.png" />
 <em>Example graph activity log showing a secret credential used</em></p>
 <p>If <strong>ClientAuthMethod</strong> shows <strong>2</strong>, then a certificate was used for authentication.</p>
 <p>If we wanted to more efficiently search for ISV applications that are using secrets, we could cross-reference a list of known Microsoft applications by the application (client) ID, and then search our Graph activity log, also filtering only for ClientAuthMethod of 1, like the following:</p>
-<div class="highlight"><pre><span></span><code>let MicrosoftApps = externaldata(AppId: string)
-    [@&quot;https://raw.githubusercontent.com/merill/microsoft-info/main/_info/MicrosoftApps.json&quot;]
-    with (format=&quot;json&quot;);
-MicrosoftGraphActivityLogs | 
-where ServicePrincipalId != &quot;&quot; and AppId !in (MicrosoftApps) and ClientAuthMethod == &quot;1&quot; | 
-distinct ServicePrincipalId
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>let MicrosoftApps = externaldata(AppId: string)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    [@&quot;https://raw.githubusercontent.com/merill/microsoft-info/main/_info/MicrosoftApps.json&quot;]
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    with (format=&quot;json&quot;);
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>MicrosoftGraphActivityLogs | 
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>where ServicePrincipalId != &quot;&quot; and AppId !in (MicrosoftApps) and ClientAuthMethod == &quot;1&quot; | 
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>distinct ServicePrincipalId
+</span></code></pre></div>
 <p>Our results should then show all service principal IDs for ISV software that are using secrets. Note my test tenant currently one has one:</p>
 <p><img alt="Figure 5" src="/images/2025/01/13/img5.png" /></p>
 <p>The resulting list of IDs be used in Graph or searching in <strong>Enterprise Applications</strong> to determine what application(s) are using secrets.</p>

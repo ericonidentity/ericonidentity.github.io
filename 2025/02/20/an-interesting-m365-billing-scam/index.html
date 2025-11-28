@@ -1135,16 +1135,16 @@
 </tbody>
 </table>
 <p>Pulling a whois of <em>gigasphere.site</em>, the domain is relatively fresh:</p>
-<div class="highlight"><pre><span></span><code>Domain Name: GIGASPHERE.SITE
-Registry Domain ID: D524536986-CNIC
-Registrar WHOIS Server: whois.namecheap.com
-Registrar URL: https://namecheap.com
-Updated Date: 2025-02-05T10:49:53.0Z
-Creation Date: 2025-02-05T10:49:48.0Z
-Registry Expiry Date: 2026-02-05T23:59:59.0Z
-Registrar: Namecheap
-Registrar IANA ID: 1068
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Domain Name: GIGASPHERE.SITE
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Registry Domain ID: D524536986-CNIC
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Registrar WHOIS Server: whois.namecheap.com
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Registrar URL: https://namecheap.com
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Updated Date: 2025-02-05T10:49:53.0Z
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Creation Date: 2025-02-05T10:49:48.0Z
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Registry Expiry Date: 2026-02-05T23:59:59.0Z
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Registrar: Namecheap
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Registrar IANA ID: 1068
+</span></code></pre></div>
 <p>When digging into DNS, both <em>gigasphere.site</em> and <em>addiamaryellen.gigasphere.site</em> only have MX and SPF records for EXO (<em>gigasphere.site</em> DNS is hosted by Cloudflare).</p>
 <p>Of course, the email originated from a <em>smithkrause.onmicrosoft.com</em> domain, which I can’t tell the age of, or at least not through AAD Internals OSINIT. Another interesting thing to note is that the people behind the scam are populating a distribution list with the target email addresses; when looking at the headers the To: is indeed <em>mollywagner@smithkrause.onmicrosoft.com</em>.</p>
 <p>In due diligence I submitted the email review in M365 Defender, which came back with a no threats found</p>

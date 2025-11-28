@@ -1082,12 +1082,12 @@
 <p>If you’ve found that this setting is enabled, you want to understand how widespread the usage is before disabling it. The fewer users leveraging it, the swifter the change process.</p>
 <p>We want to explore our Azure AD Sign-in logs, however, we cannot filter granularly within the portal.</p>
 <p>Using Log Analytics, the following query will help show who, where they are coming from, and the device information. The query is written to highlight distinct devices:</p>
-<div class="highlight"><pre><span></span><code>SigninLogs
-| where TimeGenerated &gt; ago(30d) //Set time period to within the last 30 days
-| where Status.additionalDetails == &quot;MFA requirement skipped due to remembered device&quot; //String to search for
-| project UserPrincipalName,IPAddress,OS = tostring(DeviceDetail.operatingSystem),Browser = tostring(DeviceDetail.browser),City = tostring(LocationDetails.city),State = tostring(LocationDetails.state),Country = tostring(LocationDetails.countryOrRegion) //Pull JSON data into strings
-| distinct UserPrincipalName,IPAddress,OS,Browser,City,State,Country //Filter for distinct instances
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SigninLogs
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>| where TimeGenerated &gt; ago(30d) //Set time period to within the last 30 days
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>| where Status.additionalDetails == &quot;MFA requirement skipped due to remembered device&quot; //String to search for
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>| project UserPrincipalName,IPAddress,OS = tostring(DeviceDetail.operatingSystem),Browser = tostring(DeviceDetail.browser),City = tostring(LocationDetails.city),State = tostring(LocationDetails.state),Country = tostring(LocationDetails.countryOrRegion) //Pull JSON data into strings
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>| distinct UserPrincipalName,IPAddress,OS,Browser,City,State,Country //Filter for distinct instances
+</span></code></pre></div>
 <p>If you do not have access to Log Analytics, you can export your Azure AD Sign-in logs in either CSV or JSON format and parse the data out accordingly, the string you will want to search for is <strong>MFA requirement skipped due to remembered device</strong>.</p>
 <h2 id="remediation">Remediation<a class="headerlink" href="#remediation" title="Permanent link">&para;</a></h2>
 <p>I’ll preface that I’ve had dozens of organizations disable this setting with little notice to end-users, and with little disruption to their lives. Many of those organizations did not even search their logs prior to disabling it.</p>

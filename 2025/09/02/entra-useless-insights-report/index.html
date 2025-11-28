@@ -1029,23 +1029,23 @@
 <p>In this instance, I go into the Usage &amp; Insights reports, Authentication methods, and filter by <strong>Method: Passkey (Microsoft Authenticator)</strong>, and I see the following:</p>
 <p><img alt="Figure 1" src="/images/2025/09/02/img1.png" /></p>
 <p>But based on what I know, that seems way off, so I decide to run a Graph PowerShell SDK command and get the same results:</p>
-<div class="highlight"><pre><span></span><code>(Get-MgReportAuthenticationMethodUserRegistrationDetail `
- -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
- | Select-Object -Property UserPrincipalName).count
-54
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>(Get-MgReportAuthenticationMethodUserRegistrationDetail `
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> | Select-Object -Property UserPrincipalName).count
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>54
+</span></code></pre></div>
 <p>Note that in Graph <strong>passkeyDeviceBoundAuthenticator</strong> is what differentiates this from just <strong>passkeyDeviceBound</strong>, which would include FIDO2 security keys.</p>
 <p>Back to the point, this number is low, and it’s been historically low. One thing that I find interesting, and while I’m redacting the actual data, is when I run:</p>
-<div class="highlight"><pre><span></span><code>Get-MgReportAuthenticationMethodUserRegistrationDetail `
- -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Get-MgReportAuthenticationMethodUserRegistrationDetail `
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot;
+</span></code></pre></div>
 <p>and examine the <strong>LastUpdatedDateTime</strong> value, for most of the users it’s showing a date that is about a week old. I know that Usage &amp; Insights reports are not real-time; trying to think back to my Microsoft days, in my head the delay I thought was roughly two hours. But there are other issues – a user who has registered for a passkey back in Feburary 2025 is missing from the report. If the report never does anything to reconcile itself, it’s of zero value.</p>
 <p>To spot check this user I run:</p>
-<p><div class="highlight"><pre><span></span><code>Get-MgReportAuthenticationMethodUserRegistrationDetail `
- -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
- | Select-Object -Property UserPrincipalName,LastUpdatedDateTime `
- | Where-Object {$_.UserPrincipalName -eq &quot;user@domain.com&quot;}
-</code></pre></div>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Get-MgReportAuthenticationMethodUserRegistrationDetail `
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> -Filter &quot;methodsRegistered/any(x:x eq &#39;passKeyDeviceBoundAuthenticator&#39;)&quot; `
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a> | Select-Object -Property UserPrincipalName,LastUpdatedDateTime `
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a> | Where-Object {$_.UserPrincipalName -eq &quot;user@domain.com&quot;}
+</span></code></pre></div>
 And receive nothing back.</p>
 <p>I went to check the Microsoft docs here, <a href="https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-usage-insights-report?tabs=microsoft-entra-admin-center?WT.mc_id=SEC-MVP-5005105">Usage and insights report – Microsoft Entra ID | Microsoft Learn</a>, to see if there is any details around the frequency this runs or known issues, but found nothing.</p>
 <h2 id="the-workaround">The Workaround<a class="headerlink" href="#the-workaround" title="Permanent link">&para;</a></h2>
@@ -1054,48 +1054,48 @@ And receive nothing back.</p>
 <p><em>We don’t recommend using the authentication methods APIs for scenarios where you need to iterate over your entire user population for auditing or security check purposes. For these types of scenarios, we recommend using the <a href="https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethods-usage-insights-overview?WT.mc_id=SEC-MVP-5005105">authentication method registration and usage reporting APIs</a> (available on the beta endpoint only).</em></p>
 <p>registration and usage reporting APIs (available on the beta endpoint only).</p>
 <p>The code I slapped together is a mix of my brain and some vibe coding, it ended up looking like the following, with a bit of parralel processing thrown in:</p>
-<div class="highlight"><pre><span></span><code># Authenticator App AAGUIDS
-$targetAAGUIDs = @(
-    &#39;90a3ccdf-635c-4729-a248-9b709135078f&#39;,
-    &#39;de1e552d-db1d-4423-a619-566b625cdc84&#39;
-)
-
-# Grab all users
-#$AllEmployees = Get-MgBetaUser -All -Filter &quot;userType eq &#39;Member&#39;&quot; -Property Id,UserPrincipalName
-
-# Run up to 10 employees in parallel
-$PasskeysRegistered =
-    $AllEmployees |
-    ForEach-Object -Parallel {
-
-        $emp = $_
-
-        $fidos = Get-MgBetaUserAuthenticationFido2Method -UserId $emp.Id -All -ErrorAction SilentlyContinue |
-                 Where-Object { $_.AaGuid -in $using:targetAAGUIDs }
-
-        foreach ($key in $fidos) {
-            [pscustomobject]@{
-                UserPrincipalName       = $emp.UserPrincipalName
-                ObjectId     = $emp.Id
-                Passkey      = $key.Model
-                RegisteredOn = $key.CreatedDateTime
-            }
-        }
-    } -ThrottleLimit 10
-
-$PasskeysRegistered
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Authenticator App AAGUIDS
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$targetAAGUIDs = @(
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    &#39;90a3ccdf-635c-4729-a248-9b709135078f&#39;,
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    &#39;de1e552d-db1d-4423-a619-566b625cdc84&#39;
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>)
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a># Grab all users
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>#$AllEmployees = Get-MgBetaUser -All -Filter &quot;userType eq &#39;Member&#39;&quot; -Property Id,UserPrincipalName
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a># Run up to 10 employees in parallel
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>$PasskeysRegistered =
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    $AllEmployees |
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    ForEach-Object -Parallel {
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        $emp = $_
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        $fidos = Get-MgBetaUserAuthenticationFido2Method -UserId $emp.Id -All -ErrorAction SilentlyContinue |
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>                 Where-Object { $_.AaGuid -in $using:targetAAGUIDs }
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        foreach ($key in $fidos) {
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>            [pscustomobject]@{
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>                UserPrincipalName       = $emp.UserPrincipalName
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>                ObjectId     = $emp.Id
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>                Passkey      = $key.Model
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>                RegisteredOn = $key.CreatedDateTime
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>            }
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>        }
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>    } -ThrottleLimit 10
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>$PasskeysRegistered
+</span></code></pre></div>
 <p>And then if I run a count, and ensure I’m focused on unique users, since the results could have multiple entries for some users:</p>
-<div class="highlight"><pre><span></span><code>($PasskeysRegistered | Select-Object -Property UserPrincipalName -Unique).count
-92
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>($PasskeysRegistered | Select-Object -Property UserPrincipalName -Unique).count
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>92
+</span></code></pre></div>
 <p>Further, if I go search for my missing user, sure enough they are there:</p>
-<div class="highlight"><pre><span></span><code>$PasskeysRegistered | Where-Object {$_.UserID -eq &quot;user@domain.com&quot;}
-
-UserID              ObjectId                             Passkey                       RegisteredOn
-------              --------                             -------                       ------------
-user@domain.com     xxxxx                                Microsoft Authenticator - iOS 2/27/2025 10:23:40 PM
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$PasskeysRegistered | Where-Object {$_.UserID -eq &quot;user@domain.com&quot;}
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>UserID              ObjectId                             Passkey                       RegisteredOn
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>------              --------                             -------                       ------------
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>user@domain.com     xxxxx                                Microsoft Authenticator - iOS 2/27/2025 10:23:40 PM
+</span></code></pre></div>
 <p>As a side not the problem, one could theorize something was broken around that time in Entra, and hence the user somehow fell off the report. But I can actually find another user on the report who registered within twenty minutes of the missing user 🤔.</p>
 <h2 id="the-takeaway">The Takeaway<a class="headerlink" href="#the-takeaway" title="Permanent link">&para;</a></h2>
 <p>Don’t trust Usage &amp; Insights reports for passkey reporting. Hopefully this post can become irrelevant down the road.</p>

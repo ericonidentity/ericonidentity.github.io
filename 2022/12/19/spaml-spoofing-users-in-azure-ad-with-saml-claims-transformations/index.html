@@ -1098,8 +1098,8 @@
 <p>NameID is a unique attribute that represents the user within the application. It is what the application uses to lookup the user within its internal user database.</p>
 <p>Azure AD defaults to, and it is a common pattern these days, to use the Email Address (urn:oasis:names<img alt="🇹🇨" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f9-1f1e8.svg" title=":tc:" />SAML:1.1:nameid-format:emailAddress) format. The default source attribute that is emitted in the SAML response is user.userprincipalname.</p>
 <p>As an example, I authenticate to Azure AD as nestor.wilke@fabrikam.cloud, and subsequently when I connect to an Enterprise Application, say AWS, the SAML response contains the NameID below. On the identity layer, AWS uses this to match Nestor to his user account.</p>
-<div class="highlight"><pre><span></span><code>&lt;NameID Format=&quot;urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress&quot;&gt;nestor.wilke@fabrikam.cloud&lt;/NameID&gt; 
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;NameID Format=&quot;urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress&quot;&gt;nestor.wilke@fabrikam.cloud&lt;/NameID&gt; 
+</span></code></pre></div>
 <p>Azure AD also provides the ability to create <strong>claim transformations</strong>. Claim transformations can be useful for several reasons. A simple example is if the application has case sensitivity requirements. One can apply a ToLowercase() and not have worry about needing to modify broader patterns in Azure AD to satisfy one application. Claims transformations are configured on a per-claim basis within each Enterprise Application that is using SAML.</p>
 <h2 id="setting-the-stage">Setting the stage<a class="headerlink" href="#setting-the-stage" title="Permanent link">&para;</a></h2>
 <p>An effective use of spoofing the SAML response is to impersonate a highly privileged user in an application. For our example, let’s look at a few different user personas, in a somewhat simplified scenario:</p>
@@ -1123,8 +1123,8 @@
 <p>This last piece is what ensures that all other users accessing AWS will continue to have the same user experience, including Nestor. Our final transform will look like:</p>
 <p><img alt="Figure 5" src="/images/2022/12/19/img5.png" /></p>
 <p>And we can confirm the pattern in the claims rule:</p>
-<div class="highlight"><pre><span></span><code>If &#39;user.userprincipalname&#39; contains &#39;isaiah.langer@fabrikam.cloud&#39; then output &#39;p-nestor.wilke@fabrikam.cloud&#39;. Else, output &#39;user.userprincipalname&#39;.
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>If &#39;user.userprincipalname&#39; contains &#39;isaiah.langer@fabrikam.cloud&#39; then output &#39;p-nestor.wilke@fabrikam.cloud&#39;. Else, output &#39;user.userprincipalname&#39;.
+</span></code></pre></div>
 <p>We select <strong>Add</strong>, and then <strong>Save</strong>.</p>
 <h2 id="using-our-malicious-transform">Using our malicious transform<a class="headerlink" href="#using-our-malicious-transform" title="Permanent link">&para;</a></h2>
 <p>Now that we have things configured, let’s look at this in action. Recall that Nestor is our target user, and Isaiah is the account that will be used for spoofing.</p>

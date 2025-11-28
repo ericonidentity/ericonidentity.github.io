@@ -1118,14 +1118,14 @@
 <h3 id="enabling-scril-and-its-results">Enabling SCRIL and its results<a class="headerlink" href="#enabling-scril-and-its-results" title="Permanent link">&para;</a></h3>
 <p>Before we enable SCRIL, let’s examine a user account in AD. While SCRIL is a property flag on the userAccountControl attribute, it’s exposed to us in a much more accessible manner in Active Directory; it appears as a checkbox on user accounts in ADUC and ADAC, but for this article we will be looking at the account through the AD PowerShell module.</p>
 <p>Let’s look at the user lee.gu in AD:</p>
-<div class="highlight"><pre><span></span><code>Get-Aduser -Identity &lt;username&gt; -Properties `
-SmartcardLogonRequired,PasswordLastSet | `
-select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Get-Aduser -Identity &lt;username&gt; -Properties `
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>SmartcardLogonRequired,PasswordLastSet | `
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
+</span></code></pre></div>
 <p><img alt="Figure 1" src="/images/2021/12/13/img1.png" /></p>
 <p>To enable SCRIL, we toggle on SmartCardLogonRequired, which adjusts the userAccountControl attribute for us:</p>
-<div class="highlight"><pre><span></span><code>Set-Aduser -Identity &lt;username&gt; -SmartcardLogonRequired $true
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Set-Aduser -Identity &lt;username&gt; -SmartcardLogonRequired $true
+</span></code></pre></div>
 <p><img alt="Figure 2" src="/images/2021/12/13/img2.png" /></p>
 <p>SCRIL is now enabled on the user account; one thing that might seem surprising is that the password on the user is not actually changed when enabled on the account, so let’s look at how this behaves.</p>
 <h3 id="the-user-experience-and-ad-password-change">The user experience and AD password change<a class="headerlink" href="#the-user-experience-and-ad-password-change" title="Permanent link">&para;</a></h3>

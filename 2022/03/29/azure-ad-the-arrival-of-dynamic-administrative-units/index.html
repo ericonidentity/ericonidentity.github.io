@@ -1183,20 +1183,20 @@
 <p><em>The (lacking) documentation</em></p>
 <p>As such, for the purpose of getting this post published, I’ll be using the Azure AD PowerShell modules.</p>
 <p>First, let’s take a look at the administrative unit named ATZ:</p>
-<div class="highlight"><pre><span></span><code>Get-AzureADMSAdministrativeUnit -Filter &quot;DisplayName eq &#39;ATZ&#39;&quot; | fl
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Get-AzureADMSAdministrativeUnit -Filter &quot;DisplayName eq &#39;ATZ&#39;&quot; | fl
+</span></code></pre></div>
 <p><img alt="Figure 9" src="/images/2022/03/29/img9.png" /></p>
 <p>We can see that the membership type is dynamic, and also see the membership rule. In this case, we are using the in rule to allow for matching the country attribute against a defined list.</p>
 <p>And if we then enumerate the membership of the AU, we can see that the logic works:</p>
-<div class="highlight"><pre><span></span><code>Get-AzureADAdministrativeUnitMember -ObjectId a5175ada-f6f1-4c72-a986-65c65f662bde `
-| Get-AzureADUser | ft ObjectId,UserPrincipalName,Country
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Get-AzureADAdministrativeUnitMember -ObjectId a5175ada-f6f1-4c72-a986-65c65f662bde `
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>| Get-AzureADUser | ft ObjectId,UserPrincipalName,Country
+</span></code></pre></div>
 <p><img alt="Figure 10" src="/images/2022/03/29/img10.png" /></p>
 <p>We can also create an administrative unit rather easily with PowerShell, which has an advantage, at least currently over the portal, in that we can define the dynamic rules upon creation.</p>
-<div class="highlight"><pre><span></span><code>New-AzureADMSAdministrativeUnit -DisplayName &quot;US&quot; -Description &quot;US Employees&quot; `
--MembershipType &quot;Dynamic&quot; -MembershipRuleProcessingState &quot;On&quot; -MembershipRule `
-&#39;(user.country -eq &quot;United States&quot;)&#39;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>New-AzureADMSAdministrativeUnit -DisplayName &quot;US&quot; -Description &quot;US Employees&quot; `
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>-MembershipType &quot;Dynamic&quot; -MembershipRuleProcessingState &quot;On&quot; -MembershipRule `
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>&#39;(user.country -eq &quot;United States&quot;)&#39;
+</span></code></pre></div>
 <p><img alt="Figure 11" src="/images/2022/03/29/img11.png" /></p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>

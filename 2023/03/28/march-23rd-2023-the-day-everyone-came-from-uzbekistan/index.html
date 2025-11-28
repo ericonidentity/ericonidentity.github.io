@@ -1132,23 +1132,23 @@
 <h3 id="speaking-of-traffic-routing">Speaking of traffic routing<a class="headerlink" href="#speaking-of-traffic-routing" title="Permanent link">&para;</a></h3>
 <p>While Microsoft does not reveal how similar Azure AD and Azure AD B2C are as far as their geographical and back-end composition, working on an Azure AD B2C project of global scale really highlights the traffic routing wizardry going on the front end that users hit.</p>
 <p>For any Azure AD B2C system you encounter, you can determine the associated Microsoft datacenter by looking at the HTML comment tag found in the page source:</p>
-<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
-&lt;!-- Build: 1.0.2873.0 --&gt;
-&lt;!-- StateVersion: 2.1.1 --&gt;
-&lt;!-- DeploymentMode: Production --&gt;
-&lt;!-- CorrelationId: xxx --&gt;
-&lt;!-- DataCenter: BL2 --&gt;
-&lt;!-- Slice: 001-000 --&gt;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;!DOCTYPE html&gt;
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&lt;!-- Build: 1.0.2873.0 --&gt;
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>&lt;!-- StateVersion: 2.1.1 --&gt;
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>&lt;!-- DeploymentMode: Production --&gt;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>&lt;!-- CorrelationId: xxx --&gt;
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>&lt;!-- DataCenter: BL2 --&gt;
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>&lt;!-- Slice: 001-000 --&gt;
+</span></code></pre></div>
 <p>And interestingly, you can also append a parameter to the request, &amp;DC=, which will allow you to specify a specific Microsoft datacenter if you know it. If I append &amp;DC=PNQ, which represents a Microsoft datacenter in India, and submit the request, the page source will now show:</p>
-<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
-&lt;!-- Build: 1.0.2873.0 --&gt;
-&lt;!-- StateVersion: 2.1.1 --&gt;
-&lt;!-- DeploymentMode: Production --&gt;
-&lt;!-- CorrelationId: xxx --&gt;
-&lt;!-- DataCenter: PNQ --&gt;
-&lt;!-- Slice: 001-000 --&gt;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt;!DOCTYPE html&gt;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>&lt;!-- Build: 1.0.2873.0 --&gt;
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>&lt;!-- StateVersion: 2.1.1 --&gt;
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>&lt;!-- DeploymentMode: Production --&gt;
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>&lt;!-- CorrelationId: xxx --&gt;
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>&lt;!-- DataCenter: PNQ --&gt;
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>&lt;!-- Slice: 001-000 --&gt;
+</span></code></pre></div>
 <p>Non-B2C Azure AD tenants do not reveal this information within the source, and from some cursory testing, appending &amp;DC=<em>location</em> to the request does nothing. However, this circles back to highlighting that Microsoft performs traffic routing on the front end.</p>
 <p>During incident MO531859, when Microsoft indicates that they were:</p>
 <p><em>…continually performed traffic rerouting and load balancing into healthy regions…</em></p>

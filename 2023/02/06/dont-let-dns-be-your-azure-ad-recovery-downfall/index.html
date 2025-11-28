@@ -998,7 +998,7 @@
 
 
 
-<h1 id="dont-let-dns-be-your-azure-ad-recovery-downfall">Don't Let DNS Be Your Azure AD Recovery Downfall</h1>
+<h1 id="dont-let-dns-be-your-azure-ad-recovery-downfall">Don't Let DNS Be Your Azure AD Recovery Downfall<a class="headerlink" href="#dont-let-dns-be-your-azure-ad-recovery-downfall" title="Permanent link">&para;</a></h1>
 <p>In September of 2022, Joey Verlinden (<a href="https://twitter.com/jvldn1">@jvldn1</a>) published an excellent article on his experience with recovering access to an Azure AD tenant that he was completely locked out of. You can, and should, read the full article here, <a href="https://www.joeyverlinden.com/what-happens-if-you-lock-out-your-azure-tenant/">What happens if you lock-out your Azure Tenant? – Joey Verlinden</a>.</p>
 <p>In this, Joey details the process for recovering access to an Azure AD tenant, which includes a detailed verification process, which is rightfully put in place to ensure that someone isn’t capable of a tenant takeover through social engineer. As part of the process, the request is verified by means of either:</p>
 <ul>
@@ -1015,7 +1015,7 @@
 <p>From a resilience perspective, it seems like it’s one of the times to not host DNS in Azure, or at least not in a subscription that is tied to the same tenant that uses those domains for services.</p>
 <p>You may already have a DNS architecture with secondary zones hosted outside of Azure, but those read-only copies won’t save you when you need to edit a zone.</p>
 <p>And if you host DNS with something like Amazon Route 53… do you federate authentication for your account owners and resources back to Azure AD? If your Azure tenant is breached, it’s certain a threat actor will try to follow your multi-cloud sprawl.</p>
-<h2 id="so-whats-the-resilient-path">So what's the resilient path?</h2>
+<h2 id="so-whats-the-resilient-path">So what's the resilient path?<a class="headerlink" href="#so-whats-the-resilient-path" title="Permanent link">&para;</a></h2>
 <p>Your mind may go to contacting your domain name registrar, and updating your NS records. But, you now are adding another external dependency.</p>
 <p>This past summer I was trying to update NS records for a domain with Directnic, and ticket response time was 12-24 hours, let alone actually having the records updated. Why did I open a ticket? Updates in the portal were not reflecting days after the change.</p>
 <p>While it may seem suboptimal, the most resilient path would be hosting DNS either in another small subscription and tenant that has no association to your primary production tenant, or using another large-scale cloud provider for DNS, but not associating authentication back to Azure AD.</p>

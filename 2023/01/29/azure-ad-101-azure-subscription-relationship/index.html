@@ -1035,12 +1035,12 @@
 
 
 
-<h1 id="azure-ad-101-azure-subscription-relationship">Azure AD 101: Azure Subscription Relationship</h1>
+<h1 id="azure-ad-101-azure-subscription-relationship">Azure AD 101: Azure Subscription Relationship<a class="headerlink" href="#azure-ad-101-azure-subscription-relationship" title="Permanent link">&para;</a></h1>
 <p>Whether you are dipping your toe or diving headfirst into Azure, one of the points of confusion is the relationship between Azure Active Directory and Azure subscriptions. Azure subscriptions may be referred to as subscriptions, or sometimes even just Azure. An Azure Active Directory tenant, which is the cloud identity provider, is usually referred to as Azure AD or AAD, or sometimes just tenant.</p>
 <p>While Microsoft has decent documentation on the relationship, I tend to find that drawing analogies along with additional visuals can help really drive the relationship home for folks. For the MS Docs article, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory?WT.mc_id=SEC-MVP-5005105">Add an existing Azure subscription to your tenant – Azure AD – Microsoft Entra | Microsoft Learn</a>.</p>
 <!-- more -->
 
-<h2 id="a-look-at-pre-cloud-infrastructures">A look at pre-cloud infrastructures</h2>
+<h2 id="a-look-at-pre-cloud-infrastructures">A look at pre-cloud infrastructures<a class="headerlink" href="#a-look-at-pre-cloud-infrastructures" title="Permanent link">&para;</a></h2>
 <p>When we take a look at very classic on-premises infrastructure, if it’s a Microsoft shop we’ll almost always have Active Directory, an identity provider, usually running on physical or virtualized servers in a high availability architecture. For purposes here, we’ll abstract it from the underlying server infrastructure:</p>
 <p><img alt="Figure 1" src="/images/2023/01/29/img1.png" /></p>
 <p><em>Our Active Directory domain</em></p>
@@ -1054,7 +1054,7 @@
 <p><img alt="Figure 4" src="/images/2023/01/29/img4.png" /></p>
 <p><em>Our simple multi-server environment</em></p>
 <p>The one commonality is that regardless of the type of workload running on the server, we have that trust relationship between Active Directory and each server.</p>
-<h2 id="translating-to-the-cloud-trust-model">Translating to the cloud trust model</h2>
+<h2 id="translating-to-the-cloud-trust-model">Translating to the cloud trust model<a class="headerlink" href="#translating-to-the-cloud-trust-model" title="Permanent link">&para;</a></h2>
 <p>With our understanding of having that trust relationship between Active Directory and each Windows Server, we can translate this to a <strong>similar</strong> trust relationship between our <strong>Azure Active Directory tenant</strong> and <strong>Azure Subscriptions</strong>.</p>
 <p>In our example below, we see that a subscription can be mostly analogous to a Windows Server. They both contain virtual machines, and both the subscription and the server have their own type of trust relationship to their relative identity provider:</p>
 <p><img alt="Figure 5" src="/images/2023/01/29/img5.png" /></p>
@@ -1069,7 +1069,7 @@
 <p><em>Changing the trust relationship</em></p>
 <p>In both models, the trust relationship is changed, because we can still only have <strong>one</strong> trust relationship between a subscription and a tenant.</p>
 <p>Similar to Active Directory and changing the associated forest, depending on the types of workloads in the subscription, there may be post migration work that needs to happen. At the very least, we will need to re-assign the appropriate permissions to the subscription.</p>
-<h2 id="the-permission-confusion">The permission confusion</h2>
+<h2 id="the-permission-confusion">The permission confusion<a class="headerlink" href="#the-permission-confusion" title="Permanent link">&para;</a></h2>
 <p>Not only is the relationship between a tenant and subscription confusing, but so is the permission model, and where things should, or should not, crossover.</p>
 <p>With Active Directory, in a properly tiered permission model, Domain Administrator should primarily be used for management of Active Directory, and nothing more. All of those servers joined to Active Directory should use a separate set of permissions, many times referred to as a Server Administrator. Domain Administrators have no business logging onto the member servers, and Server Administrators have no business managing Active Directory. This all becomes <strong>really important</strong> when you start talking about least privilege and privilege separation.</p>
 <p>You can think of the fact that each Windows server has its own set of local permissions you can delegate and control on the server. And those permissions are managed <strong>local</strong> to that server. While you may create groups of objects in Active Directory, say, Hyper-V Server Administrators, you then assign that group local on each Hyper-V server to have the necessary rights.</p>
@@ -1077,12 +1077,12 @@
 <p>And just like Active Directory, you generally <strong>do not need</strong> to assign a Global Administrator any permissions into or over a subscription. While some organizations may accept the risk with a limited number of Global Administrators, the problem becomes pervasive in organizations that believe they need to continue to hand out Global Administrator roles just so that subscription ownership can happen.</p>
 <p><img alt="Figure 8" src="/images/2023/01/29/img8.png" /></p>
 <p>While it is a shift in how organizations work and operate, overly permissive models with a lack of privilege separation are a great way to help threat actors into your environment.</p>
-<h2 id="digging-deeper">Digging deeper</h2>
+<h2 id="digging-deeper">Digging deeper<a class="headerlink" href="#digging-deeper" title="Permanent link">&para;</a></h2>
 <p>Our examples are simple, to help build an understanding of the relationship model. And just like we may divide server workloads up by application groups or regions, and how we likely architect web farms and Hyper-V clusters, elaborate subscription models require thoughtful architecture behind them. This is where the Microsoft Cloud Adoption Framework and Azure Landing Zones come into play.</p>
 <p>You can find more information on these here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/?WT.mc_id=SEC-MVP-5005105">Microsoft Cloud Adoption Framework for Azure – Cloud Adoption Framework | Microsoft Learn</a>, and here, <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/?WT.mc_id=SEC-MVP-5005105">What is an Azure landing zone? – Cloud Adoption Framework | Microsoft Learn</a>.</p>
 <p>It’s especially important from an identity and security perspective properly design the security of your subscriptions – many organizations have overly permissive architectural designs around their subscription permissions, including on items of critical infrastructure, such as Active Directory Domain Controllers running as virtual machines in Azure.</p>
 <p>For further information on securing privileges access, take a look at <a href="https://learn.microsoft.com/en-us/security/compass/overview?WT.mc_id=SEC-MVP-5005105">Securing privileged access overview | Microsoft Learn</a>.</p>
-<h2 id="one-last-point-language-matters">One last point - language matters</h2>
+<h2 id="one-last-point-language-matters">One last point - language matters<a class="headerlink" href="#one-last-point-language-matters" title="Permanent link">&para;</a></h2>
 <p>This is one of those areas where language matters, especially if you are an identity practitioner or working in a role where you help manage and service your customers Azure subscriptions and Azure AD tenant(s).</p>
 <p>It is not:</p>
 <ul>

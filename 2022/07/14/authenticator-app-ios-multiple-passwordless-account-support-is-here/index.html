@@ -1034,13 +1034,13 @@
 
 
 
-<h1 id="authenticator-app-ios-multiple-passwordless-account-support-is-here">Authenticator App: IOS Multiple Passwordless Account Support Is Here!</h1>
+<h1 id="authenticator-app-ios-multiple-passwordless-account-support-is-here">Authenticator App: IOS Multiple Passwordless Account Support Is Here!<a class="headerlink" href="#authenticator-app-ios-multiple-passwordless-account-support-is-here" title="Permanent link">&para;</a></h1>
 <p>For anyone who lives in a world of multiple Azure AD accounts and the Authenticator App, you can finally rejoice over not having to make the difficult decision over which account is the one you enable for passwordless… or potentially not having to carry multiple devices.</p>
 <p>To date, you could enroll one Azure AD account and one personal Microsoft Account (MSA) for passwordless in the Authenticator App. Even with multiple Azure AD accounts in the same tenant, only one could go passwordless.</p>
 <p>With this update, not only can you go passwordless for multiple accounts in the same Azure AD tenant, but across multiple tenants as well.</p>
 <!-- more -->
 
-<h2 id="enabling-the-preview">Enabling the preview</h2>
+<h2 id="enabling-the-preview">Enabling the preview<a class="headerlink" href="#enabling-the-preview" title="Permanent link">&para;</a></h2>
 <p>First you’ll want to make sure you have the latest version of the MS Authenticator App from the Apple App Store, which you can check here, <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">Microsoft Authenticator on the App Store (apple.com)</a>.</p>
 <p>Per Microsoft, you’ll also need to enable a usage data setting within the Settings of the Authenticator App. You can do this by opening the hamburger menu in the upper left, and select <strong>Settings</strong>.</p>
 <p>Within settings, you’ll want to enable <strong>Usage Data</strong> (the screenshot shows it disabled, but you need to enable it). The associated MS Docs article is here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-phone#multiple-accounts-on-ios-preview">Passwordless sign-in with Microsoft Authenticator – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
@@ -1049,7 +1049,7 @@
 <p>In my testing I found you need to force quit the Authenticator App after enabling Usage Data to allow for multiple account enrollment.</p>
 </div>
 <p><img alt="Figure 1" src="/images/2022/07/14/img1.png" /></p>
-<h2 id="multiple-passwordless-accounts-in-the-same-azure-ad-tenant">Multiple passwordless accounts in the same Azure AD tenant</h2>
+<h2 id="multiple-passwordless-accounts-in-the-same-azure-ad-tenant">Multiple passwordless accounts in the same Azure AD tenant<a class="headerlink" href="#multiple-passwordless-accounts-in-the-same-azure-ad-tenant" title="Permanent link">&para;</a></h2>
 <p>On each additional account you want to go passwordless, select the account in the Authenticator App, and choose <strong>Enable phone sign-in</strong>. This is the same as the experience to enable for the first account, with an exception that you do not need to register the device again.</p>
 <p><img alt="Figure 2" src="/images/2022/07/14/img2.png" /></p>
 <p>You’ll see that the device indicates it is already registered, just select Continue.</p>
@@ -1057,7 +1057,7 @@
 <p class="admonition-title">Info</p>
 <p>You will be prompted to perform MFA if you have not recently authenticated on the device.</p>
 </div>
-<h2 id="multiple-passwordless-accounts-in-different-azure-ad-tenants">Multiple passwordless accounts in different Azure AD tenants</h2>
+<h2 id="multiple-passwordless-accounts-in-different-azure-ad-tenants">Multiple passwordless accounts in different Azure AD tenants<a class="headerlink" href="#multiple-passwordless-accounts-in-different-azure-ad-tenants" title="Permanent link">&para;</a></h2>
 <p>If your accounts exist across multiple Azure AD tenants, you can still initiate it through the same process as above, select the additional account, and select <strong>Enable phone sign-in</strong>. During this process, the device will just require you to register it within that second Azure AD tenant.</p>
 <p>After device registration is completed, passwordless will be enabled for both accounts in both tenants.</p>
 <p>We can examine this within the Authenticator App, by browsing to <strong>Settings</strong>, <strong>Device Registration</strong>, where we see the tenants the device is registered with.</p>
@@ -1066,9 +1066,9 @@
 <p>If the device is unregistered from an Azure AD tenant, the associated accounts will automatically be disabled for passwordless on it.</p>
 <p>Note that the Device ID is unique per Azure AD tenant.</p>
 <p><img alt="Figure 4" src="/images/2022/07/14/img4.png" /></p>
-<h2 id="the-experience">The experience</h2>
+<h2 id="the-experience">The experience<a class="headerlink" href="#the-experience" title="Permanent link">&para;</a></h2>
 <p>I’ve been testing this experience in a private preview for a while now, and I’ll say it’s been as smooth as one could want. Naturally, as the private preview recommends not using preview software for production use, I immediately installed it on my primary iPhone and enabled all of my Azure AD accounts for passwordless. I currently have multiple accounts enabled for passwordless across three Azure AD tenants, to which I’ve authenticated multiple times a week, and an issue has not arisen.</p>
-<h2 id="final-thoughts">Final thoughts</h2>
+<h2 id="final-thoughts">Final thoughts<a class="headerlink" href="#final-thoughts" title="Permanent link">&para;</a></h2>
 <p>This is a simple yet fantastic step forward in the passwordless journey by Microsoft; while not everyone out there has multiple Azure AD accounts, for those of us that do, we finally don’t have to make choices anymore.</p>
 <p>For organizations out there who have not gone passwordless, because of concerns about push notification fatigue, now is the time to enable push notifications and allow for passwordless authentication for our end users. With the addition of number matching and additional context, we can protect our organizations from accidental notification approval, which I cover here, <a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a>.</p>
 <p>To provide a great user experience, we need to not lock our users into a singular means of strong authentication, and allowing users to choose the <strong>strong</strong> authentication experience that works best for them promotes better end user habits and better organizational security.</p>

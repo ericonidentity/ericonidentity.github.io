@@ -1133,28 +1133,28 @@
 
 
 
-<h1 id="azure-ad-the-arrival-of-dynamic-administrative-units">Azure AD: The Arrival of Dynamic Administrative Units</h1>
+<h1 id="azure-ad-the-arrival-of-dynamic-administrative-units">Azure AD: The Arrival of Dynamic Administrative Units<a class="headerlink" href="#azure-ad-the-arrival-of-dynamic-administrative-units" title="Permanent link">&para;</a></h1>
 <p>Administrative units. The Azure AD sort-of equivalent of organizational units (OU’s). For those less familiar, administrative units (AU’s) allow for granular assignment of RBAC roles in Azure AD.</p>
 <p>Organizations initially struggled with the limited ability to delegate granular RBAC roles in Azure AD, with the directories flat structure; especially for all of us coming from an Active Directory background. When administrative units were introduced, they started to open up the door for organizations that needed to delegate access to a subset of users in an Azure AD tenant.</p>
 <p>The one catch with AU’s that <strong>was</strong> a non-starter for many organizations – they weren’t dynamic. And while OU’s are not dynamic in Active Directory, it’s a different take when the tenant is usually secondary to AD being authoritative. Move a user in AD, one would hope that the location in Azure AD would follow. While there are some PowerShell scripts out there that feel very akin to those used for AD shadow groups, overall maintenance of AU’s could prove cumbersome in dynamic organizations.</p>
 <p>The struggle, however, is no more – administrative units now support <strong>dynamic</strong> user and device membership!</p>
 <!-- more -->
 
-<h2 id="administrative-unite-use-cases">Administrative Unite use cases</h2>
+<h2 id="administrative-unite-use-cases">Administrative Unite use cases<a class="headerlink" href="#administrative-unite-use-cases" title="Permanent link">&para;</a></h2>
 <p>Before exploring dynamic membership, I just wanted to touch on some of the use cases that have already existed, and many that can greatly improve with dynamic membership. This is just a mere tip of the iceberg for use cases – if you see ones that I’ve missed let me know, and I’ll gladly add it.</p>
 <p>While they feel similar to OU’s, the fact that AU’s are virtual units of structure, they provide much greater flexibility than OU’s. A user can belong to several AUs, and you don’t have to worry about users being linked as child objects that are deleted if an AU is removed – everyone remembers that time that their AD backups were tested with an accidental OU deletion.</p>
-<h3 id="regional-it-delegation">Regional IT delegation</h3>
+<h3 id="regional-it-delegation">Regional IT delegation<a class="headerlink" href="#regional-it-delegation" title="Permanent link">&para;</a></h3>
 <p>Many global organizations that operate out of a single Azure AD tenant still have localized and regional support desks. With AU’s, you can create multiple layers of support structure to provide for things like password reset and user object management, without needing to deal with the complications of trying to fit complex delegations of ACL’s onto objects the same way we would have to with Active Directory.</p>
-<h3 id="state-and-local-government-agency-delegation">State and local government agency delegation</h3>
+<h3 id="state-and-local-government-agency-delegation">State and local government agency delegation<a class="headerlink" href="#state-and-local-government-agency-delegation" title="Permanent link">&para;</a></h3>
 <p>Many organizations in the public sector operate out of the same Azure AD tenant to support a single O365 environment. However, many agencies still want to retain levels of autonomy over managing their user objects. Administrative units can provide for that granular level of RBAC control.</p>
-<h3 id="my-staff-management">My Staff management</h3>
+<h3 id="my-staff-management">My Staff management<a class="headerlink" href="#my-staff-management" title="Permanent link">&para;</a></h3>
 <p>My Staff came out to primarily help assist with managers performing basic tasks for front line workers. The goal is to bring the power to non-IT employees the ability to do things like reset passwords or manage phone numbers for MFA. My Staff is driven by administrative units, with AU’s that are built to replicate an organizational staffing structure. For more information on My Staff, take a look at the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/my-staff-configure">Use My Staff to delegate user management – Azure AD | Microsoft Docs</a>.</p>
 <p>It takes a bit of work in Azure AD Connect, because the manager attribute is a reference attribute in Active Directory, to synchronize the manager UPN as a custom attribute (even though manager is synchronized by Azure AD Connect, it is not exposed as a dynamic attribute option). But one could configure a system where managers have control over their employees objects, and with dynamic membership, their manager changes in AD can easily follow them in My Staff.</p>
-<h2 id="exploring-administrative-unit-dynamic-membership">Exploring Administrative Unit dynamic membership</h2>
+<h2 id="exploring-administrative-unit-dynamic-membership">Exploring Administrative Unit dynamic membership<a class="headerlink" href="#exploring-administrative-unit-dynamic-membership" title="Permanent link">&para;</a></h2>
 <p>If you’ve used dynamic membership for groups, the logic and expressions for dynamic administrative units is the same. I won’t deep dive into all the rules available, but the options for evaluation are both flexible and immensely powerful. For more details on the rules, take a look at this Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-dynamic-membership">Rules for dynamically populated groups membership – Azure AD | Microsoft Docs</a>.</p>
-<h3 id="licensing">Licensing</h3>
+<h3 id="licensing">Licensing<a class="headerlink" href="#licensing" title="Permanent link">&para;</a></h3>
 <p>As with dynamic group membership, current documentation indicates that any user who is a member of an AU that is dynamically populates requires an Azure AD P1 or P2 license assigned to them. This contrasts static membership, where only those managing the AU’s require a P1 or P2 license; users can be members of the AU’s with an Azure AD free license. Dynamic device membership does not require any special license for AU’s. For more information, see the Microsoft documentation, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic#prerequisites">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
-<h3 id="configuring-administrative-unit-dynamic-membership">Configuring Administrative Unit dynamic membership</h3>
+<h3 id="configuring-administrative-unit-dynamic-membership">Configuring Administrative Unit dynamic membership<a class="headerlink" href="#configuring-administrative-unit-dynamic-membership" title="Permanent link">&para;</a></h3>
 <p>While the expression set is the same as dynamic groups, currently you have to adjust the administrative unit to be dynamic post-creation. Also, as we go through this, I’ll be referencing the current Microsoft documentation on dynamic membership for administrative units, which can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/admin-units-members-dynamic">Manage users or devices for an administrative unit with dynamic membership rules (Preview) – Azure Active Directory | Microsoft Docs</a>.</p>
 <p>First we create a new administrative unit:</p>
 <p><img alt="Figure 1" src="/images/2022/03/29/img1.png" /></p>
@@ -1170,12 +1170,12 @@
 <p>The warning here will show up, regardless of whether it’s a new, unpopulated AU, or if it’s an existing AU with thousands of users within it.</p>
 <p>After a few minutes of churning, the AU will be populated:</p>
 <p><img alt="Figure 6" src="/images/2022/03/29/img6.png" /></p>
-<h3 id="converting-an-administrative-unit-to-dynamic">Converting an Administrative Unit to dynamic</h3>
+<h3 id="converting-an-administrative-unit-to-dynamic">Converting an Administrative Unit to dynamic<a class="headerlink" href="#converting-an-administrative-unit-to-dynamic" title="Permanent link">&para;</a></h3>
 <p>During testing of conversion of an assigned AU to dynamic, I was curious to see how it operated. Does it wipe out all membership and start from scratch, or does Azure AD evaluate the users within the AU to determine who still belongs? Luckily, it appears to be the latter.</p>
 <p>Checking my Azure AD Audit logs, we can see users who no longer belong in a specific administrative unit being removed:</p>
 <p><img alt="Figure 7" src="/images/2022/03/29/img7.png" /></p>
 <p>Note that if you are going the other direction, from dynamic membership to assigned, Azure AD will indicate that the existing users in the AU will be retained, but will not be dynamically processed anymore.</p>
-<h3 id="exploring-with-powershell">Exploring with PowerShell</h3>
+<h3 id="exploring-with-powershell">Exploring with PowerShell<a class="headerlink" href="#exploring-with-powershell" title="Permanent link">&para;</a></h3>
 <p>As with most things Azure AD, anything that can be done in the portal can be done with PowerShell (which really is just indirect Graph) and Graph.</p>
 <p>I’ve been making a concerted effort to use the Microsoft Graph PowerShell SDK, <a href="https://docs.microsoft.com/en-us/graph/powershell/installation">Install the Microsoft Graph PowerShell SDK – Microsoft Graph | Microsoft Docs</a>, over the Azure Active Directory PowerShell for Graph modules. Why? The PowerShell SDK supports PowerShell 7, is cross-platform, and provides access to all of Graph, not just Azure AD.</p>
 <p>That being said, I’ve found the PowerShell SDK modules for dynamic administrative units to be, well, rather lacking. While there are indirect parameters to provide dynamic information, I haven’t spent the cycles yet figuring things out. The docs/get-help provide almost no information on commands like <strong>New-MGAdministrativeUnit</strong></p>
@@ -1198,17 +1198,17 @@
 &#39;(user.country -eq &quot;United States&quot;)&#39;
 </code></pre></div>
 <p><img alt="Figure 11" src="/images/2022/03/29/img11.png" /></p>
-<h2 id="faq">FAQ</h2>
-<h3 id="limitations">Limitations</h3>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
 <p>Microsoft does not publish a size limitation for administrative units, but the standard limitations for administrative units still exist with resources being members of no more than 30 administrative units, and an organization can have a maximum of 5,000 dynamic groups and dynamic administrative units combined. The latter bit is an interesting item to note, as it would seem the evaluation engine is then shared in a tenant between dynamic groups and administrative units (which makes sense really).</p>
 <p>I would also then speculate, while I cannot find it published yet, that administrative units may fall into the same rule evaluation service level, which is up to 24 hours, per this document, <a href="https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-troubleshooting#troubleshooting-dynamic-memberships-for-groups">Fix problems with dynamic group memberships – Azure AD | Microsoft Docs</a>.</p>
-<h3 id="how-can-i-test-preview-a-dynamic-membership-rule">How can I test / preview a dynamic membership rule?</h3>
+<h3 id="how-can-i-test-preview-a-dynamic-membership-rule">How can I test / preview a dynamic membership rule?<a class="headerlink" href="#how-can-i-test-preview-a-dynamic-membership-rule" title="Permanent link">&para;</a></h3>
 <p>Currently, the dynamic membership rule settings in an administrative unit does not have a rule validation option available. However, we can simply create a test dynamic group in Azure AD for evaluating the rule, and can also use the Validate Rules option to get a more instant verification of whether our rule works.</p>
 <p><img alt="Figure 12" src="/images/2022/03/29/img12.png" /></p>
 <p><em>An example of rule validation in dynamic groups</em></p>
-<h3 id="can-i-combine-different-object-types-in-a-dynamic-administrative-unit">Can I combine different object types in a dynamic Administrative Unit?</h3>
+<h3 id="can-i-combine-different-object-types-in-a-dynamic-administrative-unit">Can I combine different object types in a dynamic Administrative Unit?<a class="headerlink" href="#can-i-combine-different-object-types-in-a-dynamic-administrative-unit" title="Permanent link">&para;</a></h3>
 <p>Unfortunately this is one trade-off between statically assigned groups and dynamic ones. Whereas in static groups we can assign users, groups and devices to the same AU, for dynamic membership you are limited to the type of dynamic object assignment you are looking to use – either user or device. Also, groups are not an option for dynamic administrative unit rules, and can belong to neither dynamic user or dynamic device AU’s.</p>
-<h2 id="final-notes">Final notes</h2>
+<h2 id="final-notes">Final notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
 <p>Dynamic groups are already such a powerful option for organizations, it’s great to see that same logic added into administrative units, an area where it fits so well. If I had the time I would reach out to all those customers who had the “this is great, but it’s too inflexible” mindset upon seeing administrative units. I’m curious to see what new doors this opens for organizations; if you have some interesting use cases, give me a shout.</p>
 
 

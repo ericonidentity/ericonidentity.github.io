@@ -1085,7 +1085,7 @@
 
 
 
-<h1 id="march-23rd-2023-the-day-everyone-came-from-uzbekistan">March 23rd, 2023: The Day Everyone Came From Uzbekistan</h1>
+<h1 id="march-23rd-2023-the-day-everyone-came-from-uzbekistan">March 23rd, 2023: The Day Everyone Came From Uzbekistan<a class="headerlink" href="#march-23rd-2023-the-day-everyone-came-from-uzbekistan" title="Permanent link">&para;</a></h1>
 <p>According to Wikipedia, Toshkent (or Tashkent) is the largest city in, as well as the capital of, Uzbekistan, a country located in Central Asia. The city sports a population of 2.9 million people.</p>
 <p>Except for March 23rd, 2023. The day that everyone came from Toshkent City, UZ, at least according to Azure Active Directory.</p>
 <div class="admonition note">
@@ -1096,40 +1096,40 @@
 <p><em>#WeAreAllUzbekistan</em></p>
 <!-- more -->
 
-<h2 id="background">Background</h2>
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
 <p>Per the Incident Report for incident MO531859, the incident started on March 23rd, 2023, at 3:30 AM UTC. As the day continued on for some folks, and the morning started for others, there was an increasing number of organizations noticing that Azure AD was indicating their users were coming from Toshkent City, UZ.</p>
 <p>If the organization was using Named Locations in Conditional Access, allowing access to resources only from certain geographic locations (countries), legitimate users would start being denied access by the CA policies.</p>
-<h2 id="breaking-it-all-down">Breaking it all down</h2>
-<h3 id="conditional-access-named-locations-and-countries">Conditional access, named locations, and countries</h3>
+<h2 id="breaking-it-all-down">Breaking it all down<a class="headerlink" href="#breaking-it-all-down" title="Permanent link">&para;</a></h2>
+<h3 id="conditional-access-named-locations-and-countries">Conditional access, named locations, and countries<a class="headerlink" href="#conditional-access-named-locations-and-countries" title="Permanent link">&para;</a></h3>
 <p>Many organizations may implement geographic-based policies to reduce some identity surface area. Having worked with many US based organizations, they may implement a CA policy that contains an allowed location of the United States, and then in turn if that location condition is not met, access will be blocked.</p>
 <p>Even organizations that are global in workforce may implement regional or department specific policies. One manufacturing organization I worked with that was primarily based in the US, but had some salespeople that had to travel globally, chose to only allow access outside of the US for their sales department.</p>
 <p>For further details on Named Locations, see <a href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/location-condition?WT.mc_id=SEC-MVP-5005105">Using networks and countries in Azure Active Directory – Microsoft Entra | Microsoft Learn</a>.</p>
-<h3 id="authentication-to-azure-ad">Authentication to Azure AD</h3>
+<h3 id="authentication-to-azure-ad">Authentication to Azure AD<a class="headerlink" href="#authentication-to-azure-ad" title="Permanent link">&para;</a></h3>
 <p>When you authenticate to Azure AD, your egress, or public, IP address, is logged by Azure AD within your sign-in logs.</p>
 <p>If you are coming from your home internet, it’s whatever public IP address your ISP is routing your traffic through. Some ISP’s NAT network traffic, so that nodes (your home) may only have a private IP address, but at some point the traffic must route publicly. That’s the IP address Azure AD sees.</p>
 <p>If you use a VPN, or Tor, or some other obfuscation thing, whatever that public IP address is, again, is what Azure AD sees.</p>
 <p>If you are coming from work, it’s however work plumbs up to the internet, and whatever your work egress IP addresses are. Even if you have ExpressRoute, Azure AD still is connected to over a public network at some point, and that’s the address that appears in your Azure AD sign-in logs. If your organization uses something like ZScaler, your traffic may appear to be coming from whatever their public IP addresses are.</p>
 <p><img alt="Figure 2" src="/images/2023/03/28/img2.png" /></p>
 <p><em>Hello from Schenectady, New York</em></p>
-<h3 id="but-how-does-azure-ad-correlate-ip-addresses-to-locations">But how does Azure AD correlate IP addresses to locations</h3>
+<h3 id="but-how-does-azure-ad-correlate-ip-addresses-to-locations">But how does Azure AD correlate IP addresses to locations<a class="headerlink" href="#but-how-does-azure-ad-correlate-ip-addresses-to-locations" title="Permanent link">&para;</a></h3>
 <p>Per the incident report:</p>
 <p><em>…Microsoft received an update in one of its Threat Intelligence data feeds from a third-party vendor that contained incorrect entries about the country in which certain IP addresses are located.</em></p>
 <p>That’s a fancy way of saying that Microsoft subscribes to an external service that provides a database of IP address netblocks and the associated geographic location. Note that Microsoft does not indicate the company or companies that they use for this service, which it’s understandable wanting to keep some secrecy around a security data provider. I have no idea what services Microsoft consumes, but an example of a provider is <strong>IP2Location</strong>.</p>
 <p>While there is the ability to use device-based GPS coordinates within Named Locations and Conditional Access, <strong>many</strong> organizations choose to use IP address-based location data. When organizations choose to use this data, they are leveraging this data provided to Microsoft.</p>
-<h3 id="so-how-did-the-dataset-get-messed-up">So how did the dataset get messed up?</h3>
+<h3 id="so-how-did-the-dataset-get-messed-up">So how did the dataset get messed up?<a class="headerlink" href="#so-how-did-the-dataset-get-messed-up" title="Permanent link">&para;</a></h3>
 <p>I don’t have insight into what exactly happened at the provider for an issue of this scale, but to simplify the incident – Microsoft received an incorrect copy of this data, and updated it in Azure AD.</p>
 <p>While you could blame Microsoft for not catching this mistake, consider the fact that on a smaller scaler this change is constant among the vast landscape of the internet. With a possible 4.3 billion IPv4 addresses carved up into all sorts of chunks, it’s a lot of data for the companies that aggregate this data to manage. And Microsoft can’t invest time in sorting out all the nuances of the data – you have to trust your data suppliers.</p>
-<h3 id="a-much-more-common-example-of-geolocation-data-gone-wrong">A much more common example of Geolocation data gone wrong</h3>
+<h3 id="a-much-more-common-example-of-geolocation-data-gone-wrong">A much more common example of Geolocation data gone wrong<a class="headerlink" href="#a-much-more-common-example-of-geolocation-data-gone-wrong" title="Permanent link">&para;</a></h3>
 <p>If you perform a quick google search, you’ll find that the various services that offer this data aggregate it through several means. One of them is ISP’s providing anonymized data to said services.</p>
 <p>When I’ve worked with organizations over the years, occasionally you would encounter a situation on a microscale – a set of users coming from a certain cellular provider, all of a sudden are showing up as coming from some location far away. In the US it wouldn’t usually manifest as a Conditional Access problem, as whether I’m coming from Schenectady, NY or Sacramento, CA, it’s all US traffic. However, organizations that have Azure AD Identity Protection deployed may have some sudden impossible travel or unfamiliar location stuff going on.</p>
 <p>Considering that the employees didn’t move across the country, the common cause was said cellular provider made a network change – the netblock that had been servicing New York is now shifted to California. It’s their IP address ranges; they can do whatever they want with them.</p>
 <p>In cases like these, the hope is that the geographic location data provider would have been notified, but again, mistakes happen. The course of action for the affected customer would be to open a support case with Microsoft. Microsoft then informs their data provider of the issue, and the provider does whatever magic it works to rectify the problem.</p>
 <p>When the dataset is corrected, it can be presumed that Microsoft then receives an updated copy of this data, because about a week later, the organization stops having the problem.</p>
-<h3 id="deploying-updates-in-rings">Deploying updates in rings</h3>
+<h3 id="deploying-updates-in-rings">Deploying updates in rings<a class="headerlink" href="#deploying-updates-in-rings" title="Permanent link">&para;</a></h3>
 <p>Without getting into the weeds, from the larger Azure AD outages over the past few years, Microsoft has indicated that they deploy changes to Azure AD in rings. You can call them waves or phases, but it’s all the same. Azure AD is a globally distributed and deployed cloud identity provider, but there are still locations acting as the nodes that compose it, and a bunch of global traffic routing fanciness to ensure you land at the most relevant Azure AD endpoint.</p>
 <p>One could presume from the incident report that, as it would go with a ringed update of this nature, that initially user impact would be small, and as Microsoft increasingly pushed the changes out broader, the surface area of impact increased in step.</p>
 <p>And, in their efforts to ensure that they don’t break things to reverse changes, one could presume that they have to follow similar deployment processes when undoing a change.</p>
-<h3 id="speaking-of-traffic-routing">Speaking of traffic routing</h3>
+<h3 id="speaking-of-traffic-routing">Speaking of traffic routing<a class="headerlink" href="#speaking-of-traffic-routing" title="Permanent link">&para;</a></h3>
 <p>While Microsoft does not reveal how similar Azure AD and Azure AD B2C are as far as their geographical and back-end composition, working on an Azure AD B2C project of global scale really highlights the traffic routing wizardry going on the front end that users hit.</p>
 <p>For any Azure AD B2C system you encounter, you can determine the associated Microsoft datacenter by looking at the HTML comment tag found in the page source:</p>
 <div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
@@ -1153,7 +1153,7 @@
 <p>During incident MO531859, when Microsoft indicates that they were:</p>
 <p><em>…continually performed traffic rerouting and load balancing into healthy regions…</em></p>
 <p>This does not mean that the incident had any correlation to an actual network traffic routing issue. What Microsoft is indicating, when we look back at the ring deployment model, is as datacenters with Azure AD endpoints were corrected with the prior IP geolocation data, Microsoft was adjusting their user traffic routing on a global scale. If I’m in Europe, and the North Europe location has not updated, but the West Europe location has, Microsoft can easily send all traffic to West Europe, to help accelerate resolution for organizations while the things on the back end are rectified.</p>
-<h2 id="how-to-move-forward">How to move forward</h2>
+<h2 id="how-to-move-forward">How to move forward<a class="headerlink" href="#how-to-move-forward" title="Permanent link">&para;</a></h2>
 <p>Some organizations may look at this incident as a moment to change course in how they manage their Conditional Access policies. During the incident, it was left up to organizations to determine the risk in adjusting or disabling their impacted Conditional Access policies.</p>
 <p>There is not a one-size-fits-all answer to this. It is still best practice, if using geographic Named Locations, to build CA policies in an “allowed” countries model, vs a “disallowed” countries model (essentially an inverse policy). Some organizations may have already determined that a disallowed countries model works for them, however, there is a wider possibility of coverage gaps within this.</p>
 <p>Corporations that have used network location-based policies, whether IP ranges or country, may want to evaluate whether they need those policies at all, especially on devices that may be MDM managed and covered by something like M365 Defender. Or, with the beauty of Conditional Access, further refine and define user personas, to limit the need to rely on what, end of the day, are very implicit identity security choices.</p>

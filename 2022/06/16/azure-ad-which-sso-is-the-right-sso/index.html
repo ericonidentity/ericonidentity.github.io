@@ -1199,28 +1199,28 @@
 
 
 
-<h1 id="azure-ad-which-sso-is-the-right-sso">Azure AD: Which SSO Is The Right SSO?</h1>
+<h1 id="azure-ad-which-sso-is-the-right-sso">Azure AD: Which SSO Is The Right SSO?<a class="headerlink" href="#azure-ad-which-sso-is-the-right-sso" title="Permanent link">&para;</a></h1>
 <p>It’s great having choices, except when you are not sure which choice to make.</p>
 <p>For organizations that are on a hybrid journey with Azure AD, the question of single sign-on (SSO) almost always comes up. And with that, people turn to the documentation with questions. Do we need hybrid join? Do we need Azure AD Seamless SSO? Do we need both? Can we configure both? Why isn’t hybrid join listed as an SSO mechanism in the docs? If hybrid join is preferred, why does Azure AD Seamless SSO mention seamless, isn’t it better?</p>
 <p>While there is one paragraph contrasting the two choices in the docs, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, the question still comes up often. Which brings us here – gaining clarity on the SSO choices for Azure AD. To keep the article focused, we are going to be exploring SSO for corporate owned and managed Windows devices that are joined to an Active Directory domain.</p>
 <p>And for the camp out there that firmly believes everything should just go straight to Azure AD Join (AADJ), and forget hybrid… this article is for those that have their reasons to stay with hybrid join for the moment. Even though you should go cloud-native with AADJ.</p>
 <!-- more -->
 
-<h2 id="sso-mechanics">SSO mechanics</h2>
+<h2 id="sso-mechanics">SSO mechanics<a class="headerlink" href="#sso-mechanics" title="Permanent link">&para;</a></h2>
 <p>Before getting into the compare and contrast, it’s important to understand the fundamental reason as to why SSO works differently depending on the method implemented.</p>
-<h3 id="azure-ad-hybrid-join">Azure AD Hybrid Join</h3>
+<h3 id="azure-ad-hybrid-join">Azure AD Hybrid Join<a class="headerlink" href="#azure-ad-hybrid-join" title="Permanent link">&para;</a></h3>
 <p>When you think of Azure AD Hybrid Join (HAADJ), it helps to think of the Windows device having a duality of identity for the signed-in user.</p>
 <p><img alt="Figure 1" src="/images/2022/06/16/img1.png" /></p>
 <p>When a user signs in to Windows, not only does the user receive a Kerberos TGT from Active Directory, but also an Azure AD Primary Refresh Token (PRT).</p>
 <p>And this PRT piece is key – while the technology behind it is quite different, it’s logically the Azure AD version of the TGT, which allows your device to speak modern authentication natively with Azure AD.</p>
 <p>For an extremely in-depth look at all the mechanics at play for authentication on a hybrid joined device, and how obtaining a PRT flows, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#detailed-flows">Primary Refresh Token (PRT) and Azure AD – Azure Active Directory – Microsoft Entra | Microsoft Docs</a>.</p>
-<h3 id="azure-ad-seamless-sso">Azure AD Seamless SSO</h3>
+<h3 id="azure-ad-seamless-sso">Azure AD Seamless SSO<a class="headerlink" href="#azure-ad-seamless-sso" title="Permanent link">&para;</a></h3>
 <p>Unlike Hybrid Join, Azure AD Seamless SSO flips things around, and essentially provides the ability for Azure AD to participate in Active Directory, not from an authentication provider perspective, but as a member computer object.</p>
 <p><img alt="Figure 2" src="/images/2022/06/16/img2.png" /></p>
 <p><em>Courtesy Microsoft Learn</em></p>
 <p>From the diagram, we see that Azure AD has a computer account representation in Active Directory, with the computer object <strong>AZUREADSSO</strong> being the representation in AD. Azure AD holds the Kerberos decryption key for this computer object, which is what allows Azure AD to handle the TGT being passed to it.</p>
 <p>The most critical piece within this model for SSO, is that line-of-sight of Active Directory is <strong>required</strong> for SSO to function.</p>
-<h2 id="sso-breakdown">SSO Breakdown</h2>
+<h2 id="sso-breakdown">SSO Breakdown<a class="headerlink" href="#sso-breakdown" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -1312,50 +1312,50 @@
 </tr>
 </tbody>
 </table>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Whether it’s Hybrid Azure AD Join, or Azure AD Seamless SSO, both are first enabled primarily using Azure AD Connect.</p>
 <p>For details on enablement of Hybrid Azure AD Join, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/howto-hybrid-azure-ad-join">Configure hybrid Azure Active Directory join – Microsoft Entra | Microsoft Docs</a>.</p>
 <p>For details on enablement of Azure AD Seamless SSO, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-quick-start">Azure AD Connect: Seamless Single Sign-On – quickstart – Microsoft Entra | Microsoft Docs</a>.</p>
-<h3 id="active-directory-line-of-sight-for-client-enablement">Active Directory line-of-sight for client enablement</h3>
+<h3 id="active-directory-line-of-sight-for-client-enablement">Active Directory line-of-sight for client enablement<a class="headerlink" href="#active-directory-line-of-sight-for-client-enablement" title="Permanent link">&para;</a></h3>
 <p>When deploying Azure AD Hybrid Join, it is required that computers have line-of-sight of Active Directory in a PHS or PTA scenario (and usually for ease in a federated scenario). The reason is that Azure AD Connect is the means for Windows to bootstrap its trust relationship with Azure AD – when you enable hybrid join, you’ll note that the computer object in scope has the <strong>userCertificate</strong> attribute in Active Directory populated. This is the public half of a key-pair generated by the Windows device, which makes it way up to Azure AD, via Azure AD Connect, and is tied to the created device object in Azure AD. When you see a device with a Registered date/time of <strong>Pending</strong>, it means the device has been created in Azure AD, but the Windows client itself hasn’t finished the hybrid join process. Now that we have the means for a trust relationship to be established, the Windows client uses this key-pair to connect to Azure Active Directory Device Registration Service (AAD DRS); the key-pair used is replaced with a permanent key-pair, and hybrid join is complete. <strong>Afterward</strong>, line-of-sight of Active Directory is not required for authentication to Azure AD, even though you still will want to keep your hybrid joined devices in scope for Azure AD Connect, so that device disable and device delete actions will flow up to Azure AD.</p>
 <p>For Azure AD Seamless SSO, you’ll always need AD line-of-sight for this to function, and many orgs tend to use group policy to roll out the configuration, which also would need that same line-of-sight.</p>
-<h3 id="group-policy-for-client-configuration">Group policy for client configuration</h3>
+<h3 id="group-policy-for-client-configuration">Group policy for client configuration<a class="headerlink" href="#group-policy-for-client-configuration" title="Permanent link">&para;</a></h3>
 <p>For rollout of Azure AD Hybrid Join across an organization, there is no need to configure anything additional through group policy. This is because, by default, configuration of HAADJ leverages a Service Connection Point (SCP) in Active Directory. Because the SCP is stored in the Configuration partition in AD, this is the reason configuration of Hybrid Join requires Enterprise Administrator. And while your Azure AD Connect server <strong>should</strong> be treated as Tier 0, if you have concern using an Enterprise Admin account on the Azure AD Connect server, a script can be downloaded to configure and run this from another system. The exception to no group policy is for organizations which are performing a targeted rollout of HAADJ, even though you can also control rollout by excluding devices from synchronization in Azure AD Connect.</p>
 <p>For Azure AD Seamless SSO, there are group policy settings that are inevitably needed regardless of the rollout plan. By default, browsers will not send Kerberos tickets to an internet endpoint, so configuration on the client is required to set an Azure AD URL to Intranet zone. And yes, you may be able to use alternatives such as Intune to push these settings to clients, but it still comes down to needing to push a configuration change to clients.</p>
-<h3 id="azure-ad-computer-object-sync">Azure AD computer object sync</h3>
+<h3 id="azure-ad-computer-object-sync">Azure AD computer object sync<a class="headerlink" href="#azure-ad-computer-object-sync" title="Permanent link">&para;</a></h3>
 <p>Now, some may consider this an advantage, not having to synchronize their computer objects to Azure AD for Azure AD Seamless SSO.</p>
 <p>Many organizations, however, going down the modern device management route, or wanting to strengthen their security posture in conditional access with policies based on compliance or hybrid join, will need to sync their computer objects, as part of the requirement for hybrid join (excluding organizations with AD FS in place). And if you’re looking to go passwordless with Windows Hello for Business on these devices, hybrid join is also a prerequisite.</p>
 <p>And considering what a non-event it is to enable hybrid join, it’s hard to argue against it.</p>
-<h3 id="browser-support">Browser Support</h3>
-<h4 id="edge">Edge</h4>
+<h3 id="browser-support">Browser Support<a class="headerlink" href="#browser-support" title="Permanent link">&para;</a></h3>
+<h4 id="edge">Edge<a class="headerlink" href="#edge" title="Permanent link">&para;</a></h4>
 <p>Neither method of SSO requires anything additional in Edge.</p>
-<h4 id="chrome">Chrome</h4>
+<h4 id="chrome">Chrome<a class="headerlink" href="#chrome" title="Permanent link">&para;</a></h4>
 <p>For Chrome to be able to take advantage of the PRT with hybrid join (or Azure AD Join), and subsequently perform SSO using the PRT, you’ll want to install the Windows Accounts extension in Chrome, <a href="https://chrome.google.com/webstore/detail/windows-accounts/ppnbnpeolgkicgegkbkbjmhlideopiji/related?hl=en-US">Windows Accounts – Chrome Web Store (google.com)</a>.</p>
 <p>Azure AD Seamless SSO does not require this browser extension, as Chrome has long supported integrated authentication.</p>
-<h4 id="firefox">Firefox</h4>
+<h4 id="firefox">Firefox<a class="headerlink" href="#firefox" title="Permanent link">&para;</a></h4>
 <p>Mozilla, likely in a move to keep Firefox competitive, released an update starting with version 91 to support PRT authentication natively within the browser, <a href="https://support.mozilla.org/en-US/kb/windows-sso">Windows SSO | Firefox Help (mozilla.org)</a>.</p>
 <p>Like Chrome, Firefox has long had support for integrated authentication, so it’s able to handle Azure AD Seamless SSO without a plugin.</p>
-<h3 id="os-support">OS Support</h3>
-<h4 id="windows-1011">Windows 10/11</h4>
+<h3 id="os-support">OS Support<a class="headerlink" href="#os-support" title="Permanent link">&para;</a></h3>
+<h4 id="windows-1011">Windows 10/11<a class="headerlink" href="#windows-1011" title="Permanent link">&para;</a></h4>
 <p>As noted in the article highlighted earlier, <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso">Azure AD Connect: Seamless Single Sign-On – Microsoft Entra | Microsoft Docs</a>, recommendation for these modern versions of Windows is to use hybrid join and subsequently a PRT for SSO.</p>
-<h4 id="windows-81">Windows 8.1</h4>
+<h4 id="windows-81">Windows 8.1<a class="headerlink" href="#windows-81" title="Permanent link">&para;</a></h4>
 <p>If, for some unfortunate reason, you still have Windows 8.1 (or no longer supported Windows 7 or 8) in your environment, and still want all the snazziness of letting decrepit operating systems enjoy the cloud, Azure AD Seamless SSO is going to be the easier bet. Hybrid Join for downlevel devices requires installation of the Workplace Join agent and some additional configuration to support hybrid join.</p>
-<h3 id="end-user-experience">End-user experience</h3>
+<h3 id="end-user-experience">End-user experience<a class="headerlink" href="#end-user-experience" title="Permanent link">&para;</a></h3>
 <p>From the end user experience, hybrid join is going to give our users what is Azure AD native SSO. The user signs in to Windows, and they receive or refresh their Azure AD PRT, and off they go. When browsing, the user won’t be prompted to enter their username or password, and will just be right into their applications.</p>
 <p>Azure AD Seamless SSO, on the other hand, has a few specifics about what SSO looks like. When a user goes to access an application the first time, they will be prompted to enter their username, but shouldn’t be asked for their password. There are ways to work around this with altering the URL to contain a login hint, but it generally would not be intuitive for a user. Also, if a user chooses to sign out from an application tied to Azure AD, upon sign-in, they are required to enter their password – this is considered by design. But even if we look past these, when our user is away from the corporate network, they will be asked to enter their password. And asking our users to have to enter their password when we can provide the means not to, isn’t the best for our user experience, and isn’t the best for security.</p>
-<h3 id="maintenance">Maintenance</h3>
+<h3 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h3>
 <p>For hybrid join, there is potential maintenance in needing to restructure how OU’s are synchronized with Azure AD Connect, though generally many organizations find ways to make this a bit of a one and done scenario.</p>
 <p>For Azure AD Seamless SSO, it is recommended that organizations rollover the Kerberos decryption key stored in Azure AD for the <strong>AZUREADSSO</strong> computer object every 30 days. This has to be performed manually, or automated through a process that though subsequently requires providing some task Domain Administrator credentials. Less than ideal, but because Azure AD isn’t able to directly perform this process against AD, we are left with no other choice.</p>
-<h2 id="so-which-sso-is-the-right-sso">So which SSO is the right SSO?</h2>
+<h2 id="so-which-sso-is-the-right-sso">So which SSO is the right SSO?<a class="headerlink" href="#so-which-sso-is-the-right-sso" title="Permanent link">&para;</a></h2>
 <p>If your organization is primarily Windows 10/11 devices that are AD domain joined, <strong>Azure AD Hybrid Join</strong> is the route to go. To be clear, <strong>you do not</strong> need to deploy Azure AD Seamless SSO along with hybrid join; your clients <strong>will not</strong> use Azure AD Seamless SSO if the device has a PRT.</p>
 <p>If you have to support downlevel installs of Windows 8.1, Seamless SSO may be an easier route than hybrid join, and you can enable seamless SSO and just target those devices for configuration.</p>
 <p>Likewise, if you are supporting MacOS in your environment, enabling Azure AD Seamless SSO can provide a better authentication experience if those Macs are Active Directory domain joined. Even though at this point you may want to look at the Enterprise SSO plugin for MacOS, <a href="https://docs.microsoft.com/en-us/mem/intune/configuration/use-enterprise-sso-plug-in-ios-ipados-macos">Microsoft Enterprise SSO plug-in in Microsoft Intune | Microsoft Docs</a>.</p>
 <p>There’s no harm in having both methods configured, but if the mechanism for Seamless SSO isn’t actually being leveraged in your environment, and if you have hybrid joined Windows 10/11 devices <strong>it’s not</strong>, it’s just an extra bit of configuration to manage and maintain with no benefit.</p>
-<h3 id="what-about-federated-identity">What about federated identity?</h3>
+<h3 id="what-about-federated-identity">What about federated identity?<a class="headerlink" href="#what-about-federated-identity" title="Permanent link">&para;</a></h3>
 <p>If an organization has AD FS or a supported 3rd party IdP in the mix, such as PingFederate or Okta, the proper route to go, from an Azure AD perspective, is still hybrid join.</p>
 <p>Hybrid join is still going to provide you SSO with your PRT for applications leveraging Azure AD as their identity provider – when you authenticate interactively with the Windows client at sign-on, WS-Trust is the means to authenticate you to your federated identity provider behind the scenes, and in return allowing Azure AD to give you a fresh PRT.</p>
 <p>The MS Docs articles indicate that Seamless SSO is not supported with federated identity, and I’ve never tried to see what happens if you force it via PowerShell module – but would presume you run into conflicts with overlap in how Azure AD handles hints for bypassing username entry for Seamless SSO and how Azure AD handles hints for bypassing username entry for federated auth.</p>
-<h3 id="what-about-azure-ad-join">What about Azure AD join?</h3>
+<h3 id="what-about-azure-ad-join">What about Azure AD join?<a class="headerlink" href="#what-about-azure-ad-join" title="Permanent link">&para;</a></h3>
 <p>Azure AD Join (AADJ) should be the long-term goal for organizations, going cloud native and removing their clients dependency on Active Directory. Under the hood, the mechanics of authentication for AADJ are <strong>just</strong> the bits that give you that Azure AD PRT, and Azure AD is now the authoritative identity provider for those clients. For many organizations, it tends to be client management and group policies that lend the most complexity in going cloud native, even though it is the future, so now is as good as ever to start a pilot down that road while you continue to support existing clients with Hybrid Azure AD Join.</p>
 
 

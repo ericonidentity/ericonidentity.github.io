@@ -1118,23 +1118,23 @@
 
 
 
-<h1 id="the-intersection-of-graph-and-entra-id-application-permissions-and-roles">The Intersection of Graph and Entra ID: Application Permissions and Roles</h1>
+<h1 id="the-intersection-of-graph-and-entra-id-application-permissions-and-roles">The Intersection of Graph and Entra ID: Application Permissions and Roles<a class="headerlink" href="#the-intersection-of-graph-and-entra-id-application-permissions-and-roles" title="Permanent link">&para;</a></h1>
 <p>When you work someplace that develops software that interacts with Entra ID, the question of Graph permissions eventually comes up. With the recent Midnight Blizzard attack against Microsoft, where a threat actor appears to have used service principals and Graph permissions to access resources in Microsoft’s own Entra tenant, the scrutiny on permissions grows even more intense. You can read more about this with a great write-up from Andy Robbins here, <a href="https://posts.specterops.io/microsoft-breach-what-happened-what-should-azure-admins-do-da2b7e674ebc">Microsoft Breach — What Happened? What Should Azure Admins Do? | by Andy Robbins | Feb, 2024 | Posts By SpecterOps Team Members</a>.</p>
-<h2 id="primer-on-the-microsoft-graph-api">Primer on the Microsoft Graph API</h2>
+<h2 id="primer-on-the-microsoft-graph-api">Primer on the Microsoft Graph API<a class="headerlink" href="#primer-on-the-microsoft-graph-api" title="Permanent link">&para;</a></h2>
 <p>Before jumping into the permission weeds, let’s review a few things to set the stage. If you already understand the Graph API basics, feel free to scroll past.</p>
-<h3 id="what-is-graph-api">What is Graph API</h3>
+<h3 id="what-is-graph-api">What is Graph API<a class="headerlink" href="#what-is-graph-api" title="Permanent link">&para;</a></h3>
 <p>The Microsoft Graph API is the unified API endpoint into <strong>most</strong> Microsoft 365 services, which includes Entra ID. For purposes of this article, the terms Graph and Graph API refer to the Microsoft Graph API.</p>
 <p><img alt="Figure 1" src="/images/2024/03/26/img1.png" /></p>
 <p><em>Microsoft Graph API diagram / Courtesy Microsoft Learn</em></p>
 <p>You can read more of an overview about the Graph API here, <a href="https://learn.microsoft.com/en-us/graph/overview?WT.mc_id=SEC-MVP-5005105">Microsoft Graph overview – Microsoft Graph | Microsoft Learn</a>.</p>
 <!-- more -->
 
-<h3 id="what-are-application-permissions">What are application permissions</h3>
+<h3 id="what-are-application-permissions">What are application permissions<a class="headerlink" href="#what-are-application-permissions" title="Permanent link">&para;</a></h3>
 <p>In Graph, there are two permission types, <strong>Delegated</strong>, and <strong>Application</strong>. The focus of this article is on application permissions, which allow an application to interact with Microsoft Graph, and the associated Microsoft services, without needing the context of a user.</p>
 <p>A common example might be scripts an organization developed that manage user objects in Entra ID – while there are robust third-party solutions that can also manage this stuff, many orgs still run scripts to maintain directory data. If the script is running as a scheduled task in something, somewhere, it’s likely using application permissions (or hopefully is).</p>
 <p>Most third-party software applications that interact with Microsoft 365 without a user context use application permissions – this way their software can do its software “things” behind the scenes, not centered around a user, for whatever purpose the software exists. If the software is a conference room integration it might require the ability to read <strong>all</strong> calendars in Exchange Online.</p>
 <p>We won’t cover delegated permissions here, but for reference, these are permissions that allow an application to access resources on behalf of a user. A good example would be an application that wants to save files to OneDrive or read a calendar in Exchange Online. In this instance, the application is acting in the context of the user.</p>
-<h3 id="how-graph-interacts-with-entra-id">How Graph interacts with Entra ID</h3>
+<h3 id="how-graph-interacts-with-entra-id">How Graph interacts with Entra ID<a class="headerlink" href="#how-graph-interacts-with-entra-id" title="Permanent link">&para;</a></h3>
 <p>As mentioned, Graph is the one-stop shop for all Microsoft 365 resources, including Entra ID. When you query Graph, the service you are reaching out to is derived from the path in the URL.</p>
 <p><img alt="Figure 2" src="/images/2024/03/26/img2.png" /></p>
 <p>If we break down this example, we see two primary components:</p>
@@ -1144,7 +1144,7 @@
 </ul>
 <p>One time that it <strong>does</strong> become important to know what service relates to the resources you are accessing is when you are heavily interacting with Graph, and potentially hitting the dreaded <strong>429 response</strong>, which is the error you’ll receive back from Graph if your requests are being throttled.</p>
 <p>Throttled or not, if you are curious to get an idea of how resources are aggregated into different services, check out the throttling limits here, <a href="https://learn.microsoft.com/en-us/graph/throttling-limits?WT.mc_id=SEC-MVP-5005105">Microsoft Graph service-specific throttling limits – Microsoft Graph | Microsoft Learn</a>.</p>
-<h3 id="talking-to-graph">Talking to Graph</h3>
+<h3 id="talking-to-graph">Talking to Graph<a class="headerlink" href="#talking-to-graph" title="Permanent link">&para;</a></h3>
 <p>As Microsoft Graph is a REST API, you use HTTP methods to interact with it. Those with a stronger sysadmin background, and less of a developer background, can be challenged to learn Graph times, but using <a href="https://developer.microsoft.com/en-us/graph/graph-explorer?WT.mc_id=SEC-MVP-5005105">Graph Explorer</a> helps accelerate that process.</p>
 <p>It also helps to understand how the basic CRUD operations of a directory service translate into HTTP methods:</p>
 <table>
@@ -1178,9 +1178,9 @@
 </tbody>
 </table>
 <p>The translation is mostly 1:1. You’ll notice that both PUT and PATCH are options for updating; searching the Graph API reference there are only five operations against Entra that use PUT. Point being, most update operations with Entra ID are going to use PATCH.</p>
-<h2 id="exploring-application-permissions">Exploring Application permissions</h2>
+<h2 id="exploring-application-permissions">Exploring Application permissions<a class="headerlink" href="#exploring-application-permissions" title="Permanent link">&para;</a></h2>
 <p>If you are familiar with Access Control Lists and Access Control Entries in Active Directory, understanding permissions in Entra ID is not as difficult to grasp upfront as it might seem. For simplicity we’ll stick to using the term permissions, and not delve into all the nuances of DACLS and ACE and the such that compose security in Active Directory, but if you want to read more, Microsoft has a nice article on them from an identity security perspective here, <a href="https://techcommunity.microsoft.com/t5/security-compliance-and-identity/active-directory-access-control-list-8211-attacks-and-defense/ba-p/250315">Active Directory Access Control List – Attacks and Defense – Microsoft Community Hub</a>.</p>
-<h3 id="where-permissions-exist">Where permissions exist</h3>
+<h3 id="where-permissions-exist">Where permissions exist<a class="headerlink" href="#where-permissions-exist" title="Permanent link">&para;</a></h3>
 <p>In Active Directory permissions are attached to the target objects, things like users and groups. If I want to grant Sarah permission to change a user’s password, I will apply those permissions onto the user objects, granting Sarah <strong>Reset password</strong>.</p>
 <p>In many instances the permissions are applied onto an Organizational Unit (OU) and inherited down onto the objects, so I could also grant Sarah <strong>Reset password</strong> on an OU, and she would have the ability to reset the password of all users inheriting that entry in the OU.</p>
 <p><img alt="Figure 3" src="/images/2024/03/26/img3.png" /></p>
@@ -1198,7 +1198,7 @@
 <p><em>Application permissions to create a group</em></p>
 <p>In this example, the application, a daemon, or backend type service, has the credentials necessary to authenticate to Entra ID as the service principal Cloud Application. Cloud Application has been given Graph API permissions of <strong>Group.Create</strong>, and subsequently can create a group in Entra ID.</p>
 <p>While the focus for service principals heavily targets developers, we should also think of service principals as <strong>modern service accounts</strong>. Just as we want to replace user-based service accounts with gMSA in Active Directory, wherever we can replace user objects with service principals in Entra ID, we want to do the same. For all those one-off scripts that we run as sysadmins, start looking service principals as a replacement.</p>
-<h3 id="consenting-to-graph-permissions">Consenting to Graph permissions</h3>
+<h3 id="consenting-to-graph-permissions">Consenting to Graph permissions<a class="headerlink" href="#consenting-to-graph-permissions" title="Permanent link">&para;</a></h3>
 <p>When you create an app registration, you can go through and specify the permissions you want. In the Entra admin center portal, we must specify the permissions we want on the app registration.</p>
 <p>But how do we put those permissions into action? Through admin consent. Admin consent is the process of approving the requested permissions in your Entra tenant. While it may feel confusing, because app registrations and service principals serve multiple purposes for single and multi-tenant applications, even in a single-tenant app, you need to approve the permissions you are requesting.</p>
 <p>Admin consent has two additional and slightly confusing parts to it:</p>
@@ -1206,7 +1206,7 @@
 <li>Both the app registration and enterprise application blade in the Entra admin center have a <strong>Grant admin consent</strong> button. <strong>They both do the same exact thing</strong>. The button is added for convenience to the app registration blade. That’s it. If you are creating an application that is going to be used by something like a script, it saves you the time of having to move between two different sections of the portal.</li>
 <li>Only a <strong>Global Administrator</strong> can grant consent to the Microsoft Graph API. Microsoft documentation will highlight that <strong>Application Administrator</strong> and <strong>Cloud Application Administrator</strong> role owners can grant consent, however, they <strong>cannot</strong> for Microsoft Graph.</li>
 </ul>
-<h2 id="putting-permissions-into-action">Putting permissions into action</h2>
+<h2 id="putting-permissions-into-action">Putting permissions into action<a class="headerlink" href="#putting-permissions-into-action" title="Permanent link">&para;</a></h2>
 <p>Let’s walk through what it looks like to use application permissions in Entra ID.</p>
 <p>We’ve created a new application, <strong>Cloud Application</strong>, and we’ve specified and consented to the <strong>Group.Create</strong> permission.</p>
 <p><img alt="Figure 7" src="/images/2024/03/26/img7.png" /></p>
@@ -1221,7 +1221,7 @@
 <p><img alt="Figure 11" src="/images/2024/03/26/img11.png" /></p>
 <p>As we only have the <strong>Group.Create</strong> permission, while we can go on a spree creating hundreds of groups, we can’t update or delete them.</p>
 <p><img alt="Figure 12" src="/images/2024/03/26/img12.png" /></p>
-<h2 id="when-application-permissions-can-become-tricky">When application permissions can become tricky</h2>
+<h2 id="when-application-permissions-can-become-tricky">When application permissions can become tricky<a class="headerlink" href="#when-application-permissions-can-become-tricky" title="Permanent link">&para;</a></h2>
 <p>We want our application to have the ability to delete groups.</p>
 <p>When we go into the permissions for Graph, what we’ll find is that some of the precision we desire, and perhaps expect coming from the world of Active Directory, does not exist. We had a specific Group.Create permissions, so one might expect Group.Update, Group.Delete, and so on… unfortunately expectations will not be met here.</p>
 <p><img alt="Figure 13" src="/images/2024/03/26/img13.png" /></p>
@@ -1235,7 +1235,7 @@
 <p>We can now also add users to the group.</p>
 <p><img alt="Figure 17" src="/images/2024/03/26/img17.png" /></p>
 <p>What if we want to allow the same permissions but only on certain groups? That’s where application permissions start to fall short, and roles might become part of the solution.</p>
-<h2 id="roles-can-fill-the-application-permission-granularity-gap-somewhat">Roles can fill the application permission granularity gap - somewhat</h2>
+<h2 id="roles-can-fill-the-application-permission-granularity-gap-somewhat">Roles can fill the application permission granularity gap - somewhat<a class="headerlink" href="#roles-can-fill-the-application-permission-granularity-gap-somewhat" title="Permanent link">&para;</a></h2>
 <p>The problem we are facing is we want a scenario that looks like the following: the ability to only manage certain groups.</p>
 <p><img alt="Figure 18" src="/images/2024/03/26/img18.png" /></p>
 <p><em>Our desired scenario</em></p>
@@ -1258,7 +1258,7 @@
 <p>But the model we are operating with is inherently quite restrictive. In the example we know the Object ID of the group we want to modify. But what if we don’t know what groups we have permissions to manage? We could enumerate the groups in the administrative unit.</p>
 <p>Except, we can’t, at least not with the permissions and roles in scope.</p>
 <p><img alt="Figure 25" src="/images/2024/03/26/img25.png" /></p>
-<h2 id="getting-into-the-thick-of-permissions-and-roles">Getting into the thick of permissions and roles</h2>
+<h2 id="getting-into-the-thick-of-permissions-and-roles">Getting into the thick of permissions and roles<a class="headerlink" href="#getting-into-the-thick-of-permissions-and-roles" title="Permanent link">&para;</a></h2>
 <p>We are starting to see that to perform actions as an application, it must either have associated permissions or roles assigned that grant the necessary actions.</p>
 <p>We add permissions for <strong>AdministrativeUnit.Read.All</strong> to our application.</p>
 <p><img alt="Figure 26" src="/images/2024/03/26/img26.png" /></p>
@@ -1271,7 +1271,7 @@
 <p>For the handful of operations here, we now have the following permission and role model.</p>
 <p><img alt="Figure 30" src="/images/2024/03/26/img30.png" /></p>
 <p>Whether it’s a homegrown set of internal processes managing user or group lifecycles in Entra ID, or a software solution from an ISV, either deployed on-prem or consumed as a SaaS application, the permissions necessary can rapidly expand depending on the type of service being offered, especially if the software is providing broad management or tooling for Entra ID, or likely any M365 service.</p>
-<h2 id="take-the-time-to-understand-and-test-permissions-and-roles">Take the time to understand, and test, permissions and roles</h2>
+<h2 id="take-the-time-to-understand-and-test-permissions-and-roles">Take the time to understand, and test, permissions and roles<a class="headerlink" href="#take-the-time-to-understand-and-test-permissions-and-roles" title="Permanent link">&para;</a></h2>
 <p>While the landscape of permissions and roles might be something less ventured, building an understanding of how they work, their strengths, their weaknesses, and the reality of how they work within Graph and Entra ID is critical to protecting our resources and enterprises. While it may be a little work upfront, refining your applications, scripts, and processes to only use the necessary permissions can go a long way in ensuring that it’s not the next point of lateral movement or privilege escalation.</p>
 
 

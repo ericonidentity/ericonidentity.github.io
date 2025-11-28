@@ -1043,7 +1043,7 @@
 
 
 
-<h1 id="world-password-day">World Password Day</h1>
+<h1 id="world-password-day">World Password Day<a class="headerlink" href="#world-password-day" title="Permanent link">&para;</a></h1>
 <p>Forget passwords. Passwords are garbage. To celebrate World Password Day, I’m curating blog articles that can help organizations on their passwordless journey.</p>
 <p>While much of the Microsoft documentation on passwordless is quite good, it can tend to be overwhelming at times; the hope is to give you some great leads on some clear, step-by-step instructions on how to get you from a password-filled to a passwordless world in Active Directory and Azure AD.</p>
 <p>With each link, I’ve provided a rough time estimate for how long the process should take, given a dedicated effort. There may always be the fringe case or two where passwordless is more complex – if your existing environment has things such as AD FS and using smartcards, or has DC’s older than 2016, you have a bunch of Macs in your environment, as examples. It always helps to review the documentation, which I also link to.</p>
@@ -1054,7 +1054,7 @@
 <p><a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/all-your-creds-are-belong-to-us/ba-p/855124">All your creds are belong to us! – Microsoft Tech Community</a> – Alex discusses why passwordless strong authentication is important and shows why more common forms of MFA are still phishable.</p>
 <p>See something missing? Still have questions? Not sure how the underlying technology works? Reach out to me.</p>
 <p>And if you are a fellow Microsoft blogger who thinks their article would be a good fit, but it’s not on here? Reach out and I’ll update accordingly.</p>
-<h2 id="but-i-havent-started-the-passwordless-journey-yet">But I haven't started the passwordless journey yet</h2>
+<h2 id="but-i-havent-started-the-passwordless-journey-yet">But I haven't started the passwordless journey yet<a class="headerlink" href="#but-i-havent-started-the-passwordless-journey-yet" title="Permanent link">&para;</a></h2>
 <p>You aren’t alone. Many organizations find it difficult to fit yet another new project onto the docket.</p>
 <p>The thing about passwordless – while it may be a journey, it’s also one of the easiest journeys to start. All major mechanisms of passwordless – Windows Hello for Business (WHfB), FIDO2 security keys, Authenticator App for primary authentication, and smartcards – they all can be implemented in a wave/phase/ring (pick your favorite descriptor) approach. And the underlying directory &amp; infrastructure changes (if any) can be implemented in a non-disruptive manner.</p>
 <p>Can’t get the whole organization onboard? That’s ok, x% is better than 0%.</p>
@@ -1064,7 +1064,7 @@
 <p>Have some applications that still use legacy means of authentication? Most organizations do, but we can minimize the need to use passwords beyond them.</p>
 <p>Concerned users may still use their password because you can’t fully get rid of it? When we give users an easier passwordless experience, they will not opt for something more complex. Users love easy things.</p>
 <p>When talking about the security of identity, the <strong>most important thing</strong> we can all do is <strong>change our mindset</strong>. Instead of focusing on the possibility that a single solution may not cover 100% of user personas, we need to focus on whatever percentage we <strong>can</strong> cover, which will <strong>reduce</strong> the <strong>password attack surface</strong> immensely for those users, and our organization.</p>
-<h2 id="authenticator-app-for-primary-authentication">Authenticator App for primary authentication</h2>
+<h2 id="authenticator-app-for-primary-authentication">Authenticator App for primary authentication<a class="headerlink" href="#authenticator-app-for-primary-authentication" title="Permanent link">&para;</a></h2>
 <p><strong>Infrastructure effort: 5-10 minutes</strong>
 <strong>End user enrollment effort: 5-10 minutes</strong>
 <strong>Can be rolled out selectively: Yes</strong>
@@ -1079,7 +1079,7 @@
 <p>If you are also using the number matching preview for Authenticator App push notifications, the passwordless configuration is covered under the same settings in Azure AD. If you are using groups to selectively roll out these settings, I cover targeting groups here:</p>
 <p><a href="https://ericonidentity.com/2022/02/22/azure-ad-increasing-security-within-the-mfa-experience/">Azure AD: Increasing Security within the MFA Experience – Eric on Identity</a></p>
 </div>
-<h2 id="fido2-security-keys">FIDO2 Security Keys</h2>
+<h2 id="fido2-security-keys">FIDO2 Security Keys<a class="headerlink" href="#fido2-security-keys" title="Permanent link">&para;</a></h2>
 <p><strong>Infrastructure effort: 20 minutes for AADJ devices. 40 minutes for HAADJ devices.</strong>
 <strong>End user enrollment effort: 5-10 minutes</strong>
 <strong>Can be rolled out selectively: Yes</strong>
@@ -1096,7 +1096,7 @@
 <p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key">Passwordless security key sign-in – Azure Active Directory | Microsoft Docs</a></p>
 <p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-windows">Passwordless security key sign-in Windows – Azure Active Directory | Microsoft Docs</a></p>
 <p><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-passwordless-security-key-on-premises">Passwordless security key sign-in to on-premises resources – Azure Active Directory | Microsoft Docs</a></p>
-<h2 id="windows-hello-for-business">Windows Hello for Business</h2>
+<h2 id="windows-hello-for-business">Windows Hello for Business<a class="headerlink" href="#windows-hello-for-business" title="Permanent link">&para;</a></h2>
 <p><strong>Infrastructure effort: 20 minutes [Azure AD Join Cloud Trust], 1-2 hours [Hybrid Cloud Trust], 2 hours-3 days [Hybrid Key Trust]</strong>
 <strong>End user enrollment effort: 2-5 minutes (plus 30-60 usability delay for Hybrid Key Trust)</strong>
 <strong>Can be rolled out selectively: Yes</strong>
@@ -1123,14 +1123,14 @@
 <p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-key-trust">Hybrid Key Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
 <p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-cert-trust">Hybrid Certificate Trust Deployment (Windows Hello for Business) – Windows security | Microsoft Docs</a></p>
 <p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-hybrid-aadj-sso">Azure AD Join Single Sign-on Deployment – Windows security | Microsoft Docs</a></p>
-<h2 id="some-great-additional-resources">Some great additional resources</h2>
+<h2 id="some-great-additional-resources">Some great additional resources<a class="headerlink" href="#some-great-additional-resources" title="Permanent link">&para;</a></h2>
 <p>Fabian Bader [<a href="https://twitter.com/fabian_bader">@fabian_bader</a>] has a long series on passwordless:</p>
 <p><a href="https://cloudbrothers.info/en/categories/passwordless/">Passwordless – Category – Cloudbrothers</a></p>
 <p>Jan Bakker [<a href="https://twitter.com/janbakker_">@janbakker_</a>] has some quality articles covering FIDO2:</p>
 <p><a href="https://janbakker.tech/?s=fido">FIDO – JanBakker.tech</a></p>
 <p>Harri Jaakkonen[<a href="https://twitter.com/HarriJaakkonen">@HarriJaakkonen</a>] is constantly putting out new articles, and lots that cover passwordless:</p>
 <p><a href="https://www.cloudpartner.fi/?s=passwordless">Set-AzWebApp -name “Anything Microsoft and other stuff on the side” (cloudpartner.fi)</a></p>
-<h2 id="final-notes">Final notes</h2>
+<h2 id="final-notes">Final notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
 <p>Passwords will eventually have an expiration date. It’s better to start the journey away from them now, than get caught behind the ball down the road.</p>
 
 

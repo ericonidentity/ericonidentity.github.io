@@ -1178,7 +1178,7 @@
 
 
 
-<h1 id="entra-app-registrations-and-enterprise-applications-the-definitive-guide">Entra App Registrations and Enterprise Applications: The Definitive Guide</h1>
+<h1 id="entra-app-registrations-and-enterprise-applications-the-definitive-guide">Entra App Registrations and Enterprise Applications: The Definitive Guide<a class="headerlink" href="#entra-app-registrations-and-enterprise-applications-the-definitive-guide" title="Permanent link">&para;</a></h1>
 <p>For those that must manage application integrations in Entra ID, it’s an inevitable question: What is the difference between an App Registration and an Enterprise Application? Why are there two different management blades? Why do I see some applications in both places?</p>
 <p>I’ll admit that this is not the first take at answering this question, and there are already some good answers out there. Microsoft breaks things down here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=SEC-MVP-5005105">Apps &amp; service principals in Azure AD – Microsoft Entra | Microsoft Learn</a>, with a decent visual at the end.</p>
 <p>Marilee Turscak also has an excellent breakdown here, <a href="https://marileeturscak.com/posts/app-registrations-enterprise-applications-service-principals/">The Differences Between App Registrations, Enterprise Applications, and Service Principals in Azure AD | Marilee Turscak</a>.</p>
@@ -1188,7 +1188,7 @@
 <p>We’ll start with some definitions, and then try to walk through various scenarios that you may encounter. If you don’t see your question answered within the definitions, keep reading… we’ll try to hit on all the areas here.</p>
 <!-- more -->
 
-<h2 id="app-registrations">App Registrations</h2>
+<h2 id="app-registrations">App Registrations<a class="headerlink" href="#app-registrations" title="Permanent link">&para;</a></h2>
 <p>An <strong>application registration</strong> (app registration) is the definition of the application, as an <strong>application object</strong>, in Entra ID. It “explains” to Entra ID what the application wants, such as permissions for certain APIs, as well as where and how the application resides, with information such as the Redirect URI.</p>
 <p>For a line-of-business (LOB) it would usually be your developers specifying the contents within an application object. Where identity professionals usually get involved:</p>
 <ul>
@@ -1235,7 +1235,7 @@
 </div>
 <p>App registrations are considered a <strong>globally unique definition</strong> of the application across <strong>all</strong> Entra tenants, even if it’s an application that is only to be used by your tenant.</p>
 <p>Entra ID, as a global Identity-as-a-service (IDaaS) platform, has shared backend components, and for the purposes of a multitenant application it’s important to ensure that the application is globally unique from a security and functionality perspective. Since organizations can choose to change a single-tenant application to a multitenant application, the ID needs to remain unique.</p>
-<h2 id="service-principals">Service Principals</h2>
+<h2 id="service-principals">Service Principals<a class="headerlink" href="#service-principals" title="Permanent link">&para;</a></h2>
 <p>Service principals are a <strong>security principal</strong> that define the <strong>allowed</strong> permissions for the application in Entra ID and give the application representation within the directory. Users are another type of security principal – we assign permissions and roles to users within Entra ID, as well as other associated resources.</p>
 <p>I highlight allowed permissions because while the App registration defines what permissions the app developer needs for the application to function, it’s the service principal that actually defines what is allowed in the tenant. The service principal is also the object that will appear in various Azure “pick lists”, if you are applying something like a Conditional Access policy, or assigning the service principal rights in an Azure subscription.</p>
 <p>There are three types of service principals in Entra ID:</p>
@@ -1245,7 +1245,7 @@
 <li>Legacy</li>
 </ul>
 <p>Since legacy service principals are something that organizations shouldn’t be using these days, we really just have two types that we’ll focus on.</p>
-<h2 id="enterprise-applications">Enterprise Applications</h2>
+<h2 id="enterprise-applications">Enterprise Applications<a class="headerlink" href="#enterprise-applications" title="Permanent link">&para;</a></h2>
 <p>Enterprise applications, as a type of service principal, could effectively be thought of as a child if you were diagram a hierarchy. Now if service principals are the parent to enterprise applications, why is the blade in Entra admin center titled Enterprise applications? It’s because that’s primarily what we are concerned with when working within that blade. If you’ve used PowerShell or the Graph API for enumerating and working with enterprise applications, it’s why you use commands like get-azureadserviceprincipal or /servicePrincipals in Graph for accessing these.</p>
 <p>If you browse to Enterprise applications, you’ll notice that the view is actually pre-scoped to <strong>Application type == Enterprise Applications</strong></p>
 <p><img alt="Figure 2" src="/images/2023/03/11/img2.png" /></p>
@@ -1253,27 +1253,27 @@
 <p><img alt="Figure 3" src="/images/2023/03/11/img3.png" /></p>
 <p>Microsoft applications are still service principals in our Entra tenant, but they generally relate to more tightly integrated services. For the purposes of our exploration, we won’t dive into these, but will note that they should primarily be left unaltered.</p>
 <p>Every time you see the term enterprise application, just remember it’s a type of service principal.</p>
-<h2 id="gluing-the-two-together">Gluing the two together</h2>
+<h2 id="gluing-the-two-together">Gluing the two together<a class="headerlink" href="#gluing-the-two-together" title="Permanent link">&para;</a></h2>
 <p>It’s important to come back to the understanding that there is a direct link between an app registration and a service principal.</p>
-<h3 id="single-tenant-application">Single tenant application</h3>
+<h3 id="single-tenant-application">Single tenant application<a class="headerlink" href="#single-tenant-application" title="Permanent link">&para;</a></h3>
 <p>For a single tenant application, we’ll have the app registration along with the corresponding service principal. If the app registration occurs in the tenant, there will always be a corresponding service principal created.</p>
 <p><img alt="Figure 4" src="/images/2023/03/11/img4.png" /></p>
-<h3 id="multitenant-application">Multitenant application</h3>
+<h3 id="multitenant-application">Multitenant application<a class="headerlink" href="#multitenant-application" title="Permanent link">&para;</a></h3>
 <p>For a multitenant application, we’ll have the app registration along with the corresponding service principal in all tenants that the application has been granted consent to.</p>
 <p><img alt="Figure 5" src="/images/2023/03/11/img5.png" /></p>
-<h3 id="consent-grant">Consent grant</h3>
+<h3 id="consent-grant">Consent grant<a class="headerlink" href="#consent-grant" title="Permanent link">&para;</a></h3>
 <p>This is probably a good place to bring up that the application consent grant process is what permits the service principal creation with the associated API permissions. This is when you receive a popup such as the following:</p>
 <p><img alt="Figure 6" src="/images/2023/03/11/img6.png" /></p>
 <p><em>Image courtesy Microsoft Learn</em></p>
 <p>At the time of providing the consent grant, a service principal is created in your Entra tenant indicating the permissions that were consented to.</p>
-<h2 id="what-about-passwords">What about passwords</h2>
+<h2 id="what-about-passwords">What about passwords<a class="headerlink" href="#what-about-passwords" title="Permanent link">&para;</a></h2>
 <p>This is where it gets a bit complex, and existing documentation tends to really pass over what passwords live where and when to use what.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For purposes of this document I’ll use the term password to represent a shared secret. I mention this because while the Entra admin center places these under the term <strong>Client secrets</strong>, in the application manifest and service principal definition, <strong><em>passwordCredentials</em></strong> is what holds the data on the secret. For simplicity we’ll be looking at shared secrets, but you can, and should whenever possible, use <strong>Certificates</strong>, also referred to as <strong>keyCredentials</strong>.</p>
 </div>
 <p>Most documentation would lead you to believe that you create a password in the application object, and then this is referenced by the service principal. However, you also can create and associate a password with the service principal itself.</p>
-<h3 id="service-principal-passwords">Service principal passwords</h3>
+<h3 id="service-principal-passwords">Service principal passwords<a class="headerlink" href="#service-principal-passwords" title="Permanent link">&para;</a></h3>
 <p>We can test creation of a service principal and assign a password directly to it with the following bit of PowerShell:</p>
 <div class="highlight"><pre><span></span><code>$notAfter = (Get-Date).AddMonths(6) # Valid for 6 months
 $application = New-AzureADApplication -DisplayName &quot;Test Service Principal with Password&quot;
@@ -1446,7 +1446,7 @@ New-AzureADServicePrincipalPasswordCredential -ObjectId $sp.ObjectId -EndDate $n
 </code></pre></div>
 And to validate this, we can look at the associated application object in the portal:</p>
 <p><img alt="Figure 7" src="/images/2023/03/11/img7.png" /></p>
-<h3 id="application-object-app-registration-passwords">Application object (app registration) passwords</h3>
+<h3 id="application-object-app-registration-passwords">Application object (app registration) passwords<a class="headerlink" href="#application-object-app-registration-passwords" title="Permanent link">&para;</a></h3>
 <p>This time, let’s create another service principal but we’ll set a password in the application object:</p>
 <div class="highlight"><pre><span></span><code>$application = New-AzureADApplication -DisplayName &quot;Test App Registration with Password&quot;
 $sp=New-AzureADServicePrincipal -AppId $application.AppId -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
@@ -1615,7 +1615,7 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
 <p>If we look at the associated application object, we can see this password:</p>
 <p><img alt="Figure 8" src="/images/2023/03/11/img8.png" /></p>
 <p>Since there is no place in the Entra admin center that exposes service principal passwords, there is nothing to compare to there.</p>
-<h3 id="so-which-passwords-where">So which passwords where?</h3>
+<h3 id="so-which-passwords-where">So which passwords where?<a class="headerlink" href="#so-which-passwords-where" title="Permanent link">&para;</a></h3>
 <p>If we can register a password on either the service principal or application object, how do we decide which to use and where?</p>
 <p>In a test, I’ve assigned both the service principal and application object with a password set to an Azure subscription, and you can authenticate using either type of password credential.</p>
 <p>Service Principal password:</p>
@@ -1701,12 +1701,12 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
             &quot;usage&quot;: &quot;Verify&quot;,
 </code></pre></div>
 <p>In my example I’m using a certificate, not a password, as the sample code used was out of the box designed to use a certificate (key pair).</p>
-<h2 id="questions-and-scenarios">Questions and scenarios</h2>
+<h2 id="questions-and-scenarios">Questions and scenarios<a class="headerlink" href="#questions-and-scenarios" title="Permanent link">&para;</a></h2>
 <p>Now that we have some foundation, let’s take a look at some common questions and scenarios.</p>
-<h3 id="will-every-app-registration-have-a-corresponding-service-principal">Will every App Registration have a corresponding service principal</h3>
+<h3 id="will-every-app-registration-have-a-corresponding-service-principal">Will every App Registration have a corresponding service principal<a class="headerlink" href="#will-every-app-registration-have-a-corresponding-service-principal" title="Permanent link">&para;</a></h3>
 <p>Yes. Every app registration will have at least one service principal, which is created in the home tenant that the app registration was created in.</p>
 <p>There are some examples of PowerShell code out there that will create a service principal but are missing the <strong>WindowsAzureActiveDirectoryIntegratedApp</strong> tag, which will prevent them from showing up in enterprise applications (even with the filter removed).</p>
-<h3 id="will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration">Will every Enterprise Application/Service Principal have a corresponding App Registration?</h3>
+<h3 id="will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration">Will every Enterprise Application/Service Principal have a corresponding App Registration?<a class="headerlink" href="#will-every-enterprise-applicationservice-principal-have-a-corresponding-app-registration" title="Permanent link">&para;</a></h3>
 <p>Yes, but not necessarily in your tenant.</p>
 <p>To be more specific, and this is also where we need to understand that enterprise applications are <strong>more</strong> than just OAuth 2.0/OIDC applications.</p>
 <p>If the application is OpenID Connect or OAuth 2.0, as we have seen above, the resource tenant will <strong>only</strong> have a service principal in the applications home tenant.</p>
@@ -1750,20 +1750,20 @@ New-AzureADApplicationPasswordCredential -ObjectId $application.ObjectId
 </code></pre></div>
 <p>If you’ve integrated certain SAML applications and wanted to assign groups to custom roles to then emit in the SAML response, you would find yourself in the App registration to further define those.</p>
 <p>But take notice that from a permissions perspective, going back to the security principal side of things, it is the enterprise application where you configure who is allowed to access the application.</p>
-<h3 id="why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application">Why do we need to handle the secret management for our single tenant application?</h3>
+<h3 id="why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application">Why do we need to handle the secret management for our single tenant application?<a class="headerlink" href="#why-do-we-need-to-handle-the-secret-management-for-our-single-tenant-application" title="Permanent link">&para;</a></h3>
 <p>This is something that your developers are likely used to. Going back to the beginning of this post, while you have to agree to the permissions the application developer needs, the developer is the one who would be likely handling the secrets.</p>
 <p>But if you’ve purchased a piece of software that ITPros would be the owners of – third party Exchange Online backup software, Identity Governance and Administration products, security assessment platforms – these are the things you will need to provide the secret to, in order for the applications to obtain the necessary access tokens. But, because of the way that OAuth 2.0 functions, you still need to go through that initial consent process.</p>
-<h3 id="what-about-for-certain-saas-applications-why-do-they-need-secrets">What about for certain SaaS applications? Why do they need secrets?</h3>
+<h3 id="what-about-for-certain-saas-applications-why-do-they-need-secrets">What about for certain SaaS applications? Why do they need secrets?<a class="headerlink" href="#what-about-for-certain-saas-applications-why-do-they-need-secrets" title="Permanent link">&para;</a></h3>
 <p>It usually comes down to the type of SaaS application and how the applications multi-tenancy is handled.</p>
 <p>Look at Salesforce. While this is a SaaS platform, each instance of Salesforce is left up to the organization that has acquired it to manage who can authenticate to what and how. So, while Salesforce supports OpenID Connect, it’s up to the organization that manages their instance of Salesforce to configure that. In this example for every Entra ID customer out there with Salesforce and OpenID Connect, there are that many essentially “duplicate” app registrations for it in Entra ID. Also – nothing is forcing Salesforce (in this example) to register their application in Entra ID. And it could easily go down a rabbit hole quite quickly – what about needing to register with Okta? Ping? Who and what do they have potentially partner relationships with? You also have to think about things like token customization and the data that <strong>you</strong> may want to be sent to Salesforce. You need to have control over the app registration to be able to do this with OIDC.</p>
 <p>As such, it’s common for large and complex enterprise-oriented SaaS vendors to still require you to manage both ends of the OIDC/OAuth 2.0 configuration.</p>
-<h3 id="why-can-i-consent-in-either-the-enterprise-application-or-app-registration">Why can I consent in either the Enterprise Application or App Registration?</h3>
+<h3 id="why-can-i-consent-in-either-the-enterprise-application-or-app-registration">Why can I consent in either the Enterprise Application or App Registration?<a class="headerlink" href="#why-can-i-consent-in-either-the-enterprise-application-or-app-registration" title="Permanent link">&para;</a></h3>
 <p>Because the portal tries to make things magic. It’s simply an ease thing – the function behind the scenes is the same, regardless of where you consent.</p>
-<h3 id="why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view">Why do some Service Principals I've created with PowerShell not appear in the Enterprise Application view?</h3>
+<h3 id="why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view">Why do some Service Principals I've created with PowerShell not appear in the Enterprise Application view?<a class="headerlink" href="#why-do-some-service-principals-ive-created-with-powershell-not-appear-in-the-enterprise-application-view" title="Permanent link">&para;</a></h3>
 <p>When creating a service principal, if the tag <strong>WindowsAzureActiveDirectoryIntegratedApp</strong> is not included in the definition, the service principal will not show up in Enterprise Applications. Microsoft is not completely clear as to why this tag is optional, as the application will still be available in the Conditional Access and Azure RBAC pick lists. One could presume you would not necessarily concern yourself with service principals created for things like automation products. Still, if you accidently created a service principal without this, you could simply run the following command to update it:</p>
 <div class="highlight"><pre><span></span><code>Set-AzureADServicePrincipal -ObjectId &lt;objectid&gt; -Tags @(&quot;WindowsAzureActiveDirectoryIntegratedApp&quot;)
 </code></pre></div>
-<h2 id="additional-resources">Additional resources</h2>
+<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <p>Authenticating to Entra ID with PowerShell using a service principal, <a href="https://learn.microsoft.com/en-us/powershell/azure/active-directory/signing-in-service-principal?WT.mc_id=SEC-MVP-5005105">Using a service principal | Microsoft Learn</a>.</p>
 <p><a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow?WT.mc_id=SEC-MVP-5005105">OAuth 2.0 client credentials flow on the Microsoft identity platform – Microsoft Entra | Microsoft Learn</a></p>
 <p><a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow?WT.mc_id=SEC-MVP-5005105">Microsoft identity platform and OAuth 2.0 authorization code flow – Microsoft Entra | Microsoft Learn</a></p>

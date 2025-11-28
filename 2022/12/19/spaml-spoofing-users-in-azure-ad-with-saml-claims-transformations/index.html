@@ -1086,14 +1086,14 @@
 
 
 
-<h1 id="spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations">SpAML: Spoofing Users In Azure AD With SAML Claims Transformations</h1>
+<h1 id="spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations">SpAML: Spoofing Users In Azure AD With SAML Claims Transformations<a class="headerlink" href="#spaml-spoofing-users-in-azure-ad-with-saml-claims-transformations" title="Permanent link">&para;</a></h1>
 <p>For those that believe SAML is dead, they should take a look at the Azure AD Application Gallery. While the authentication standard finished baking almost two decades ago, it’s still a staple for integration of applications with Azure AD. As of writing, the Azure AD App Gallery has 2015 applications available for SSO integration, and 1335 of them use SAML, roughly two-thirds. Beyond this, there are thousands of line-of-business (LOB) and other 3rd party applications that don’t exist in the gallery but leverage SAML. Many well-known applications and platforms are published in the gallery using SAML – Salesforce, Google Workspace/Google Cloud, AWS, SAP, Oracle Cloud, ServiceNow, Workday… the list goes on and on.</p>
 <p>With the ease of federated identity, not only are we tying other cloud providers to Azure AD, but we are also bringing in business critical applications. With this, we need to keep in mind that threat actors are not always targeting critical IT resources; one can do plenty damage with access to records and data stored within SaaS applications.</p>
 <p>Azure AD makes it easier than ever to spoof (impersonate) a user within a SAML response. This relatively easy technique allows us to impersonate a highly privileged user in the target application. At the same time, authentication behavior for all other users of the application, including the legitimate user being spoofed, will not change. If your organization leverages SCIM for user provisioning, which is the direction the industry is going, this lends in favor of spoofing going undetected, as optional attributes in the SAML response will go unused by the application.</p>
 <p>Within Azure AD, you do not need to be a Global Administrator to configure an Enterprise Application. Anyone with Application Administrator, Cloud Application Administrator, or assigned Owner to a specific application can manage it. From a usability perspective, Microsoft pushes delegation of ownership to the business units. The users, however, that now can manage the application, likely fall under the bar of PIM or any privilege separation. Suffice to say, this opens our potential pool of targets in an organization; needing Global Administrator for movement into target applications is not necessary, just whoever has ownership. Likewise, it’s ripe for abuse by insider threats.</p>
 <!-- more -->
 
-<h2 id="azure-ad-saml-response-primer">Azure AD SAML response primer</h2>
+<h2 id="azure-ad-saml-response-primer">Azure AD SAML response primer<a class="headerlink" href="#azure-ad-saml-response-primer" title="Permanent link">&para;</a></h2>
 <p>For a full refresh on the SAML authentication flow, I’ll refer to the IDPro Body of Knowledge Article, <a href="https://bok.idpro.org/article/id/79/">Cloud Service Authenticates Via Delegation – SAML</a>. For an understanding of the spoofing technique, the SAML response, which is passed from the Identity Provider (IdP, Azure AD) to the application (SP, Service Provider) via the user, contains both required and optional claims. One of these required claims is the <strong>name identifier</strong>, referred to in the response as the <strong>NameID</strong>.</p>
 <p>NameID is a unique attribute that represents the user within the application. It is what the application uses to lookup the user within its internal user database.</p>
 <p>Azure AD defaults to, and it is a common pattern these days, to use the Email Address (urn:oasis:names<img alt="🇹🇨" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f9-1f1e8.svg" title=":tc:" />SAML:1.1:nameid-format:emailAddress) format. The default source attribute that is emitted in the SAML response is user.userprincipalname.</p>
@@ -1101,13 +1101,13 @@
 <div class="highlight"><pre><span></span><code>&lt;NameID Format=&quot;urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress&quot;&gt;nestor.wilke@fabrikam.cloud&lt;/NameID&gt; 
 </code></pre></div>
 <p>Azure AD also provides the ability to create <strong>claim transformations</strong>. Claim transformations can be useful for several reasons. A simple example is if the application has case sensitivity requirements. One can apply a ToLowercase() and not have worry about needing to modify broader patterns in Azure AD to satisfy one application. Claims transformations are configured on a per-claim basis within each Enterprise Application that is using SAML.</p>
-<h2 id="setting-the-stage">Setting the stage</h2>
+<h2 id="setting-the-stage">Setting the stage<a class="headerlink" href="#setting-the-stage" title="Permanent link">&para;</a></h2>
 <p>An effective use of spoofing the SAML response is to impersonate a highly privileged user in an application. For our example, let’s look at a few different user personas, in a somewhat simplified scenario:</p>
 <ul>
 <li>Nestor Wilke is an account owner in AWS, and because this is considered a highly privileged role, he has privileged credentials he uses for accessing AWS, p-nestor.wilke@fabrikam.cloud.</li>
 <li>Isaiah Langer is part of the Operations team that is tasked with providing support to Enterprise Applications, which provides rights over the AWS Enterprise Application. Groups are used for user assignment to AWS, and AWS role assignment happens in AWS IAM Identity Center. Isaiah can manage these applications with his normal user account, isaiah.langer@fabrikam.cloud. He has an account in AWS, but his privileges there are low.</li>
 </ul>
-<h2 id="configuring-our-malicious-transform">Configuring our malicious transform</h2>
+<h2 id="configuring-our-malicious-transform">Configuring our malicious transform<a class="headerlink" href="#configuring-our-malicious-transform" title="Permanent link">&para;</a></h2>
 <p>Once we gain access to an account with ownership over the application, we will want to jump into Azure AD, and browse to Enterprise Applications, and then open the target application.</p>
 <p>Within here, we will select Single sign-on in the left blade, and then under Attributes &amp; Claims on the right blade, select Edit:</p>
 <p><img alt="Figure 1" src="/images/2022/12/19/img1.png" /></p>
@@ -1126,7 +1126,7 @@
 <div class="highlight"><pre><span></span><code>If &#39;user.userprincipalname&#39; contains &#39;isaiah.langer@fabrikam.cloud&#39; then output &#39;p-nestor.wilke@fabrikam.cloud&#39;. Else, output &#39;user.userprincipalname&#39;.
 </code></pre></div>
 <p>We select <strong>Add</strong>, and then <strong>Save</strong>.</p>
-<h2 id="using-our-malicious-transform">Using our malicious transform</h2>
+<h2 id="using-our-malicious-transform">Using our malicious transform<a class="headerlink" href="#using-our-malicious-transform" title="Permanent link">&para;</a></h2>
 <p>Now that we have things configured, let’s look at this in action. Recall that Nestor is our target user, and Isaiah is the account that will be used for spoofing.</p>
 <div class="video-wrapper">
   <iframe src="https://www.youtube-nocookie.com/embed/FHWV854iYDo"
@@ -1138,9 +1138,9 @@
 </div>
 
 <p>This is just one example. This has been similarly tested and proofed with GCP and Salesforce and should be valid for any SAML application whether from the application gallery or a LOB application.</p>
-<h2 id="detecting-malicious-transforms">Detecting malicious transforms</h2>
+<h2 id="detecting-malicious-transforms">Detecting malicious transforms<a class="headerlink" href="#detecting-malicious-transforms" title="Permanent link">&para;</a></h2>
 <p>Unfortunately, the ability to detect a transform like this is difficult, as normal channels do not expose the data we expect and need.</p>
-<h3 id="audit-logging-is-broken">Audit logging is broken</h3>
+<h3 id="audit-logging-is-broken">Audit logging is broken<a class="headerlink" href="#audit-logging-is-broken" title="Permanent link">&para;</a></h3>
 <p>The first thought is to go to our Azure AD audit logs. After all, the change should be recorded in Azure AD, so we can ingest that data for detection.</p>
 <p>SAML claim policy auditing, is unfortunately, broken. If we look at our audit logs after Isaiah made the change, we will see the following:</p>
 <p><img alt="Figure 6" src="/images/2022/12/19/img6.png" /></p>
@@ -1151,17 +1151,17 @@
 <p>Note that there is nothing of value. <strong>Any</strong> SAML claim issuance policy changes in Azure AD show up the same way. To ensure this was not some sort of limitation of the portal itself, I looked at the data exported to Log Analytics:</p>
 <p><img alt="Figure 9" src="/images/2022/12/19/img9.png" /></p>
 <p>I’ve had a support case open with Microsoft through standard channels on this, but there has been no movement.</p>
-<h3 id="graph-api-does-not-expose-saml-claim-policies">Graph API does not expose SAML claim policies</h3>
+<h3 id="graph-api-does-not-expose-saml-claim-policies">Graph API does not expose SAML claim policies<a class="headerlink" href="#graph-api-does-not-expose-saml-claim-policies" title="Permanent link">&para;</a></h3>
 <p>Figure the next place we may turn would be the Microsoft Graph API, but again we are blocked here. The Graph API does not expose SAML claim issuance policies, something that can be traced back to 2019 with customers asking for it, yet still is not supported from my recent check with Microsoft.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Microsoft has claimed to resolve this by making claim transforms available through Graph API, however, it's a different set of transforms.</p>
 </div>
-<h3 id="what-are-we-left-with">What are we left with?</h3>
+<h3 id="what-are-we-left-with">What are we left with?<a class="headerlink" href="#what-are-we-left-with" title="Permanent link">&para;</a></h3>
 <p>As Azure AD does not provide native means for easily tracking this, we can either go with something of relatively low fidelity, alerting on all changes to a ClaimIssuancePolicy, but this is also going to alert on all changes, good and bad. If there is little in the way of activity with SAML application onboarding in the environment, this may suffice.</p>
 <p>From a retroactive analysis perspective, because these are not exposed through the Graph API, the only way to verify the policy settings is through manual inspection.</p>
 <p>Using a SIEM platform for authentication log correlation may at first seem appealing but consider that authentication times are likely the only mechanism for correlation. If the platform has a high volume of user activity, that is going to create an immense level of complexity, as Azure AD and the application are highly likely going to be exposing the time the user authenticated into those systems, which may not align to the necessary precision.</p>
-<h2 id="preventing-malicious-transforms">Preventing malicious transforms</h2>
+<h2 id="preventing-malicious-transforms">Preventing malicious transforms<a class="headerlink" href="#preventing-malicious-transforms" title="Permanent link">&para;</a></h2>
 <p>Preventing malicious transforms becomes even more important when our ability to properly monitor for them is inhibited.</p>
 <p>From a prevention perspective it’s back to the basics. The following should apply for all Global Administrators, as well as Application Administrator or Cloud Application Administrator roles if your organization heavily relies on them for management of Enterprise Applications:</p>
 <ul>
@@ -1178,7 +1178,7 @@
 <p>The surface area for abuse by a threat actor can be reduced by application conditional access requiring compliant devices for all users with proper endpoint management in place, but from the perspective of insider threat or certain token theft scenarios, this may not be sufficient.</p>
 <p>Heavily restricted Conditional Access policies will not prevent user impersonation, as all CA policies are evaluated prior to the issuance of the SAML response. In our example, even if Nestor was restricted to using a PAW for accessing AWS, Isaiah would have been able to access AWS under whatever conditions CA was applying to his user account. If the application requires user assignment, or if a CA policy specifically blocked Isaiah from access, the risk is mitigated. For many business-critical applications, such as Workday, it’s highly likely that blocking scenarios cannot be applied as the application is used across the workforce. Using mechanisms such as role assignment may be circumvented with a combination of claim conditions and transforms.</p>
 <p>If the target application provides mechanisms for privilege escalation management within, it may also stop the ability for impersonation, as the user would be presented to elevate privilege for the spoofed user within the target.</p>
-<h2 id="responsible-disclosure">Responsible disclosure</h2>
+<h2 id="responsible-disclosure">Responsible disclosure<a class="headerlink" href="#responsible-disclosure" title="Permanent link">&para;</a></h2>
 <p>When I initially came up with my proof case, I opened a case with MSRC, indicating that claims transforms should not allow for a constant output for NameID, as it enables for spoofing. Even though it is not a security risk within Azure AD, as the identity provider, proper controls should exist within the IdP to ensure that associated applications are not overly exposed to a security risk such as NameID spoofing.</p>
 <ul>
 <li>August 30th, 2022: Opened case with MSRC</li>

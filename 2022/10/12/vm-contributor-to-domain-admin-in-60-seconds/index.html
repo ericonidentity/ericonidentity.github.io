@@ -1027,7 +1027,7 @@
 
 
 
-<h1 id="vm-contributor-to-domain-admin-in-60-seconds">VM Contributor To Domain Admin In 60 Seconds</h1>
+<h1 id="vm-contributor-to-domain-admin-in-60-seconds">VM Contributor To Domain Admin In 60 Seconds<a class="headerlink" href="#vm-contributor-to-domain-admin-in-60-seconds" title="Permanent link">&para;</a></h1>
 <p>When Microsoft revamped the privileged access model in the late fall of 2020, it was received with mixed results. To some, it felt as if it was overcomplicating the simple three-tier model that had been the gold standard for protecting Active Directory and other critical business assets for about a decade.</p>
 <p>However, the shift was necessary, as it was acknowledging that business critical assets are not just the identity provider. The revamp changed how we look at things, with the proliferation of virtualization and cloud providers, and pointing out the management and control plane as critical privileged points of access.</p>
 <p><img alt="Figure 1" src="/images/2022/10/12/img1.png" /></p>
@@ -1040,7 +1040,7 @@
 <p><img alt="Figure 2" src="/images/2022/10/12/img2.png" /></p>
 <p><em>Sample landing zone model, Identity subscription highlighted, courtesy Microsoft</em></p>
 <p>In the model depicted above, we see that Active Directory is living in its own subscription, but even when we drill into the details of that piece of the puzzle, there isn’t direct guidance as far as what the RBAC model should look like over that subscription, beyond a bunch of circular references to products or how to achieve certain compliance levels. And while all this stuff is good, this is an area where sometimes it needs to be clearly spelled out.</p>
-<h2 id="when-permissions-go-wrong">When permissions go wrong</h2>
+<h2 id="when-permissions-go-wrong">When permissions go wrong<a class="headerlink" href="#when-permissions-go-wrong" title="Permanent link">&para;</a></h2>
 <p>When we examine the roles assigned to that identity subscription, it’s important to realize that <strong>if you have certain levels of unassuming access</strong> over Domain Controller VMs it <strong>effectively provides means to gaining privileged access in Active Directory</strong>.</p>
 <p>If this isn’t news to you, that’s good. If you are still unsure what this means, or want a refresher, read on.</p>
 <p>Many organizations, especially those that have been in Azure a good long while before all the WAF and CAF, can range anywhere from 30 Global Administrators that are also Owners on all subscriptions (witnessed firsthand) to a NOC that has Virtual Machine Contributor to accounts separated and dedicated to the management of the Domain Controller VM’s… and everything in between.</p>
@@ -1074,7 +1074,7 @@ And then add the user to the Administrator group:</p>
 <p>Back on the Domain Controller:</p>
 <p><img alt="Figure 9" src="/images/2022/10/12/img9.png" /></p>
 <p>These are just some examples. While a threat actor may not be so obvious, it’s also important to point out that once a VM contributor account is breached, the attack itself does not need to be overengineered or complicated. Whatever you can do within the SYSTEM context, you can pull off through Azure Run command with these rights.</p>
-<h2 id="tracking-run-command">Tracking run command</h2>
+<h2 id="tracking-run-command">Tracking run command<a class="headerlink" href="#tracking-run-command" title="Permanent link">&para;</a></h2>
 <p>If we look at the Azure activity logs, the Run command logs do not provide any insight into the command that ran. Look at the log below, from the last command Isaiah ran:</p>
 <div class="highlight"><pre><span></span><code>{
     &quot;authorization&quot;: {
@@ -1162,7 +1162,7 @@ And then add the user to the Administrator group:</p>
 }
 </code></pre></div>
 <p>Note the absence of the command itself. Likewise, the VM agent has local logging, C:\WindowsAzure\Logs\Plugins\Microsoft.CPlat.Core.RunCommandWindows, but the logs themselves will not contain a copy of the command run.</p>
-<h2 id="its-not-just-the-azure-portal">It's not just the Azure portal</h2>
+<h2 id="its-not-just-the-azure-portal">It's not just the Azure portal<a class="headerlink" href="#its-not-just-the-azure-portal" title="Permanent link">&para;</a></h2>
 <p>While the examples shown here are using the Azure portal, you can perform the same commands using Azure CLI, the Azure PowerShell module <strong>Invoke-AzVMRunCommand</strong>, and the Azure Management API <strong>https://management.azure.com</strong>.</p>
 <p>An example from a run using Azure CLI:</p>
 <div class="highlight"><pre><span></span><code>isaiah@Azure:~$ az vm run-command invoke --command-id RuNPowerShellScript --name nwind-dc1 -g &quot;rg-lab&quot; --scripts &quot;net user da-eric P0wned1234! /domain&quot;
@@ -1186,7 +1186,7 @@ And then add the user to the Administrator group:</p>
 }
 isaiah@Azure:~$
 </code></pre></div>
-<h2 id="mitigation-monitoring-and-recommendations">Mitigation, monitoring and recommendations</h2>
+<h2 id="mitigation-monitoring-and-recommendations">Mitigation, monitoring and recommendations<a class="headerlink" href="#mitigation-monitoring-and-recommendations" title="Permanent link">&para;</a></h2>
 <p>The easiest course of action is to review who has ownership and of the subscription(s) containing Domain Controllers, as well as Virtual Machine Contributor. If those assigned are different from the staff that manages identity in your organization, investigate if the permissions can be removed/reduced. And if your Domain Controllers do not reside in their own subscription, now is the time to start planning to move them.</p>
 <p>Some organizations may still have standard processes to allow users who do not manage Active Directory the ability to do things like start/stop Domain Controllers, create a custom RBAC role. You can copy the Virtual Machine Contributor Role, and then use the Exclude Permissions feature to restrict the ability to use Run commands:</p>
 <p><img alt="Figure 10" src="/images/2022/10/12/img10.png" /></p>

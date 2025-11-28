@@ -1052,16 +1052,16 @@
 
 
 
-<h1 id="azure-ad-you-should-disable-this-legacy-mfa-setting">Azure AD: You Should Disable This Legacy MFA Setting</h1>
+<h1 id="azure-ad-you-should-disable-this-legacy-mfa-setting">Azure AD: You Should Disable This Legacy MFA Setting<a class="headerlink" href="#azure-ad-you-should-disable-this-legacy-mfa-setting" title="Permanent link">&para;</a></h1>
 <p>When talking with organizations about securing their Azure AD tenants, there is always a focus on the latest and greatest, and all the ways it brings everyone forward on the Zero Trust journey. Advancements in Conditional Access, Windows Hello for Business, FIDO2 – the focus is on what’s new and where to go. Occasionally there is the reminder to block legacy authentication (speaking of – have you?), but the focus tends to be on what’s new, and not reviewing what’s old.</p>
 <p>There is one setting, however, that tends to lurk deep within Azure AD tenants, especially for organizations that have had their tenant for a long while, that goes unnoticed, and when left enabled, allows users to potentially interfere with what we believe to be their authentication pattern.</p>
-<h2 id="whats-the-setting">What's the setting?</h2>
+<h2 id="whats-the-setting">What's the setting?<a class="headerlink" href="#whats-the-setting" title="Permanent link">&para;</a></h2>
 <p>If we dig into the legacy multi-factor authentication service settings portal, which can be found by browsing to <strong>Azure AD -&gt; Security -&gt; MFA</strong>, and then on the <strong>right</strong>, under <strong>Configure</strong>, select <strong>Additional cloud-based MFA settings</strong>. It will bring you to the following:</p>
 <p><img alt="Figure 1" src="/images/2022/04/26/img1.png" /></p>
 <p>The setting we are focused on is at the bottom. Under <em>remember multi-factor authentication on trusted device, Allow users to remember multi-factor authentication on devices they trust.</em></p>
 <!-- more -->
 
-<h2 id="whats-the-problem">What's the problem?</h2>
+<h2 id="whats-the-problem">What's the problem?<a class="headerlink" href="#whats-the-problem" title="Permanent link">&para;</a></h2>
 <p>The name of the setting doesn’t really explain it well. The Microsoft Docs article that explains the details of this setting can be found here, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings#remember-multi-factor-authentication">Configure Azure AD Multi-Factor Authentication – Azure Active Directory | Microsoft Docs</a>.</p>
 <p>Even though there is an additional note provided, a lot of organizations don’t even recall this setting exists – either they have never had to come to this set of options to begin with, or it was enabled several years ago and never reviewed again. Unfortunately, this setting is not well exposed in Azure AD.</p>
 <p>When enabled in an Azure AD tenant, it allows end-users to make the decision on what a “trusted device” is. The heading for the setting, when glanced over, may make you believe it relates to trusted devices, as in compliant devices. But as we see within the details, the user is making that trust decision.</p>
@@ -1074,10 +1074,10 @@
 <p>You will see the following in the Sign-in details:</p>
 <p><img alt="Figure 3" src="/images/2022/04/26/img3.png" /></p>
 <p>This setting is <strong>not the same</strong> as the <strong>Keep Me Signed In (KMSI)</strong> settings in Azure AD, which allow the user to retain their refresh token in their browser when they close it. The KMSI experience invalidates the token during user sign-out, and upon sign-in provides the expected behavior of calling for both primary authentication and MFA (if there is an MFA requirement).</p>
-<h2 id="why-exactly-is-this-a-problem">Why exactly is this a problem</h2>
+<h2 id="why-exactly-is-this-a-problem">Why exactly is this a problem<a class="headerlink" href="#why-exactly-is-this-a-problem" title="Permanent link">&para;</a></h2>
 <p>While it may be alluded to above, this setting weakens the security posture regarding MFA. It allows users to subvert when we may be requiring Conditional Access to call for MFA. Now we are not saying our user is doing anything malicious – this is a setting we enable and it’s logical that a user would select this. Users will pick whatever options make getting the job done with the least amount of friction.</p>
 <p>If the device is or becomes compromised, the user account will become an easier target to malicious actors. Just think of any device you have the least amount of trust in, which usually is some sort of shared device outside the corporate boundaries, and then allow the user to make the trust decision. It’s not a great recipe.</p>
-<h2 id="determining-the-usage">Determining the usage</h2>
+<h2 id="determining-the-usage">Determining the usage<a class="headerlink" href="#determining-the-usage" title="Permanent link">&para;</a></h2>
 <p>If you’ve looked at your settings, and you see that this setting is disabled, then you can just stop here.</p>
 <p>If you’ve found that this setting is enabled, you want to understand how widespread the usage is before disabling it. The fewer users leveraging it, the swifter the change process.</p>
 <p>We want to explore our Azure AD Sign-in logs, however, we cannot filter granularly within the portal.</p>
@@ -1089,17 +1089,17 @@
 | distinct UserPrincipalName,IPAddress,OS,Browser,City,State,Country //Filter for distinct instances
 </code></pre></div>
 <p>If you do not have access to Log Analytics, you can export your Azure AD Sign-in logs in either CSV or JSON format and parse the data out accordingly, the string you will want to search for is <strong>MFA requirement skipped due to remembered device</strong>.</p>
-<h2 id="remediation">Remediation</h2>
+<h2 id="remediation">Remediation<a class="headerlink" href="#remediation" title="Permanent link">&para;</a></h2>
 <p>I’ll preface that I’ve had dozens of organizations disable this setting with little notice to end-users, and with little disruption to their lives. Many of those organizations did not even search their logs prior to disabling it.</p>
 <p>This only impacts browser sessions. Client applications will never present this prompt, regardless of whether the client application is on a mobile device or Windows.</p>
 <p>If we are using Windows Hello for Business, FIDO2 security keys, or Authenticator App for Primary Auth, all those mechanisms provide for strong-authentication within them, and are not impacted by this setting.</p>
 <p>For Azure AD Joined (AADJ) or Hybrid Azure AD Joined (HAADJ) devices, even if our users are using passwords and are requested to perform MFA, their PRT will obtain an MFA claim within it during the first run, and users will not be frequently prompted for MFA subsequently.</p>
 <p>That’s a long way of saying the impact is usually limited to web browsers on personal devices that have no relationship to the Azure AD tenant. The devices we trust the least.</p>
 <p>Once comfortable turning off this setting, it’s simply a matter of unchecking the box in the MFA service settings portal we examined above.</p>
-<h2 id="if-you-want-to-limit-mfa-lifetime">If you want to limit MFA lifetime</h2>
+<h2 id="if-you-want-to-limit-mfa-lifetime">If you want to limit MFA lifetime<a class="headerlink" href="#if-you-want-to-limit-mfa-lifetime" title="Permanent link">&para;</a></h2>
 <p>I’ve encountered some organizations who have this setting enabled, and the number dialed way down. When talking about corporate devices or devices we have insight into, through either MDM, MAM, hybrid trust, or such, it’s not recommended to limit MFA lifetime. We already have a level of trust established and prompting users frequently for MFA will not only create friction in the user experience, as well as sets our users up to be both more susceptible to MFA phishing (you get trained to just perform MFA without thought) and devise ways around security.</p>
 <p>If you have business scenarios that call for the desire to prompt more frequently for MFA, Conditional access offers Sign-in frequency session controls as well as Persistent browser session controls, which can be targeted to non-corporate managed devices. Authentication context also allows for scenarios where we want to call for strong authentication scenarios when users are accessing sensitive information. These settings offer a higher level of precision to target certain scenarios while not negatively impacting the broader user experience.</p>
-<h2 id="final-notes">Final notes</h2>
+<h2 id="final-notes">Final notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
 <p>This setting really has been a carry-over from when we didn’t have the power available from Conditional Access, and unfortunately, it’s well hidden in that dusty MFA settings portal almost nobody ever treks into. Lucky for us, it’s a quick win in the name of security to disable.</p>
 
 

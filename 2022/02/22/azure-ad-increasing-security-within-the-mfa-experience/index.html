@@ -1088,7 +1088,7 @@
 
 
 
-<h1 id="azure-ad-increasing-security-within-the-mfa-experience">Azure AD: Increasing Security Within The MFA Experience</h1>
+<h1 id="azure-ad-increasing-security-within-the-mfa-experience">Azure AD: Increasing Security Within The MFA Experience<a class="headerlink" href="#azure-ad-increasing-security-within-the-mfa-experience" title="Permanent link">&para;</a></h1>
 <p>MFA push notifications – one of the more polarizing MFA options available within Azure AD. From a usability perspective, the perception is that it’s less interruptive and less complex for end users. From a security perspective, it’s a low barrier of entry for a malicious actor; especially when targeting a user who may approve push notifications for MFA without much thought.</p>
 <p>We have seen Microsoft implement various methods of interaction into push notifications to try and combat users just hitting Approve without a second thought. The Authenticator App for passwordless, sometimes referred to as phone sign-in, already has number matching implemented. But this never made it into our more common corporate MFA scenarios – until recently when additional options for the Authenticator App showed up in Public Preview.</p>
 <p>After reviewing the details within enabling of number matching and additional context, the effort is a handful of minutes of work – organizations can categorize this one under the ‘low effort/high return’ security bucket.</p>
@@ -1096,7 +1096,7 @@
 <p><em>Before and after</em></p>
 <!-- more -->
 
-<h2 id="number-matching">Number matching</h2>
+<h2 id="number-matching">Number matching<a class="headerlink" href="#number-matching" title="Permanent link">&para;</a></h2>
 <p>Number matching is the component that creates a stronger second factor for our end users, because they will no longer be able to just hit Approve to that push notification. According to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-number-match">Microsoft Docs article</a>, once number matching goes GA, it will be enabled within all tenants a few months after. It’s tough to tell at this point whether customers will then have the option to retroactively disable number matching, but the interface makes it seem like it could be possible – not that it would be recommended.</p>
 <p><img alt="Figure 3" src="/images/2022/02/22/img3.png" /></p>
 <p><em>Number matching dialogue after primary authentication</em></p>
@@ -1109,12 +1109,12 @@
 <li>NPS extension</li>
 </ul>
 <p>Probably should place an asterisk on the NPS extension, because unless you are using PAP as your RADIUS protocol, push notifications will “downgrade” to an Approve/Deny without number matching (there is no ability to interact with EAP/MS-CHAPv2).</p>
-<h3 id="enabling-number-matching">Enabling number matching</h3>
+<h3 id="enabling-number-matching">Enabling number matching<a class="headerlink" href="#enabling-number-matching" title="Permanent link">&para;</a></h3>
 <p>Again, will speculate that the long term goal is that number matching will be enabled by default in all tenants, and it’s going to become the new normal for our end users. But with this in Public Preview at the moment, it’s something we have to opt into.</p>
 <p>Also, we have the choice of either enabling number matching for the entire organization or for a group of users; the latter allowing for more finesse in testing, piloting, staged rollouts, and the such.</p>
 <p>Referencing the docs article linked above, it’s a relatively straightforward process. The article itself actually comes across at first as if you <strong>have</strong> to use Graph for updating/creating the policy; when you scroll down within it, you’ll see that it can also be performed through the portal. We’ll run through here looking at the options through Graph and seeing how they impact what the portal looks like.</p>
 <p>Before jumping into things, I will note that the changes were relatively quick to notice within my test tenant – within a few minutes the changes were apparent to my test users. Likewise with testing of disabling the settings.</p>
-<h4 id="gathering-the-current-state">Gathering the current state</h4>
+<h4 id="gathering-the-current-state">Gathering the current state<a class="headerlink" href="#gathering-the-current-state" title="Permanent link">&para;</a></h4>
 <p>Before making any changes, let’s check out the current state of our policy.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1146,7 +1146,7 @@
 <p>When we look in the portal we see the following:</p>
 <p><img alt="Figure 4" src="/images/2022/02/22/img4.png" /></p>
 <p>It’s important to note that <strong>default = Microsoft managed</strong>. And you may be asking what exactly is Microsoft managed? Microsoft managed effectively is the setting that allows Microsoft to make a decision whether these settings should be enabled in your tenant. Back to the thought earlier, eventually Microsoft managed will likely be the way in which Microsoft makes the decision to enable things in your tenant once it’s GA.</p>
-<h4 id="enabling-for-a-group">Enabling for a group</h4>
+<h4 id="enabling-for-a-group">Enabling for a group<a class="headerlink" href="#enabling-for-a-group" title="Permanent link">&para;</a></h4>
 <p>If you are looking to enable this for a single group, it’s just a matter of updating the returned content from our Graph query, and running a PATCH. We simply will replace the <strong>all_users</strong> portion of the policy with the Azure AD groups ObjectID, and update <strong>numberMatchingRequiredState</strong> with <strong>enabled</strong>.</p>
 <div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
 
@@ -1212,7 +1212,7 @@
 <li>You cannot enable number matching on more than one group, if you attempt to do so through Graph you’ll receive a 400 error, and within the portal the option is grayed out.</li>
 <li>You cannot enable number matching on a group and also reference the all_users context. One may wish that you could target all users and then just selectively enable number matching on the group, however, if you attempt to reference all_users and a group within the policy, you’ll receive a 400 error.</li>
 </ul>
-<h4 id="enabling-for-all-users">Enabling for all users</h4>
+<h4 id="enabling-for-all-users">Enabling for all users<a class="headerlink" href="#enabling-for-all-users" title="Permanent link">&para;</a></h4>
 <p>The enablement for all users is even simpler. Same PATCH process, but instead we just leave the group set to <strong>all_users</strong>, and change <strong>numberMatchingRequiredState</strong> to <strong>enabled</strong>.</p>
 <div class="highlight"><pre><span></span><code>PATCH https://graph.microsoft.com/beta/authenticationMethodsPolicy/authenticationMethodConfigurations/MicrosoftAuthenticator
 
@@ -1237,13 +1237,13 @@
 </code></pre></div>
 <p>Now when we go look in the portal:</p>
 <p><img alt="Figure 8" src="/images/2022/02/22/img8.png" /></p>
-<h3 id="disabling-number-matching">Disabling Number Matching</h3>
+<h3 id="disabling-number-matching">Disabling Number Matching<a class="headerlink" href="#disabling-number-matching" title="Permanent link">&para;</a></h3>
 <p>Ideally you will not be in a position to need to disable number matching, but in the case that you need to, it’s just a matter of setting <strong>numberMatchingRequiredState</strong> to <strong>default</strong>. Again, if you set this to <strong>disabled</strong>, there may be a chance that you will be in a state where your tenant will miss when this rolls out across all tenants.</p>
-<h2 id="additional-context">Additional context</h2>
+<h2 id="additional-context">Additional context<a class="headerlink" href="#additional-context" title="Permanent link">&para;</a></h2>
 <p>Along with number matching, we can enable additional contextual information about where the user is coming from with a map showing the rough geographic area, as well as what application is requesting the approval. Details of this process come from the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/how-to-mfa-additional-context">Microsoft Docs article</a>.</p>
 <p><img alt="Figure 9" src="/images/2022/02/22/img9.png" /> <img alt="Figure 10" src="/images/2022/02/22/img10.png" /></p>
 <p>While both mechanisms provide some additional security mechanisms to our end users, additional context alone is not going to prevent an unengaged user from selecting Approve, which is why additional context in itself should be considered a passive security mechanism. Number matching, to contrast, is active, because the user will not be able to perform MFA without interaction.</p>
-<h3 id="enabling-additional-context">Enabling additional context</h3>
+<h3 id="enabling-additional-context">Enabling additional context<a class="headerlink" href="#enabling-additional-context" title="Permanent link">&para;</a></h3>
 <p>To enable additional context, whether for all users, or for a group, follows the same processes as enabling number matching. The only difference is we are focusing on the property <strong>displayAppInformationRequiredState</strong>.</p>
 <p>Out of the box, this property will be set to <strong>default</strong> when observing its value through Graph, or <strong>Microsoft managed</strong> in the portal. We can toggle this to <strong>enabled</strong> or <strong>disabled</strong>.</p>
 <p>A few items to note specific to additional context:</p>
@@ -1251,7 +1251,7 @@
 <li>When enabling additional context and using the Authenticator App for passwordless (phone sign-in), the app only receives policy information every 7 days. Because of this, users may not see a behavioral change for up to 7 days after.</li>
 <li>The NPS extension does not support providing additional context. Being that the NPS extension is simply signaling for MFA to be called, and primary authentication is happening against Active Directory, it makes sense that user location context is not available.</li>
 </ul>
-<h2 id="final-notes">Final notes</h2>
+<h2 id="final-notes">Final notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
 <p>As with all things that impact and change the way our users interact with our systems, while this may be an easier win from a security perspective, organizations will want to make sure that they communicate this change properly to end users. A rushed rollout or lack of communication is an almost certain way of creating friction with our end users, and potentially hurting the efforts to increase organizational security.</p>
 
 

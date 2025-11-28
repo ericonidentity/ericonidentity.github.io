@@ -1058,14 +1058,14 @@
 
 
 
-<h1 id="azure-ad-new-controls-for-authentication-strength">Azure AD: New Controls For Authentication Strength</h1>
+<h1 id="azure-ad-new-controls-for-authentication-strength">Azure AD: New Controls For Authentication Strength<a class="headerlink" href="#azure-ad-new-controls-for-authentication-strength" title="Permanent link">&para;</a></h1>
 <p>Microsoft has released a much asked for setting, which also aligns to the Whitehouse memorandum, M-22-09, calling for federal agencies to require phishing resistant MFA by 2024, you can read the full memorandum here, <a href="https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf">M-22-09 Federal Zero Trust Strategy (whitehouse.gov)</a>.</p>
 <p>With this, we now have granularity in Conditional Access to not just specify whether MFA is required, but also how strong the collective authentication is.</p>
 <!-- more -->
 
-<h2 id="the-prior-state-of-azure-ad-mfa">The prior state of Azure AD MFA</h2>
+<h2 id="the-prior-state-of-azure-ad-mfa">The prior state of Azure AD MFA<a class="headerlink" href="#the-prior-state-of-azure-ad-mfa" title="Permanent link">&para;</a></h2>
 <p>Within the Grant Control section of a Conditional Access policy, we’ve always had the <strong>Require multifactor authentication</strong> control, which enforced MFA. But up until now, we never had the ability to specify what that level could be – if a user in a tenant has a FIDO2 security key, but also is registered for SMS text, they could use either that security key or their password and SMS text for MFA. In many tenants it’s always practical to try and restrict users from using weaker forms of MFA, especially at times when they may need to use that to bootstrap themselves into stronger authentication methods such as passwordless. And since this is a tenant-wide setting, we have had the historical issue where we couldn’t say enforce stronger forms of authentication for privileged accounts, such as Global Admins.</p>
-<h2 id="require-authentication-strength">Require authentication strength</h2>
+<h2 id="require-authentication-strength">Require authentication strength<a class="headerlink" href="#require-authentication-strength" title="Permanent link">&para;</a></h2>
 <p>Within Grant Controls, we now have a new option, <strong>Require authentication strength</strong>. When we select this dropdown, we see that we have the following options available:</p>
 <ul>
 <li>Multifactor authentication – Combinations of methods that satisfy strong authentication such as Password + SMS</li>
@@ -1078,7 +1078,7 @@
 <p>And if we look at the details, this opens up a whole world of options for us:</p>
 <p><img alt="Figure 3" src="/images/2022/10/05/img3.png" /></p>
 <p>First, let us examine the out-of-the-box options.</p>
-<h3 id="multifactor-authentication">Multifactor authentication</h3>
+<h3 id="multifactor-authentication">Multifactor authentication<a class="headerlink" href="#multifactor-authentication" title="Permanent link">&para;</a></h3>
 <p>The lowest denominator for MFA, this setting should be parity to the <strong>Require multifactor authentication</strong> setting that we’ve had available for as long as Conditional Access has existed.</p>
 <p>We can examine this by changing an existing policy from Require multifactor authentication to Require authentication strength and selecting Multifactor authentication.</p>
 <p>As a baseline, lets first look at what our Azure AD logs show us in the current state, with Require multifactor authentication enabled:</p>
@@ -1096,7 +1096,7 @@
 <p><img alt="Figure 7" src="/images/2022/10/05/img7.png" /></p>
 <p>However, if we examine the Conditional Access Policy details, we will see that we are satisfying for the new authentication strength grant control:</p>
 <p><img alt="Figure 8" src="/images/2022/10/05/img8.png" /></p>
-<h2 id="passwordless-multifactor-authentication">Passwordless multifactor authentication</h2>
+<h2 id="passwordless-multifactor-authentication">Passwordless multifactor authentication<a class="headerlink" href="#passwordless-multifactor-authentication" title="Permanent link">&para;</a></h2>
 <p>Let’s kick the strength of the Conditional Access policy up:</p>
 <p><img alt="Figure 9" src="/images/2022/10/05/img9.png" /></p>
 <p>With things turned up, let’s first look at the behavior if we attempt to authenticate with a password anyway.</p>
@@ -1120,7 +1120,7 @@
 <p><img alt="Figure 14" src="/images/2022/10/05/img14.png" /></p>
 <p>Now this behavior, from a security standpoint, is not necessarily bad. However, from an end-user perspective it’s something to watch out for.</p>
 <p>If you’re using a Temporary Access Pass (TAP) and accessing https://aka.ms/mysecurityinfo to enroll in strong authentication, that does satisfy the policy.</p>
-<h2 id="phishing-resistant-multifactor-authentication">Phishing-resistant multifactor authentication</h2>
+<h2 id="phishing-resistant-multifactor-authentication">Phishing-resistant multifactor authentication<a class="headerlink" href="#phishing-resistant-multifactor-authentication" title="Permanent link">&para;</a></h2>
 <p>Finally, we’ll turn the dial all the way up, to phishing-resistant MFA:</p>
 <p><img alt="Figure 15" src="/images/2022/10/05/img15.png" /></p>
 <p>Using our FIDO2 security key, we are able to access our resources without issue:</p>
@@ -1134,13 +1134,13 @@
 <p class="admonition-title">Note</p>
 <p>Windows Hello for Business, FIDO2 security keys, and certificate-based authentication are the only mechanisms considered phishing-resistant within Azure AD.</p>
 </div>
-<h2 id="some-odd-behavior">Some odd behavior</h2>
+<h2 id="some-odd-behavior">Some odd behavior<a class="headerlink" href="#some-odd-behavior" title="Permanent link">&para;</a></h2>
 <p>In my testing, I happened upon that require authentication strength does not seem to play well with other grant controls. My test policy had been configured previously to Require one of the selected controls, effectively an OR situation, between Require multifactor authentication or Require device to be marked as compliant:</p>
 <p><img alt="Figure 19" src="/images/2022/10/05/img19.png" /></p>
 <p>When testing, and switching to use this new setting, I found that the policy effectively turned into a device compliance required policy – before even being able to attempt MFA, I was presented with an error due to lack of device compliance:</p>
 <p><img alt="Figure 20" src="/images/2022/10/05/img20.png" /></p>
 <p>I’ve reached out to Microsoft about this behavior, but it just leaves a bit of a cautionary tale to ensure that you selectively test who you are applying these policy changes to. When I find out more information, I’ll update this article. While this one specific case could be worked around by excluding compliant devices as a condition instead of a control, many organizations may still be using device compliance grant controls due to the feature having existed longer.</p>
-<h2 id="final-thoughts-and-notes">Final thoughts and notes</h2>
+<h2 id="final-thoughts-and-notes">Final thoughts and notes<a class="headerlink" href="#final-thoughts-and-notes" title="Permanent link">&para;</a></h2>
 <p>With this new setting for granular control of authentication strength, we can finally do things in our tenant such as (only a few initial thoughts):</p>
 <ul>
 <li>Require privileged users to have to use a phishing-resistant form of MFA</li>

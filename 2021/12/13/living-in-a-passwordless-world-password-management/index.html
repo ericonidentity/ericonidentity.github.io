@@ -1095,18 +1095,18 @@
 
 
 
-<h1 id="living-in-a-passwordless-world-password-management">Living in a Passwordless World: Password Management</h1>
+<h1 id="living-in-a-passwordless-world-password-management">Living in a Passwordless World: Password Management<a class="headerlink" href="#living-in-a-passwordless-world-password-management" title="Permanent link">&para;</a></h1>
 <p>With Microsoft touting changes to personal Microsoft (MSA) accounts, allowing customers to go completely passwordless, it has brought heightened attention again to the world of passwordless for corporate customers in the Microsoft ecosystem.</p>
 <p>While attending an October 13th Microsoft passwordless event, highlighting the future for the corporate world, I noticed a trend – organizations asking how to deal with password management and compliance policies they must adhere to. As Microsoft calls out, the long-term goal is for organizations to forget that passwords are even a thing.</p>
 <p>However, being that directory services will still contain a password attribute, even if we aren’t using it, how do we keep it compliant with password policies. And how do we prevent end users opting to attempt to use their password. In this series we will dive into what the answer to these questions looks like.</p>
 <p>One thing that is important to iterate in every conversation – the world is moving passwordless, and it’s not just Microsoft who is heading in this direction. If organizations do not want to (and should not be) trailing from a security perspective, you should start investigating what passwordless looks like for you now – as with most things these days it is a journey, albeit easier than many organizations may realize.</p>
 <!-- more -->
 
-<h2 id="killing-hybrid-identity-passwords-with-scril">Killing hybrid identity passwords with SCRIL</h2>
+<h2 id="killing-hybrid-identity-passwords-with-scril">Killing hybrid identity passwords with SCRIL<a class="headerlink" href="#killing-hybrid-identity-passwords-with-scril" title="Permanent link">&para;</a></h2>
 <p>SCRIL, the acronym for <em>Smart Card is Required for Interactive Logon</em>, is a userAccountControl property flag in Active Directory, which any organization that is heavily invested in smart cards may be familiar with. For the rest of the world, this flag goes unnoticed, beyond being a checkbox you scroll past in ADUC.</p>
 <p>In the Microsoft documentation on their Passwordless Strategy, <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy">Passwordless Strategy – Windows security | Microsoft Docs</a>, they do a decent job covering what removing the ability to use passwords looks like in an organization, but they don’t really cover specifics on what the behavior looks like.</p>
 <p>This is an area you’ll want to explore in parallel with modernizing your applications – for most organizations, the biggest hurdle with cloud and passwordless are with applications that don’t support modern authentication – I’m looking at you LDAP and RADIUS. For most customers in the passwordless journey, SCRIL is something you would be working towards, and there are steps for many organizations that need to happen prior to this point – if you haven’t read the strategy linked above, you should do so.</p>
-<h3 id="diving-into-scril">Diving into SCRIL</h3>
+<h3 id="diving-into-scril">Diving into SCRIL<a class="headerlink" href="#diving-into-scril" title="Permanent link">&para;</a></h3>
 <p>SCRIL, when enabled, directs Active Directory that the user account must use a form of asymmetric key-based (certificate) authentication in Active Directory. Because Windows Hello for Business (WHfB) is also certificate-based authentication, we can leverage the same flag.</p>
 <p>When you enable SCRIL on a user account in Active Directory, the following happens for the user account:</p>
 <ul>
@@ -1115,7 +1115,7 @@
 <li>Domain Controllers do not allow passwords for that user for interactive authentication</li>
 <li>The user has now lost knowledge of what their password is</li>
 </ul>
-<h3 id="enabling-scril-and-its-results">Enabling SCRIL and its results</h3>
+<h3 id="enabling-scril-and-its-results">Enabling SCRIL and its results<a class="headerlink" href="#enabling-scril-and-its-results" title="Permanent link">&para;</a></h3>
 <p>Before we enable SCRIL, let’s examine a user account in AD. While SCRIL is a property flag on the userAccountControl attribute, it’s exposed to us in a much more accessible manner in Active Directory; it appears as a checkbox on user accounts in ADUC and ADAC, but for this article we will be looking at the account through the AD PowerShell module.</p>
 <p>Let’s look at the user lee.gu in AD:</p>
 <div class="highlight"><pre><span></span><code>Get-Aduser -Identity &lt;username&gt; -Properties `
@@ -1128,7 +1128,7 @@ select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
 </code></pre></div>
 <p><img alt="Figure 2" src="/images/2021/12/13/img2.png" /></p>
 <p>SCRIL is now enabled on the user account; one thing that might seem surprising is that the password on the user is not actually changed when enabled on the account, so let’s look at how this behaves.</p>
-<h3 id="the-user-experience-and-ad-password-change">The user experience and AD password change</h3>
+<h3 id="the-user-experience-and-ad-password-change">The user experience and AD password change<a class="headerlink" href="#the-user-experience-and-ad-password-change" title="Permanent link">&para;</a></h3>
 <p>Now we have Lee attempt to log into his Windows 11 device with a password:</p>
 <p><img alt="Figure 3" src="/images/2021/12/13/img3.png" /></p>
 <p>When attempting to sign-in, we are presented with the following message:</p>
@@ -1141,7 +1141,7 @@ select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
 <p><strong>Takeaway #2</strong></p>
 <p>In our demonstration we show what happens if the user attempts to use their password. But if they are already enrolled in WHfB, it’s likely that they wouldn’t be trying to use their password for authentication.</p>
 <p>Thankfully, it does not matter what method the user leverages for authentication – if Lee authenticated for that first time with WHfB after SCRIL was enabled on the account, the password would be updated in Active Directory regardless.</p>
-<h2 id="dealing-with-password-policies">Dealing with password policies</h2>
+<h2 id="dealing-with-password-policies">Dealing with password policies<a class="headerlink" href="#dealing-with-password-policies" title="Permanent link">&para;</a></h2>
 <p>Up to this point we have enabled the ability to have Active Directory manage the users' password, but what about password policies? Complexity and history may be inherently covered, but what about if your organization is required to rotate passwords.</p>
 <p>If your organization does not require password rotation, or if the rotation period is an extended length of time, you <strong>should enable</strong> a password expiration policy on your SCRIL users. Why? Because a password still exists for our users, and in non-interactive scenarios, if the password becomes known through some malicious vector, it’s leaving that account exposed. When we look at computer accounts and Group Managed Service Accounts (gMSA), those passwords are rotated behind the scenes by Active Directory; we need to think of our passwordless users as similar when SCRIL is enabled.</p>
 <p>For organizations that are at an AD Domain Functional Level of Server 2016 or higher, there is an easy button for allowing AD to manage rolling of secrets for users.</p>
@@ -1155,27 +1155,27 @@ select UserPrincipalName,SmartcardLogonRequired,PasswordLastSet
 <p><img alt="Figure 8" src="/images/2021/12/13/img8.png" /></p>
 <p><strong>Takeaway #3</strong></p>
 <p>Within Active Directory, we can apply password policies to our passwordless users, and be able to maintain compliance with rotation policies, all while still having a great user experience.</p>
-<h3 id="the-entra-id-side-of-the-story">The Entra ID side of the story</h3>
+<h3 id="the-entra-id-side-of-the-story">The Entra ID side of the story<a class="headerlink" href="#the-entra-id-side-of-the-story" title="Permanent link">&para;</a></h3>
 <p>Now that we have our user operating in a truly passwordless world in Active Directory, let’s turn our eyes to the other half of the equation – Azure AD.</p>
 <p>Even though AD is managing the password, it’s still an attribute that is synchronized to Azure AD. Recall that Azure AD synchronizes passwords in a channel that is separate from the rest of the synchronization process, so password changes show up in Azure AD shortly after changing them in AD.</p>
 <p>Let’s look at our test user:</p>
 <p><img alt="Figure 9" src="/images/2021/12/13/img9.png" /></p>
 <p>Shortly after updating the users' password in AD, the password change has synchronized to Azure AD.</p>
-<h3 id="entra-id-password-change-mechanisms">Entra ID password change mechanisms</h3>
+<h3 id="entra-id-password-change-mechanisms">Entra ID password change mechanisms<a class="headerlink" href="#entra-id-password-change-mechanisms" title="Permanent link">&para;</a></h3>
 <p>If we have password writeback enabled in Azure AD Connect, there are methods still available for our users to change their password – falling into two scenarios:</p>
 <ul>
 <li>Password change when the user knows their existing password</li>
 <li>Password change when the user has forgotten their password</li>
 </ul>
-<h4 id="password-change-with-existing-password">Password change with existing password</h4>
+<h4 id="password-change-with-existing-password">Password change with existing password<a class="headerlink" href="#password-change-with-existing-password" title="Permanent link">&para;</a></h4>
 <p>Many times, when enabling password writeback, the focus is on enablement of Azure AD SSPR. However, under the MyAccount portal, users are also able to change their password if they know their existing password. This is already solved for us, as the user won’t know their password any longer, and therefore this option is already unusable.</p>
-<h4 id="password-change-without-existing-password-sspr">Password change without existing password (SSPR)</h4>
+<h4 id="password-change-without-existing-password-sspr">Password change without existing password (SSPR)<a class="headerlink" href="#password-change-without-existing-password-sspr" title="Permanent link">&para;</a></h4>
 <p>This is the one area where we need to potentially adjust our Azure AD tenant settings. While many organizations may have moved towards enabling SSPR for all users in the tenant, we now have a need to disallow SSPR for users who have SCRIL enabled.</p>
 <p>In <strong>Entra ID, Password reset, Properties</strong>, we can adjust the toggle to specify only users in a selected group are allowed to use SSPR; we would be disallowing SSPR for SCRIL users and wanting to ensure they are out of the scope for the group selected.</p>
 <p><img alt="Figure 10" src="/images/2021/12/13/img10.png" /></p>
 <p><strong>Takeaway #4</strong></p>
 <p>With a little bit of work on the SSPR side of things, we can easily accommodate SCRIL within Azure AD, without worry that users can subvert our efforts.</p>
-<h2 id="final-notes">Final notes</h2>
+<h2 id="final-notes">Final notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
 <p>As with all things there are some caveats to going passwordless to this level for our end users. The most prominent is that our user has no way of falling back to a password. This is where this rolls into the bigger picture – allowing users to use the Authenticator App for passwordless, and allowing for FIDO2 security keys within the organization.</p>
 <p>TAP, or Temporary Access Pass also can fill in some instances if a user has lost all passwordless methods to bootstrap themselves back into the world, but unfortunately it cannot be used currently for enrollment in Windows Hello for Business.</p>
 <p>Lastly, to get to this point, you may need to start your journey of application modernization. Microsoft has some great documentation to get you started on the road to authentication migration with <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/migrate-application-authentication-to-azure-active-directory">Migrate application authentication to Azure Active Directory</a>.</p>

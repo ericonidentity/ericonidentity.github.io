@@ -1214,7 +1214,7 @@
 
 
 
-<h1 id="dude-wheres-my-audit-logs">Dude, Where's My Audit Logs?</h1>
+<h1 id="dude-wheres-my-audit-logs">Dude, Where's My Audit Logs?<a class="headerlink" href="#dude-wheres-my-audit-logs" title="Permanent link">&para;</a></h1>
 <p>Audit logs can provide all sorts of wonderful points of data. In the interest of identity security, we have historically seen that we can glean rich sets of information around what’s happening in a directory service with some properly functioning audit logging. For many identity practitioners, there is the expectation that while we may not always look at the audit logs or their details, if or when we need them, they’ll be there to help us understand whatever it is we are investigating. Same goes for compliance and auditing as well.</p>
 <p>Considering that customers have no ability to impact what or how auditing happens in Entra ID, in the shared responsibility model, it’s on Microsoft to ensure all events are audited.</p>
 <p><img alt="Figure 1" src="/images/2023/08/29/img1.png" /></p>
@@ -1222,7 +1222,7 @@
 <p>Microsoft documents what is audited in Entra ID, which you can find here, <a href="https://learn.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-audit-activities?WT.mc_id=SEC-MVP-5005105">Azure Active Directory (Azure AD) audit activity reference – Microsoft Entra | Microsoft Learn</a>.</p>
 <!-- more -->
 
-<h2 id="the-problem">The problem</h2>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
 <p>I’ve recently been down the rabbit hole part time picking apart Entra ID audit logs, and in my analysis of the audit log data for Entra ID, some audit logs slot into one of two buckets:</p>
 <ul>
 <li>Data is missing</li>
@@ -1231,12 +1231,12 @@
 <p><img alt="Figure 2" src="/images/2023/08/29/img2.jpg" /></p>
 <p><em>Or perhaps in our case, what has been unseen cannot be seen.</em></p>
 <p>To be fair, a broad set of changes <strong>are</strong> audited in Entra ID, but at the same time I found it rather surprising that <strong>most SSPR</strong> configuration changes are not properly audited, which, if you look at the document above, Microsoft does not seem to argue. Considering recent events that surface what is logged in Entra ID and the M365 ecosystem, in this persons opinion Microsoft should be continually striving to audit 100% of all configuration changes in Entra ID.</p>
-<h2 id="missing-log-data">Missing log data</h2>
+<h2 id="missing-log-data">Missing log data<a class="headerlink" href="#missing-log-data" title="Permanent link">&para;</a></h2>
 <p>These are instances where Entra ID log data is incomplete, usually in that the modified properties data is null.</p>
-<h3 id="self-service-group-management">Self-service group management</h3>
+<h3 id="self-service-group-management">Self-service group management<a class="headerlink" href="#self-service-group-management" title="Permanent link">&para;</a></h3>
 <p>Neither of these settings are exposed via the Graph API, so the reference point for their control is under Entra ID -&gt; Groups -&gt; Group settings</p>
 <p><img alt="Figure 3" src="/images/2023/08/29/img3.png" /></p>
-<h4 id="the-audit-data">The audit data</h4>
+<h4 id="the-audit-data">The audit data<a class="headerlink" href="#the-audit-data" title="Permanent link">&para;</a></h4>
 <p>Note an absence of the actual change data, as highlighted in the audit event:</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:04:39.1390262+00:00&quot;,
@@ -1282,11 +1282,11 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h3 id="group-lifecycle-policy-changes">Group lifecycle policy changes</h3>
+<h3 id="group-lifecycle-policy-changes">Group lifecycle policy changes<a class="headerlink" href="#group-lifecycle-policy-changes" title="Permanent link">&para;</a></h3>
 <p>More commonly known as the group expiration settings, the controls for these in the portal can be found under Groups -&gt; Group settings -&gt; Expiration.</p>
 <p><img alt="Figure 4" src="/images/2023/08/29/img4.png" /></p>
 <p>These are also exposed through Graph, <a href="https://graph.microsoft.com/beta/groupLifecyclePolicies/">https://graph.microsoft.com/beta/groupLifecyclePolicies/</a>.</p>
-<h4 id="the-audit-data_1">The audit data</h4>
+<h4 id="the-audit-data_1">The audit data<a class="headerlink" href="#the-audit-data_1" title="Permanent link">&para;</a></h4>
 <p>Note the absence of any change data, as highlighted in the audit event:</p>
 <div class="highlight"><pre><span></span><code>    {
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:09:38.6970558+00:00&quot;,
@@ -1323,9 +1323,9 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h3 id="conditional-access-custom-controls">Conditional Access custom controls</h3>
+<h3 id="conditional-access-custom-controls">Conditional Access custom controls<a class="headerlink" href="#conditional-access-custom-controls" title="Permanent link">&para;</a></h3>
 <p>Now I get that this is a deprecated public preview, but, it’s also existed for quite a long time, and it’s surprising that changes to the control itself are not audited.</p>
-<h4 id="the-audit-data_2">The audit data</h4>
+<h4 id="the-audit-data_2">The audit data<a class="headerlink" href="#the-audit-data_2" title="Permanent link">&para;</a></h4>
 <p>Note the absence of any change data, as highlighted in the audit event:</p>
 <div class="highlight"><pre><span></span><code>    {
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:18:39.6114596+00:00&quot;,
@@ -1367,7 +1367,7 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h3 id="ssprpassword-reset-settings">SSPR/Password Reset Settings</h3>
+<h3 id="ssprpassword-reset-settings">SSPR/Password Reset Settings<a class="headerlink" href="#ssprpassword-reset-settings" title="Permanent link">&para;</a></h3>
 <p>Microsoft documents that most changes to SSPR are not audited, and in my analysis found that the following settings do not properly reflect any data in the audit logs, including a few that Microsoft seems to indicate should, such as enabling/disabling on-premises integration.</p>
 <p>Considering that these changes impact tenant-wide security controls around SSPR, it’s surprising this service has existed for so long with what is effectively non-existent auditing. These logs don’t even indicate who initiated the change.</p>
 <p>Yes, some of these are being overhauled/changed as authentication methods is an area of focus for Microsoft right now, but not all of these settings are encompassed in that.</p>
@@ -1379,7 +1379,7 @@
 <li>Self-service password reset enablement/scoping</li>
 <li>Authentication methods (legacy methods)</li>
 </ul>
-<h4 id="the-audit-data_3">The audit data</h4>
+<h4 id="the-audit-data_3">The audit data<a class="headerlink" href="#the-audit-data_3" title="Permanent link">&para;</a></h4>
 <p>In testing, there isn’t even a direct audit event logged for changes, but simply an update to the <strong>Microsoft password reset service service</strong> principle. The update provides no information on the actual change.</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:28:04.2244435+00:00&quot;,
@@ -1423,11 +1423,11 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h3 id="external-identities-linked-subscriptions">External Identities linked subscriptions</h3>
+<h3 id="external-identities-linked-subscriptions">External Identities linked subscriptions<a class="headerlink" href="#external-identities-linked-subscriptions" title="Permanent link">&para;</a></h3>
 <p>Microsoft has been pushing the migration of B2B guests/External Identities to use a linked subscription where organizations will receive 50,000 MAU for guests as far as licensing goes, compared to the prior model of a 1:5 user: guest license ratio.</p>
 <p>In order to implement this change, an organization must link their Entra ID tenant with an Azure subscription for billing purposes.</p>
 <p>When implementing this change, there <strong>is</strong> a proper audit even in the subscriptions activity log, however, a change like this should also be reflected in Entra ID audit logs. Instead, we get a series of useless audit log entries.</p>
-<h4 id="the-audit-data_4">The audit data</h4>
+<h4 id="the-audit-data_4">The audit data<a class="headerlink" href="#the-audit-data_4" title="Permanent link">&para;</a></h4>
 <p>When looking at the data in either entry for <strong>Create or update a Guest Usages resource</strong>, there is no data of value for the change.</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-07T20:38:06.5858394+00:00&quot;,
@@ -1476,12 +1476,12 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h3 id="external-collaboration-settings-guest-self-service-sign-up-via-user-flows">External collaboration settings guest self-service sign up via user flows</h3>
+<h3 id="external-collaboration-settings-guest-self-service-sign-up-via-user-flows">External collaboration settings guest self-service sign up via user flows<a class="headerlink" href="#external-collaboration-settings-guest-self-service-sign-up-via-user-flows" title="Permanent link">&para;</a></h3>
 <p>Guest self-service sign-up (SSSU) is what one could consider a grey area in the B2B/B2C space, allowing users to self-register as guests in your tenant and access designated resources. While a somewhat niche feature, it’s something that is rather powerful for controlling access to enterprise applications.</p>
 <p><img alt="Figure 5" src="/images/2023/08/29/img5.png" /></p>
 <p>This setting can also be adjusted via Graph at <a href="https://graph.microsoft.com/v1.0/policies/authenticationFlowsPolicy">https://graph.microsoft.com/v1.0/policies/authenticationFlowsPolicy</a>.</p>
 <p>Surprisingly, changes that enable/disable this setting are not audited effectively.</p>
-<h4 id="the-audit-data_5">The audit data</h4>
+<h4 id="the-audit-data_5">The audit data<a class="headerlink" href="#the-audit-data_5" title="Permanent link">&para;</a></h4>
 <p>Toggling this on/off results in a long series of audit events from the B2C service, however, none of them actually indicate the change.</p>
 <p><img alt="Figure 6" src="/images/2023/08/29/img6.png" /></p>
 <p>For all of these, the <strong>Modified Properties</strong> is null</p>
@@ -1532,9 +1532,9 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h2 id="inconsistent-log-data">Inconsistent log data</h2>
+<h2 id="inconsistent-log-data">Inconsistent log data<a class="headerlink" href="#inconsistent-log-data" title="Permanent link">&para;</a></h2>
 <p>These are instances where changes are audited, however, they seem to disregard any sort of schema or consistency of auditing in Entra ID.</p>
-<h3 id="entra-id-protection">Entra ID Protection</h3>
+<h3 id="entra-id-protection">Entra ID Protection<a class="headerlink" href="#entra-id-protection" title="Permanent link">&para;</a></h3>
 <p>Entra ID Protection heavily offenses the senses with its audit logging of changes to the following policies:</p>
 <ul>
 <li>User risk policy</li>
@@ -1542,7 +1542,7 @@
 <li>Multifactor authentication registration policy</li>
 </ul>
 <p>We could argue that you shouldn’t be using the MFA registration policy at this point, as MFA should be an account day zero requirement. And while Microsoft wants you to move your ID Protection policies into Conditional Access, until they are gone, the changes really break the audit mold.</p>
-<h4 id="the-audit-data_6">The audit data</h4>
+<h4 id="the-audit-data_6">The audit data<a class="headerlink" href="#the-audit-data_6" title="Permanent link">&para;</a></h4>
 <p>Oddly the user risk policy and MFA registration policy indicate an update if either is changed, and updates to the sign-in risk policy appear separate. But for all three, two events are logged, a core directory change that contains no data, and secondary policy change, that oddly describes the change data under <strong>Status reason</strong>, which is highlighted in blue below. Where one should/would expect the change to appear is highlighted in yellow.</p>
 <div class="highlight"><pre><span></span><code>{
         &quot;activityDateTime&quot;: &quot;2023-08-30T03:00:57.8173676+00:00&quot;,
@@ -1622,12 +1622,12 @@
         &quot;userAgent&quot;: null
     },
 </code></pre></div>
-<h2 id="responsible-disclosure">Responsible disclosure</h2>
+<h2 id="responsible-disclosure">Responsible disclosure<a class="headerlink" href="#responsible-disclosure" title="Permanent link">&para;</a></h2>
 <p>After consideration and reading of what constitutes a security vulnerability at the Microsoft Security Response Center (MSRC), I do not believe that these deficiencies in auditing would be considered a security vulnerability, as the absence of audit data itself is not a vulnerability.</p>
 <p>On July 26th, 2023, through an MVP channel in the Customer Connected Program Entra Advisors, I reached out to the Microsoft Entra Product Group wanting to provide feedback on what I believe are audit gaps in Entra ID.</p>
 <p>After some exchanges to coordinate whom to send the feedback to, on August 7th I provided an email to the responsible parties in the PG covering audit logging. Microsoft did reply that they will investigate in response. Considering that this is not a security vulnerability, I do not believe there is harm in publishing this material prior to any (if any) changes occur on the part of Microsoft.</p>
 <p>A case with Microsoft support has not been opened on this subject to this point, on which I would open one if directed by the PG.</p>
-<h2 id="regarding-audit-log-analysis">Regarding audit log analysis</h2>
+<h2 id="regarding-audit-log-analysis">Regarding audit log analysis<a class="headerlink" href="#regarding-audit-log-analysis" title="Permanent link">&para;</a></h2>
 <p>In my endeavors to this point, I have not analyzed <strong>all</strong> audit log events in Entra ID, so there may still be additional gaps in what one might find to be acceptable auditing. While Microsoft may contend that they indicate in their own docs that some of these changes are not listed as being audited, I would counter that with the stances that every single configuration change in Entra ID should be audited <strong>and</strong> adhere to some sort of audit log schema for consistency.</p>
 
 
